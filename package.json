@@ -1,0 +1,15 @@
+{
+  "name": "@gatsby-tv/components",
+  "description": "Gatsby shared React components for web/mobile/desktop clients.",
+  "version": "0.1.0",
+  "private": false,
+  "scripts": {
+    "build": "rm -rf dist && tsc && echo \"Finsihed building the module, ready to publish.\""
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.46",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.9.7"
+  }
+}
