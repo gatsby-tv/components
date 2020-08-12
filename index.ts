@@ -1,1 +1,1 @@
-export * from "./lib/components/Sidebar";
+export * as Sidebar from "./lib/components/Sidebar";

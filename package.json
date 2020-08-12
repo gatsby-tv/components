@@ -1,7 +1,11 @@
 {
   "name": "@gatsby-tv/components",
   "description": "Gatsby shared React components for web/mobile/desktop clients.",
-  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsby-tv/components.git"
+  },
+  "version": "0.1.1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "private": false,
