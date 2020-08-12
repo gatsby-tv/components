@@ -5,12 +5,15 @@
     "type": "git",
     "url": "https://github.com/gatsby-tv/components.git"
   },
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist && tsc && echo \"Finsihed building the module, ready to publish.\""
+    "build": "rm -rf dist && tsc -p . && echo \"Finsihed building the module, ready to publish.\""
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.46",
