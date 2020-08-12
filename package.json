@@ -2,6 +2,8 @@
   "name": "@gatsby-tv/components",
   "description": "Gatsby shared React components for web/mobile/desktop clients.",
   "version": "0.1.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "private": false,
   "scripts": {
     "build": "rm -rf dist && tsc && echo \"Finsihed building the module, ready to publish.\""

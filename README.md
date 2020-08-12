@@ -7,7 +7,8 @@ This repo is a collection of common React components written in TypeScript/TSX t
 ## Publish to npm
 1. `npm install`
 2. `npm run build`
-TODO
+3. `npm login`
+4. `npm publish`
 
 ## Documentation
 TODO
