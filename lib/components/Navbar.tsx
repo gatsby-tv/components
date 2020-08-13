@@ -8,40 +8,45 @@ type Item = {
   link: string
 }
 
-type SidebarProps = {
+type NavbarProps = {
   items: Item[]
 }
 
 // Define styled components
 const Root = styled.div`
-  background-color: gray;
-  width: fit-content;
+  background-color: goldenrod;
+  width: 100%;
   padding: 10px;
   a {
     text-decoration: none;
     color: white;
   }
-`;
-
-const List = styled.ul`
-  list-style: none;
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  li {
+    display: inline-block;
+  }
 `;
 
 // Define component
-const Sidebar: React.FC<SidebarProps> = (props) => {
+const Navbar: React.FC<NavbarProps> = (props) => {
   const items = props.items.map((item, index) => (
     <li key={index}><Link to={item.link}>{item.name}</Link></li>
   ));
   return (
     <Root>
       <BrowserRouter>
-        <List>
+        <ul>
           {items}
-        </List>
+        </ul>
       </BrowserRouter>
     </Root>
   );
 }
 
 // Export component
-export default Sidebar;
+export default Navbar;

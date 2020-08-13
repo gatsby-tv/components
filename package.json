@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/gatsby-tv/components.git"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "private": false,
@@ -13,12 +13,17 @@
     "build": "rm -rf dist && tsc -p . && echo \"Finsihed building the module, ready to publish.\""
   },
   "peerDependencies": {
-    "react": ">=16.0.0"
+    "react": ">=16.0.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.46",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.1.1",
     "typescript": "^3.9.7"
   }
 }
