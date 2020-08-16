@@ -1,47 +1,62 @@
 import React from 'react';
-import { BrowserRouter, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-// Define types
+import { Global } from "./styles";
+import * as colors from "./colors";
+/**
+ * A link on a Sidebar component.
+ * @member {string} label The label to render for the link.
+ * @member {string} link The link to navigate to when clicking the label.
+ */
 type Item = {
-  name: string,
+  label: string,
   link: string
 }
 
 type SidebarProps = {
+  /**
+   * List of links to include in the sidebar.
+   */
   items: Item[]
 }
 
 // Define styled components
-const Root = styled.div`
-  background-color: gray;
+const Root = styled(Global)`
   width: fit-content;
-  padding: 10px;
-  a {
-    text-decoration: none;
-    color: white;
-  }
+  padding: 20px 0px 20px 0px;
 `;
 
-const List = styled.ul`
+const Items = styled.ul`
   list-style: none;
+  padding: 0;
+`;
+
+const Item = styled.li`
+  text-decoration: none;
+  color: white;
+  :hover {
+    cursor: pointer;
+    background-color: ${colors.backgroundHighlight};
+  }
+  padding: 10px 40px 10px 40px;
 `;
 
 // Define component
 const Sidebar: React.FC<SidebarProps> = (props) => {
+  const history = useHistory();
   const items = props.items.map((item, index) => (
-    <li key={index}><Link to={item.link}>{item.name}</Link></li>
+    <Item key={index} onClick={() => history.push(item.link)}>{item.label}</Item>
   ));
   return (
     <Root>
-      <BrowserRouter>
-        <List>
-          {items}
-        </List>
-      </BrowserRouter>
+      <Items>
+        {items}
+      </Items>
     </Root>
   );
 }
 
 // Export component
+export { SidebarProps };
 export default Sidebar;

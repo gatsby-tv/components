@@ -1,0 +1,3 @@
+[submodule "assets"]
+  path = lib/assets
+  url = git@github.com:gatsby-tv/assets.git

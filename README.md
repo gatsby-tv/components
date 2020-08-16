@@ -18,33 +18,6 @@ This repo is a collection of common React components written in TypeScript/TSX t
 4. `npm link @gatsby-tv/components`
 5. Every time you make a change to this repo, make sure to run `npm run build` to update the link.
 
-## Documentation
-A brief overview and examples on usage of the components in this library.
-
-### Sidebar
-Creates a sidebar (navigation on the left side of the page) with `react-router-dom` links.
-
-```ts
-import { Sidebar } from "@gatsby-tv/components";
-...
-<Sidebar items={[
-    { name: "test1", link: "/test1" },
-    { name: "test2", link: "/test2" },
-    { name: "test3", link: "/test3" },
-    { name: "test4", link: "/test4" },
-    { name: "test5", link: "/test5" }]} />
-```
-
-### Navbar
-Creates a navbar (fixed navigation at the top of the page) with `react-router-dom` links.
-
-```ts
-import { Navbar } from "@gatsby-tv/components";
-...
-<Navbar items={[
-    { name: "test1", link: "/test1" },
-    { name: "test2", link: "/test2" },
-    { name: "test3", link: "/test3" },
-    { name: "test4", link: "/test4" },
-    { name: "test5", link: "/test5" }]} />
-```
+## Run storybook examples and docs
+Storybook shows examples on usage and documentation of the components in this library.
+1. `npm run storybook`

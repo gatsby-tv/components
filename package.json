@@ -10,20 +10,30 @@
   "typings": "dist/index.d.ts",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist && tsc -p . && echo \"Finsihed building the module, ready to publish.\""
+    "build": "rm -rf dist && tsc -p . && echo \"Finsihed building the module, ready to publish.\"",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@storybook/addon-actions": "^6.0.10",
+    "@storybook/addon-essentials": "^6.0.10",
+    "@storybook/addon-links": "^6.0.10",
+    "@storybook/react": "^6.0.10",
     "@types/react": "^16.9.46",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
+    "babel-loader": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-is": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.7"
-  }
+  },
+  "dependencies": {}
 }
