@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { Global } from "./styles";
@@ -26,21 +25,21 @@ const Root = styled(Global)`
 `;
 
 const Search = styled.div`
-  input, div {
+  input, button {
     display: inline-block;
     padding: 10px 15px;
     font-size: 1em;
     -webkit-appearance: none;
     color: white;
     background-color: ${colors.backgroundHighlight};
+    border: 2px solid ${colors.backgroundHighlight};
   }
   input {
     box-sizing: border-box
     border: none;
-    border: 2px solid ${colors.backgroundHighlight};
     border-radius: 5px 0px 0px 5px;
   }
-  div {
+  button {
     border-radius: 0px 5px 5px 0px;
     :hover {
       cursor: pointer;
@@ -50,10 +49,6 @@ const Search = styled.div`
 
 // Define component
 const Navbar: React.FC<NavbarProps> = (props) => {
-  const history = useHistory();
-  // const items = props.items.map((item, index) => (
-  //   <li key={index} onClick={() => history.push(item.link)}>{item.name}</li>
-  // ));
   return (
     <Root>
       <img src={Logo} alt="Gastby" />
@@ -62,7 +57,8 @@ const Navbar: React.FC<NavbarProps> = (props) => {
           placeholder="Search"
           type="text"
           />
-        <div>Search</div>
+        {/* TODO: Define click function for search to send a query to backend */}
+        <button>Search</button>
       </Search>
     </Root>
   );
