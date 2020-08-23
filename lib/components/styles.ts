@@ -8,8 +8,25 @@ const Global = styled.div`
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   background-color: ${colors.background};
+  color: white;
 `;
 
-export { Global };
+const Form = styled(Global)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 10px;
+  input, textarea, select {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: ${colors.backgroundHighlight};
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+  }
+`;
+
+export { Global, Form };
