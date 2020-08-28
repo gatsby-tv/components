@@ -1,58 +1,80 @@
-import React from 'react';
+import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import Tooltipped from "./Tooltipped";
 import { Global } from "./styles";
-import * as colors from "./colors";
+
 /**
- * A link on a Sidebar component.
- * @member {string} label The label to render for the link.
- * @member {string} link The link to navigate to when clicking the label.
+ * A channel thumbnail on the sidebar.
+ * @member {string} handle The handle of the channel.
+ * @member {string} img The link to the image used for the thumbnail.
+ * @member {string} link The link to navigate to when clicking the thumbnail.
  */
-type Item = {
-  label: string,
+type ChannelProps = {
+  handle: string,
+  img: string,
   link: string
 }
 
 type SidebarProps = {
   /**
-   * List of links to include in the sidebar.
+   * List of channels as icon hyperlinks.
    */
-  items: Item[]
+  channels: ChannelProps[]
 }
 
 // Define styled components
 const Root = styled(Global)`
   width: fit-content;
-  padding: 20px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
 `;
 
-const Items = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const Item = styled.li`
-  text-decoration: none;
-  color: white;
+const ChannelThumbnail = styled.img`
+  @keyframes expand {
+    from {
+      border-radius: 60px;
+    }
+    to {
+      border-radius: 5px;
+    }
+  }
   :hover {
     cursor: pointer;
-    background-color: ${colors.backgroundHighlight};
+    animation-duration: .2s;
+    animation-name: expand;
+    animation-fill-mode: forwards;
   }
-  padding: 10px 40px 10px 40px;
+  border-radius: 60px;
+  width: 60px;
 `;
+
+const Channel: React.FC<ChannelProps> = (props) => {
+  const history = useHistory();
+
+  return (
+    <Tooltipped
+      tooltipText={props.handle}>
+      <ChannelThumbnail onClick={() => history.push(props.link)} alt={props.handle} src={props.img} />
+    </Tooltipped>
+  );
+}
 
 // Define component
 const Sidebar: React.FC<SidebarProps> = (props) => {
-  const history = useHistory();
-  const items = props.items.map((item, index) => (
-    <Item key={index} onClick={() => history.push(item.link)}>{item.label}</Item>
+  const channels = props.channels.map((channel, index) => (
+    <Channel
+      key={index}
+      handle={channel.handle}
+      img={channel.img}
+      link={channel.link} />
   ));
   return (
     <Root>
-      <Items>
-        {items}
-      </Items>
+      {channels}
     </Root>
   );
 }

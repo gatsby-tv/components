@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
 import { Form } from "../styles";
@@ -21,7 +21,11 @@ const Signup: React.FC<SignupProps> = (props) => {
         />
       <input
         type="text"
-        placeholder="Username"
+        placeholder="@Handle"
+        />
+      <input
+        type="text"
+        placeholder="Display Name"
         />
       <input
         type="password"

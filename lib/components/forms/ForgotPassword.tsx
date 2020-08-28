@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
 import { Form } from "../styles";
@@ -15,7 +15,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
   return (
     <Root>
       <h2>Forgot your password?</h2>
-      <p>We'll email you a temporary link to change your password.</p>
+      <p>We"ll email you a temporary link to change your password.</p>
       <input
         type="text"
         placeholder="Email"
