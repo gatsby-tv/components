@@ -10,6 +10,18 @@ const Global = styled.div`
   -moz-osx-font-smoothing: grayscale;
   background-color: ${colors.background};
   color: white;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
 `;
 
 const Form = styled(Global)`

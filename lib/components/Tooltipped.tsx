@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Global } from "./styles";
@@ -11,6 +11,8 @@ type TooltippedProps = {
 // Define styled components
 const Root = styled(Global)`
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const Component = styled(Global)`
@@ -19,10 +21,9 @@ const Component = styled(Global)`
 const Tooltip = styled(Global)`
   position: absolute;
   z-index: 999;
-  left: 130%;
+  left: calc(100% + 20px);
   padding: 10px;
   border-radius: 5px;
-  top: 0;
 `;
 
 /**

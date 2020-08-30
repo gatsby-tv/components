@@ -7,6 +7,7 @@ import { Global } from "./styles";
 
 /**
  * A channel thumbnail on the sidebar.
+ *
  * @member {string} handle The handle of the channel.
  * @member {string} img The link to the image used for the thumbnail.
  * @member {string} link The link to navigate to when clicking the thumbnail.

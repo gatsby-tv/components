@@ -1,10 +1,10 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import React from "react";
+import { Story, Meta } from "@storybook/react/types-6-0";
 
-import ChangePassword, { ChangePasswordProps } from '../lib/components/forms/ChangePassword';
+import ChangePassword, { ChangePasswordProps } from "../lib/components/forms/ChangePassword";
 
 export default {
-  title: 'Forms/ChangePassword',
+  title: "Forms/ChangePassword",
   component: ChangePassword
 } as Meta;
 

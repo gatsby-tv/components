@@ -20,20 +20,26 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@storybook/addon-actions": "^6.0.10",
     "@storybook/addon-essentials": "^6.0.10",
     "@storybook/addon-links": "^6.0.10",
     "@storybook/react": "^6.0.10",
+    "@types/moment": "^2.13.0",
+    "@types/numeral": "0.0.28",
     "@types/react": "^16.9.46",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
     "babel-loader": "^8.1.0",
+    "moment": "^2.27.0",
+    "numeral": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.7"
-  },
-  "dependencies": {}
+  }
 }

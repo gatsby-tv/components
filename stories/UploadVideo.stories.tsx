@@ -1,10 +1,10 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import React from "react";
+import { Story, Meta } from "@storybook/react/types-6-0";
 
-import UploadVideo, { UploadVideoProps } from '../lib/components/forms/UploadVideo';
+import UploadVideo, { UploadVideoProps } from "../lib/components/forms/UploadVideo";
 
 export default {
-  title: 'Forms/UploadVideo',
+  title: "Forms/UploadVideo",
   component: UploadVideo
 } as Meta;
 

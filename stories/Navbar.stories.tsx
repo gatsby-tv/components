@@ -1,10 +1,10 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import React from "react";
+import { Story, Meta } from "@storybook/react/types-6-0";
 
-import Navbar, { NavbarProps } from '../lib/components/Navbar';
+import Navbar, { NavbarProps } from "../lib/components/Navbar";
 
 export default {
-  title: 'Navigation/Navbar',
+  title: "Navigation/Navbar",
   component: Navbar
 } as Meta;
 
