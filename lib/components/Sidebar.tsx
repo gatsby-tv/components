@@ -1,85 +1,53 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import Tooltipped from "./Tooltipped";
-import { Global } from "./styles";
+import Profile, { ProfileProps } from "./Icons/Profile";
 
-/**
- * A channel thumbnail on the sidebar.
- *
- * @member {string} handle The handle of the channel.
- * @member {string} img The link to the image used for the thumbnail.
- * @member {string} link The link to navigate to when clicking the thumbnail.
- */
-type ChannelProps = {
-  handle: string,
-  img: string,
-  link: string
-}
+import "../config/styles.css";
+
+const Container = styled.div`
+  display: block;
+  flex-grow: 0;
+  flex-shrink 0;
+
+  width: 5rem;
+  padding-top: 1rem;
+
+  background-color: var(--dark-grey-3);
+`;
+
+const ProfilesBox = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const ProfileContainer = styled.a`
+  cursor: pointer;
+  margin: 0.35rem 0;
+`;
 
 type SidebarProps = {
-  /**
-   * List of channels as icon hyperlinks.
-   */
-  channels: ChannelProps[]
-}
+  profiles: ProfileProps[];
+};
 
-// Define styled components
-const Root = styled(Global)`
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 10px;
-`;
-
-const ChannelThumbnail = styled.img`
-  @keyframes expand {
-    from {
-      border-radius: 60px;
-    }
-    to {
-      border-radius: 5px;
-    }
-  }
-  :hover {
-    cursor: pointer;
-    animation-duration: .2s;
-    animation-name: expand;
-    animation-fill-mode: forwards;
-  }
-  border-radius: 60px;
-  width: 60px;
-`;
-
-const Channel: React.FC<ChannelProps> = (props) => {
-  const history = useHistory();
+const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
+  const profiles = props.profiles.map(
+    (profile: ProfileProps, index: number) => (
+      <ProfileContainer key={profile.imageUrl}>
+        <Profile {...profile} size="3.6rem" />
+      </ProfileContainer>
+    )
+  );
 
   return (
-    <Tooltipped
-      tooltipText={props.handle}>
-      <ChannelThumbnail onClick={() => history.push(props.link)} alt={props.handle} src={props.img} />
-    </Tooltipped>
+    <Container>
+      <ProfilesBox>{profiles}</ProfilesBox>
+    </Container>
   );
-}
+};
 
-// Define component
-const Sidebar: React.FC<SidebarProps> = (props) => {
-  const channels = props.channels.map((channel, index) => (
-    <Channel
-      key={index}
-      handle={channel.handle}
-      img={channel.img}
-      link={channel.link} />
-  ));
-  return (
-    <Root>
-      {channels}
-    </Root>
-  );
-}
-
-// Export component
-export { SidebarProps };
 export default Sidebar;
+export { SidebarProps };

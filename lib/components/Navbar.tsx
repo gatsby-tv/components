@@ -1,69 +1,140 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Global } from "./styles";
-import * as colors from "./colors";
+import Gatsby from "./Icons/Gatsby";
+import Profile, { ProfileProps } from "./Icons/Profile";
+import Search, { SearchProps } from "./Search";
 
-// TODO: Fix type declaration with svgs
-// @ts-ignore
-import Logo from "../assets/logos/gatsby.svg";
+import "../config/styles.css";
+
+const Container = styled.div`
+  display: block;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+
+  height: 5rem;
+  z-index: 600;
+`;
+
+const PrimaryBox = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+
+  height: 100%;
+  background-color: var(--dark-grey-1);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.9), 0 2px 1px rgba(0, 0, 0, 0.1);
+`;
+
+const NavBox = styled.div`
+  display: flex;
+  flex-shrink: 1 !important;
+  flex-grow: 1 !important;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  width: 100%;
+`;
+
+const LogoContainer = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 0 1rem;
+  height: 100%;
+
+  svg {
+    width: 3rem;
+    height: 3rem;
+  }
+`;
+
+const LinksBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Link = styled.a`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 1rem;
+  font-family: "Noto Sans";
+  font-stretch: semi-condensed;
+  font-weight: 500;
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: var(--font-color) !important;
+`;
+
+const HomeLink = styled.a``;
+
+const SearchBox = styled.div`
+  display: flex;
+  flex-shrink: 1 !important;
+  flex-grow: 1 !important;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+`;
+
+const UserBox = styled.div`
+  display: flex;
+  flex-shrink: 1 !important;
+  flex-grow: 1 !important;
+  align-items: stretch;
+  justify-content: flex-end;
+
+  width: 100%;
+`;
+
+const ProfileBox = styled.a`
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+
+  cursor: pointer;
+  padding: 0 1rem;
+`;
 
 type NavbarProps = {
-}
+  profile: ProfileProps;
+  search: SearchProps;
+};
 
-// Define styled components
-const Root = styled(Global)`
-  width: 100%;
-  padding: 10px 40px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  img {
-    width: 40px;
-    margin-right: 40px;
-  }
-`;
+const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
+  const profile = props.profile ? (
+    <ProfileBox>
+      <Profile {...props.profile} size="3.6rem" />
+    </ProfileBox>
+  ) : null;
 
-const Search = styled.div`
-  input, button {
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 1em;
-    -webkit-appearance: none;
-    color: white;
-    background-color: ${colors.backgroundHighlight};
-    border: 2px solid ${colors.backgroundHighlight};
-  }
-  input {
-    box-sizing: border-box
-    border: none;
-    border-radius: 5px 0px 0px 5px;
-  }
-  button {
-    border-radius: 0px 5px 5px 0px;
-    :hover {
-      cursor: pointer;
-    }
-  }
-`;
-
-// Define component
-const Navbar: React.FC<NavbarProps> = (props) => {
   return (
-    <Root>
-      <img src={Logo} alt="Gastby" />
-      <Search>
-        <input
-          placeholder="Search"
-          type="text"
-          />
-        {/* TODO: Define click function for search to send a query to backend */}
-        <button>Search</button>
-      </Search>
-    </Root>
+    <Container>
+      <PrimaryBox>
+        <NavBox>
+          <HomeLink href="/">
+            <LogoContainer>
+              <Gatsby />
+            </LogoContainer>
+          </HomeLink>
+          <LinksBox>
+            <Link href="/">Subscriptions</Link>
+            <Link href="/">Browse</Link>
+          </LinksBox>
+        </NavBox>
+        <SearchBox>
+          <Search {...props.search} />
+        </SearchBox>
+        <UserBox>{profile}</UserBox>
+      </PrimaryBox>
+    </Container>
   );
-}
+};
 
-// Export component
 export { NavbarProps };
 export default Navbar;

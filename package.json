@@ -26,7 +26,10 @@
     "@storybook/addon-actions": "^6.0.10",
     "@storybook/addon-essentials": "^6.0.10",
     "@storybook/addon-links": "^6.0.10",
+    "@storybook/addons": "^6.0.21",
     "@storybook/react": "^6.0.10",
+    "@storybook/theming": "^6.0.21",
+    "@svgr/cli": "^5.4.0",
     "@types/moment": "^2.13.0",
     "@types/numeral": "0.0.28",
     "@types/react": "^16.9.46",
@@ -41,5 +44,8 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "react-multi-carousel": "^2.5.5"
   }
 }
