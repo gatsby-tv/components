@@ -145,5 +145,5 @@ LoggedIn.args = {
   navbar: NavbarStories.LoggedIn.args,
   sidebar: SidebarStories.LoggedIn.args,
   carousel: CarouselStories.Example.args,
-  preview: PreviewStories.Example.args,
+  preview: PreviewStories.Full.args,
 };

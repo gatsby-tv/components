@@ -1,4 +1,4 @@
-import Compact, { CompactProps } from "./Compact";
 import Preview, { PreviewProps } from "./Preview";
+import Thumbnail, { ThumbnailProps } from "./Thumbnail";
 
-export { Compact, CompactProps, Preview, PreviewProps };
+export { Preview, PreviewProps, Thumbnail, ThumbnailProps };

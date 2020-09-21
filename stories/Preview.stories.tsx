@@ -11,8 +11,8 @@ export default {
 
 const Template: Story<PreviewProps> = (args) => <Preview {...args} />;
 
-export const Example = Template.bind({});
-Example.args = {
+export const Full = Template.bind({});
+Full.args = {
   thumbnail: {
     imageUrl: "https://loremflickr.com/533/300",
     duration: "7:44",
@@ -25,4 +25,22 @@ Example.args = {
     subtitle: "Blender Animation Studio",
     info: ["5.1M", "1 year ago"],
   },
+  compact: false,
+};
+
+export const Compact = Template.bind({});
+Compact.args = {
+  thumbnail: {
+    imageUrl: "https://loremflickr.com/533/300",
+    duration: "7:44",
+  },
+  profile: {
+    imageUrl: "https://loremflickr.com/150/150",
+  },
+  meta: {
+    title: "Spring - Blender Open Movie",
+    subtitle: "Blender Animation Studio",
+    info: ["5.1M", "1 year ago"],
+  },
+  compact: true,
 };
