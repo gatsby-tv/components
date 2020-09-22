@@ -102,12 +102,12 @@ const ButtonBox = styled.div`
 
   button:last-child {
     fill: var(--light-grey-9);
-    opacity: 0.6;
+    opacity: 0.4;
 
     transition: all 100ms ease;
 
     &:hover {
-      opacity: 0.7;
+      opacity: 0.6;
       transform: none;
     }
   }

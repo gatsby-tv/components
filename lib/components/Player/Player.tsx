@@ -3,18 +3,21 @@ import styled from "styled-components";
 
 import Viewport, { ViewportProps } from "../Viewport";
 import Video, { VideoProps } from "./Video";
+import Overlay, { OverlayProps } from "./Overlay";
 
 import "../../config/styles.css";
 
 const Container = styled.div.attrs((props) => ({
   className: "gz-player",
-  style: props.fullscreen ? {
-    height: "100vh",
-    maxHeight: "none",
-  } : {
-    height: "calc((9 / 16) * 100vw)",
-    maxHeight: "calc(100vh - 14rem)",
-  },
+  style: props.fullscreen
+    ? {
+        height: "100vh",
+        maxHeight: "none",
+      }
+    : {
+        height: "calc((9 / 16) * 100vw)",
+        maxHeight: "calc(100vh - 14rem)",
+      },
 }))`
   position: relative;
   width: 100%;
@@ -59,7 +62,11 @@ const Player: React.FC<PlayerProps> = (props) => {
 
   return (
     <Container ref={container} fullscreen={props.fullscreen}>
-      <Viewport width={dimensions.width} height={dimensions.height}>
+      <Viewport
+        width={dimensions.width}
+        height={dimensions.height}
+        overlay={<Overlay />}
+      >
         <VideoBox>
           <Video {...props.video} />
         </VideoBox>

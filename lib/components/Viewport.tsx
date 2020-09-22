@@ -49,7 +49,7 @@ const Overlay = styled.div.attrs((props) => ({
   overflow: hidden;
 `;
 
-const ViewportContext = createContext([null, () => null]);
+const ViewportContext = createContext([null, [], () => null]);
 
 type ViewportCallback = {
   type: string;
@@ -67,36 +67,13 @@ const Viewport: React.FC<ViewportProps> = (props) => {
   const video = useRef(null);
   const [callbacks, setCallbacks] = useState([]);
 
-  useEffect(() => {
-    if (callbacks.length === 0) {
-      return;
-    }
-
-    const removeAll = () =>
-      callbacks.forEach((item, index) =>
-        video.current.removeEventListener(item.type, item.callback)
-      );
-
-    callbacks.forEach((item, index) =>
-      video.current.addEventListener(item.type, item.callback)
-    );
-
-    setCallbacks([]);
-    return removeAll;
-  }, [video.current, callbacks]);
-
-  const addCallback = (type, callback) =>
-    setCallbacks((current) => [...current, { type: type, callback: callback }]);
-
   return (
     <Container aspectRatio={props.height / props.width || 9 / 16}>
       <Fill>
-        <Content>
-          <ViewportContext.Provider value={[video, addCallback]}>
-            {props.children}
-          </ViewportContext.Provider>
-        </Content>
-        {props.overlay && <Overlay>{props.overlay}</Overlay>}
+        <ViewportContext.Provider value={[video, callbacks, setCallbacks]}>
+          <Content>{props.children}</Content>
+          {props.overlay && <Overlay>{props.overlay}</Overlay>}
+        </ViewportContext.Provider>
       </Fill>
     </Container>
   );

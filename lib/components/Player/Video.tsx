@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 import { ViewportContext } from "../Viewport";
@@ -26,10 +26,23 @@ type VideoProps = {
 };
 
 const Video: React.FC<VideoProps> = (props) => {
-  const [ref, addCallback] = useContext(ViewportContext);
+  const [video, callbacks, _] = useContext(ViewportContext);
+
+  const addCallback = useCallback(
+    ({ type, callback }) => {
+      video.current.addEventListener(type, callback);
+      return () => video.current.removeEventListener(type, callback);
+    },
+    [video.current]
+  );
+
+  useEffect(() => {
+    const cleanups = callbacks.map((callback, index) => addCallback(callback));
+    return () => cleanups.forEach((cleanup, index) => cleanup());
+  }, [video.current, callbacks]);
 
   return (
-    <VideoBlock ref={ref} {...props}>
+    <VideoBlock ref={video} {...props}>
       {props.children}
     </VideoBlock>
   );
