@@ -188,7 +188,7 @@ const Search: React.FC<SearchProps> = (props) => {
   );
 
   return (
-    <Container>
+    <Container className="gz-search">
       <SearchBox highlight={highlight}>
         <InputBox>
           <SearchIcon>
@@ -203,6 +203,7 @@ const Search: React.FC<SearchProps> = (props) => {
             spellCheck="false"
             autoCorrect="false"
             autoComplete="false"
+            onKeyDown={(event) => event.stopPropagation()}
             onChange={(event) =>
               setState({ type: "fetch", query: event.target.value })
             }

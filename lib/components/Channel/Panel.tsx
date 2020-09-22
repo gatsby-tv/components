@@ -81,7 +81,10 @@ const Panel: React.FC<PanelProps> = (props) => {
   const setModal = useContext(ModalContext);
 
   return (
-    <Container onClick={(event) => event.stopPropagation()}>
+    <Container
+      className="gz-panel"
+      onClick={(event) => event.stopPropagation()}
+    >
       <CloseContainer onClick={() => setModal(null)}>
         <FontAwesomeIcon icon={faTimes} size="2x" />
       </CloseContainer>

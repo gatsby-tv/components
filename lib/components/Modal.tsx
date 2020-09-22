@@ -51,10 +51,12 @@ const Modal: React.FC<ModalProps> = (props) => {
 
     window.addEventListener("keydown", handleKeypress);
     return () => window.removeEventListener("keydown", handleKeypress);
-  });
+  }, []);
 
   return (
-    <Overlay onClick={(event) => setModal(null)}>{props.children}</Overlay>
+    <Overlay className="gz-modal" onClick={(event) => setModal(null)}>
+      {props.children}
+    </Overlay>
   );
 };
 

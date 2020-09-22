@@ -283,7 +283,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     });
 
   return (
-    <Container>
+    <Container className="gz-carousel">
       <PrimaryBox>
         <BackArrow onClick={prev} />
         <Mask ref={mask}>

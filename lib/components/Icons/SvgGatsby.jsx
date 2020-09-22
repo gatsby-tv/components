@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function Gatsby(props) {
+function SvgGatsby(props) {
   return (
     <svg width={200} height={200} viewBox="0 0 52.917 52.917" {...props}>
       <g transform="matrix(.2607 0 0 .2607 5.564 69.182)" strokeWidth={3.836}>
@@ -44,18 +44,17 @@ function Gatsby(props) {
           d="M40.585-258.282C22.226-256 10.168-253 10.168-253l8.801 144.337 30.736-.047-5.158-84.585L40.907-253z"
           opacity={0.15}
         />
-        {/*
-          <g strokeWidth={3.343}>
+        <g strokeWidth={3.343}>
           <path d="M112.91-198.12l-49.144 26.855v-53.711z" fill="#fff" />
           <path
             d="M63.766-224.976v.011l45.519 28.826 3.625-1.981zm.93 53.203l-.93.457v.05z"
             opacity={0.15}
           />
-          </g>
-          */}
+        </g>
       </g>
     </svg>
   );
 }
 
-export default Gatsby;
+export default SvgGatsby;
+

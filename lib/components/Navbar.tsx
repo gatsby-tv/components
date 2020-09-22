@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Gatsby from "./Icons/Gatsby";
+import { Gatsby } from "./Icons";
 import Profile, { ProfileProps } from "./Icons/Profile";
 import Search, { SearchProps } from "./Search";
 
@@ -23,7 +23,10 @@ const PrimaryBox = styled.div`
 
   height: 100%;
   background-color: var(--dark-grey-1);
-  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.9), 0 2px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: ${(props) =>
+    props.shadow
+      ? "0 2px 1px rgba(0, 0, 0, 0.9), 0 2px 1px rgba(0, 0, 0, 0.1)"
+      : "none"};
 `;
 
 const NavBox = styled.div`
@@ -104,6 +107,7 @@ const ProfileBox = styled.a`
 type NavbarProps = {
   profile: ProfileProps;
   search: SearchProps;
+  shadow: boolean;
 };
 
 const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
@@ -114,8 +118,8 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
   ) : null;
 
   return (
-    <Container>
-      <PrimaryBox>
+    <Container className="gz-navbar">
+      <PrimaryBox shadow={props.shadow}>
         <NavBox>
           <HomeLink href="/">
             <LogoContainer>

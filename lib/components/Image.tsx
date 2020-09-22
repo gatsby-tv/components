@@ -55,6 +55,7 @@ type ImageProps = {
 const Image: React.FC<ImageProps> = (props) => {
   return (
     <Container
+      className="gz-image"
       aspectRatio={props.height / props.width || 1}
       radius={props.radius}
     >

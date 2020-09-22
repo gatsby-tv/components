@@ -82,6 +82,8 @@ const Separator = styled.hr`
   margin-top: 2rem;
   width: 100%;
 
+  border-width: 1px;
+  border-style: solid;
   border-color: var(--dark-grey-5);
 `;
 
@@ -112,7 +114,7 @@ const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
       <ModalContext.Provider value={setModal}>
         {modal && <Modal>{modal}</Modal>}
         <PrimaryBox>
-          <Navbar {...props.navbar} />
+          <Navbar {...props.navbar} shadow />
           <SecondaryBox>
             <Sidebar {...props.sidebar} />
             <Scroll>

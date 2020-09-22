@@ -61,17 +61,18 @@ const Scroll: React.FC<ScrollProps> = (props) => {
 
   const addCallback = (callback) =>
     setCallbacks((current) => [...current, callback]);
+
   const handleScroll = (event) =>
     callbacks.forEach((callback) => callback(event));
 
   return props.hidden ? (
-    <HiddenContainer onScroll={handleScroll}>
+    <HiddenContainer className="gz-scroll" onScroll={handleScroll}>
       <ScrollContext.Provider value={addCallback}>
         {props.children}
       </ScrollContext.Provider>
     </HiddenContainer>
   ) : (
-    <Container onScroll={handleScroll}>
+    <Container className="gz-scroll" onScroll={handleScroll}>
       <ScrollContext.Provider value={addCallback}>
         {props.children}
       </ScrollContext.Provider>

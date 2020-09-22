@@ -70,11 +70,11 @@ const CompactThumbnailContainer = styled.div`
   width: 100%;
   max-width: 30rem;
   min-width: 15rem;
-`
+`;
 
 const CompactPrimaryBox = styled.div`
   display: flex;
-`
+`;
 
 const CompactSecondaryBox = styled.div`
   display: flex;
@@ -83,7 +83,7 @@ const CompactSecondaryBox = styled.div`
   flex-grow: 0;
 
   margin-left: 1rem;
-`
+`;
 
 type PreviewProps = {
   thumbnail: ThumbnailProps;
@@ -108,7 +108,7 @@ const FullContent: React.FC<PreviewProps> = (props) => (
       </TertiaryBox>
     </SecondaryBox>
   </PrimaryBox>
-)
+);
 
 const CompactContent: React.FC<PreviewProps> = (props) => (
   <CompactPrimaryBox>
@@ -119,12 +119,16 @@ const CompactContent: React.FC<PreviewProps> = (props) => (
       <Meta {...props.meta} />
     </CompactSecondaryBox>
   </CompactPrimaryBox>
-)
+);
 
 const Preview: React.FC<PreviewProps> = (props) => {
   return (
-    <Container>
-      {props.compact ? <CompactContent {...props} /> : <FullContent {...props} />}
+    <Container className="gz-preview">
+      {props.compact ? (
+        <CompactContent {...props} />
+      ) : (
+        <FullContent {...props} />
+      )}
       <OverlayLink />
     </Container>
   );

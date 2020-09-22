@@ -17,7 +17,7 @@ type ProfileProps = {
 
 const Profile: React.FC<ProfileProps> = (props) => {
   return (
-    <Container size={props.size}>
+    <Container className="gz-profile" size={props.size}>
       <Image src={props.imageUrl} radius="100%" />
     </Container>
   );

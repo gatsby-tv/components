@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   );
 
   return (
-    <Container>
+    <Container className="gz-sidebar">
       <ProfilesBox>{profiles}</ProfilesBox>
     </Container>
   );

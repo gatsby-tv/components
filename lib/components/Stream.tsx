@@ -56,7 +56,7 @@ const Stream: React.FC<StreamProps> = (props) => {
     setState({ type: "fetch" });
   }, []);
 
-  return <Container>{state.items}</Container>;
+  return <Container className="gz-stream">{state.items}</Container>;
 };
 
 export { StreamProps };
