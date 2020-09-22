@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-video-meta",
+}))`
   display: flex;
   gap: 0.5rem;
 `;
 
-const Link = styled.a`
+const Link = styled.a.attrs((props) => ({
+  className: "gz-video-meta-link",
+}))`
   width: fit-content;
 
   cursor: pointer;
@@ -19,14 +23,18 @@ const Link = styled.a`
   }
 `;
 
-const Title = styled.h3`
+const Title = styled.h3.attrs((props) => ({
+  className: "gz-video-meta-title",
+}))`
   font-stretch: semi-condensed;
   font-weight: 600;
   font-size: 1.6rem;
   margin: 0 0 0.4rem 0;
 `;
 
-const Info = styled.span`
+const Info = styled.span.attrs((props) => ({
+  className: "gz-video-meta-info",
+}))`
   font-stretch: semi-condensed;
   font-weight: 500;
   font-size: 1.4rem;

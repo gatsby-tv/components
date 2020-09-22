@@ -57,4 +57,3 @@ function SvgGatsby(props) {
 }
 
 export default SvgGatsby;
-

@@ -340,4 +340,3 @@ function SvgPromote(props) {
 }
 
 export default SvgPromote;
-

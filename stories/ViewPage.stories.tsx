@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
@@ -7,7 +7,7 @@ import Player, { PlayerProps } from "../lib/components/Player";
 import Preview, { PreviewProps } from "../lib/components/Video/Preview";
 import Stream, { StreamProps } from "../lib/components/Stream";
 import Scroll, { ScrollProps } from "../lib/components/Scroll";
-import { Promote, Subscribe, Donate, Tip, Misc } from "../lib/components/Icons"
+import { Promote, Subscribe, Donate, Tip, Misc } from "../lib/components/Icons";
 
 import * as NavbarStories from "./Navbar.stories";
 import * as PlayerStories from "./Player.stories";
@@ -45,12 +45,12 @@ const SecondaryBox = styled.div`
 const TertiaryBox = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const DescriptionBox = styled.div`
   display: flex;
@@ -58,17 +58,17 @@ const DescriptionBox = styled.div`
   flex-grow: 2;
 
   margin-right: 3rem;
-`
+`;
 
 const ContentContainer = styled.div`
   position: relative;
-  width: 100%;
   height: calc(100vh - 5rem);
-`
+  width: 100%;
+`;
 
 const BrowseContainer = styled.div`
   margin: 0.5rem 5rem;
-`
+`;
 
 const CardContainer = styled.div`
   display: flex;
@@ -82,11 +82,11 @@ const CardContainer = styled.div`
 
 const TitleContainer = styled.div`
   flex-grow: 2;
-`
+`;
 
 const StreamContainer = styled.div`
   flex-grow: 1;
-`
+`;
 
 const InfoContainer = styled.div`
   display: flex;
@@ -100,7 +100,6 @@ const ButtonBox = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
 
-
   button:last-child {
     fill: var(--light-grey-9);
     opacity: 0.6;
@@ -109,9 +108,10 @@ const ButtonBox = styled.div`
 
     &:hover {
       opacity: 0.7;
+      transform: none;
     }
   }
-`
+`;
 
 const Button = styled.button`
   display: inline-flex;
@@ -121,7 +121,7 @@ const Button = styled.button`
 
   width: 4rem;
   height: 4rem;
-  
+
   cursor: pointer;
   background: transparent;
   border: none;
@@ -132,8 +132,9 @@ const Button = styled.button`
 
   &:hover {
     fill: var(--gatsby-gold-light);
+    transform: scale(1.05);
   }
-`
+`;
 
 const Separator = styled.hr`
   margin: 1.25rem 0;
@@ -177,20 +178,6 @@ const ViewPage: React.FC<ViewPageProps> = (props: ViewPageProps) => {
       ));
   };
 
-  useEffect(() => {
-    const handleKeypress = (event) => {
-      switch (event.code) {
-        case "KeyF":
-          document.fullscreenElement
-            ? document.exitFullscreen()
-            : document.documentElement.requestFullscreen();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeypress);
-    return () => window.removeEventListener("keydown", handleKeypress);
-  }, []);
-
   const info = props.preview.meta.info
     .map((value, index) => [
       <Info key={index}>{value}</Info>,
@@ -199,44 +186,54 @@ const ViewPage: React.FC<ViewPageProps> = (props: ViewPageProps) => {
     .flat()
     .slice(0, -1);
 
-    return (
-      <Container>
-        <PrimaryBox>
-          <Navbar {...props.navbar} />
-          <Scroll>
-            <ContentContainer>
-              <SecondaryBox>
-                <Player {...props.player} />
-                <BrowseContainer>
-                  <TertiaryBox>
-                    <DescriptionBox>
-                      <TitleBox>
-                        <TitleContainer>
-                          <Title>Spring - Blender Open Movie</Title>
-                          <InfoContainer>{info}</InfoContainer>
-                        </TitleContainer>
-                        <ButtonBox>
-                          <Button><Promote /></Button>
-                          <Button><Subscribe /></Button>
-                          <Button><Donate /></Button>
-                          <Button><Tip /></Button>
-                          <Button><Misc /></Button>
-                        </ButtonBox>
-                      </TitleBox>
-                      <Separator />
-                    </DescriptionBox>
-                    <StreamContainer>
-                      <Title>Related</Title>
-                      <Stream generator={cardGenerator} />
-                    </StreamContainer>
-                  </TertiaryBox>
-                </BrowseContainer>
-              </SecondaryBox>
-            </ContentContainer>
-          </Scroll>
-        </PrimaryBox>
-      </Container>
-    );
+  return (
+    <Container>
+      <PrimaryBox>
+        <Navbar {...props.navbar} />
+        <Scroll>
+          <ContentContainer>
+            <SecondaryBox>
+              <Player {...props.player} />
+              <BrowseContainer>
+                <TertiaryBox>
+                  <DescriptionBox>
+                    <TitleBox>
+                      <TitleContainer>
+                        <Title>Spring - Blender Open Movie</Title>
+                        <InfoContainer>{info}</InfoContainer>
+                      </TitleContainer>
+                      <ButtonBox>
+                        <Button>
+                          <Promote />
+                        </Button>
+                        <Button>
+                          <Subscribe />
+                        </Button>
+                        <Button>
+                          <Donate />
+                        </Button>
+                        <Button>
+                          <Tip />
+                        </Button>
+                        <Button>
+                          <Misc />
+                        </Button>
+                      </ButtonBox>
+                    </TitleBox>
+                    <Separator />
+                  </DescriptionBox>
+                  <StreamContainer>
+                    <Title>Related</Title>
+                    <Stream generator={cardGenerator} />
+                  </StreamContainer>
+                </TertiaryBox>
+              </BrowseContainer>
+            </SecondaryBox>
+          </ContentContainer>
+        </Scroll>
+      </PrimaryBox>
+    </Container>
+  );
 };
 
 export default {

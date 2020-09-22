@@ -7,14 +7,18 @@ import Profile, { ProfileProps } from "../Icons/Profile";
 
 import "../../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-preview",
+}))`
   flex-shrink: 1;
   flex-grow: 1;
 
   position: relative;
 `;
 
-const OverlayLink = styled.a`
+const OverlayLink = styled.a.attrs((props) => ({
+  className: "gz-preview-overlay-link",
+}))`
   position: absolute;
   top: 0;
   right: 0;
@@ -29,7 +33,9 @@ const OverlayLink = styled.a`
   text-decoration: none;
 `;
 
-const Link = styled.a`
+const Link = styled.a.attrs((props) => ({
+  className: "gz-preview-link",
+}))`
   width: fit-content;
 
   cursor: pointer;
@@ -42,12 +48,16 @@ const Link = styled.a`
   }
 `;
 
-const PrimaryBox = styled.div`
+const PrimaryBox = styled.div.attrs((props) => ({
+  className: "gz-preview-container",
+}))`
   display: flex;
   flex-direction: column;
 `;
 
-const SecondaryBox = styled.div`
+const SecondaryBox = styled.div.attrs((props) => ({
+  className: "gz-preview-description",
+}))`
   display: flex;
   flex-shrink: 0;
   flex-grow: 0;
@@ -55,28 +65,38 @@ const SecondaryBox = styled.div`
   margin-top: 1rem;
 `;
 
-const TertiaryBox = styled.div`
+const TertiaryBox = styled.div.attrs((props) => ({
+  className: "gz-preview-meta-wrapper",
+}))`
   display: flex;
   flex-direction: column;
 
   width: 100%;
 `;
 
-const ProfileContainer = styled.div`
+const ProfileContainer = styled.div.attrs((props) => ({
+  className: "gz-preview-profile-wrapper",
+}))`
   margin-right: 1rem;
 `;
 
-const CompactThumbnailContainer = styled.div`
+const CompactThumbnailContainer = styled.div.attrs((props) => ({
+  className: "gz-preview-compact-thumbnail-wrapper",
+}))`
   width: 100%;
   max-width: 30rem;
   min-width: 15rem;
 `;
 
-const CompactPrimaryBox = styled.div`
+const CompactPrimaryBox = styled.div.attrs((props) => ({
+  className: "gz-preview-compact-container",
+}))`
   display: flex;
 `;
 
-const CompactSecondaryBox = styled.div`
+const CompactSecondaryBox = styled.div.attrs((props) => ({
+  className: "gz-preview-compact-description",
+}))`
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -123,7 +143,7 @@ const CompactContent: React.FC<PreviewProps> = (props) => (
 
 const Preview: React.FC<PreviewProps> = (props) => {
   return (
-    <Container className="gz-preview">
+    <Container>
       {props.compact ? (
         <CompactContent {...props} />
       ) : (

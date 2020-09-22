@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 import "../config/styles.css";
 
-const Overlay = styled.div`
+const Overlay = styled.div.attrs((props) => ({
+  className: "gz-modal",
+}))`
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -54,9 +56,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   }, []);
 
   return (
-    <Overlay className="gz-modal" onClick={(event) => setModal(null)}>
-      {props.children}
-    </Overlay>
+    <Overlay onClick={(event) => setModal(null)}>{props.children}</Overlay>
   );
 };
 

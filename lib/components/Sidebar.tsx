@@ -5,7 +5,9 @@ import Profile, { ProfileProps } from "./Icons/Profile";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-sidebar",
+}))`
   display: block;
   flex-grow: 0;
   flex-shrink 0;
@@ -16,7 +18,9 @@ const Container = styled.div`
   background-color: var(--dark-grey-3);
 `;
 
-const ProfilesBox = styled.div`
+const ProfilesBox = styled.div.attrs((props) => ({
+  className: "gz-sidebar-profile-container",
+}))`
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
@@ -24,7 +28,9 @@ const ProfilesBox = styled.div`
   align-items: center;
 `;
 
-const ProfileContainer = styled.a`
+const ProfileContainer = styled.a.attrs((props) => ({
+  className: "gz-sidebar-profile-wrapper",
+}))`
   cursor: pointer;
   margin: 0.35rem 0;
 `;
@@ -43,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   );
 
   return (
-    <Container className="gz-sidebar">
+    <Container>
       <ProfilesBox>{profiles}</ProfilesBox>
     </Container>
   );

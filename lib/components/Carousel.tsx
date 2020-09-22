@@ -17,17 +17,23 @@ import { ModalContext } from "./Modal";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-carousel",
+}))`
   position: relative;
   margin: 0 -0.7rem;
 `;
 
-const PrimaryBox = styled.div`
+const PrimaryBox = styled.div.attrs((props) => ({
+  className: "gz-carousel-content",
+}))`
   display: flex;
   align-items: center;
 `;
 
-const ArrowContainer = styled.button`
+const ArrowContainer = styled.button.attrs((props) => ({
+  className: "gz-carousel-arrow",
+}))`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -51,44 +57,62 @@ const ArrowContainer = styled.button`
   }
 `;
 
-const BackArrowContainer = styled(ArrowContainer)`
+const BackArrowContainer = styled(ArrowContainer).attrs((props) => ({
+  className: "gz-carousel-back-arrow",
+}))`
   left: -7.5rem;
   padding: 0 1.25rem 0 1rem;
 `;
 
-const NextArrowContainer = styled(ArrowContainer)`
+const NextArrowContainer = styled(ArrowContainer).attrs((props) => ({
+  className: "gz-carousel-next-arrow",
+}))`
   right: -7.5rem;
   padding: 0 1rem 0 1.25rem;
 `;
 
-const Mask = styled.div`
+const Mask = styled.div.attrs((props) => ({
+  className: "gz-carousel-mask",
+}))`
   width: 100%;
 
   overflow: hidden;
 `;
 
-const Tray = styled.div`
+const Tray = styled.div.attrs((props) => ({
+  className: "gz-carousel-slider",
+  style: {
+    width: `${100 * (props.length + 2)}%`,
+    left: `${-100 * (props.index + 1)}%`,
+  },
+}))`
   display: flex;
   align-items: center;
 
   position: relative;
-  width: ${(props) => 100 * (props.length + 2)}%;
-  left: ${(props) => -100 * (props.index + 1)}%;
 `;
 
-const Group = styled.div`
+const Group = styled.div.attrs((props) => ({
+  className: "gz-carousel-group",
+  width: undefined,
+  style: {
+    width: `${props.width}px`,
+  },
+}))`
   display: flex;
-
-  width: ${(props) => props.width}px;
 `;
 
-const Slide = styled.div`
+const Slide = styled.div.attrs((props) => ({
+  className: "gz-carousel-slide",
+  style: {
+    width: `${100 / props.groupSize}%`,
+  },
+}))`
   display: flex;
   justify-content: center;
 
   position: relative;
   z-index: 0;
-  width: ${(props) => 100 / props.groupSize}%;
   margin: 0 0.7rem;
 
   cursor: pointer;
@@ -120,7 +144,9 @@ const Slide = styled.div`
   }
 `;
 
-const Item = styled.div`
+const Item = styled.div.attrs((props) => ({
+  className: "gz-carousel-item",
+}))`
   width: 100%;
   z-index: 2;
 `;
@@ -283,7 +309,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     });
 
   return (
-    <Container className="gz-carousel">
+    <Container>
       <PrimaryBox>
         <BackArrow onClick={prev} />
         <Mask ref={mask}>
@@ -292,9 +318,13 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             length={groups.length}
             duration={props.animationDuration}
           >
-            <Group width={width}>{slideChunks[slideChunks.length - 1]}</Group>
+            <Group className="gz-carousel-group-buffer-0" width={width}>
+              {slideChunks[slideChunks.length - 1]}
+            </Group>
             {groups}
-            <Group width={width}>{slideChunks[0]}</Group>
+            <Group className="gz-carousel-group-buffer-1" width={width}>
+              {slideChunks[0]}
+            </Group>
           </Slider>
         </Mask>
         <NextArrow onClick={next} />

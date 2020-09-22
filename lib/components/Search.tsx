@@ -5,7 +5,9 @@ import { faSearch, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-search",
+}))`
   position: relative;
   max-width: 58rem;
   width: 100%;
@@ -13,7 +15,12 @@ const Container = styled.div`
   z-index: 610;
 `;
 
-const SearchBox = styled.div`
+const SearchBox = styled.div.attrs((props) => ({
+  className: "gz-search-content",
+  style: {
+    boxShadow: props.highlight ? "0 1px 6px 0 black" : "none",
+  },
+}))`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -24,7 +31,6 @@ const SearchBox = styled.div`
 
   background-color: var(--dark-grey-3);
   border-radius: 1.8rem;
-  box-shadow: ${(props) => (props.highlight ? "0 1px 6px 0 black" : "none")};
 
   transition: all 100ms ease;
 
@@ -33,7 +39,9 @@ const SearchBox = styled.div`
   }
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.div.attrs((props) => ({
+  className: "gz-search-input-wrapper",
+}))`
   display: flex;
   justify-content: stretch;
   align-items: center;
@@ -41,7 +49,9 @@ const InputBox = styled.div`
   height: 3.6rem;
 `;
 
-const SearchIcon = styled.div`
+const SearchIcon = styled.div.attrs((props) => ({
+  className: "gz-search-icon",
+}))`
   display: inline-flex;
   justify-content: center;
   flex-grow: 0;
@@ -49,11 +59,14 @@ const SearchIcon = styled.div`
 
   width: 4rem;
   font-size: 1.5rem;
+  padding: 0;
 
   color: var(--light-grey-9);
 `;
 
-const SearchButton = styled(SearchIcon)`
+const SearchButton = styled(SearchIcon).attrs((props) => ({
+  className: "gz-search-button",
+}))`
   cursor: pointer;
   background: transparent;
   border: none;
@@ -66,7 +79,9 @@ const SearchButton = styled(SearchIcon)`
   }
 `;
 
-const Input = styled.input`
+const Input = styled.input.attrs((props) => ({
+  className: "gz-search-input",
+}))`
   flex-grow: 1;
 
   padding: 0;
@@ -79,7 +94,9 @@ const Input = styled.input`
   outline: none;
 `;
 
-const SuggestionContainer = styled.ul`
+const SuggestionContainer = styled.ul.attrs((props) => ({
+  className: "gz-search-suggestion-container",
+}))`
   margin: 0;
   padding: 0;
 
@@ -120,12 +137,16 @@ const SuggestionContainer = styled.ul`
   }
 `;
 
-const Link = styled.a`
+const Link = styled.a.attrs((props) => ({
+  className: "gz-search-link",
+}))`
   color: inherit;
   text-decoration: none;
 `;
 
-const Suggestion = styled.li`
+const Suggestion = styled.li.attrs((props) => ({
+  className: "gz-search-suggestion",
+}))`
   font-size: 1.5rem;
   font-weight: 600;
 
@@ -133,6 +154,18 @@ const Suggestion = styled.li`
     font-weight: 500;
   }
 `;
+
+interface FetchAction {
+  type: "fetch";
+  query: string;
+}
+
+interface SyncAction {
+  type: "sync";
+  suggestions: SuggestionType[];
+}
+
+type SearchAction = FetchAction | SyncAction;
 
 type SuggestionType = {
   href: string;
@@ -188,7 +221,7 @@ const Search: React.FC<SearchProps> = (props) => {
   );
 
   return (
-    <Container className="gz-search">
+    <Container>
       <SearchBox highlight={highlight}>
         <InputBox>
           <SearchIcon>

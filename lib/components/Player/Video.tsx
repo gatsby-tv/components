@@ -5,7 +5,9 @@ import { ViewportContext } from "../Viewport";
 
 import "../../config/styles.css";
 
-const VideoBlock = styled.video`
+const VideoBlock = styled.video.attrs((props) => ({
+  className: "gz-video",
+}))`
   display: block;
   width: 100%;
   height: 100%;
@@ -27,7 +29,7 @@ const Video: React.FC<VideoProps> = (props) => {
   const [ref, addCallback] = useContext(ViewportContext);
 
   return (
-    <VideoBlock className="gz-video" ref={ref} {...props}>
+    <VideoBlock ref={ref} {...props}>
       {props.children}
     </VideoBlock>
   );

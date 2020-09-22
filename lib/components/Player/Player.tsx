@@ -6,25 +6,27 @@ import Video, { VideoProps } from "./Video";
 
 import "../../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-player",
+  style: props.fullscreen ? {
+    height: "100vh",
+    maxHeight: "none",
+  } : {
+    height: "calc((9 / 16) * 100vw)",
+    maxHeight: "calc(100vh - 14rem)",
+  },
+}))`
   position: relative;
   width: 100%;
-  height: calc((9 / 16) * 100vw);
-  max-height: calc(100vh - 14rem);
   min-height: 48rem;
   z-index: 500;
 
   background: black;
-
-  &:fullscreen {
-    height: 100vh;
-    z-index: 700;
-
-    transform: translateY(-5rem);
-  }
 `;
 
-const VideoBox = styled.div`
+const VideoBox = styled.div.attrs((props) => ({
+  className: "gz-player-video-wrapper",
+}))`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,6 +37,7 @@ const VideoBox = styled.div`
 
 type PlayerProps = {
   video: VideoProps;
+  fullscreen: boolean;
 };
 
 const Player: React.FC<PlayerProps> = (props) => {
@@ -55,7 +58,7 @@ const Player: React.FC<PlayerProps> = (props) => {
   }, [container.current]);
 
   return (
-    <Container className="gz-player" ref={container}>
+    <Container ref={container} fullscreen={props.fullscreen}>
       <Viewport width={dimensions.width} height={dimensions.height}>
         <VideoBox>
           <Video {...props.video} />

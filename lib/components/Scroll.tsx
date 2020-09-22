@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-scroll",
+}))`
   overflow-y: auto;
   height: 100%;
   backface-visibility: hidden;
@@ -33,7 +35,9 @@ const Container = styled.div`
   }
 `;
 
-const HiddenContainer = styled(Container)`
+const HiddenContainer = styled(Container).attrs((props) => ({
+  className: "gz-hidden-scroll",
+}))`
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -66,13 +70,13 @@ const Scroll: React.FC<ScrollProps> = (props) => {
     callbacks.forEach((callback) => callback(event));
 
   return props.hidden ? (
-    <HiddenContainer className="gz-scroll" onScroll={handleScroll}>
+    <HiddenContainer onScroll={handleScroll}>
       <ScrollContext.Provider value={addCallback}>
         {props.children}
       </ScrollContext.Provider>
     </HiddenContainer>
   ) : (
-    <Container className="gz-scroll" onScroll={handleScroll}>
+    <Container onScroll={handleScroll}>
       <ScrollContext.Provider value={addCallback}>
         {props.children}
       </ScrollContext.Provider>

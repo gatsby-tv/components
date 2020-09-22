@@ -5,7 +5,9 @@ import Image, { ImageProps } from "../Image";
 
 import "../../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-banner-overlay",
+}))`
   position: absolute;
   top: 0;
   right: 0;
@@ -19,25 +21,33 @@ const Container = styled.div`
   );
 `;
 
-const MetaContainer = styled.div`
+const MetaContainer = styled.div.attrs((props) => ({
+  className: "gz-banner-overlay-meta",
+}))`
   position: absolute;
   bottom: 3rem;
   left: 3rem;
 `;
 
-const Title = styled.h1`
+const Title = styled.h1.attrs((props) => ({
+  className: "gz-banner-overlay-title",
+}))`
   margin: 0;
   font-size: 4rem;
 `;
 
-const InfoContainer = styled.div`
+const InfoContainer = styled.div.attrs((props) => ({
+  className: "gz-banner-overlay-info-container",
+}))`
   display: flex;
   gap: 0.5rem;
 
   margin-left: 2px;
 `;
 
-const Info = styled.span`
+const Info = styled.span.attrs((props) => ({
+  className: "gz-banner-overlay-info",
+}))`
   font-size: 1.5rem;
 
   color: var(--font-grey-0);
@@ -45,14 +55,18 @@ const Info = styled.span`
   font-weight: 500;
 `;
 
-const TagContainer = styled.div`
+const TagContainer = styled.div.attrs((props) => ({
+  className: "gz-banner-overlay-tag-container",
+}))`
   display: flex;
   gap: 0.5rem;
 
   margin-top: 0.75rem;
 `;
 
-const Tag = styled.a`
+const Tag = styled.a.attrs((props) => ({
+  className: "gz-banner-overlay-tag",
+}))`
   padding: 0 1rem;
   font-size: 1.5rem;
   height: 2.5rem;
@@ -83,8 +97,12 @@ type MetaProps = {
 const Meta: React.FC<MetaProps> = (props) => {
   const info = props.info
     .map((value, index) => [
-      <Info key={index}>{value}</Info>,
-      <Info key={`${index}/dot`}>•</Info>,
+      <Info className="gz-banner-overlay-info-text" key={index}>
+        {value}
+      </Info>,
+      <Info className="gz-banner-overlay-info-dot" key={`${index}/dot`}>
+        •
+      </Info>,
     ])
     .flat()
     .slice(0, -1);

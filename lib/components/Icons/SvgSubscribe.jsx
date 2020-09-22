@@ -340,4 +340,3 @@ function SvgSubscribe(props) {
 }
 
 export default SvgSubscribe;
-

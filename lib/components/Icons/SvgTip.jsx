@@ -340,4 +340,3 @@ function SvgTip(props) {
 }
 
 export default SvgTip;
-

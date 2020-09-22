@@ -5,7 +5,9 @@ import Image, { ImageProps } from "../Image";
 
 import "../../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-profile",
+}))`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
 `;
@@ -17,7 +19,7 @@ type ProfileProps = {
 
 const Profile: React.FC<ProfileProps> = (props) => {
   return (
-    <Container className="gz-profile" size={props.size}>
+    <Container size={props.size}>
       <Image src={props.imageUrl} radius="100%" />
     </Container>
   );

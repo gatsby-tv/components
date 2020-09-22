@@ -1,22 +1,28 @@
-import React from "react";
+import React, { createContext } from "react";
 import styled from "styled-components";
 
-import { Gatsby } from "./Icons";
+import { GatsbyPlain } from "./Icons";
 import Profile, { ProfileProps } from "./Icons/Profile";
 import Search, { SearchProps } from "./Search";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-navbar",
+}))`
   display: block;
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
 
   height: 5rem;
   z-index: 600;
+
+  transition: all 200ms ease;
 `;
 
-const PrimaryBox = styled.div`
+const PrimaryBox = styled.div.attrs((props) => ({
+  className: "gz-navbar-content",
+}))`
   display: flex;
   flex-wrap: nowrap;
   align-items: stretch;
@@ -29,7 +35,9 @@ const PrimaryBox = styled.div`
       : "none"};
 `;
 
-const NavBox = styled.div`
+const NavBox = styled.div.attrs((props) => ({
+  className: "gz-navbar-content-navigation",
+}))`
   display: flex;
   flex-shrink: 1 !important;
   flex-grow: 1 !important;
@@ -39,7 +47,9 @@ const NavBox = styled.div`
   width: 100%;
 `;
 
-const LogoContainer = styled.div`
+const LogoContainer = styled.div.attrs((props) => ({
+  className: "gz-navbar-logo-wrapper",
+}))`
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -53,13 +63,17 @@ const LogoContainer = styled.div`
   }
 `;
 
-const LinksBox = styled.div`
+const LinksBox = styled.div.attrs((props) => ({
+  className: "gz-navbar-links",
+}))`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const Link = styled.a`
+const Link = styled.a.attrs((props) => ({
+  className: "gz-navbar-link",
+}))`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -73,9 +87,13 @@ const Link = styled.a`
   color: var(--font-color) !important;
 `;
 
-const HomeLink = styled.a``;
+const HomeLink = styled.a.attrs((props) => ({
+  className: "gz-navbar-home-link",
+}))``;
 
-const SearchBox = styled.div`
+const SearchBox = styled.div.attrs((props) => ({
+  className: "gz-navbar-search-wrapper",
+}))`
   display: flex;
   flex-shrink: 1 !important;
   flex-grow: 1 !important;
@@ -85,7 +103,9 @@ const SearchBox = styled.div`
   width: 100%;
 `;
 
-const UserBox = styled.div`
+const UserBox = styled.div.attrs((props) => ({
+  className: "gz-navbar-content-user",
+}))`
   display: flex;
   flex-shrink: 1 !important;
   flex-grow: 1 !important;
@@ -95,7 +115,9 @@ const UserBox = styled.div`
   width: 100%;
 `;
 
-const ProfileBox = styled.a`
+const ProfileBox = styled.a.attrs((props) => ({
+  className: "gz-navbar-profile-wrapper",
+}))`
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -110,7 +132,7 @@ type NavbarProps = {
   shadow: boolean;
 };
 
-const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
+const Navbar: React.FC<NavbarProps> = (props) => {
   const profile = props.profile ? (
     <ProfileBox>
       <Profile {...props.profile} size="3.6rem" />
@@ -118,12 +140,12 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
   ) : null;
 
   return (
-    <Container className="gz-navbar">
+    <Container>
       <PrimaryBox shadow={props.shadow}>
         <NavBox>
           <HomeLink href="/">
             <LogoContainer>
-              <Gatsby />
+              <GatsbyPlain />
             </LogoContainer>
           </HomeLink>
           <LinksBox>

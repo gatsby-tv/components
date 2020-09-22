@@ -10,7 +10,9 @@ import Scroll, { ScrollProps } from "../Scroll";
 
 import "../../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-panel",
+}))`
   position: relative;
   width: 90rem;
   height: calc(100vh - 10rem);
@@ -42,12 +44,14 @@ const Container = styled.div`
   animation-fill-mode: forwards;
 `;
 
-const CloseContainer = styled.button`
+const CloseContainer = styled.button.attrs((props) => ({
+  className: "gz-panel-close",
+}))`
   position: absolute;
   top: 1rem;
   right: 1rem;
   z-index: 600;
-
+  padding: 0;
   width: 3rem;
   height: 3rem;
   font-size: 1rem;
@@ -68,7 +72,9 @@ const CloseContainer = styled.button`
   }
 `;
 
-const StreamContainer = styled.div`
+const StreamContainer = styled.div.attrs((props) => ({
+  className: "gz-panel-stream-container",
+}))`
   margin: 2rem 3rem 0 3rem;
 `;
 
@@ -81,10 +87,7 @@ const Panel: React.FC<PanelProps> = (props) => {
   const setModal = useContext(ModalContext);
 
   return (
-    <Container
-      className="gz-panel"
-      onClick={(event) => event.stopPropagation()}
-    >
+    <Container onClick={(event) => event.stopPropagation()}>
       <CloseContainer onClick={() => setModal(null)}>
         <FontAwesomeIcon icon={faTimes} size="2x" />
       </CloseContainer>

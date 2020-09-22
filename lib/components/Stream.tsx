@@ -5,12 +5,25 @@ import { ScrollContext } from "./Scroll";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-scroll",
+}))`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
 `;
+
+interface FetchAction {
+  type: "fetch";
+}
+
+interface SyncAction {
+  type: "sync";
+  items: React.Node[];
+}
+
+type StreamAction = FetchAction | SyncAction;
 
 type StreamProps = {
   generator: (index: number) => React.Node | React.Node[];
@@ -56,7 +69,7 @@ const Stream: React.FC<StreamProps> = (props) => {
     setState({ type: "fetch" });
   }, []);
 
-  return <Container className="gz-stream">{state.items}</Container>;
+  return <Container>{state.items}</Container>;
 };
 
 export { StreamProps };

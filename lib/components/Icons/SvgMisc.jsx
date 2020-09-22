@@ -340,4 +340,3 @@ function SvgMisc(props) {
 }
 
 export default SvgMisc;
-

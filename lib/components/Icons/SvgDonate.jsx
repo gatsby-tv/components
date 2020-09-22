@@ -340,4 +340,3 @@ function SvgDonate(props) {
 }
 
 export default SvgDonate;
-

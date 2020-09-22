@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 import "../config/styles.css";
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  className: "gz-image",
+}))`
   position: relative;
 
   &:before {
@@ -18,7 +20,9 @@ const Container = styled.div`
   }
 `;
 
-const Fill = styled.div`
+const Fill = styled.div.attrs((props) => ({
+  className: "gz-image-fill",
+}))`
   position: absolute;
   top: 0;
   right: 0;
@@ -26,14 +30,18 @@ const Fill = styled.div`
   left: 0;
 `;
 
-const Content = styled.img`
+const Content = styled.img.attrs((props) => ({
+  className: "gz-image-content",
+}))`
   display: block;
 
   width: 100%;
   border-radius: ${(props) => props.radius};
 `;
 
-const Overlay = styled.div`
+const Overlay = styled.div.attrs((props) => ({
+  className: "gz-image-overlay",
+}))`
   position: absolute;
   top: 0;
   right: 0;
@@ -55,7 +63,6 @@ type ImageProps = {
 const Image: React.FC<ImageProps> = (props) => {
   return (
     <Container
-      className="gz-image"
       aspectRatio={props.height / props.width || 1}
       radius={props.radius}
     >

@@ -3,22 +3,22 @@ import styled from "styled-components";
 
 import "../config/styles.css";
 
-const Container = styled.figure`
+const Container = styled.figure.attrs((props) => ({
+  className: "gz-viewport",
+  style: {
+    paddingTop: `${100 * props.aspectRatio}%`,
+  },
+}))`
   position: relative;
   margin: 0;
+  width: 100%;
 
-  &:before {
-    content: "";
-    display: block;
-
-    width: 100%;
-    padding-top: ${(props) => 100 * props.aspectRatio}%;
-
-    background-color: black;
-  }
+  background-color: black;
 `;
 
-const Fill = styled.div`
+const Fill = styled.div.attrs((props) => ({
+  className: "gz-viewport-fill",
+}))`
   position: absolute;
   top: 0;
   right: 0;
@@ -26,7 +26,9 @@ const Fill = styled.div`
   left: 0;
 `;
 
-const Content = styled.div`
+const Content = styled.div.attrs((props) => ({
+  className: "gz-viewport-content",
+}))`
   display: block;
 
   width: 100%;
@@ -35,7 +37,9 @@ const Content = styled.div`
   z-index: 0;
 `;
 
-const Overlay = styled.div`
+const Overlay = styled.div.attrs((props) => ({
+  className: "gz-viewport-overlay",
+}))`
   position: absolute;
   top: 0;
   right: 0;
@@ -85,10 +89,7 @@ const Viewport: React.FC<ViewportProps> = (props) => {
     setCallbacks((current) => [...current, { type: type, callback: callback }]);
 
   return (
-    <Container
-      className="gz-viewport"
-      aspectRatio={props.height / props.width || 9 / 16}
-    >
+    <Container aspectRatio={props.height / props.width || 9 / 16}>
       <Fill>
         <Content>
           <ViewportContext.Provider value={[video, addCallback]}>
