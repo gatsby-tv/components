@@ -55,7 +55,7 @@ const TitleBox = styled.div`
 const DescriptionBox = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 2;
+  flex-grow: 3;
 
   margin-right: 3rem;
 `;
@@ -133,6 +133,10 @@ const Button = styled.button`
   &:hover {
     fill: var(--gatsby-gold-light);
     transform: scale(1.05);
+  }
+
+  &:active {
+    fill: var(--gatsby-gold-dark);
   }
 `;
 

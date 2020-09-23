@@ -49,7 +49,7 @@ const Overlay = styled.div.attrs((props) => ({
   overflow: hidden;
 `;
 
-const ViewportContext = createContext([null, [], () => null]);
+const ViewportContext = createContext([null, null, [], () => null]);
 
 type ViewportCallback = {
   type: string;
@@ -65,12 +65,18 @@ type ViewportProps = {
 
 const Viewport: React.FC<ViewportProps> = (props) => {
   const video = useRef(null);
+  const container = useRef(null);
   const [callbacks, setCallbacks] = useState([]);
 
   return (
-    <Container aspectRatio={props.height / props.width || 9 / 16}>
+    <Container
+      ref={container}
+      aspectRatio={props.height / props.width || 9 / 16}
+    >
       <Fill>
-        <ViewportContext.Provider value={[video, callbacks, setCallbacks]}>
+        <ViewportContext.Provider
+          value={[container, video, callbacks, setCallbacks]}
+        >
           <Content>{props.children}</Content>
           {props.overlay && <Overlay>{props.overlay}</Overlay>}
         </ViewportContext.Provider>

@@ -26,7 +26,9 @@ type VideoProps = {
 };
 
 const Video: React.FC<VideoProps> = (props) => {
-  const [video, callbacks, _] = useContext(ViewportContext);
+  const [viewport, video, callbacks, setCallbacks] = useContext(
+    ViewportContext
+  );
 
   const addCallback = useCallback(
     ({ type, callback }) => {
