@@ -15,6 +15,7 @@ import {
   faRedoAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Timeline from "./Timeline";
 import { Play, Pause, Expand, Compress } from "../Icons";
 import { ViewportContext } from "../Viewport";
 
@@ -26,6 +27,7 @@ const Container = styled.div.attrs((props) => ({
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: 300;
 `;
 
 const OverlayContainer = styled.div.attrs((props) => ({
@@ -45,7 +47,6 @@ const OverlayContainer = styled.div.attrs((props) => ({
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 100;
 
   transition: opacity 200ms ease;
 `;
@@ -65,6 +66,16 @@ const Shading = styled.div.attrs((props) => ({
   );
 `;
 
+const TimelineContainer = styled.div.attrs((props) => ({
+  className: "gz-player-overlay-timeline-wrapper",
+}))`
+  position: absolute;
+  left: 2rem;
+  bottom: 4.5rem;
+  right: 2rem;
+  z-index: 305;
+`
+
 const Controls = styled.div.attrs((props) => ({
   className: "gz-player-overlay-controls",
 }))`
@@ -75,7 +86,7 @@ const Controls = styled.div.attrs((props) => ({
   right: 2rem;
   bottom: 0;
   left: 2rem;
-  height: 4rem;
+  height: 4.6rem;
 
   font-size: 2rem;
 `;
@@ -135,88 +146,7 @@ const TimeStamp = styled.p.attrs((props) => ({
 
   font-size: 1.5rem;
   font-condensed: condensed;
-`;
-
-const Timeline = styled.div.attrs((props) => ({
-  className: "gz-player-overlay-timeline",
-}))`
-  position: absolute;
-  top: -0.26rem;
-  right: 0;
-  left: 0;
-  height: 0.25rem;
-  z-index: 200;
-
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.1);
-
-  transition: height 150ms ease;
-
-  &:hover {
-    height: 0.5rem;
-
-    .gz-player-overlay-progress-ball {
-      transform: scale(1.25);
-    }
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 1.25rem;
-  }
-`;
-
-const Progress = styled.div.attrs((props) => ({
-  className: "gz-player-overlay-progress",
-  style: {
-    right: `${100 - props.percentage}%`,
-  },
-}))`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 202;
-
-  background-color: var(--gatsby-gold);
-`;
-
-const ProgressBall = styled.div.attrs((props) => ({
-  className: "gz-player-overlay-progress-ball",
-}))`
-  display: flex;
-
-  position: absolute;
-  top: -50%;
-  right: -0.5rem;
-  width: 1rem;
-  height: 1rem;
-
-  background-color: var(--gatsby-gold);
-  border-radius: 100%;
-
-  transition: transform 150ms ease;
-  transform: scale(0);
-`;
-
-const BufferProgress = styled.div.attrs((props) => ({
-  className: "gz-player-overlay-buffer-progress",
-  style: {
-    right: `${100 - props.percentage}%`,
-  },
-}))`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 201;
-
-  background-color: rgba(255, 255, 255, 0.2);
+  user-select: none;
 `;
 
 const Loading = styled.div.attrs((props) => ({
@@ -225,7 +155,6 @@ const Loading = styled.div.attrs((props) => ({
   position: absolute;
   top: calc(50% - 7.5rem);
   left: calc(50% - 7.5rem);
-  z-index: 211;
   width: 12rem;
   height: 12rem;
 
@@ -260,7 +189,6 @@ const Signal = styled.div.attrs((props) => ({
   position: absolute;
   top: calc(50% - 6rem);
   left: calc(50% - 6rem);
-  z-index: 210;
   width: 12rem;
   height: 12rem;
 
@@ -318,8 +246,9 @@ const SkipSignal = () => (
 type OverlayProps = {};
 
 const Overlay: React.FC<OverlayProps> = (props) => {
-  const timeline = useRef(null);
-  const [viewport, video, _, setCallbacks] = useContext(ViewportContext);
+  const [viewport, video, callbacks, setCallbacks] = useContext(
+    ViewportContext
+  );
   const [loading, setLoading] = useState(false);
   const [signal, setSignal] = useState(null);
 
@@ -329,19 +258,23 @@ const Overlay: React.FC<OverlayProps> = (props) => {
         case "deactivate":
           return {
             ...state,
-            active: false,
+            active: state.paused,
             scrubbing: false,
-            timeout: null,
+            idletime: state.paused ? -Infinity : Infinity,
           };
 
+        case "idle":
+          return {
+            ...state,
+            idletime: state.idletime + 1,
+            active: state.idletime < 16,
+          }
+
         case "activate":
-          const timeout = state.paused
-            ? null
-            : setTimeout(() => setState({ type: "deactivate" }), 4000);
           return {
             ...state,
             active: true,
-            timeout: timeout,
+            idletime: state.paused ? -Infinity : 0,
           };
 
         case "pause":
@@ -350,7 +283,13 @@ const Overlay: React.FC<OverlayProps> = (props) => {
             playing: false,
             paused: true,
             active: true,
-            timeout: null,
+            idletime: -Infinity,
+          };
+
+        case "waiting":
+          return {
+            ...state,
+            waiting: true,
           };
 
         case "playing":
@@ -361,7 +300,7 @@ const Overlay: React.FC<OverlayProps> = (props) => {
             stalled: false,
             waiting: false,
             active: true,
-            timeout: setTimeout(() => setState({ type: "deactivate" }), 4000),
+            idletime: 0,
           };
 
         case "stalled":
@@ -391,12 +330,6 @@ const Overlay: React.FC<OverlayProps> = (props) => {
             time: action.time,
           };
 
-        case "waiting":
-          return {
-            ...state,
-            waiting: true,
-          };
-
         case "timeupdate":
           return {
             ...state,
@@ -423,7 +356,7 @@ const Overlay: React.FC<OverlayProps> = (props) => {
     },
     {
       active: false,
-      timeout: null,
+      idletime: 0,
       playing: false,
       paused: false,
       stalled: false,
@@ -450,30 +383,6 @@ const Overlay: React.FC<OverlayProps> = (props) => {
     return bufferIndex;
   };
 
-  const timelineSeekTo = useCallback(
-    (event) => {
-      const rect = timeline.current.getBoundingClientRect();
-      video.current.currentTime =
-        video.current.duration *
-        Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
-    },
-    [video.current, timeline.current]
-  );
-
-  const timelineScrubTo = useCallback(
-    (event) => {
-      if (event.buttons !== 1) {
-        return;
-      }
-      const rect = timeline.current.getBoundingClientRect();
-      const time =
-        video.current.duration *
-        Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
-      setState({ type: "scrub", time: time });
-    },
-    [video.current, timeline.current]
-  );
-
   const togglePlayback = useCallback(() => {
     if (state.paused) {
       video.current.play();
@@ -492,50 +401,40 @@ const Overlay: React.FC<OverlayProps> = (props) => {
     }
   }, [viewport.current]);
 
-  const getTimePercentage = useCallback(
-    (time) => {
-      if (!video.current) {
-        return 0;
-      }
+  const getTimeString = useCallback(() => {
+    if (!video.current || !video.current.duration) {
+      return "0:00 / 0:00";
+    }
 
-      return (100 * time) / video.current.duration;
-    },
-    [video.current]
-  );
+    let time = video.current.currentTime;
+    let duration = video.current.duration;
 
-  const getTimeString = useCallback(
-    (type) => {
-      if (!video.current || !video.current.duration) {
-        return "00:00 / 00:00";
-      }
+    const durationHours = String(Math.floor(duration / 3600));
+    duration %= 3600;
+    const durationMinutes = String(Math.floor(duration / 60));
+    const durationSeconds = String(Math.floor(duration % 60)).padStart(2, "0");
 
-      let time = video.current.currentTime;
-      let duration = video.current.duration;
+    const timeHours = String(Math.floor(time / 3600)).padStart(
+      durationHours.length,
+      "0"
+    );
+    time %= 3600;
+    const timeMinutes = String(Math.floor(time / 60)).padStart(
+      durationMinutes.length,
+      "0"
+    );
+    const timeSeconds = String(Math.floor(time % 60)).padStart(2, "0");
 
-      const durationHours = String(Math.floor(duration / 3600));
-      duration %= 3600;
-      const durationMinutes = String(Math.floor(duration / 60));
-      const durationSeconds = String(Math.floor(duration % 60)).padStart(
-        2,
-        "0"
-      );
+    if (durationHours !== "0") {
+      return `${timeHours}:${timeMinutes}:${timeSeconds} / ${durationHours}:${durationMinutes}:${durationSeconds}`;
+    } else {
+      return `${timeMinutes}:${timeSeconds} / ${durationMinutes}:${durationSeconds}`;
+    }
+  }, [video.current]);
 
-      const timeHours = String(Math.floor(time / 3600)).padStart(
-        durationHours.length,
-        "0"
-      );
-      time %= 3600;
-      const timeMinutes = String(Math.floor(time / 60)).padStart(
-        durationMinutes.length,
-        "0"
-      );
-      const timeSeconds = String(Math.floor(time % 60)).padStart(2, "0");
-
-      if (durationHours !== "0") {
-        return `${timeHours}:${timeMinutes}:${timeSeconds} / ${durationHours}:${durationMinutes}:${durationSeconds}`;
-      } else {
-        return `${timeMinutes}:${timeSeconds} / ${durationMinutes}:${durationSeconds}`;
-      }
+  const seekTo = useCallback((time) => {
+      video.current.currentTime = time;
+      setState({ type: "timeupdate", time: time })
     },
     [video.current]
   );
@@ -595,10 +494,6 @@ const Overlay: React.FC<OverlayProps> = (props) => {
   }, [video.current]);
 
   useEffect(() => {
-    return () => clearTimeout(state.timeout);
-  }, [state.timeout]);
-
-  useEffect(() => {
     const handleKeydown = (event) => {
       switch (event.code) {
         case "Space":
@@ -615,20 +510,20 @@ const Overlay: React.FC<OverlayProps> = (props) => {
           return;
 
         case "ArrowRight":
-          video.current.currentTime = Math.min(
+          seekTo(Math.min(
             video.current.currentTime + 5,
             video.current.duration
-          );
+          ));
           if (!state.seeking) {
             setSignal(<SkipSignal />);
           }
           return;
 
         case "ArrowLeft":
-          video.current.currentTime = Math.max(
+          seekTo(Math.max(
             video.current.currentTime - 5,
             0
-          );
+          ));
           if (!state.seeking) {
             setSignal(<RewindSignal />);
           }
@@ -657,48 +552,47 @@ const Overlay: React.FC<OverlayProps> = (props) => {
     }
   }, [state.waiting]);
 
-  const controlEvents = {
+  useEffect(() => {
+    const id = setInterval(() => setState({ type: "idle" }), 250);
+    return () => clearInterval(id);
+  }, [])
+
+  const events = {
     onClick: togglePlayback,
     onMouseDown: () => setState({ type: "activate" }),
     onMouseMove: () => setState({ type: "activate" }),
-    onMouseLeave: () => !state.paused && setState({ type: "deactivate" }),
+    onMouseLeave: () => setState({ type: "deactivate" }),
   };
 
-  const timelineEvents = {
-    onClick: (event) => event.stopPropagation(),
-    onMouseDown: timelineScrubTo,
-    onMouseMove: timelineScrubTo,
-    onMouseUp: timelineSeekTo,
-  };
-
-  return (
-    <Container>
-      {loading && <Loading />}
-      <OverlayContainer active={state.active} {...controlEvents}>
-        <Shading />
-        {signal}
-        <Controls onClick={(event) => event.stopPropagation()}>
-          <Timeline ref={timeline} {...timelineEvents}>
-            <Progress percentage={getTimePercentage(state.time)}>
-              <ProgressBall />
-            </Progress>
-            <BufferProgress percentage={getTimePercentage(state.progress)} />
-          </Timeline>
-          <PlaybackControls>
-            <ControlButton onClick={togglePlayback}>
-              {state.paused ? <Play /> : <Pause />}
-            </ControlButton>
-            <TimeStamp>{getTimeString()}</TimeStamp>
-          </PlaybackControls>
-          <ViewportControls>
-            <ControlButton onClick={toggleFullscreen}>
-              {document.fullscreenElement ? <Compress /> : <Expand />}
-            </ControlButton>
-          </ViewportControls>
-        </Controls>
-      </OverlayContainer>
-    </Container>
-  );
+    return (
+      <Container {...events}>
+        {loading && <Loading />}
+        <OverlayContainer active={state.active}>
+          <Shading />
+          {signal}
+          <TimelineContainer>
+            <Timeline
+              time={state.time}
+              progress={state.progress}
+              onUpdate={(time) => setState({ type: "scrub", time: time })}
+            />
+          </TimelineContainer>
+          <Controls onClick={(event) => event.stopPropagation()}>
+            <PlaybackControls>
+              <ControlButton onClick={togglePlayback}>
+                {state.paused ? <Play /> : <Pause />}
+              </ControlButton>
+              <TimeStamp>{getTimeString()}</TimeStamp>
+            </PlaybackControls>
+            <ViewportControls>
+              <ControlButton onClick={toggleFullscreen}>
+                {document.fullscreenElement ? <Compress /> : <Expand />}
+              </ControlButton>
+            </ViewportControls>
+          </Controls>
+        </OverlayContainer>
+      </Container>
+    );
 };
 
 export { OverlayProps };
