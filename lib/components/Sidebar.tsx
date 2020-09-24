@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import Profile, { ProfileProps } from "./Icons/Profile";
 
-import "../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-sidebar",
 }))`

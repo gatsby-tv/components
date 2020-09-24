@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-import "../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-search",
 }))`

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
+import "../lib/assets/css/styles.css";
+
 import Navbar, { NavbarProps } from "../lib/components/Navbar";
 import Player, { PlayerProps } from "../lib/components/Player";
 import Preview, { PreviewProps } from "../lib/components/Video/Preview";
@@ -12,8 +14,6 @@ import { Promote, Subscribe, Donate, Tip, Misc } from "../lib/components/Icons";
 import * as NavbarStories from "./Navbar.stories";
 import * as PlayerStories from "./Player.stories";
 import * as PreviewStories from "./Preview.stories";
-
-import "../lib/config/styles.css";
 
 const Container = styled.div`
   position: absolute;

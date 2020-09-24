@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
 import styled from "styled-components";
 
-import "../config/styles.css";
-
 const Overlay = styled.div.attrs((props) => ({
   className: "gz-modal",
 }))`

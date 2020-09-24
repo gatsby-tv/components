@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
+import "../lib/assets/css/styles.css";
+
 import Carousel, { CarouselProps } from "../lib/components/Carousel";
 import Preview, { PreviewProps } from "../lib/components/Video/Preview";
 import Panel, { PanelProps } from "../lib/components/Channel/Panel";

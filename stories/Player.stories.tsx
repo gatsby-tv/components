@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import Player, { PlayerProps } from "../lib/components/Player";
+import "../lib/assets/css/styles.css";
 
-import "../lib/config/styles.css";
+import Player, { PlayerProps } from "../lib/components/Player";
 
 export default {
   title: "Video/Player",

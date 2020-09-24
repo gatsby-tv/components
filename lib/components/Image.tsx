@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import "../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-image",
 }))`

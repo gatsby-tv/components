@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { ViewportContext } from "../Viewport";
 
-import "../../config/styles.css";
-
 const VideoBlock = styled.video.attrs((props) => ({
   className: "gz-video",
 }))`

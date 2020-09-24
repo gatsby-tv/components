@@ -8,8 +8,6 @@ import Banner, { BannerProps } from "./Banner";
 import Stream, { StreamProps } from "../Stream";
 import Scroll, { ScrollProps } from "../Scroll";
 
-import "../../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-panel",
 }))`

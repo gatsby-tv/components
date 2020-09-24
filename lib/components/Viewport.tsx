@@ -1,8 +1,6 @@
 import React, { createContext, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import "../config/styles.css";
-
 const Container = styled.figure.attrs((props) => ({
   className: "gz-viewport",
   style: {

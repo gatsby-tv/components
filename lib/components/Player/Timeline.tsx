@@ -10,8 +10,6 @@ import { usePopper } from "react-popper-workaround";
 
 import { ViewportContext } from "../Viewport";
 
-import "../../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-player-timeline",
 }))`

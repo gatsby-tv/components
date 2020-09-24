@@ -5,8 +5,6 @@ import { GatsbyPlain } from "./Icons";
 import Profile, { ProfileProps } from "./Icons/Profile";
 import Search, { SearchProps } from "./Search";
 
-import "../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-navbar",
 }))`

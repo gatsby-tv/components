@@ -19,8 +19,6 @@ import Timeline from "./Timeline";
 import { Play, Pause, Expand, Compress } from "../Icons";
 import { ViewportContext } from "../Viewport";
 
-import "../../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-player-overlay",
 }))`
@@ -74,7 +72,7 @@ const TimelineContainer = styled.div.attrs((props) => ({
   bottom: 4.5rem;
   right: 2rem;
   z-index: 305;
-`
+`;
 
 const Controls = styled.div.attrs((props) => ({
   className: "gz-player-overlay-controls",
@@ -268,7 +266,7 @@ const Overlay: React.FC<OverlayProps> = (props) => {
             ...state,
             idletime: state.idletime + 1,
             active: state.idletime < 16,
-          }
+          };
 
         case "activate":
           return {
@@ -432,9 +430,10 @@ const Overlay: React.FC<OverlayProps> = (props) => {
     }
   }, [video.current]);
 
-  const seekTo = useCallback((time) => {
+  const seekTo = useCallback(
+    (time) => {
       video.current.currentTime = time;
-      setState({ type: "timeupdate", time: time })
+      setState({ type: "timeupdate", time: time });
     },
     [video.current]
   );
@@ -510,20 +509,16 @@ const Overlay: React.FC<OverlayProps> = (props) => {
           return;
 
         case "ArrowRight":
-          seekTo(Math.min(
-            video.current.currentTime + 5,
-            video.current.duration
-          ));
+          seekTo(
+            Math.min(video.current.currentTime + 5, video.current.duration)
+          );
           if (!state.seeking) {
             setSignal(<SkipSignal />);
           }
           return;
 
         case "ArrowLeft":
-          seekTo(Math.max(
-            video.current.currentTime - 5,
-            0
-          ));
+          seekTo(Math.max(video.current.currentTime - 5, 0));
           if (!state.seeking) {
             setSignal(<RewindSignal />);
           }
@@ -555,7 +550,7 @@ const Overlay: React.FC<OverlayProps> = (props) => {
   useEffect(() => {
     const id = setInterval(() => setState({ type: "idle" }), 250);
     return () => clearInterval(id);
-  }, [])
+  }, []);
 
   const events = {
     onClick: togglePlayback,
@@ -564,35 +559,35 @@ const Overlay: React.FC<OverlayProps> = (props) => {
     onMouseLeave: () => setState({ type: "deactivate" }),
   };
 
-    return (
-      <Container {...events}>
-        {loading && <Loading />}
-        <OverlayContainer active={state.active}>
-          <Shading />
-          {signal}
-          <TimelineContainer>
-            <Timeline
-              time={state.time}
-              progress={state.progress}
-              onUpdate={(time) => setState({ type: "scrub", time: time })}
-            />
-          </TimelineContainer>
-          <Controls onClick={(event) => event.stopPropagation()}>
-            <PlaybackControls>
-              <ControlButton onClick={togglePlayback}>
-                {state.paused ? <Play /> : <Pause />}
-              </ControlButton>
-              <TimeStamp>{getTimeString()}</TimeStamp>
-            </PlaybackControls>
-            <ViewportControls>
-              <ControlButton onClick={toggleFullscreen}>
-                {document.fullscreenElement ? <Compress /> : <Expand />}
-              </ControlButton>
-            </ViewportControls>
-          </Controls>
-        </OverlayContainer>
-      </Container>
-    );
+  return (
+    <Container {...events}>
+      {loading && <Loading />}
+      <OverlayContainer active={state.active}>
+        <Shading />
+        {signal}
+        <TimelineContainer>
+          <Timeline
+            time={state.time}
+            progress={state.progress}
+            onUpdate={(time) => setState({ type: "scrub", time: time })}
+          />
+        </TimelineContainer>
+        <Controls onClick={(event) => event.stopPropagation()}>
+          <PlaybackControls>
+            <ControlButton onClick={togglePlayback}>
+              {state.paused ? <Play /> : <Pause />}
+            </ControlButton>
+            <TimeStamp>{getTimeString()}</TimeStamp>
+          </PlaybackControls>
+          <ViewportControls>
+            <ControlButton onClick={toggleFullscreen}>
+              {document.fullscreenElement ? <Compress /> : <Expand />}
+            </ControlButton>
+          </ViewportControls>
+        </Controls>
+      </OverlayContainer>
+    </Container>
+  );
 };
 
 export { OverlayProps };

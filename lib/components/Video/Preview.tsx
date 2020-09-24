@@ -5,8 +5,6 @@ import Thumbnail, { ThumbnailProps } from "./Thumbnail";
 import Meta, { MetaProps } from "./Meta";
 import Profile, { ProfileProps } from "../Icons/Profile";
 
-import "../../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-preview",
 }))`

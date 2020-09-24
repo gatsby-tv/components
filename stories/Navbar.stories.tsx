@@ -1,6 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
+import "../lib/assets/css/styles.css";
+
 import Navbar, { NavbarProps } from "../lib/components/Navbar";
 
 import * as SearchStories from "./Search.stories";

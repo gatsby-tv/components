@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { ScrollContext } from "./Scroll";
 
-import "../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-scroll",
 }))`

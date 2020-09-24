@@ -15,8 +15,6 @@ import {
 import Image, { ImageProps } from "./Image";
 import { ModalContext } from "./Modal";
 
-import "../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-carousel",
 }))`

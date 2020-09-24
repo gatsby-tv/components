@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import Image, { ImageProps } from "../Image";
 
-import "../../config/styles.css";
-
 const Duration = styled.div.attrs((props) => ({
   className: "gz-thumbnail-duration",
 }))`

@@ -1,6 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
+import "../lib/assets/css/styles.css";
+
 import Sidebar, { SidebarProps } from "../lib/components/Sidebar";
 
 export default {

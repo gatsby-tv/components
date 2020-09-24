@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
+import "../lib/assets/css/styles.css";
+
 import Modal, { ModalProps, ModalContext } from "../lib/components/Modal";
 import Navbar, { NavbarProps } from "../lib/components/Navbar";
 import Sidebar, { SidebarProps } from "../lib/components/Sidebar";
@@ -14,8 +16,6 @@ import * as NavbarStories from "./Navbar.stories";
 import * as SidebarStories from "./Sidebar.stories";
 import * as CarouselStories from "./Carousel.stories";
 import * as PreviewStories from "./Preview.stories";
-
-import "../lib/config/styles.css";
 
 const Container = styled.div`
   position: absolute;

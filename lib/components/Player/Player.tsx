@@ -5,8 +5,6 @@ import Viewport, { ViewportProps } from "../Viewport";
 import Video, { VideoProps } from "./Video";
 import Overlay, { OverlayProps } from "./Overlay";
 
-import "../../config/styles.css";
-
 const Container = styled.div.attrs((props) => ({
   className: "gz-player",
   style: props.fullscreen
