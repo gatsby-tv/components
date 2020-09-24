@@ -380,6 +380,7 @@ const Overlay: React.FC<OverlayProps> = (props) => {
         case "seeked":
           return {
             ...state,
+            scrubbing: false,
             seeking: false,
           };
 
