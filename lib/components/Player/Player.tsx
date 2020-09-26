@@ -1,47 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
 
-import Viewport, { ViewportProps } from "../Viewport";
-import Video, { VideoProps } from "./Video";
-import Overlay, { OverlayProps } from "./Overlay";
+import { Viewport, ViewportProps } from "../Viewport";
+import { Video, VideoProps } from "../Video";
 
-const Container = styled.div.attrs((props) => ({
-  className: "gz-player",
-  style: props.fullscreen
-    ? {
-        height: "100vh",
-        maxHeight: "none",
-      }
-    : {
-        height: "calc((9 / 16) * 100vw)",
-        maxHeight: "calc(100vh - 14rem)",
-      },
-}))`
-  position: relative;
-  width: 100%;
-  min-height: 48rem;
-  z-index: 500;
+import { Overlay } from "./components";
 
-  background: black;
-`;
+import { Container, VideoBox } from "./Styles";
 
-const VideoBox = styled.div.attrs((props) => ({
-  className: "gz-player-video-wrapper",
-}))`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  height: 100%;
-`;
-
-type PlayerProps = {
+export interface PlayerProps {
   video: VideoProps;
-  fullscreen: boolean;
-};
+  fullscreen?: boolean;
+}
 
-const Player: React.FC<PlayerProps> = (props) => {
+export const Player: React.FC<PlayerProps> = (props) => {
   const container = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -72,6 +43,3 @@ const Player: React.FC<PlayerProps> = (props) => {
     </Container>
   );
 };
-
-export { PlayerProps };
-export default Player;
