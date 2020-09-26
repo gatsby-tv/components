@@ -17,7 +17,7 @@ import { Play, Pause, Expand, Compress } from "../../../Icons";
 import { ViewportContext } from "../../../Viewport";
 
 import { Timeline } from "../Timeline";
-import { Signal } from "../Signal"
+import { Signal } from "../Signal";
 
 import {
   Container,
@@ -30,7 +30,7 @@ import {
   ControlButton,
   TimeStamp,
   Loading,
-} from "./Styles"
+} from "./Styles";
 
 export interface OverlayProps {}
 

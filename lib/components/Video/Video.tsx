@@ -33,5 +33,5 @@ export const Video: React.FC<VideoProps> = (props) => {
     return () => cleanups.forEach((cleanup, index) => cleanup());
   }, [video.current, callbacks]);
 
-  return <VideoBlock ref={video} {...props} />;
+  return <VideoBlock ref={video} src={props.source} {...props} />;
 };

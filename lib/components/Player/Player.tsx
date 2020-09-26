@@ -32,8 +32,7 @@ export const Player: React.FC<PlayerProps> = (props) => {
   return (
     <Container ref={container} fullscreen={props.fullscreen}>
       <Viewport
-        width={dimensions.width}
-        height={dimensions.height}
+        aspectRatio={dimensions.height / dimensions.width}
         overlay={<Overlay />}
       >
         <VideoBox>

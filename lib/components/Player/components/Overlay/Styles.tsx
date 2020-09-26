@@ -1,4 +1,4 @@
-import styled from "styled-componenets";
+import styled from "styled-components";
 
 export const Container = styled.div.attrs((props) => ({
   className: "gz-player-overlay",

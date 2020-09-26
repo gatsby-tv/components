@@ -6,7 +6,7 @@ import { Container, Fill, Content, Overlay } from "./Styles";
 
 export enum AvatarSize {
   Small = "3.6rem",
-  Medium = "4.2rem",
+  Medium = "4.4rem",
   Large = "6rem",
 }
 

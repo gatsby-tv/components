@@ -36,7 +36,7 @@ export interface SearchProps {
 }
 
 export const Search: React.FC<SearchProps> = (props) => {
-  const [highlight, setHighlight] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   const [state, setState] = useReducer(
     (state, action) => {
@@ -81,7 +81,7 @@ export const Search: React.FC<SearchProps> = (props) => {
 
   return (
     <Container>
-      <SearchBox highlight={highlight}>
+      <SearchBox highlight={focused}>
         <InputBox>
           <SearchIcon>
             <FontAwesomeIcon icon={faSearch} />
@@ -99,14 +99,14 @@ export const Search: React.FC<SearchProps> = (props) => {
             onChange={(event) =>
               setState({ type: "fetch", query: event.target.value })
             }
-            onFocus={() => setHighlight(true)}
-            onBlur={() => setHighlight(false)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
           />
           <SearchButton as="button">
             <FontAwesomeIcon icon={faArrowRight} />
           </SearchButton>
         </InputBox>
-        <SuggestionContainer>{suggestions}</SuggestionContainer>
+        {focused && <SuggestionContainer>{suggestions}</SuggestionContainer>}
       </SearchBox>
     </Container>
   );
