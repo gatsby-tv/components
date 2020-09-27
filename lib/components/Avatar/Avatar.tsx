@@ -13,7 +13,7 @@ export enum AvatarSize {
 export interface AvatarProps {
   source: string;
   size: AvatarSize;
-  overlay?: React.Node;
+  overlay?: React.ReactNode;
 }
 
 export const Avatar: React.FC<AvatarProps> = (props) => {

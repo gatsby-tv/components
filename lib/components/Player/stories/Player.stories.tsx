@@ -10,32 +10,34 @@ export default {
 
 const Template: Story<PlayerProps> = (args) => <Player {...args} />;
 
-export const Blank = Template.bind({})
+export const Blank = Template.bind({});
 Blank.args = {
   video: {
     source: "",
     loop: true,
     muted: true,
     autoPlay: true,
-  }
-}
+  },
+};
 
-export const DefaultAspectRatio = Template.bind({})
+export const DefaultAspectRatio = Template.bind({});
 DefaultAspectRatio.args = {
   video: {
-    source: "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps_1920x1080_8000k.mp4",
+    source:
+      "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps_1920x1080_8000k.mp4",
     loop: true,
     muted: true,
     autoPlay: true,
-  }
-}
+  },
+};
 
-export const WideAspectRatio = Template.bind({})
+export const WideAspectRatio = Template.bind({});
 WideAspectRatio.args = {
   video: {
-    source: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Spring_-_Blender_Open_Movie.webm",
+    source:
+      "https://upload.wikimedia.org/wikipedia/commons/a/a5/Spring_-_Blender_Open_Movie.webm",
     loop: true,
     muted: true,
     autoPlay: true,
-  }
-}
+  },
+};

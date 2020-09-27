@@ -9,7 +9,11 @@ export const Container = styled.div.attrs((props) => ({
   z-index: 300;
 `;
 
-export const OverlayContainer = styled.div.attrs((props) => ({
+interface ActivatableProps {
+  active?: boolean;
+}
+
+export const OverlayContainer = styled.div.attrs<ActivatableProps>((props) => ({
   className: "gz-player-overlay-container",
   style: props.active
     ? {
@@ -20,7 +24,7 @@ export const OverlayContainer = styled.div.attrs((props) => ({
         opacity: 0,
         cursor: "none",
       },
-}))`
+}))<ActivatableProps>`
   position: absolute;
   top: 0;
   right: 0;

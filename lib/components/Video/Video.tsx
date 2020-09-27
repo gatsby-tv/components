@@ -16,22 +16,20 @@ export interface VideoProps {
 }
 
 export const Video: React.FC<VideoProps> = (props) => {
-  const [viewport, video, callbacks, setCallbacks] = useContext(
-    ViewportContext
-  );
+  const { video, callbacks } = useContext(ViewportContext);
 
   const addCallback = useCallback(
     ({ type, callback }) => {
-      video.current.addEventListener(type, callback);
-      return () => video.current.removeEventListener(type, callback);
+      video?.current?.addEventListener(type, callback);
+      return () => video?.current?.removeEventListener(type, callback);
     },
-    [video.current]
+    [video?.current]
   );
 
   useEffect(() => {
     const cleanups = callbacks.map((callback, index) => addCallback(callback));
     return () => cleanups.forEach((cleanup, index) => cleanup());
-  }, [video.current, callbacks]);
+  }, [video?.current, callbacks]);
 
   return <VideoBlock ref={video} src={props.source} {...props} />;
 };

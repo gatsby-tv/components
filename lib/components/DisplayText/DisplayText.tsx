@@ -1,33 +1,37 @@
 import React from "react";
 
-import {
-  Small,
-  Medium,
-  Large,
-  ExtraLarge,
-} from "./Styles";
+import { Small, Medium, Large, ExtraLarge } from "./Styles";
 
 type HeaderTag = "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 export enum DisplayTextSize {
-  Small = Small,
-  Medium = Medium,
-  Large = Large,
-  ExtraLarge = ExtraLarge,
+  Small,
+  Medium,
+  Large,
+  ExtraLarge,
 }
 
 export interface DisplayTextProps {
-  children?: React.Node;
+  children?: React.ReactNode;
   size?: DisplayTextSize;
   as?: HeaderTag;
 }
 
 export const DisplayText: React.FC<DisplayTextProps> = (props) => {
-  const Container = props.size || DisplayTextSize.Medium;
+  switch (props.size) {
+    case DisplayTextSize.Small:
+      return <Small as={props.as || "p"}>{props.children}</Small>;
 
-  return (
-    <Container as={props.as || "p"}>
-      {props.children}
-    </Container>
-  );
+    case DisplayTextSize.Medium:
+      return <Medium as={props.as || "p"}>{props.children}</Medium>;
+
+    case DisplayTextSize.Large:
+      return <Large as={props.as || "p"}>{props.children}</Large>;
+
+    case DisplayTextSize.ExtraLarge:
+      return <ExtraLarge as={props.as || "p"}>{props.children}</ExtraLarge>;
+
+    default:
+      return <Small as={props.as || "p"}>{props.children}</Small>;
+  }
 };

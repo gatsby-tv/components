@@ -29,12 +29,16 @@ export const Container = styled.div.attrs((props) => ({
   }
 `;
 
-export const Progress = styled.div.attrs((props) => ({
+interface ProgressProps {
+  percentage: number;
+}
+
+export const Progress = styled.div.attrs<ProgressProps>((props) => ({
   className: "gz-player-progress",
   style: {
     right: `${100 - props.percentage}%`,
   },
-}))`
+}))<ProgressProps>`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -61,12 +65,12 @@ export const ProgressBall = styled.div.attrs((props) => ({
   transform: scale(0);
 `;
 
-export const BufferProgress = styled.div.attrs((props) => ({
+export const BufferProgress = styled.div.attrs<ProgressProps>((props) => ({
   className: "gz-player-buffer-progress",
   style: {
     right: `${100 - props.percentage}%`,
   },
-}))`
+}))<ProgressProps>`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -80,12 +84,16 @@ export const Reference = styled.div.attrs((props) => ({
   className: "gz-player-popper-reference",
 }))``;
 
-export const Popper = styled.div.attrs((props) => ({
+interface PopperProps {
+  visible?: boolean;
+}
+
+export const Popper = styled.div.attrs<PopperProps>((props) => ({
   className: "gz-player-popper",
   style: {
     opacity: props.visible ? "1" : "0",
   },
-}))`
+}))<PopperProps>`
   font-size: 1.65rem;
   font-weight: 600;
   font-condensed: condensed;
@@ -94,11 +102,11 @@ export const Popper = styled.div.attrs((props) => ({
   transition: opacity 200ms ease;
 `;
 
-export const ScrubContainer = styled.div.attrs((props) => ({
+export const ScrubContainer = styled.div.attrs<ProgressProps>((props) => ({
   className: "gz-player-popper-container",
   style: {
     right: `${100 - props.percentage}%`,
   },
-}))`
+}))<ProgressProps>`
   position: absolute;
 `;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const Container = styled.div.attrs(props => ({
+export const Container = styled.div.attrs((props) => ({
   className: "sb--gz-image-wrapper",
 }))`
   width: 25rem;
-`
+`;
 
-export const Overlay = styled.div.attrs(props => ({
+export const Overlay = styled.div.attrs((props) => ({
   className: "sb--gz-image-overlay",
 }))`
   position: absolute;
@@ -23,4 +23,4 @@ export const Overlay = styled.div.attrs(props => ({
     box-shadow: inset 1rem 0 3rem 0 var(--dark-grey-0),
       inset -1rem 0 3rem 0 var(--dark-grey-0);
   }
-`
+`;

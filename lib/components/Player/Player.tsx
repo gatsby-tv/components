@@ -7,27 +7,35 @@ import { Overlay } from "./components";
 
 import { Container, VideoBox } from "./Styles";
 
+interface DimensionType {
+  width: number;
+  height: number;
+}
+
 export interface PlayerProps {
   video: VideoProps;
   fullscreen?: boolean;
 }
 
 export const Player: React.FC<PlayerProps> = (props) => {
-  const container = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const container = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState<DimensionType>({
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     const handleResize = () => {
       setDimensions({
-        width: container.current.offsetWidth,
-        height: container.current.offsetHeight,
+        width: container?.current?.offsetWidth || 0,
+        height: container?.current?.offsetHeight || 0,
       });
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [container.current]);
+  }, [container?.current]);
 
   return (
     <Container ref={container} fullscreen={props.fullscreen}>

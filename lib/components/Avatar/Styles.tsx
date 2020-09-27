@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
+interface ContainerProps {
+  size: string;
+}
+
 export const Container = styled.div.attrs((props) => ({
   className: "gz-avatar",
-}))`
+}))<ContainerProps>`
   position: relative;
 
   width: ${(props) => props.size};

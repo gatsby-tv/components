@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Story, Meta } from "@storybook/react/types-6-0"
+import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { Modal, ModalContext } from "../../Modal"
+import { Modal, ModalContext } from "../../Modal";
 
 import { Panel, PanelProps } from "../Panel";
 
@@ -20,23 +20,23 @@ const Template: Story<PanelProps> = (args) => {
       {modal && <Modal>{modal}</Modal>}
       <button onClick={() => setModal(<Panel {...args} />)}>Activate</button>
     </ModalContext.Provider>
-  )
-}
+  );
+};
 
-export const Blank = Template.bind({})
-Blank.args = {}
+export const Blank = Template.bind({});
+Blank.args = {};
 
-export const SmallCard = Template.bind({})
+export const SmallCard = Template.bind({});
 SmallCard.args = {
   children: <Card size="32rem" />,
-}
+};
 
-export const MediumCard = Template.bind({})
+export const MediumCard = Template.bind({});
 MediumCard.args = {
   children: <Card size="52rem" />,
-}
+};
 
-export const LargeCard = Template.bind({})
+export const LargeCard = Template.bind({});
 LargeCard.args = {
   children: <Card size="72rem" />,
-}
+};

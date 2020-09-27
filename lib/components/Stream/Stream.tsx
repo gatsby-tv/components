@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, useContext } from "react";
 
-import { ScrollContext } from "./Scroll";
+import { ScrollContext } from "../Scroll";
 
 import { Container } from "./Styles";
 
@@ -10,20 +10,26 @@ interface FetchAction {
 
 interface SyncAction {
   type: "sync";
-  items: React.Node[];
+  items: React.ReactNode[];
 }
 
 type StreamAction = FetchAction | SyncAction;
 
+interface StreamState {
+  index: number;
+  items: React.ReactNode[];
+  loading: boolean;
+}
+
 export interface StreamProps {
-  generator(index: number): React.Node | React.Node[];
+  generator: (index: number) => React.ReactNode | React.ReactNode[];
 }
 
 export const Stream: React.FC<StreamProps> = (props) => {
   const addCallback = useContext(ScrollContext);
 
   const [state, setState] = useReducer(
-    (state, action) => {
+    (state: StreamState, action: StreamAction) => {
       switch (action.type) {
         case "fetch":
           return { ...state, index: state.index + 1 || 0, loading: true };
@@ -48,8 +54,8 @@ export const Stream: React.FC<StreamProps> = (props) => {
   }, [state.index]);
 
   useEffect(() => {
-    const handleScroll = (event) => {
-      const target = event.target;
+    const handleScroll = (event: React.UIEvent) => {
+      const target = event.target as HTMLElement;
       if (target.scrollHeight - target.scrollTop === target.clientHeight) {
         setState({ type: "fetch" });
       }

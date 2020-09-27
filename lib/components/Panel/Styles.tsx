@@ -12,7 +12,7 @@ export const Wrapper = styled.div.attrs((props) => ({
   right: 0;
   bottom: 0;
   left: 0;
-`
+`;
 
 export const Container = styled.div.attrs((props) => ({
   className: "gz-panel",

@@ -3,27 +3,27 @@ import React, { createContext, useContext, useEffect } from "react";
 import { Container } from "./Styles";
 
 export interface ModalProvider {
-  (node: React.Node): void;
+  (node: React.ReactNode): void;
 }
 
-export const ModalContext = createContext((node: React.Node) => undefined);
+export const ModalContext = createContext((node: React.ReactNode) => undefined);
 
 export interface ModalProps {
-  children: React.Node;
+  children: React.ReactNode;
 }
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const setModal = useContext(ModalContext);
 
   useEffect(() => {
-    const handleKeypress = (event) => {
+    const handleKeypress = (event: React.KeyboardEvent) => {
       if (event.keyCode === 27) {
         setModal(null);
       }
     };
 
-    window.addEventListener("keydown", handleKeypress);
-    return () => window.removeEventListener("keydown", handleKeypress);
+    window.addEventListener("keydown", handleKeypress as any);
+    return () => window.removeEventListener("keydown", handleKeypress as any);
   }, []);
 
   return (

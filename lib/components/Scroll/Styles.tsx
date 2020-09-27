@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.div.attrs((props) => ({
+export const Container = styled.div.attrs<{}>((props) => ({
   className: "gz-scroll",
-}))`
+}))<{}>`
   overflow-y: auto;
   height: 100%;
   backface-visibility: hidden;

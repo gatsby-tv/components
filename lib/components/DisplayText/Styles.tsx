@@ -10,28 +10,28 @@ export const Small = styled.div.attrs((props) => ({
 `;
 
 export const Medium = styled.div.attrs((props) => ({
-  className: "gz-display-text-medium"
+  className: "gz-display-text-medium",
 }))`
   font-size: 1.6rem;
   line-height: 2rem;
   font-weight: 500;
   font-stretch: semi-condensed;
-`
+`;
 
 export const Large = styled.div.attrs((props) => ({
-  className: "gz-display-text-large"
+  className: "gz-display-text-large",
 }))`
   font-size: 2.4rem;
   line-height: 3.2rem;
   font-weight: 500;
   font-stretch: semi-condensed;
-`
+`;
 
 export const ExtraLarge = styled.div.attrs((props) => ({
-  className: "gz-display-text-x-large"
+  className: "gz-display-text-x-large",
 }))`
   font-size: 3.6rem;
   line-height: 4.8rem;
   font-weight: 600;
   font-stretch: semi-condensed;
-`
+`;

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div.attrs((props) => ({
+interface ContainerProps {
+  fullscreen?: boolean;
+}
+
+export const Container = styled.div.attrs<ContainerProps>((props) => ({
   className: "gz-player",
   style: props.fullscreen
     ? {
@@ -11,7 +15,7 @@ export const Container = styled.div.attrs((props) => ({
         height: "calc((9 / 16) * 100vw)",
         maxHeight: "calc(100vh - 14rem)",
       },
-}))`
+}))<ContainerProps>`
   position: relative;
   width: 100%;
   min-height: 48rem;

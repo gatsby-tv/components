@@ -19,6 +19,22 @@ import {
   ScrubContainer,
 } from "./Styles";
 
+interface UpdateAction {
+  type: "update";
+  position: number;
+}
+
+interface ClearAction {
+  type: "clear";
+}
+
+type TimelineAction = UpdateAction | ClearAction;
+
+interface TimelineState {
+  position: number;
+  visible: boolean;
+}
+
 export interface TimelineProps {
   onUpdate(time: number): void;
   time: number;
@@ -26,12 +42,12 @@ export interface TimelineProps {
 }
 
 export const Timeline: React.FC<TimelineProps> = (props) => {
-  const timeline = useRef(null);
+  const { video } = useContext(ViewportContext);
+
+  const timeline = useRef<HTMLDivElement>(null);
   const reference = useRef(null);
   const popper = useRef(null);
-  const [viewport, video, callbacks, setCallbacks] = useContext(
-    ViewportContext
-  );
+
   const { styles, attributes } = usePopper(reference.current, popper.current, {
     placement: "top",
     modifiers: [
@@ -45,7 +61,7 @@ export const Timeline: React.FC<TimelineProps> = (props) => {
   });
 
   const [state, setState] = useReducer(
-    (state, action) => {
+    (state: TimelineState, action: TimelineAction) => {
       switch (action.type) {
         case "update":
           return {
@@ -66,17 +82,17 @@ export const Timeline: React.FC<TimelineProps> = (props) => {
 
   const getTimePercentage = useCallback(
     (time) => {
-      if (!video.current) {
+      if (!video?.current) {
         return 0;
       }
 
       return (100 * time) / video.current.duration;
     },
-    [video.current]
+    [video?.current]
   );
 
   const getScrubTimeString = useCallback(() => {
-    if (!video.current || !video.current.duration) {
+    if (!video?.current?.duration) {
       return "0:00";
     }
 
@@ -92,47 +108,50 @@ export const Timeline: React.FC<TimelineProps> = (props) => {
     } else {
       return `${timeMinutes}:${timeSeconds}`;
     }
-  }, [video.current, state.position]);
+  }, [video?.current, state.position]);
 
   const updatePopper = useCallback(
     (event) => {
-      const rect = timeline.current.getBoundingClientRect();
-      const percentage =
-        100 *
-        Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
-      setState({ type: "update", position: percentage });
+      if (timeline?.current) {
+        const rect = timeline.current.getBoundingClientRect();
+        const percentage =
+          100 *
+          Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
+        setState({ type: "update", position: percentage });
+      }
     },
-    [timeline.current]
+    [timeline?.current]
   );
 
   const seekTo = useCallback(
-    (event) => {
-      const rect = timeline.current.getBoundingClientRect();
-      video.current.currentTime =
-        video.current.duration *
-        Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
+    (event: React.MouseEvent) => {
+      if (video?.current && timeline?.current) {
+        const rect = timeline.current.getBoundingClientRect();
+        video.current.currentTime =
+          video.current.duration *
+          Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
+      }
     },
-    [video.current, timeline.current]
+    [video?.current, timeline?.current]
   );
 
   const scrubTo = useCallback(
-    (event) => {
-      if (event.buttons !== 1) {
-        return;
+    (event: React.MouseEvent) => {
+      if (event.buttons === 1 && video?.current && timeline?.current) {
+        const rect = timeline.current.getBoundingClientRect();
+        const time =
+          video.current.duration *
+          Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
+        props.onUpdate(time);
       }
-      const rect = timeline.current.getBoundingClientRect();
-      const time =
-        video.current.duration *
-        Math.min(Math.max(0, (event.clientX - rect.left) / rect.width), 1);
-      props.onUpdate(time);
     },
-    [video.current, timeline.current]
+    [video?.current, timeline?.current]
   );
 
   const events = {
-    onClick: (event) => event.stopPropagation(),
+    onClick: (event: React.MouseEvent) => event.stopPropagation(),
     onMouseDown: scrubTo,
-    onMouseMove: (event) => {
+    onMouseMove: (event: React.MouseEvent) => {
       updatePopper(event);
       scrubTo(event);
     },

@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.figure.attrs((props) => ({
+interface ContainerProps {
+  readonly aspectRatio: number;
+}
+
+export const Container = styled.figure.attrs<ContainerProps>((props) => ({
   className: "gz-viewport",
   style: {
     paddingTop: `${100 * props.aspectRatio}%`,
   },
-}))`
+}))<ContainerProps>`
   position: relative;
   margin: 0;
   width: 100%;

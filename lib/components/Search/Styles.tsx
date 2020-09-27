@@ -10,12 +10,13 @@ export const Container = styled.div.attrs((props) => ({
   z-index: 610;
 `;
 
-export const SearchBox = styled.div.attrs((props) => ({
+interface SearchBoxProps {
+  highlight?: boolean;
+}
+
+export const SearchBox = styled.div.attrs<SearchBoxProps>((props) => ({
   className: "gz-search-content",
-  style: {
-    boxShadow: props.highlight ? "0 1px 6px 0 black" : "none",
-  },
-}))`
+}))<SearchBoxProps>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -26,6 +27,7 @@ export const SearchBox = styled.div.attrs((props) => ({
 
   background-color: var(--dark-grey-3);
   border-radius: 1.8rem;
+  box-shadow: ${(props) => (props.highlight ? "0 1px 6px 0 black" : "none")};
 
   transition: all 100ms ease;
 
@@ -44,9 +46,9 @@ export const InputBox = styled.div.attrs((props) => ({
   height: 3.6rem;
 `;
 
-export const SearchIcon = styled.div.attrs((props) => ({
+export const SearchIcon = styled.div.attrs<{}>((props) => ({
   className: "gz-search-icon",
-}))`
+}))<{}>`
   display: inline-flex;
   justify-content: center;
   flex-grow: 0;

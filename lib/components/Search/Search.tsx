@@ -31,15 +31,21 @@ interface SuggestionType {
   match: string;
 }
 
+interface SearchState {
+  query: string;
+  suggestions: { [key: string]: SuggestionType[] };
+  loading: boolean;
+}
+
 export interface SearchProps {
   generator(query: string): SuggestionType[];
 }
 
 export const Search: React.FC<SearchProps> = (props) => {
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState<boolean>(false);
 
   const [state, setState] = useReducer(
-    (state, action) => {
+    (state: SearchState, action: SearchAction) => {
       switch (action.type) {
         case "fetch":
           return { ...state, query: action.query, loading: true };
@@ -70,7 +76,7 @@ export const Search: React.FC<SearchProps> = (props) => {
   }, [state.loading, state.query, state.suggestions]);
 
   const suggestions = (state.suggestions[state.query] || []).map(
-    (suggestion, index) => (
+    (suggestion: SuggestionType, index: number) => (
       <Link key={`${state.query}/${index}`}>
         <Suggestion
           dangerouslySetInnerHTML={{ __html: `${suggestion.match}` }}
@@ -91,7 +97,7 @@ export const Search: React.FC<SearchProps> = (props) => {
             name="query"
             placeholder="Search"
             aria-label="Search Videos"
-            maxLength="2048"
+            maxLength={2048}
             spellCheck="false"
             autoCorrect="false"
             autoComplete="false"
@@ -102,7 +108,7 @@ export const Search: React.FC<SearchProps> = (props) => {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
           />
-          <SearchButton as="button">
+          <SearchButton>
             <FontAwesomeIcon icon={faArrowRight} />
           </SearchButton>
         </InputBox>

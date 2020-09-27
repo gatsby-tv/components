@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-export const Overlay = styled.div.attrs(props => ({
+export const Overlay = styled.div.attrs((props) => ({
   className: "sb--gz-avatar-overlay",
 }))`
   position: absolute;
@@ -8,7 +8,7 @@ export const Overlay = styled.div.attrs(props => ({
   bottom: 0;
   width: 1.2rem;
   height: 1.2rem;
-  
+
   background: red;
   border-radius: 100%;
-`
+`;

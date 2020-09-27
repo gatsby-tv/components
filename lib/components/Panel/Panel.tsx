@@ -8,7 +8,7 @@ import { CloseButton } from "./components";
 import { Container, Wrapper } from "./Styles";
 
 export interface PanelProps {
-  children?: React.Node;
+  children?: React.ReactNode;
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {

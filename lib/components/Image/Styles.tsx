@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
+interface ContainerProps {
+  aspectRatio: number;
+}
+
 export const Container = styled.div.attrs((props) => ({
   className: "gz-image",
-}))`
+}))<ContainerProps>`
   position: relative;
 
   &:before {

@@ -32,17 +32,100 @@ import {
   Loading,
 } from "./Styles";
 
+interface DeactivateAction {
+  type: "deactivate";
+}
+
+interface IdleAction {
+  type: "idle";
+}
+
+interface ActivateAction {
+  type: "activate";
+}
+
+interface PauseAction {
+  type: "pause";
+}
+
+interface WaitingAction {
+  type: "waiting";
+}
+
+interface PlayingAction {
+  type: "playing";
+}
+
+interface StalledAction {
+  type: "stalled";
+}
+
+interface SeekingAction {
+  type: "seeking";
+}
+
+interface SeekedAction {
+  type: "seeked";
+}
+
+interface ScrubAction {
+  type: "scrub";
+  time: number;
+}
+
+interface TimeUpdateAction {
+  type: "timeupdate";
+  time: number;
+}
+
+interface ProgressAction {
+  type: "progress";
+  progress: number;
+}
+
+interface EndedAction {
+  type: "ended";
+}
+
+type OverlayAction =
+  | DeactivateAction
+  | IdleAction
+  | ActivateAction
+  | PauseAction
+  | WaitingAction
+  | PlayingAction
+  | StalledAction
+  | SeekingAction
+  | SeekedAction
+  | ScrubAction
+  | TimeUpdateAction
+  | ProgressAction
+  | EndedAction;
+
+interface OverlayState {
+  active: boolean;
+  idletime: number;
+  playing: boolean;
+  paused: boolean;
+  stalled: boolean;
+  seeking: boolean;
+  scrubbing: boolean;
+  waiting: boolean;
+  time: number;
+  progress: number;
+  ended: boolean;
+}
+
 export interface OverlayProps {}
 
 export const Overlay: React.FC<OverlayProps> = (props) => {
-  const [viewport, video, callbacks, setCallbacks] = useContext(
-    ViewportContext
-  );
-  const [loading, setLoading] = useState(false);
-  const [signal, setSignal] = useState(null);
+  const { viewport, video, callbackProvider } = useContext(ViewportContext);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [signal, setSignal] = useState<React.ReactNode>(null);
 
   const [state, setState] = useReducer(
-    (state, action) => {
+    (state: OverlayState, action: OverlayAction) => {
       switch (action.type) {
         case "deactivate":
           return {
@@ -158,7 +241,7 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
     }
   );
 
-  const findBufferIndex = (event) => {
+  const findBufferIndex = useCallback((event) => {
     let bufferIndex;
     let delta = Infinity;
     for (let i = 0; i < event.target.buffered.length; i++) {
@@ -168,30 +251,29 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
         delta = x;
       }
     }
-
     return bufferIndex;
-  };
+  }, []);
 
   const togglePlayback = useCallback(() => {
     if (state.paused) {
-      video.current.play();
+      video?.current?.play();
       setSignal(<Signal icon={faPlay} />);
     } else {
-      video.current.pause();
+      video?.current?.pause();
       setSignal(<Signal icon={faPause} />);
     }
-  }, [video.current, state.paused]);
+  }, [video?.current, state.paused]);
 
   const toggleFullscreen = useCallback(() => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
-      viewport.current.requestFullscreen();
+      viewport?.current?.requestFullscreen();
     }
-  }, [viewport.current]);
+  }, [viewport?.current]);
 
   const getTimeString = useCallback(() => {
-    if (!video.current || !video.current.duration) {
+    if (!video?.current?.duration) {
       return "0:00 / 0:00";
     }
 
@@ -219,14 +301,16 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
     } else {
       return `${timeMinutes}:${timeSeconds} / ${durationMinutes}:${durationSeconds}`;
     }
-  }, [video.current]);
+  }, [video?.current]);
 
   const seekTo = useCallback(
     (time) => {
-      video.current.currentTime = time;
-      setState({ type: "timeupdate", time: time });
+      if (video?.current) {
+        video.current.currentTime = time;
+        setState({ type: "timeupdate", time: time });
+      }
     },
-    [video.current]
+    [video?.current]
   );
 
   useEffect(() => {
@@ -245,8 +329,9 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
         case "timeupdate":
           return {
             type: type,
-            callback: (event) => {
-              const time = event.target.currentTime;
+            callback: (event: React.SyntheticEvent) => {
+              const target = event.target as HTMLMediaElement;
+              const time = target.currentTime;
               setState({ type: type, time: time });
             },
           };
@@ -254,9 +339,10 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
         case "progress":
           return {
             type: type,
-            callback: (event) => {
+            callback: (event: React.SyntheticEvent) => {
+              const target = event.target as HTMLMediaElement;
               const bufferIndex = findBufferIndex(event);
-              const progress = event.target.buffered.end(bufferIndex);
+              const progress = target.buffered.end(bufferIndex || 0);
               setState({ type: type, progress: progress });
             },
           };
@@ -264,65 +350,76 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
         case "seeked":
           return {
             type: type,
-            callback: (event) => {
+            callback: (event: React.SyntheticEvent) => {
+              const target = event.target as HTMLMediaElement;
               const bufferIndex = findBufferIndex(event);
-              const progress = event.target.buffered.end(bufferIndex);
+              const progress = target.buffered.end(bufferIndex || 0);
               setState({ type: "progress", progress: progress });
-              setState({ type: type });
+              setState({ type: type } as OverlayAction);
             },
           };
 
         default:
           return {
             type: type,
-            callback: (event) => setState({ type: type }),
+            callback: (event: React.SyntheticEvent) =>
+              setState({ type: type } as OverlayAction),
           };
       }
     });
 
-    setCallbacks(callbacks);
-  }, [video.current]);
+    callbackProvider(callbacks);
+  }, [video?.current]);
 
   useEffect(() => {
-    const handleKeydown = (event) => {
-      switch (event.code) {
-        case "Space":
+    const handleKeydown = (event: React.KeyboardEvent): any => {
+      switch (event.key) {
+        case " ":
           event.preventDefault();
           togglePlayback();
           return;
 
-        case "KeyF":
+        case "f":
+        case "F":
           toggleFullscreen();
           return;
 
-        case "KeyK":
+        case "k":
+        case "K":
           togglePlayback();
           return;
 
         case "ArrowRight":
+          if (!video?.current) {
+            return;
+          }
+
+          if (!state.seeking) {
+            setSignal(<Signal icon={faRedoAlt} />);
+          }
+
           seekTo(
             Math.min(video.current.currentTime + 5, video.current.duration)
           );
-          if (!state.seeking) {
-            setSignal(<Signal icon={faRedo} />);
-          }
           return;
 
         case "ArrowLeft":
-          seekTo(Math.max(video.current.currentTime - 5, 0));
-          if (!state.seeking) {
-            setSignal(<Signal icon={faUndo} />);
+          if (!video?.current) {
+            return;
           }
-          return;
 
-        default:
+          if (!state.seeking) {
+            setSignal(<Signal icon={faUndoAlt} />);
+          }
+
+          seekTo(Math.max(video.current.currentTime - 5, 0));
           return;
       }
     };
 
-    window.addEventListener("keydown", handleKeydown);
-    return () => window.removeEventListener("keydown", handleKeydown);
-  }, [viewport.current, video.current, state.paused, state.seeking]);
+    window.addEventListener("keydown", handleKeydown as any);
+    return () => window.removeEventListener("keydown", handleKeydown as any);
+  }, [viewport?.current, video?.current, state.paused, state.seeking]);
 
   useEffect(() => {
     const id = setTimeout(() => setSignal(null), 700);

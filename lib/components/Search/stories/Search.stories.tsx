@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react/types-6-0"
+import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { Search, SearchProps } from "../Search";
 
@@ -38,12 +38,12 @@ const keys: string[] = [
 const generator = (query) => {
   return keys
     .slice(query.length, query.length + 7)
-    .map((value, index) => ({ href: "", match: value }))
-}
+    .map((value, index) => ({ href: "", match: value }));
+};
 
 const Template: Story<SearchProps> = (args) => <Search {...args} />;
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   generator: generator,
-}
+};
