@@ -28,4 +28,4 @@ export const Button = styled.button<ButtonProps>`
   ${(props) => cssSize("padding-right", props.paddingRight)}
   ${(props) => cssSize("padding-bottom", props.paddingBottom)}
   ${(props) => cssSize("padding-left", props.paddingLeft)}
-`
+`;

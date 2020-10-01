@@ -69,7 +69,9 @@ export const Item = styled.div<ItemProps>`
   position: relative;
   ${(props) => (props.connection ? "flex: 0 0 auto;" : "flex: 1 1 auto;")}
   ${(props) =>
-    props.connection ? cssConnection(props.column) : cssConnected(props.column)}
+    props.connection
+      ? cssConnection(props.column)
+      : cssConnected(props.column)}
 
   &:not(:first-child) {
     ${(props) => (props.column ? "margin-top" : "margin-left")}: -1px;

@@ -21,7 +21,9 @@ const rightColumnMarkup = (
   <RoundedBox bg="black" boxHeight="2rem" boxWidth="100%" radius="1rem" />
 );
 
-const contentMarkup = <RoundedBox bg="white" boxHeight="2rem" boxWidth="100%" radius="1rem" />;
+const contentMarkup = (
+  <RoundedBox bg="white" boxHeight="2rem" boxWidth="100%" radius="1rem" />
+);
 
 const contentListMarkup = (
   <>

@@ -50,7 +50,8 @@ export interface FlexProps extends BoxProps {
 
 const FlexBase = styled(Box)<FlexProps>`
   display: flex;
-  ${(props) => props.column ? "flex-direction: column;" : "flex-direction: row;"}
+  ${(props) =>
+    props.column ? "flex-direction: column;" : "flex-direction: row;"}
   ${(props) => cssProperty("flex-wrap", props.wrap)}
   ${(props) => cssProperty("justify-content", props.justify)}
   ${(props) => cssProperty("align-items", props.align)}
