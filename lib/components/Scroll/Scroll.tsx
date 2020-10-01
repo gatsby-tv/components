@@ -1,42 +1,35 @@
-import React, { createContext, useState } from "react";
+import styled from "styled-components";
 
-import { Container, HiddenContainer } from "./Styles";
-
-interface ScrollCallback {
-  (event: React.UIEvent): void;
-}
-
-interface ScrollContextType {
-  (callback: ScrollCallback): void;
-}
-
-export const ScrollContext = createContext<ScrollContextType>(() => undefined);
+import { cssProperty } from "@app/styles/mixins";
 
 export interface ScrollProps {
-  children?: React.ReactNode;
   hidden?: boolean;
+  vertical?: boolean;
+  horizontal?: boolean;
 }
 
-export const Scroll: React.FC<ScrollProps> = (props) => {
-  const [callbacks, setCallbacks] = useState<ScrollCallback[]>([]);
+export const Scroll = styled.div<ScrollProps>`
+  ${(props) => cssProperty("overflow-y", props.vertical ? "auto" : undefined)}
+  ${(props) => cssProperty("overflow-x", props.horizontal ? "auto" : undefined)}
+  backface-visibility: hidden;
 
-  const addCallback = (callback: ScrollCallback) =>
-    setCallbacks((current) => [...current, callback]);
+  &::-webkit-scrollbar {
+    width: ${(props) => (props.hidden ? "0" : "1rem")};
+    height: ${(props) => (props.hidden ? "0" : "1rem")};
+  }
 
-  const handleScroll = (event: React.UIEvent) =>
-    callbacks.forEach((callback) => callback(event));
+  &::-webkit-scrollbar-corner {
+    color: transparent;
+  }
 
-  return props.hidden ? (
-    <HiddenContainer onScroll={handleScroll}>
-      <ScrollContext.Provider value={addCallback}>
-        {props.children}
-      </ScrollContext.Provider>
-    </HiddenContainer>
-  ) : (
-    <Container onScroll={handleScroll}>
-      <ScrollContext.Provider value={addCallback}>
-        {props.children}
-      </ScrollContext.Provider>
-    </Container>
-  );
-};
+  &::-webkit-scrollbar-track {
+    color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) =>
+      props.hidden ? "transparent" : props.theme.colors["Background"]["base"]}
+    border-radius: 2rem;
+    transition: all 100ms ease;
+  }
+`;

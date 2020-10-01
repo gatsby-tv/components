@@ -1,20 +1,26 @@
 import React from "react";
 
-import { Container, Fill, Content, Overlay } from "./Styles";
+import { Size } from "@app/types";
+import { Box, Position } from "@app/components";
 
-export interface ImageProps {
-  source: string;
+export type ImageProps = {
+  width?: Size;
   aspectRatio?: number;
   overlay?: React.ReactNode;
-}
+  ariaLabel?: string;
+} & React.ImgHTMLAttributes<HTMLElement>;
 
 export const Image: React.FC<ImageProps> = (props) => {
+  const { aspectRatio = 1, width, overlay, ariaLabel, ...imgProps } = props;
+
   return (
-    <Container aspectRatio={props.aspectRatio || 1}>
-      <Fill>
-        <Content src={props.source} />
-        {props.overlay && <Overlay>{props.overlay}</Overlay>}
-      </Fill>
-    </Container>
+    <Box boxWidth={width}>
+      <Box aria-label={ariaLabel} paddingTop={aspectRatio} bg="placeholder">
+        <Position fill>
+          <Box as="img" alt="" boxWidth="100%" {...imgProps} />
+          <Position fill>{overlay}</Position>
+        </Position>
+      </Box>
+    </Box>
   );
 };

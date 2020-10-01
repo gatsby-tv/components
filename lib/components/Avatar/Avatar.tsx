@@ -1,28 +1,46 @@
 import React from "react";
 
-import { Image } from "../Image";
+import { Box, BoxProps, Position, Circle } from "@app/components";
 
-import { Container, Fill, Content, Overlay } from "./Styles";
+type AvatarSize = "small" | "medium" | "large";
 
-export enum AvatarSize {
-  Small = "3.6rem",
-  Medium = "4.4rem",
-  Large = "6rem",
-}
-
-export interface AvatarProps {
-  source: string;
-  size: AvatarSize;
+export type AvatarProps = {
+  size?: AvatarSize;
   overlay?: React.ReactNode;
-}
+  ariaLabel?: string;
+} & React.ImgHTMLAttributes<HTMLElement>;
 
 export const Avatar: React.FC<AvatarProps> = (props) => {
+  const { size = "medium", overlay, ariaLabel, ...imgProps } = props;
+
+  let boxSize: string;
+  switch (size) {
+    case "small":
+      boxSize = "3.6rem";
+      break;
+
+    case "medium":
+      boxSize = "4.4rem";
+      break;
+
+    case "large":
+      boxSize = "6rem";
+      break;
+  }
+
   return (
-    <Container size={props.size}>
-      <Fill>
-        <Content src={props.source} />
-        {props.overlay && <Overlay>{props.overlay}</Overlay>}
-      </Fill>
-    </Container>
+    <Box boxWidth={boxSize} boxHeight={boxSize}>
+      <Circle
+        as="span"
+        aria-label={ariaLabel}
+        paddingTop="100%"
+        bg="placeholder"
+      >
+        <Position fill>
+          <Circle as="img" alt="" boxWidth="100%" {...imgProps} />
+          <Position fill>{overlay}</Position>
+        </Position>
+      </Circle>
+    </Box>
   );
 };

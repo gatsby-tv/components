@@ -1,52 +1,51 @@
-import React, { createContext, useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  CSSProperties,
+} from "react";
 
-import { Container, Fill, Content, Overlay } from "./Styles";
-
-export interface ViewportCallback {
-  type: string;
-  callback: (event: React.SyntheticEvent) => void;
-}
-
-export interface ViewportContextType {
-  viewport: React.RefObject<HTMLElement> | null;
-  video: React.RefObject<HTMLVideoElement> | null;
-  callbacks: ViewportCallback[];
-  callbackProvider: (callbacks: ViewportCallback[]) => void;
-}
-
-export const ViewportContext = createContext<ViewportContextType>({
-  viewport: null,
-  video: null,
-  callbacks: [],
-  callbackProvider: () => undefined,
-});
+import { Box, Position } from "@app/components";
+import { EventHandler } from "@app/types";
+import { ViewportContext } from "@app/util/viewport";
 
 export interface ViewportProps {
   children?: React.ReactNode;
-  aspectRatio?: number;
   overlay?: React.ReactNode;
+  aspectRatio?: number;
 }
 
 export const Viewport: React.FC<ViewportProps> = (props) => {
   const video = useRef(null);
-  const container = useRef(null);
-  const [callbacks, setCallbacks] = useState<ViewportCallback[]>([]);
+  const viewport = useRef(null);
+  const [handlers, setHandlers] = useState<EventHandler[]>([]);
+
+  const context = {
+    viewport,
+    video,
+    handlers,
+    addHandler: useCallback(
+      (handler: EventHandler) =>
+        setHandlers((current) => [...current, handler]),
+      []
+    ),
+  };
+
+  const style: CSSProperties = {
+    paddingTop: `${100 * (props.aspectRatio ?? 9 / 16)}%`,
+  };
 
   return (
-    <Container ref={container} aspectRatio={props.aspectRatio || 9 / 16}>
-      <Fill>
-        <ViewportContext.Provider
-          value={{
-            viewport: container,
-            video: video,
-            callbacks: callbacks,
-            callbackProvider: setCallbacks,
-          }}
-        >
-          <Content>{props.children}</Content>
-          {props.overlay && <Overlay>{props.overlay}</Overlay>}
-        </ViewportContext.Provider>
-      </Fill>
-    </Container>
+    <ViewportContext.Provider value={context}>
+      <Box ref={viewport} as="figure" style={style} boxWidth="100%" bg="black">
+        <Position fill>
+          <Box boxWidth="100%" boxHeight="100%">
+            {props.children}
+          </Box>
+          <Position fill>{props.overlay}</Position>
+        </Position>
+      </Box>
+    </ViewportContext.Provider>
   );
 };

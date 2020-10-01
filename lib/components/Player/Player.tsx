@@ -1,13 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useRef,
+  CSSProperties,
+} from "react";
 
-import { Viewport, ViewportProps } from "../Viewport";
-import { Video, VideoProps } from "../Video";
+import {
+  Box,
+  Flex,
+  EventListener,
+  Viewport,
+  Video,
+  VideoProps,
+} from "@app/components";
 
-import { Overlay } from "./components";
-
-import { Container, VideoBox } from "./Styles";
-
-interface DimensionType {
+interface Dimensions {
   width: number;
   height: number;
 }
@@ -18,35 +26,39 @@ export interface PlayerProps {
 }
 
 export const Player: React.FC<PlayerProps> = (props) => {
-  const container = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState<DimensionType>({
+  const player = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
     height: 0,
   });
 
-  useEffect(() => {
-    const handleResize = () => {
-      setDimensions({
-        width: container?.current?.offsetWidth || 0,
-        height: container?.current?.offsetHeight || 0,
-      });
-    };
+  const handleResize = useCallback(() => {
+    if (player?.current) {
+      const rect = player.current.getBoundingClientRect();
+      setDimensions({ width: rect.width, height: rect.height });
+    }
+  }, []);
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [container?.current]);
+  useEffect(() => handleResize(), []);
+
+  const style: CSSProperties = props.fullscreen
+    ? {
+        height: "100vh",
+        maxHeight: "none",
+      }
+    : {
+        height: "calc((9 / 16) * 100vw)",
+        maxHeight: "calc(100vh - 14rem)",
+      };
 
   return (
-    <Container ref={container} fullscreen={props.fullscreen}>
-      <Viewport
-        aspectRatio={dimensions.height / dimensions.width}
-        overlay={<Overlay />}
-      >
-        <VideoBox>
+    <Box ref={player} style={style} boxWidth="100%" minHeight="48rem">
+      <Viewport aspectRatio={dimensions.height / dimensions.width}>
+        <Flex justify="center" align="center" boxHeight="100%">
           <Video {...props.video} />
-        </VideoBox>
+        </Flex>
       </Viewport>
-    </Container>
+      <EventListener event="resize" handler={handleResize} />
+    </Box>
   );
 };

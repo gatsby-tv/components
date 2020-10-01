@@ -1,35 +1,17 @@
-import React, { useContext, useCallback, useEffect } from "react";
+import React from "react";
 
-import { ViewportContext } from "../Viewport";
+import { Box, BoxProps, EventListenerGroup } from "@app/components";
+import { useViewport } from "@app/util/viewport";
 
-import { VideoBlock } from "./Styles";
-
-export interface VideoProps {
-  source: string;
-  loop?: boolean;
-  muted?: boolean;
-  autoPlay?: boolean;
-  playsInline?: boolean;
-  poster?: string;
-  preload?: string;
-  crossOrigin?: string;
-}
+export type VideoProps = React.VideoHTMLAttributes<HTMLElement> & BoxProps;
 
 export const Video: React.FC<VideoProps> = (props) => {
-  const { video, callbacks } = useContext(ViewportContext);
+  const { video, handlers } = useViewport();
 
-  const addCallback = useCallback(
-    ({ type, callback }) => {
-      video?.current?.addEventListener(type, callback);
-      return () => video?.current?.removeEventListener(type, callback);
-    },
-    [video?.current]
+  return (
+    <>
+      <Box ref={video} as="video" boxWidth="100%" boxHeight="100%" {...props} />
+      <EventListenerGroup for={video ?? undefined} handlers={handlers} />
+    </>
   );
-
-  useEffect(() => {
-    const cleanups = callbacks.map((callback, index) => addCallback(callback));
-    return () => cleanups.forEach((cleanup, index) => cleanup());
-  }, [video?.current, callbacks]);
-
-  return <VideoBlock ref={video} src={props.source} {...props} />;
 };
