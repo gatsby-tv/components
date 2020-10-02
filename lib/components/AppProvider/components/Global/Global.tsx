@@ -5,6 +5,7 @@ export const Global = createGlobalStyle`
     margin: 0;
     padding: 0;
     border: none;
+    font-family: inherit;
   }
 
   :root {
@@ -12,7 +13,7 @@ export const Global = createGlobalStyle`
   }
 
   body {
-    color: ${(props) => props.theme.colors.font.base};
+    color: ${(props) => props.theme.colors.font.body};
     font-family: "Noto Sans", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif";
   }
 `;

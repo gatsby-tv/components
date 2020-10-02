@@ -1,17 +1,16 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-import { Box, BoxProps, EventListenerGroup } from "@app/components";
-import { useViewport } from "@app/util/viewport";
+import { Box, BoxProps } from "@app/components";
 
 export type VideoProps = React.VideoHTMLAttributes<HTMLElement> & BoxProps;
 
-export const Video: React.FC<VideoProps> = (props) => {
-  const { video, handlers } = useViewport();
-
+export const Video = forwardRef<HTMLVideoElement, VideoProps>((props, ref) => {
   return (
-    <>
-      <Box ref={video} as="video" boxWidth="100%" boxHeight="100%" {...props} />
-      <EventListenerGroup for={video ?? undefined} handlers={handlers} />
-    </>
+    <Box
+      ref={ref as React.RefObject<HTMLVideoElement>}
+      as="video"
+      $fill
+      {...props}
+    />
   );
-};
+});

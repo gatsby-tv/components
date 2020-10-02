@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Size } from "@app/types";
-import { Box, Position } from "@app/components";
+import { Box, Viewport } from "@app/components";
 
 export type ImageProps = {
   width?: Size;
@@ -14,13 +14,14 @@ export const Image: React.FC<ImageProps> = (props) => {
   const { aspectRatio = 1, width, overlay, ariaLabel, ...imgProps } = props;
 
   return (
-    <Box boxWidth={width}>
-      <Box aria-label={ariaLabel} paddingTop={aspectRatio} bg="placeholder">
-        <Position fill>
-          <Box as="img" alt="" boxWidth="100%" {...imgProps} />
-          <Position fill>{overlay}</Position>
-        </Position>
-      </Box>
-    </Box>
+    <Viewport
+      placeholder
+      aspectRatio={aspectRatio}
+      ariaLabel={ariaLabel}
+      overlay={overlay}
+      $width={width}
+    >
+      <Box as="img" alt="" $width={1} {...imgProps} />
+    </Viewport>
   );
 };

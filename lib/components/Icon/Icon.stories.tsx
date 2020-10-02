@@ -1,12 +1,14 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import {
+  Gatsby,
   Play,
   Pause,
-  Subscribe,
-  Gatsby,
+  SkipBackward,
+  SkipForward,
   Expand,
   Compress,
+  Spinner,
 } from "@gatsby-tv/icons";
 
 import { AppProvider } from "@app/components";
@@ -19,7 +21,7 @@ export default {
 
 const Template: Story<IconProps> = (args) => (
   <AppProvider theme="dark">
-    <Icon boxWidth="5rem" boxHeight="5rem" {...args} />
+    <Icon $width="5rem" $height="5rem" {...args} />
   </AppProvider>
 );
 
@@ -53,8 +55,20 @@ CompressIcon.args = {
   ariaLabel: "Compress Icon",
 };
 
-export const SubscribeIcon = Template.bind({});
-SubscribeIcon.args = {
-  src: Subscribe,
-  ariaLabel: "Subscribe Icon",
+export const SkipForwardIcon = Template.bind({});
+SkipForwardIcon.args = {
+  src: SkipForward,
+  ariaLabel: "Skip Forward Icon",
+};
+
+export const SkipBackwardIcon = Template.bind({});
+SkipBackwardIcon.args = {
+  src: SkipBackward,
+  ariaLabel: "Skip Backward Icon",
+};
+
+export const SpinnerIcon = Template.bind({});
+SpinnerIcon.args = {
+  src: Spinner,
+  ariaLabel: "Spinner Icon",
 };

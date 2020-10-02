@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Box, BoxProps, Position, Circle } from "@app/components";
+import { Circle, Viewport } from "@app/components";
+import { useTheme } from "@app/utilities";
 
 type AvatarSize = "small" | "medium" | "large";
 
@@ -11,6 +12,7 @@ export type AvatarProps = {
 } & React.ImgHTMLAttributes<HTMLElement>;
 
 export const Avatar: React.FC<AvatarProps> = (props) => {
+  const theme = useTheme();
   const { size = "medium", overlay, ariaLabel, ...imgProps } = props;
 
   let boxSize: string;
@@ -29,18 +31,16 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
   }
 
   return (
-    <Box boxWidth={boxSize} boxHeight={boxSize}>
-      <Circle
-        as="span"
-        aria-label={ariaLabel}
-        paddingTop="100%"
-        bg="placeholder"
-      >
-        <Position fill>
-          <Circle as="img" alt="" boxWidth="100%" {...imgProps} />
-          <Position fill>{overlay}</Position>
-        </Position>
-      </Circle>
-    </Box>
+    <Viewport
+      placeholder
+      rounded
+      $width={boxSize}
+      $height={boxSize}
+      aspectRatio={1}
+      ariaLabel={ariaLabel}
+      overlay={overlay}
+    >
+      <Circle $fill as="img" alt="" {...imgProps} />
+    </Viewport>
   );
 };

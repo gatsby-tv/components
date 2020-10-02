@@ -38,6 +38,14 @@ export type Duration =
   | "slower"
   | "slowest";
 
+export type Border =
+  | "none"
+  | "smallest"
+  | "small"
+  | "base"
+  | "large"
+  | "largest";
+
 export type Timing =
   | "ease"
   | "ease-in"

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { cssProperty } from "@app/styles/mixins";
+import { cssProperty } from "@app/styles";
 
 export interface ScrollProps {
   hidden?: boolean;
@@ -28,7 +28,7 @@ export const Scroll = styled.div<ScrollProps>`
 
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) =>
-      props.hidden ? "transparent" : props.theme.colors["Background"]["base"]}
+      props.hidden ? "transparent" : props.theme.colors.background[3]}
     border-radius: 2rem;
     transition: all 100ms ease;
   }

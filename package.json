@@ -11,6 +11,7 @@
   "license": "AGPL-3.0",
   "private": false,
   "scripts": {
+    "pretty": "prettier --write .",
     "build": "rm -rf dist && tsc -p . && echo \"Finsihed building the module, ready to publish.\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

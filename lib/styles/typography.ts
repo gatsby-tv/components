@@ -1,7 +1,5 @@
 import { css } from "styled-components";
 
-import { fontSize, lineHeight } from "../font-sizes";
-
 export const cssTextSubdued = css`
   color: ${(props) => props.theme.colors.font.subdued};
 `;
@@ -27,15 +25,20 @@ export const cssTextTruncate = css`
 `;
 
 export const cssTextBody = css`
-  font-size: ${fontSize.base};
-  line-height: ${lineHeight.base};
+  font-size: ${(props) => props.theme.font.size.base};
+  line-height: ${(props) => props.theme.font.height.base};
   font-weight: 400;
 `;
 
 export const cssTextLabel = css`
   ${cssTextCondensed}
-  font-size: ${fontSize.base};
-  line-height: ${lineHeight.base};
-  text-transform: uppercase;
-  font-weight: 600;
+  font-size: ${(props) => props.theme.font.size.base};
+  line-height: ${(props) => props.theme.font.height.base};
+  font-weight: 400;
+`;
+
+export const cssTextInput = css`
+  ${cssTextBody}
+  color: ${(props) => props.theme.colors.font.inverted};
+  appearance: none;
 `;

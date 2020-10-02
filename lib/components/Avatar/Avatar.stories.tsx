@@ -1,14 +1,12 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, Circle, Position } from "@app/components";
+import { AppProvider, Circle } from "@app/components";
 
 import { Avatar, AvatarProps } from "./Avatar";
 
 const overlayMarkup = (
-  <Position bottom={0} right={0}>
-    <Circle size="1.5rem" bg="gatsbyGold" />
-  </Position>
+  <Circle absolute bottom={0} right={0} size="1.5rem" bg="black" />
 );
 
 export default {

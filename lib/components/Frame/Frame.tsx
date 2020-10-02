@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
+import { css } from "styled-components";
 
-import { Position, EventListener } from "@app/components";
-import { FrameContext } from "@app/util/frame";
+import { Box, EventListener } from "@app/components";
+import { FrameContext } from "@app/utilities";
 
 import { NavFrame, SideFrame, MainFrame } from "./components";
 
@@ -31,13 +32,19 @@ export const Frame: React.FC<FrameProps> = (props) => {
 
   return (
     <FrameContext.Provider value={context}>
-      <Position fill fixed>
+      <Box
+        absolute
+        $fill
+        css={`
+          position: fixed;
+        `}
+      >
         <NavFrame navbar={props.navbar}>
           <SideFrame sidebar={props.sidebar}>
             <MainFrame>{props.children}</MainFrame>
           </SideFrame>
         </NavFrame>
-      </Position>
+      </Box>
     </FrameContext.Provider>
   );
 };

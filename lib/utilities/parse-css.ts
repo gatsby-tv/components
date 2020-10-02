@@ -1,4 +1,4 @@
-import { Size } from "../types";
+import { Size } from "@app/types";
 
 export const parseSize = (size: Size) => {
   if (typeof size === "number") {

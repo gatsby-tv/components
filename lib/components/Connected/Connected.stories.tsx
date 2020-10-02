@@ -1,29 +1,24 @@
 import React from "react";
+import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, RoundedBox } from "@app/components";
+import { AppProvider, Box } from "@app/components";
 
 import { Connected, ConnectedProps } from "./Connected";
 
-const leftMarkup = (
-  <RoundedBox bg="black" boxHeight="100%" boxWidth="6rem" radius="1rem" />
-);
+const rounded = css`
+  border-radius: 1rem;
+`;
 
-const rightMarkup = (
-  <RoundedBox bg="black" boxHeight="100%" boxWidth="6rem" radius="1rem" />
-);
+const leftMarkup = <Box $fill bg="black" $width="6rem" css={rounded} />;
 
-const leftColumnMarkup = (
-  <RoundedBox bg="black" boxHeight="2rem" boxWidth="100%" radius="1rem" />
-);
+const rightMarkup = <Box $fill bg="black" $width="6rem" css={rounded} />;
 
-const rightColumnMarkup = (
-  <RoundedBox bg="black" boxHeight="2rem" boxWidth="100%" radius="1rem" />
-);
+const leftColumnMarkup = <Box $fill bg="black" $height="2rem" css={rounded} />;
 
-const contentMarkup = (
-  <RoundedBox bg="white" boxHeight="2rem" boxWidth="100%" radius="1rem" />
-);
+const rightColumnMarkup = <Box $fill bg="black" $height="2rem" css={rounded} />;
+
+const contentMarkup = <Box $fill bg="white" $height="2rem" css={rounded} />;
 
 const contentListMarkup = (
   <>

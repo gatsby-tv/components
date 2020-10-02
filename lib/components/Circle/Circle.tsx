@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Size } from "@app/types";
-import { cssSize } from "@app/styles/mixins";
+import { cssSize } from "@app/styles";
 import { Box, BoxProps } from "@app/components";
 
 export type CircleProps = { size?: Size } & BoxProps;

@@ -1,7 +1,8 @@
 import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
 
+import { ifExists } from "@app/utilities"
 import { Box, BoxProps } from "@app/components";
-import { cssProperty } from "@app/styles/mixins";
+import { cssProperty } from "@app/styles";
 import {
   FlexDistribute,
   FlexDirection,
@@ -39,7 +40,10 @@ const cssDistribute = (distribute?: FlexDistribute) => {
   }
 };
 
+export type { ItemProps as FlexItemProps };
+
 export interface FlexProps extends BoxProps {
+  center?: boolean;
   column?: boolean;
   distribute?: FlexDistribute;
   wrap?: FlexWrap;
@@ -50,11 +54,10 @@ export interface FlexProps extends BoxProps {
 
 const FlexBase = styled(Box)<FlexProps>`
   display: flex;
-  ${(props) =>
-    props.column ? "flex-direction: column;" : "flex-direction: row;"}
+  ${(props) => cssProperty("flex-direction", ifExists(props.column, "column"))}
   ${(props) => cssProperty("flex-wrap", props.wrap)}
-  ${(props) => cssProperty("justify-content", props.justify)}
-  ${(props) => cssProperty("align-items", props.align)}
+  ${(props) => cssProperty("justify-content", props.justify, ifExists(props.center, "center"))}
+  ${(props) => cssProperty("align-items", props.align, ifExists(props.center, "center"))}
   ${(props) => cssProperty("align-content", props.alignContent)}
   ${(props) => cssDistribute(props.distribute)}
 `;

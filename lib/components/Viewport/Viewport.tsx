@@ -3,49 +3,61 @@ import React, {
   useEffect,
   useRef,
   useCallback,
+  forwardRef,
   CSSProperties,
 } from "react";
+import { css } from "styled-components";
 
-import { Box, Position } from "@app/components";
-import { EventHandler } from "@app/types";
-import { ViewportContext } from "@app/util/viewport";
+import { Size } from "@app/types";
+import { useTheme } from "@app/utilities";
+import { Box, BoxProps } from "@app/components";
 
-export interface ViewportProps {
+export interface ViewportProps extends BoxProps {
   children?: React.ReactNode;
   overlay?: React.ReactNode;
+  rounded?: boolean;
+  placeholder?: boolean;
   aspectRatio?: number;
+  ariaLabel?: string;
 }
 
-export const Viewport: React.FC<ViewportProps> = (props) => {
-  const video = useRef(null);
-  const viewport = useRef(null);
-  const [handlers, setHandlers] = useState<EventHandler[]>([]);
+export const Viewport = forwardRef<HTMLElement, ViewportProps>((props, ref) => {
+  const {
+    children,
+    overlay,
+    placeholder,
+    rounded,
+    aspectRatio,
+    ariaLabel,
+    $width = 1,
+    ...boxProps
+  } = props;
 
-  const context = {
-    viewport,
-    video,
-    handlers,
-    addHandler: useCallback(
-      (handler: EventHandler) =>
-        setHandlers((current) => [...current, handler]),
-      []
-    ),
-  };
+  const theme = useTheme();
 
-  const style: CSSProperties = {
-    paddingTop: `${100 * (props.aspectRatio ?? 9 / 16)}%`,
-  };
+  const style = css`
+    width: 100%;
+    border-radius: ${rounded ? "100%" : "0"};
+    background-color: ${placeholder ? theme.colors.placeholder : "black"};
+  `;
 
   return (
-    <ViewportContext.Provider value={context}>
-      <Box ref={viewport} as="figure" style={style} boxWidth="100%" bg="black">
-        <Position fill>
-          <Box boxWidth="100%" boxHeight="100%">
-            {props.children}
-          </Box>
-          <Position fill>{props.overlay}</Position>
-        </Position>
+    <Box
+      as="figure"
+      ref={ref as React.RefObject<HTMLElement>}
+      $width={$width}
+      aria-label={ariaLabel}
+      {...boxProps}
+    >
+      <Box
+        absolute
+        css={style}
+        style={{ paddingTop: `${100 * (aspectRatio ?? 9 / 16)}%` }}
+      />
+      {children}
+      <Box absolute $fill>
+        {overlay}
       </Box>
-    </ViewportContext.Provider>
+    </Box>
   );
-};
+});

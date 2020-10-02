@@ -1,13 +1,20 @@
 import styled from "styled-components";
 
-import { Size, Color, Styleable } from "@app/types";
-import { cssSize, cssColor } from "@app/styles/mixins";
+import { ifExists, ifNotExists } from "@app/utilities"
+import { Size, Styleable } from "@app/types";
+import { cssSize, cssProperty } from "@app/styles";
 
 export interface BoxProps extends Styleable {
-  bg?: Color;
-  fg?: Color;
-  boxWidth?: Size;
-  boxHeight?: Size;
+  bg?: string;
+  fg?: string;
+  absolute?: boolean;
+  $fill?: boolean;
+  $width?: Size;
+  $height?: Size;
+  top?: Size;
+  right?: Size;
+  bottom?: Size;
+  left?: Size;
   maxWidth?: Size;
   maxHeight?: Size;
   minWidth?: Size;
@@ -26,11 +33,28 @@ export interface BoxProps extends Styleable {
 
 export const Box = styled.div<BoxProps>`
   display: block;
-  position: relative;
-  ${(props) => cssColor("background-color", props.theme, props.bg)}
-  ${(props) => cssColor("color", props.theme, props.fg)}
-  ${(props) => cssSize("width", props.boxWidth)}
-  ${(props) => cssSize("height", props.boxHeight)}
+  ${(props) =>
+    cssProperty("position", ifExists(props.absolute, "absolute"), "relative")}
+  ${(props) => cssProperty("background-color", props.bg)}
+  ${(props) => cssProperty("color", props.fg)}
+  ${(props) =>
+    ifNotExists(props.absolute) &&
+    cssSize("width", props.$width, ifExists(props.$fill, 1))}
+  ${(props) =>
+    ifNotExists(props.absolute) &&
+    cssSize("height", props.$height, ifExists(props.$fill, 1))}
+  ${(props) =>
+    ifExists(props.absolute) &&
+    cssSize("top", props.top, ifExists(props.$fill, 0))}
+  ${(props) =>
+    ifExists(props.absolute) &&
+    cssSize("right", props.right, ifExists(props.$fill, 0))}
+  ${(props) =>
+    ifExists(props.absolute) &&
+    cssSize("bottom", props.bottom, ifExists(props.$fill, 0))}
+  ${(props) =>
+    ifExists(props.absolute) &&
+    cssSize("left", props.left, ifExists(props.$fill, 0))}
   ${(props) => cssSize("max-width", props.maxWidth)}
   ${(props) => cssSize("max-height", props.maxHeight)}
   ${(props) => cssSize("min-width", props.minWidth)}

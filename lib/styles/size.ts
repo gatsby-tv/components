@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
-import { Size } from "../../types";
-import { parseSize } from "../../util/parse-css";
+import { Size } from "@app/types";
+import { parseSize } from "@app/utilities";
 
 export const cssSize = (property: string, size?: Size, defaultValue?: Size) => {
   if (size == null) {
