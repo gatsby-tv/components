@@ -280,7 +280,9 @@ export const Player: React.FC<PlayerProps> = (props) => {
         case "ArrowRight":
           if (!video?.current) return;
           if (!state.seeking) setSignal("skipForward");
-          seekTo(Math.min(video.current.currentTime + 5, video.current.duration));
+          seekTo(
+            Math.min(video.current.currentTime + 5, video.current.duration)
+          );
           return;
 
         case "ArrowLeft":

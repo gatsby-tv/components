@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "styled-components";
-import { Exclamation } from "@gatsby-tv/icons"
+import { Exclamation } from "@gatsby-tv/icons";
 
 import {
   cssTextBreakWord,
@@ -38,7 +38,7 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
     gap: ${(props) => props.theme.spacing.tight};
     ${cssTextBreakWord}
     ${cssTextError}
-  `
+  `;
 
   const labelStyle = css`
     margin-bottom: ${(props) => props.theme.spacing.extraTight};
@@ -47,7 +47,7 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
     ${cssTextLabel}
   `;
 
-  const helpMarkup = (help && !error) ? <Box css={helpStyle}>{help}</Box> : null;
+  const helpMarkup = help && !error ? <Box css={helpStyle}>{help}</Box> : null;
 
   const errorMarkup = error ? (
     <Flex css={errorStyle}>

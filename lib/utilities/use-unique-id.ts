@@ -23,6 +23,6 @@ const useGlobalIdGenerators = globalIdGeneratorsFactory();
 
 export const useUniqueId = (prefix: string) => {
   const generators = useGlobalIdGenerators(prefix);
-  const id = useRef(generators[prefix]())
+  const id = useRef(generators[prefix]());
   return id.current;
 };

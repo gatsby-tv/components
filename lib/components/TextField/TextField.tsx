@@ -86,11 +86,20 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     ${cssInputBorder}
     ${cssProperty("text-align", align, "left")}
     ${cssProperty("color", ifExists(error, theme.colors.font.body.darken(0.1)))}
-    ${cssProperty("background-color", ifExists(error, theme.colors.error.fade(0.9)))}
+    ${cssProperty(
+      "background-color",
+      ifExists(error, theme.colors.error.fade(0.9))
+    )}
   `;
 
   return (
-    <Labelled id={id} label={label} help={help} error={error} hidden={labelHidden}>
+    <Labelled
+      id={id}
+      label={label}
+      help={help}
+      error={error}
+      hidden={labelHidden}
+    >
       <Connected left={left} right={right}>
         <Flex
           style={{ cursor: "text" }}

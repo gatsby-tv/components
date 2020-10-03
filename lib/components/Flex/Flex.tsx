@@ -1,6 +1,6 @@
 import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
 
-import { ifExists } from "@app/utilities"
+import { ifExists } from "@app/utilities";
 import { Box, BoxProps } from "@app/components";
 import { cssProperty } from "@app/styles";
 import {
@@ -56,8 +56,14 @@ const FlexBase = styled(Box)<FlexProps>`
   display: flex;
   ${(props) => cssProperty("flex-direction", ifExists(props.column, "column"))}
   ${(props) => cssProperty("flex-wrap", props.wrap)}
-  ${(props) => cssProperty("justify-content", props.justify, ifExists(props.center, "center"))}
-  ${(props) => cssProperty("align-items", props.align, ifExists(props.center, "center"))}
+  ${(props) =>
+    cssProperty(
+      "justify-content",
+      props.justify,
+      ifExists(props.center, "center")
+    )}
+  ${(props) =>
+    cssProperty("align-items", props.align, ifExists(props.center, "center"))}
   ${(props) => cssProperty("align-content", props.alignContent)}
   ${(props) => cssDistribute(props.distribute)}
 `;

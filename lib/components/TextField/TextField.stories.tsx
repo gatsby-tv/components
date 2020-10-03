@@ -52,4 +52,4 @@ export const WithError = Template.bind({});
 WithError.args = {
   label: "Text Field with error",
   error: Error("An error has occurred"),
-}
+};

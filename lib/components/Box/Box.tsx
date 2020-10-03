@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { ifExists, ifNotExists } from "@app/utilities"
+import { ifExists, ifNotExists } from "@app/utilities";
 import { Size, Styleable } from "@app/types";
 import { cssSize, cssProperty } from "@app/styles";
 
@@ -38,23 +38,41 @@ export const Box = styled.div<BoxProps>`
   ${(props) => cssProperty("background-color", props.bg)}
   ${(props) => cssProperty("color", props.fg)}
   ${(props) =>
-    ifNotExists(props.absolute) &&
-    cssSize("width", props.$width, ifExists(props.$fill, 1))}
+    cssSize(
+      "width",
+      props.$width,
+      ifNotExists(props.absolute) && ifExists(props.$fill, 1)
+    )}
   ${(props) =>
-    ifNotExists(props.absolute) &&
-    cssSize("height", props.$height, ifExists(props.$fill, 1))}
+    cssSize(
+      "height",
+      props.$height,
+      ifNotExists(props.absolute) && ifExists(props.$fill, 1)
+    )}
   ${(props) =>
-    ifExists(props.absolute) &&
-    cssSize("top", props.top, ifExists(props.$fill, 0))}
+    cssSize(
+      "top",
+      props.top,
+      ifExists(props.absolute) && ifExists(props.$fill, 0)
+    )}
   ${(props) =>
-    ifExists(props.absolute) &&
-    cssSize("right", props.right, ifExists(props.$fill, 0))}
+    cssSize(
+      "right",
+      props.right,
+      ifExists(props.absolute) && ifExists(props.$fill, 0)
+    )}
   ${(props) =>
-    ifExists(props.absolute) &&
-    cssSize("bottom", props.bottom, ifExists(props.$fill, 0))}
+    cssSize(
+      "bottom",
+      props.bottom,
+      ifExists(props.absolute) && ifExists(props.$fill, 0)
+    )}
   ${(props) =>
-    ifExists(props.absolute) &&
-    cssSize("left", props.left, ifExists(props.$fill, 0))}
+    cssSize(
+      "left",
+      props.left,
+      ifExists(props.absolute) && ifExists(props.$fill, 0)
+    )}
   ${(props) => cssSize("max-width", props.maxWidth)}
   ${(props) => cssSize("max-height", props.maxHeight)}
   ${(props) => cssSize("min-width", props.minWidth)}

@@ -35,7 +35,7 @@ export const cssTextError = css`
   line-height: ${(props) => props.theme.font.height.base};
   color: ${(props) => props.theme.colors.error};
   font-weight: 500;
-`
+`;
 
 export const cssTextLabel = css`
   ${cssTextCondensed}

@@ -40,7 +40,7 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
       ariaLabel={ariaLabel}
       overlay={overlay}
     >
-      <Circle $fill as="img" alt="" {...imgProps} />
+      <Circle as="img" alt="" $width={1} {...imgProps} />
     </Viewport>
   );
 };
