@@ -47,3 +47,9 @@ WithHelpInfo.args = {
   label: "Text Field with help text",
   help: "Example text providing helpful info.",
 };
+
+export const WithError = Template.bind({});
+WithError.args = {
+  label: "Text Field with error",
+  error: Error("An error has occurred"),
+}

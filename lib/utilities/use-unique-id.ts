@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 interface IdGenerator {
   (): string;
 }
@@ -19,7 +21,8 @@ const globalIdGeneratorsFactory = () => {
 
 const useGlobalIdGenerators = globalIdGeneratorsFactory();
 
-export const useUniqueIdGenerator = (prefix: string = "") => {
+export const useUniqueId = (prefix: string) => {
   const generators = useGlobalIdGenerators(prefix);
-  return generators[prefix];
+  const id = useRef(generators[prefix]())
+  return id.current;
 };

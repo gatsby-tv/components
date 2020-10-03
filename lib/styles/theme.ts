@@ -1,31 +1,33 @@
 import { DefaultTheme } from "styled-components";
+import Color from "color";
 
 export const DarkTheme: DefaultTheme = {
   colors: {
     font: {
-      body: "rgba(255, 255, 255, 0.9)",
-      subdued: "rgba(255, 255, 255, 0.6)",
-      inverted: "rgba(0, 0, 0, 0.9)",
+      body: Color.rgb(255, 255, 255, 0.9),
+      subdued: Color.rgb(255, 255, 255, 0.6),
+      inverted: Color.rgb(0, 0, 0, 0.9),
     },
     background: {
-      0: "#141414",
-      1: "#1a1a1a",
-      2: "#202020",
-      3: "#262626",
-      4: "#2c2c2c",
-      5: "#313131",
+      0: Color("#141414"),
+      1: Color("#1a1a1a"),
+      2: Color("#202020"),
+      3: Color("#262626"),
+      4: Color("#2c2c2c"),
+      5: Color("#313131"),
     },
     shadow: {
-      dark: "rgba(0, 0, 0, 0.9)",
-      light: "rgba(100, 100, 100, 0.9)",
+      dark: Color.rgb(0, 0, 0, 0.9),
+      light: Color.rgb(100, 100, 100, 0.9),
     },
-    placeholder: "rgba(255, 255, 255, 0.1)",
-    gold: "#b29b5c",
-    blue: "#6495ed",
-    pink: "#ed6495",
-    green: "#00853e",
-    white: "white",
-    black: "#111",
+    placeholder: Color.rgb(255, 255, 255, 0.1),
+    error: Color("#de0017"),
+    gold: Color("#b29b5c"),
+    blue: Color("#6495ed"),
+    pink: Color("#ed6495"),
+    green: Color("#00853e"),
+    white: Color("#fff"),
+    black: Color("#111"),
   },
   font: {
     size: {

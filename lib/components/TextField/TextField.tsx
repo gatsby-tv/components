@@ -1,25 +1,27 @@
 import React, { useState, useRef } from "react";
 import { css } from "styled-components";
 
-import { cssTextInput, cssInputBorder } from "@app/styles";
-import { useUniqueIdGenerator, useTheme } from "@app/utilities";
+import { cssProperty, cssTextInput, cssInputBorder } from "@app/styles";
+import { ifExists, useUniqueId, useTheme } from "@app/utilities";
 import { Flex, Labelled, Connected } from "@app/components";
 
 export interface TextFieldProps {
   label: string;
   labelHidden?: boolean;
+  id?: string;
   multiline?: boolean;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   left?: React.ReactNode;
   right?: React.ReactNode;
+  align?: "left" | "center" | "right";
   help?: string;
+  error?: Error;
   disabled?: boolean;
   focused?: boolean;
   clearButton?: boolean;
   onClear?: (id: string) => void;
   onChange?: (value: string, id: string) => void;
-  id?: string;
   placeholder?: string;
   autoFocus?: boolean;
   autoComplete?: boolean;
@@ -37,9 +39,7 @@ export interface TextFieldProps {
 
 export const TextField: React.FC<TextFieldProps> = (props) => {
   const theme = useTheme();
-  const getUniqueId = useUniqueIdGenerator(
-    props.id ? `textfield-${props.id}` : "textfield"
-  );
+  const id = useUniqueId(props.id ? `textfield-${props.id}` : "textfield");
 
   const {
     label,
@@ -49,23 +49,23 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     suffix,
     left,
     right,
+    align,
     help,
+    error,
     disabled,
     focused,
     autoComplete,
     clearButton,
     onClear,
-    onChange,
+    onChange = () => undefined,
     ...inputProps
   } = props;
 
   const [focus, setFocus] = useState(Boolean(focused));
   const input = useRef<HTMLInputElement>(null);
 
-  const id = getUniqueId();
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange && onChange(event.currentTarget.value, id);
+    onChange(event.currentTarget.value, id);
   };
 
   const handleFocus = () => setFocus(true);
@@ -84,10 +84,13 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     outline: none;
     ${cssTextInput}
     ${cssInputBorder}
+    ${cssProperty("text-align", align, "left")}
+    ${cssProperty("color", ifExists(error, theme.colors.font.body.darken(0.1)))}
+    ${cssProperty("background-color", ifExists(error, theme.colors.error.fade(0.9)))}
   `;
 
   return (
-    <Labelled id={id} label={label} help={help} hidden={labelHidden}>
+    <Labelled id={id} label={label} help={help} error={error} hidden={labelHidden}>
       <Connected left={left} right={right}>
         <Flex
           style={{ cursor: "text" }}
@@ -101,6 +104,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
             as={multiline ? "textarea" : "input"}
             ref={input}
             css={inputStyle}
+            data-error={ifExists(error)}
             id={id}
             $width={1}
             grow={1}

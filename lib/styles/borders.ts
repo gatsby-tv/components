@@ -15,4 +15,10 @@ export const cssInputBorder = css`
       ${(props) => props.theme.colors.blue};
     z-index: 10;
   }
+
+  &[data-error] {
+    box-shadow: inset 0 0 0 ${(props) => props.theme.border.width.small}
+      ${(props) => props.theme.colors.error.fade(0.4)};
+    z-index: 10;
+  }
 `;

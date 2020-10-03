@@ -30,6 +30,13 @@ export const cssTextBody = css`
   font-weight: 400;
 `;
 
+export const cssTextError = css`
+  font-size: ${(props) => props.theme.font.size.base};
+  line-height: ${(props) => props.theme.font.height.base};
+  color: ${(props) => props.theme.colors.error};
+  font-weight: 500;
+`
+
 export const cssTextLabel = css`
   ${cssTextCondensed}
   font-size: ${(props) => props.theme.font.size.base};
@@ -41,4 +48,12 @@ export const cssTextInput = css`
   ${cssTextBody}
   color: ${(props) => props.theme.colors.font.inverted};
   appearance: none;
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.font.inverted.fade(0.5)};
+  }
+
+  &[data-error]::placeholder {
+    color: ${(props) => props.theme.colors.font.body.fade(0.5)};
+  }
 `;

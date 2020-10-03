@@ -1,25 +1,30 @@
 import React from "react";
 import { css } from "styled-components";
+import { Exclamation } from "@gatsby-tv/icons"
 
 import {
   cssTextBreakWord,
   cssTextSubdued,
+  cssTextError,
   cssTextLabel,
   cssVisuallyHidden,
   cssTextBody,
 } from "@app/styles";
-import { Box } from "@app/components";
+import { Box, Flex, Icon } from "@app/components";
+import { useTheme } from "@app/utilities";
 
 export interface LabelledProps {
   id: string;
   label: string;
   help?: string;
+  error?: Error;
   hidden?: boolean;
   children?: React.ReactNode;
 }
 
 export const Labelled: React.FC<LabelledProps> = (props) => {
-  const { id, label, help, hidden, children } = props;
+  const { id, label, help, error, hidden, children } = props;
+  const theme = useTheme();
 
   const helpStyle = css`
     margin-top: ${(props) => props.theme.spacing.extraTight};
@@ -28,6 +33,13 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
     ${cssTextBody}
   `;
 
+  const errorStyle = css`
+    margin-top: ${(props) => props.theme.spacing.extraTight};
+    gap: ${(props) => props.theme.spacing.tight};
+    ${cssTextBreakWord}
+    ${cssTextError}
+  `
+
   const labelStyle = css`
     margin-bottom: ${(props) => props.theme.spacing.extraTight};
     ${(props) => (hidden ? cssVisuallyHidden : "")}
@@ -35,7 +47,14 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
     ${cssTextLabel}
   `;
 
-  const helpMarkup = help ? <Box css={helpStyle}>{help}</Box> : null;
+  const helpMarkup = (help && !error) ? <Box css={helpStyle}>{help}</Box> : null;
+
+  const errorMarkup = error ? (
+    <Flex css={errorStyle}>
+      <Icon $width="1em" src={Exclamation} ariaLabel="Error" />
+      {error.message}
+    </Flex>
+  ) : null;
 
   return (
     <Box>
@@ -43,6 +62,7 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
         {label}
       </Box>
       {children}
+      {errorMarkup}
       {helpMarkup}
     </Box>
   );

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import { useUniqueIdGenerator } from "@app/utilities";
+import { useUniqueId } from "@app/utilities";
 
 export interface PortalProps {
   children?: React.ReactNode;
@@ -10,18 +10,16 @@ export interface PortalProps {
 }
 
 export const Portal: React.FC<PortalProps> = (props) => {
-  const getUniqueId = useUniqueIdGenerator("portal");
+  const id = useUniqueId("portal");
   const portal = useRef<HTMLElement | null>(null);
   const mounted = useRef(false);
 
   useEffect(() => {
     const { onMount = () => undefined } = props;
-    const id = props.portalId
-      ? `${props.portalId}-${getUniqueId()}`
-      : `${getUniqueId()}`;
+    const fullId = props.portalId ? `${props.portalId}-${id}` : `${id}`;
 
     portal.current = document.createElement("div");
-    portal.current.setAttribute("data-portal-id", id);
+    portal.current.setAttribute("data-portal-id", fullId);
     document.body.appendChild(portal.current);
     mounted.current = true;
     onMount();

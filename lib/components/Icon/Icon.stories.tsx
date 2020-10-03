@@ -8,6 +8,7 @@ import {
   SkipForward,
   Expand,
   Compress,
+  Exclamation,
   Spinner,
 } from "@gatsby-tv/icons";
 
@@ -71,4 +72,10 @@ export const SpinnerIcon = Template.bind({});
 SpinnerIcon.args = {
   src: Spinner,
   ariaLabel: "Spinner Icon",
+};
+
+export const ExclamationIcon = Template.bind({});
+ExclamationIcon.args = {
+  src: Exclamation,
+  ariaLabel: "Exclamation Icon",
 };
