@@ -67,14 +67,10 @@ export const cssTextCaption = css`
 
 export const cssTextInput = css`
   ${cssTextBody}
-  color: ${(props) => props.theme.colors.font.inverted};
+  color: ${(props) => props.theme.colors.font.body.darken(0.1)};
   appearance: none;
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.font.inverted.fade(0.5)};
-  }
-
-  &[data-error]::placeholder {
     color: ${(props) => props.theme.colors.font.body.fade(0.5)};
   }
 `;

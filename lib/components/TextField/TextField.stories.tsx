@@ -1,4 +1,5 @@
 import React from "react";
+import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { AppProvider, Button } from "@app/components";
@@ -11,9 +12,20 @@ export default {
   component: TextField,
 } as Meta;
 
+const buttonStyle = css`
+  border-radius: ${(props) => props.theme.border.radius.small};
+  background-color: ${(props) => props.theme.colors.background[4]};
+  height: 100%;
+`
+
+const inputStyle = css`
+  border-radius: ${(props) => props.theme.border.radius.small};
+  background-color: ${(props) => props.theme.colors.background[3]};
+`
+
 const Template: Story<TextFieldProps> = (args) => (
   <AppProvider theme="dark">
-    <TextField placeholder="Example text..." {...args} />
+    <TextField css={inputStyle} placeholder="Example text..." {...args} />
   </AppProvider>
 );
 
@@ -22,7 +34,7 @@ const ButtonMarkup: React.FC<{}> = () => {
 
   return (
     <Button
-      $height={1}
+      css={buttonStyle}
       paddingLeft={theme.spacing.tight}
       paddingRight={theme.spacing.tight}
     >

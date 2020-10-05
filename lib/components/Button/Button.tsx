@@ -12,13 +12,12 @@ import { Box, BoxProps } from "@app/components";
 export type ButtonProps = BoxProps & React.ButtonHTMLAttributes<HTMLElement>;
 
 const ButtonBase = styled(Box)<ButtonProps>`
+  ${cssTextInput}
+  ${cssInputBorder}
   cursor: pointer;
   display: block;
   position: relative;
   outline: none;
-
-  ${cssTextInput}
-  ${cssInputBorder}
 `;
 
 export const Button: React.FC<ButtonProps> = (props) => (

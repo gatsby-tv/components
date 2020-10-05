@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { CSSProp } from "styled-components";
 
 export interface EventHandler {
   event: string;
@@ -8,6 +9,7 @@ export interface EventHandler {
 
 export interface Styleable {
   style?: CSSProperties;
+  css?: CSSProp;
 }
 
 export type IconSource = React.FC<React.SVGProps<SVGSVGElement>>;

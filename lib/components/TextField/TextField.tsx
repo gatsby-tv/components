@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
-import { css } from "styled-components";
+import { css, CSSProp } from "styled-components";
 
+import { Styleable } from "@app/types";
 import { cssProperty, cssTextInput, cssInputBorder } from "@app/styles";
 import { ifExists, useUniqueId, useTheme } from "@app/utilities";
 import { Flex, Labelled, Connected } from "@app/components";
 
-export interface TextFieldProps {
+export interface TextFieldProps extends Styleable {
   label: string;
   labelHidden?: boolean;
   id?: string;
@@ -45,6 +46,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     label,
     labelHidden,
     multiline,
+    css: extraInputStyle,
     prefix,
     suffix,
     left,
@@ -85,11 +87,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     ${cssTextInput}
     ${cssInputBorder}
     ${cssProperty("text-align", align, "left")}
-    ${cssProperty("color", ifExists(error, theme.colors.font.body.darken(0.1)))}
-    ${cssProperty(
-      "background-color",
-      ifExists(error, theme.colors.error.fade(0.9))
-    )}
+    ${extraInputStyle}
   `;
 
   return (

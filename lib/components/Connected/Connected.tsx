@@ -2,7 +2,9 @@ import React from "react";
 
 import { Flex } from "@app/components";
 
-import { Item } from "./components";
+import { Item, ItemProps } from "./components";
+
+export type { ItemProps as ConnectedItemProps };
 
 export interface ConnectedProps {
   children?: React.ReactNode;
@@ -11,7 +13,7 @@ export interface ConnectedProps {
   column?: boolean;
 }
 
-export const Connected: React.FC<ConnectedProps> = (props) => {
+const ConnectedBase: React.FC<ConnectedProps> = (props) => {
   const leftMarkup = props.left ? (
     <Item connection column={props.column}>
       {props.left}
@@ -32,3 +34,5 @@ export const Connected: React.FC<ConnectedProps> = (props) => {
     </Flex>
   );
 };
+
+export const Connected = Object.assign(ConnectedBase, { Item });
