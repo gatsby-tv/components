@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { TextBox } from "@app/components";
 import { cssTextCaption } from "@app/styles";
 
 export interface CaptionProps {
@@ -8,6 +9,10 @@ export interface CaptionProps {
 }
 
 export const Caption = styled.p<CaptionProps>`
-  margin: 0;
   ${cssTextCaption}
+  margin: 0;
+
+  ${TextBox} > & {
+    margin-top: 0;
+  }
 `
