@@ -16,4 +16,4 @@ export const Example: Story<CaptionProps> = (args) => (
       <Caption>With a caption</Caption>
     </TextBox>
   </AppProvider>
-)
+);

@@ -15,4 +15,4 @@ export const Caption = styled.p<CaptionProps>`
   ${TextBox} > & {
     margin-top: 0;
   }
-`
+`;

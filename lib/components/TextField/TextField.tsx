@@ -100,7 +100,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     >
       <Connected left={left} right={right}>
         <Flex
-          style={{ cursor: "text" }}
+          css={{ cursor: "text" }}
           align="center"
           onFocus={handleFocus}
           onBlur={handleBlur}

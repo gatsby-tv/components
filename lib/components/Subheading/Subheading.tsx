@@ -9,6 +9,6 @@ export const Subheading = styled.h3<SubheadingProps>`
   ${cssTextSubheading}
 
   ${Heading} + & {
-    margin-top: ${props => props.theme.spacing.extraTight};
+    margin-top: ${(props) => props.theme.spacing.extraTight};
   }
-`
+`;

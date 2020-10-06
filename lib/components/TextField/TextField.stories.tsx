@@ -16,12 +16,12 @@ const buttonStyle = css`
   border-radius: ${(props) => props.theme.border.radius.small};
   background-color: ${(props) => props.theme.colors.background[4]};
   height: 100%;
-`
+`;
 
 const inputStyle = css`
   border-radius: ${(props) => props.theme.border.radius.small};
   background-color: ${(props) => props.theme.colors.background[3]};
-`
+`;
 
 const Template: Story<TextFieldProps> = (args) => (
   <AppProvider theme="dark">

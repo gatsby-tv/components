@@ -5,7 +5,7 @@ import { useUniqueId } from "@app/utilities";
 
 export interface PortalProps {
   children?: React.ReactNode;
-  portalId?: string;
+  id?: string;
   onMount?: () => void;
 }
 
@@ -16,7 +16,7 @@ export const Portal: React.FC<PortalProps> = (props) => {
 
   useEffect(() => {
     const { onMount = () => undefined } = props;
-    const fullId = props.portalId ? `${props.portalId}-${id}` : `${id}`;
+    const fullId = props.id ? `${props.id}-${id}` : `${id}`;
 
     portal.current = document.createElement("div");
     portal.current.setAttribute("data-portal-id", fullId);

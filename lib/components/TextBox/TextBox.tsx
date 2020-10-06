@@ -4,7 +4,7 @@ import { cssTextBody } from "@app/styles";
 import { Space } from "@app/types";
 
 export interface TextBoxProps {
-  spacing?: Space,
+  spacing?: Space;
 }
 
 export const TextBox = styled.div<TextBoxProps>`
@@ -13,4 +13,4 @@ export const TextBox = styled.div<TextBoxProps>`
   > *:not(:first-child) {
     margin-top: ${(props) => props.theme.spacing[props.spacing ?? "base"]};
   }
-`
+`;

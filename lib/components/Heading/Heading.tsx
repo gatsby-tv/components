@@ -6,4 +6,4 @@ export interface HeadingProps {}
 
 export const Heading = styled.h2<HeadingProps>`
   ${cssTextHeading}
-`
+`;

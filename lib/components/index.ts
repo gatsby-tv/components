@@ -21,3 +21,4 @@ export * from "./TextField";
 export * from "./Caption";
 export * from "./Heading";
 export * from "./Subheading";
+export * from "./Fireworks";
