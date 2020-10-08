@@ -10,12 +10,17 @@ export default {
   component: TextBox,
 } as Meta;
 
-export const Example: Story<TextBoxProps> = (args) => (
+const Template: Story<TextBoxProps> = (args) => (
   <AppProvider theme="dark">
-    <TextBox>
+    <TextBox {...args}>
       <Heading>Text Box Component</Heading>
       <Subheading>Example</Subheading>
       <LoremIpsum p={2} />
     </TextBox>
   </AppProvider>
 );
+
+export const Example = Template.bind({});
+Example.args = {
+  $spacing: "tight",
+};

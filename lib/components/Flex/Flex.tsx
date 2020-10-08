@@ -2,8 +2,9 @@ import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
 
 import { ifExists } from "@app/utilities";
 import { Box, BoxProps } from "@app/components";
-import { cssProperty } from "@app/styles";
+import { cssProperty, cssSize } from "@app/styles";
 import {
+  Size,
   FlexDistribute,
   FlexDirection,
   FlexWrap,
@@ -50,6 +51,7 @@ export interface FlexProps extends BoxProps {
   justify?: FlexJustifyContent;
   align?: FlexAlignItems;
   alignContent?: FlexAlignContent;
+  gap?: Size;
 }
 
 const FlexBase = styled(Box)<FlexProps>`
@@ -66,6 +68,7 @@ const FlexBase = styled(Box)<FlexProps>`
     cssProperty("align-items", props.align, ifExists(props.center, "center"))}
   ${(props) => cssProperty("align-content", props.alignContent)}
   ${(props) => cssDistribute(props.distribute)}
+  ${(props) => cssSize("gap", props.gap)}
 `;
 
 export const Flex = Object.assign(FlexBase, { Item });

@@ -1,21 +1,23 @@
 import styled from "styled-components";
 
+import { ifExists, ifNotExists } from "@app/utilities";
 import { cssProperty } from "@app/styles";
 
 export interface ScrollProps {
-  hidden?: boolean;
+  $hidden?: boolean;
   vertical?: boolean;
   horizontal?: boolean;
 }
 
 export const Scroll = styled.div<ScrollProps>`
-  ${(props) => cssProperty("overflow-y", props.vertical ? "auto" : undefined)}
-  ${(props) => cssProperty("overflow-x", props.horizontal ? "auto" : undefined)}
+  ${(props) => cssProperty("overflow-y", ifExists(props.vertical, "auto"))}
+  ${(props) => cssProperty("overflow-x", ifExists(props.horizontal, "auto"))}
+  ${(props) => cssProperty("padding-right", ifNotExists(props.$hidden, "1rem"))}
   backface-visibility: hidden;
 
   &::-webkit-scrollbar {
-    width: ${(props) => (props.hidden ? "0" : "1rem")};
-    height: ${(props) => (props.hidden ? "0" : "1rem")};
+    width: ${(props) => (props.$hidden ? "0" : "1rem")};
+    height: ${(props) => (props.$hidden ? "0" : "1rem")};
   }
 
   &::-webkit-scrollbar-corner {
@@ -28,7 +30,7 @@ export const Scroll = styled.div<ScrollProps>`
 
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) =>
-      props.hidden ? "transparent" : props.theme.colors.background[3]}
+      props.$hidden ? "transparent" : props.theme.colors.background[3]};
     border-radius: 2rem;
     transition: all 100ms ease;
   }

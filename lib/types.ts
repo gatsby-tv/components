@@ -21,7 +21,9 @@ export type FontSize =
   | "small"
   | "base"
   | "large"
-  | "extraLarge";
+  | "extraLarge"
+  | "displaySmall"
+  | "displayLarge";
 
 export type Space =
   | "none"
@@ -56,6 +58,9 @@ export type Timing =
   | "linear"
   | "step-start"
   | "step-end";
+
+export type DisplaySize = "small" | "large";
+export type MetaSize = "small" | "medium" | "large";
 
 export type Size = number | string;
 

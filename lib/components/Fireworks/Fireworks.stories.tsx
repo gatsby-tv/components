@@ -19,20 +19,16 @@ const buttonStyle = css`
 
 export const Infinite: Story<FireworksProps> = (args) => {
   const origin = () => ({
-    x: Math.random() * window.innerWidth * 2 / 3 + window.innerWidth / 6,
+    x: (Math.random() * window.innerWidth * 2) / 3 + window.innerWidth / 6,
     y: window.innerHeight,
-  })
+  });
 
   return (
     <AppProvider theme="dark">
-      <Fireworks
-        origin={origin}
-        count={Infinity}
-        interval={800}
-      />
+      <Fireworks origin={origin} count={Infinity} interval={800} />
     </AppProvider>
-  )
-}
+  );
+};
 
 export const WithButton: Story<FireworksProps> = (args) => {
   const { toggle, flipToggle } = useToggle();
