@@ -80,7 +80,6 @@ export const cssTextHeading = css`
 `;
 
 export const cssTextSubheading = css`
-  ${cssTextCondensed}
   font-size: ${(props) => props.theme.font.size.subheading};
   line-height: ${(props) => props.theme.font.height.subheading};
   font-weight: 600;

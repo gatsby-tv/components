@@ -27,5 +27,5 @@ export const ItemTooltip: React.FC<ItemTooltipProps> = (props) => {
         </TextBox>
       </Activatable>
     </Tooltip>
-  )
-}
+  );
+};

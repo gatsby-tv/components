@@ -1,7 +1,12 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { TextMeta, TextMetaProps, TextMetaListProps, TextMetaLinkProps } from "./TextMeta";
+import {
+  TextMeta,
+  TextMetaProps,
+  TextMetaListProps,
+  TextMetaLinkProps,
+} from "./TextMeta";
 import { AppProvider, TextBox } from "@app/components";
 
 export default {
@@ -83,9 +88,7 @@ ListLarge.args = {
 
 const LinkTemplate: Story<TextMetaLinkProps> = (args) => (
   <AppProvider theme="dark">
-    <TextMeta.Link{...args}>
-      Text Meta Link
-    </TextMeta.Link>
+    <TextMeta.Link {...args}>Text Meta Link</TextMeta.Link>
   </AppProvider>
 );
 

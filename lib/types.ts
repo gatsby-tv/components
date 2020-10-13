@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import { CSSProp } from "styled-components";
 
 export interface EventHandler {
