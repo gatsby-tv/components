@@ -31,7 +31,7 @@ const navigationStyle = css`
 
 const wrapperStyle = css`
   background-color: ${(props) => props.theme.colors.background[4]};
-`
+`;
 
 export const OneSection: Story<NavigationProps> = (args) => {
   const items = ["one", "two", "three"];

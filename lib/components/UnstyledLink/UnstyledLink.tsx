@@ -12,7 +12,7 @@ const UnstyledLinkBase = styled.a`
   color: inherit;
   text-decoration: none;
   outline: none;
-`
+`;
 
 export const UnstyledLink: React.FC<UnstyledLinkProps> = (props) => {
   const target = props.external ? "_blank" : undefined;
@@ -27,5 +27,5 @@ export const UnstyledLink: React.FC<UnstyledLinkProps> = (props) => {
     >
       {props.children}
     </UnstyledLinkBase>
-  )
-}
+  );
+};

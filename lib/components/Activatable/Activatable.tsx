@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { cssProperty } from "@app/styles";
-import { ifExists } from "@app/utilities";
+import { ifExists, ifNotExists } from "@app/utilities";
 import { Box, BoxProps } from "@app/components";
 
 export interface ActivatableProps extends BoxProps {

@@ -17,4 +17,4 @@ const SectionBase: React.FC<SectionProps> = (props) => {
   );
 };
 
-export const Section = Object.assign(SectionBase, { Title: Subheading })
+export const Section = Object.assign(SectionBase, { Title: Subheading });

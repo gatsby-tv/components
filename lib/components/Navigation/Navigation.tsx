@@ -39,11 +39,7 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
       value={{ selection: props.selection, onSelect: props.onSelect }}
     >
       <Scroll as="nav" vertical $hidden={props.scrollHidden}>
-        <Flex
-          column
-          align="stretch"
-          css={navigationStyle}
-        >
+        <Flex column align="stretch" css={navigationStyle}>
           {props.children}
         </Flex>
       </Scroll>
