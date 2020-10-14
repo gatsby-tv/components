@@ -42,7 +42,6 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
         <Flex
           column
           align="stretch"
-          style={props.style}
           css={navigationStyle}
         >
           {props.children}

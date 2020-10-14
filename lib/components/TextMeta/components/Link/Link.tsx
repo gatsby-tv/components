@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { MetaSize } from "@app/types";
 import { cssTextSubdued } from "@app/styles";
+import { UnstyledLink, UnstyledLinkProps } from "@app/components";
 
 import { Item } from "../Item";
 import { ItemTooltip } from "../ItemTooltip";
@@ -15,22 +16,23 @@ const LinkBase = styled(Item)<LinkBaseProps>`
   ${cssTextSubdued}
   cursor: pointer;
   transition: color ${(props) => props.theme.duration.fastest} ease;
-  text-decoration: none;
+  width: fit-content;
 
   &:hover {
     color: ${(props) => props.theme.colors.font.body};
   }
 `;
 
-export interface LinkProps extends LinkBaseProps {
+export interface LinkProps extends UnstyledLinkProps {
   children?: string | [string];
-  href?: string;
+  size?: MetaSize;
 }
 
 export const Link: React.FC<LinkProps> = (props) => {
-  const text = useRef<HTMLAnchorElement>(null);
+  const text = useRef<HTMLParagraphElement>(null);
   const [truncated, setTruncated] = useState(false);
   const [active, setActive] = useState(false);
+  const { size, ...rest } = props;
 
   useEffect(() => {
     if (!text.current) return;
@@ -40,14 +42,12 @@ export const Link: React.FC<LinkProps> = (props) => {
   return (
     <>
       <LinkBase
-        as="a"
         ref={text}
-        href={props.href}
-        size={props.size}
+        size={size}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
       >
-        {props.children}
+        <UnstyledLink {...rest} />
       </LinkBase>
       <ItemTooltip $for={text} active={truncated && active}>
         {props.children}
