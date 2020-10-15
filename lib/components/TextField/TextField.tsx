@@ -1,15 +1,15 @@
 import React, { useState, useRef } from "react";
-import { css, CSSProp } from "styled-components";
+import { css } from "styled-components";
 
-import { Styleable } from "@app/types";
 import { cssProperty, cssTextInput, cssInputBorder } from "@app/styles";
 import { ifExists, useUniqueId, useTheme } from "@app/utilities";
 import { Flex, Labelled, Connected } from "@app/components";
 
-export interface TextFieldProps extends Styleable {
+export interface TextFieldProps {
   label: string;
   labelHidden?: boolean;
   id?: string;
+  className?: string;
   multiline?: boolean;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
@@ -43,10 +43,10 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
   const id = useUniqueId(props.id ? `textfield-${props.id}` : "textfield");
 
   const {
+    className,
     label,
     labelHidden,
     multiline,
-    css: extraInputStyle,
     prefix,
     suffix,
     left,
@@ -74,20 +74,33 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
   const handleBlur = () => setFocus(false);
   const handleClick = () => input?.current?.focus();
 
+  const placeholderMarkup = css`
+    color: ${(props) => props.theme.colors.font.body.fade(0.5)};
+  `;
+
   const prefixMarkup = prefix ? (
-    <Flex.Item shrink={0}>{prefix}</Flex.Item>
+    <Flex.Item css={placeholderMarkup} shrink={0}>
+      {prefix}
+    </Flex.Item>
   ) : null;
 
   const suffixMarkup = suffix ? (
-    <Flex.Item shrink={0}>{suffix}</Flex.Item>
+    <Flex.Item css={placeholderMarkup} shrink={0}>
+      {suffix}
+    </Flex.Item>
   ) : null;
 
   const inputStyle = css`
-    outline: none;
     ${cssTextInput}
     ${cssInputBorder}
-    ${cssProperty("text-align", align, "left")}
-    ${extraInputStyle}
+    cursor: text;
+
+    input {
+      ${cssTextInput}
+      ${cssProperty("text-align", align, "left")}
+      outline: none;
+      background-color: transparent;
+    }
   `;
 
   return (
@@ -100,8 +113,16 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     >
       <Connected left={left} right={right}>
         <Flex
-          css={{ cursor: "text" }}
+          className={className}
+          css={inputStyle}
+          gap={theme.spacing.tight}
           align="center"
+          data-focus={ifExists(focus)}
+          data-error={ifExists(error)}
+          paddingLeft={theme.spacing.baseTight}
+          paddingRight={theme.spacing.baseTight}
+          paddingTop={theme.spacing.tight}
+          paddingBottom={theme.spacing.tight}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onClick={handleClick}
@@ -110,15 +131,9 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
           <Flex.Item
             as={multiline ? "textarea" : "input"}
             ref={input}
-            css={inputStyle}
-            data-error={ifExists(error)}
             id={id}
             $width={1}
             grow={1}
-            paddingLeft={theme.spacing.baseTight}
-            paddingRight={theme.spacing.baseTight}
-            paddingTop={theme.spacing.tight}
-            paddingBottom={theme.spacing.tight}
             autoComplete={autoComplete ? "on" : "off"}
             onChange={handleChange}
             onKeyPress={(event: React.SyntheticEvent) =>

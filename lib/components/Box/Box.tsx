@@ -29,6 +29,7 @@ export interface BoxProps extends Styleable {
   paddingRight?: Size;
   paddingBottom?: Size;
   paddingLeft?: Size;
+  zIndex?: number;
 }
 
 export const Box = styled.div<BoxProps>`
@@ -87,4 +88,5 @@ export const Box = styled.div<BoxProps>`
   ${(props) => cssSize("padding-right", props.paddingRight)}
   ${(props) => cssSize("padding-bottom", props.paddingBottom)}
   ${(props) => cssSize("padding-left", props.paddingLeft)}
+  ${(props) => cssProperty("z-index", String(props.zIndex))}
 `;

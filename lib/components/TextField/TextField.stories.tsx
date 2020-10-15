@@ -48,6 +48,12 @@ Default.args = {
   label: "Text Field",
 };
 
+export const WithPrefix = Template.bind({});
+WithPrefix.args = {
+  label: "Text Field",
+  prefix: "$",
+};
+
 export const WithLeftConnection = Template.bind({});
 WithLeftConnection.args = {
   label: "Text Field with Left Button",

@@ -42,7 +42,7 @@ export const OneSection: Story<NavigationProps> = (args) => {
       <Box css={wrapperStyle} $width="20rem">
         <Navigation
           scrollHidden
-          $css={navigationStyle}
+          css={navigationStyle}
           selection={selection}
           onSelect={select}
         >
@@ -72,7 +72,7 @@ export const MultipleSections: Story<NavigationProps> = (args) => {
       <Box css={wrapperStyle} $width="20rem">
         <Navigation
           scrollHidden
-          $css={navigationStyle}
+          css={navigationStyle}
           selection={selection}
           onSelect={select}
         >

@@ -10,8 +10,9 @@ export const cssInputBorder = css`
       ${(props) => props.theme.colors.background[5].lighten(0.7)};
   }
 
-  &:focus {
-    box-shadow: inset 0 0 0 ${(props) => props.theme.border.width.small}
+  &:focus,
+  &[data-focus] {
+    box-shadow: inset 0 0 0 ${(props) => props.theme.border.width.smallest}
       ${(props) => props.theme.colors.blue};
     z-index: 10;
   }
@@ -27,8 +28,9 @@ export const cssInputBorder = css`
       ${(props) => props.theme.colors.error.fade(0.2)};
   }
 
-  &[data-error]:focus {
-    box-shadow: inset 0 0 0 ${(props) => props.theme.border.width.small}
+  &[data-error]:focus,
+  &[data-error][data-focus] {
+    box-shadow: inset 0 0 0 ${(props) => props.theme.border.width.smallest}
       ${(props) => props.theme.colors.error.fade(0.2)};
   }
 `;

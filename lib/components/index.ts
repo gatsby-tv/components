@@ -29,3 +29,4 @@ export * from "./Navigation";
 export * from "./UnstyledLink";
 export * from "./Card";
 export * from "./Modal";
+export * from "./Select";

@@ -53,11 +53,11 @@ export const Modal: React.FC<ModalProps> = (props) => {
     }
   `;
 
-  const handleKeydown = (event: KeyboardEvent) => {
-    if (event.code === "Escape") {
+  const handleKeydown = (event: Event) => {
+    if ((event as any).code === "Escape") {
       props.onExit && props.onExit();
     }
-  }
+  };
 
   return (
     <Portal id="modal" onMount={() => setMounted(true)}>

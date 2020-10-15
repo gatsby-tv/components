@@ -1,5 +1,5 @@
 import React from "react";
-import { css, CSSProp } from "styled-components";
+import styled, { css } from "styled-components";
 
 import { NavigationContext } from "@app/utilities";
 import { Flex, Scroll } from "@app/components";
@@ -12,7 +12,7 @@ export type { ItemProps as NavigationItemProps };
 export interface NavigationProps {
   selection: Record<string, boolean>;
   onSelect: (id: string) => void;
-  $css?: CSSProp;
+  className?: string;
   children?: React.ReactNode;
   scrollHidden?: boolean;
 }
@@ -30,8 +30,6 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
     & li {
       cursor: pointer;
     }
-
-    ${props.$css}
   `;
 
   return (
@@ -39,7 +37,12 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
       value={{ selection: props.selection, onSelect: props.onSelect }}
     >
       <Scroll as="nav" vertical $hidden={props.scrollHidden}>
-        <Flex column align="stretch" css={navigationStyle}>
+        <Flex
+          className={props.className}
+          column
+          align="stretch"
+          css={navigationStyle}
+        >
           {props.children}
         </Flex>
       </Scroll>
@@ -47,4 +50,6 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
   );
 };
 
-export const Navigation = Object.assign(NavigationBase, { Section, Item });
+export const Navigation = styled(
+  Object.assign(NavigationBase, { Section, Item })
+)``;
