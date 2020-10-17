@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import { useNavigation, ifExists } from "@app/utilities";
+import { useSwitch, ifExists } from "@app/utilities";
 import { Flex } from "@app/components";
 
 export interface ItemProps {
@@ -11,18 +11,17 @@ export interface ItemProps {
 }
 
 const ItemBase: React.FC<ItemProps> = (props) => {
-  const { selection, onSelect } = useNavigation();
+  const { selection, onSelect } = useSwitch();
   const handleClick = () => onSelect(props.id);
 
   return (
     <Flex.Item
-      as="li"
       className={props.className}
       grow={1}
       data-selected={ifExists(selection[props.id])}
       onClick={handleClick}
     >
-      {props.children}
+      <Flex center>{props.children}</Flex>
     </Flex.Item>
   );
 };

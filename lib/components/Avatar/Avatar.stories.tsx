@@ -6,7 +6,7 @@ import { AppProvider, Circle } from "@app/components";
 import { Avatar, AvatarProps } from "./Avatar";
 
 const overlayMarkup = (
-  <Circle absolute bottom={0} right={0} size="1.5rem" bg="black" />
+  <Circle absolute $bottom={0} $right={0} size="1.5rem" bg="black" />
 );
 
 export default {

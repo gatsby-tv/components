@@ -4,13 +4,13 @@ import styled, { css } from "styled-components";
 import { useConnected } from "@app/utilities";
 import { Box, BoxProps } from "@app/components";
 
-export type ItemProps = { className?: string } & BoxProps;
+export type ConnectionProps = { className?: string } & BoxProps;
 
-const ItemBase: React.FC<ItemProps> = (props) => {
+const ConnectionBase: React.FC<ConnectionProps> = (props) => {
   const column = useConnected();
 
   const style = css`
-    flex: 1 1 auto;
+    flex: 0 0 auto;
 
     &:not(:first-child) {
       ${column ? "margin-top" : "margin-left"}: -1px;
@@ -20,4 +20,4 @@ const ItemBase: React.FC<ItemProps> = (props) => {
   return <Box css={style} {...props} />;
 };
 
-export const Item = styled(ItemBase)``;
+export const Connection = styled(ConnectionBase)``;

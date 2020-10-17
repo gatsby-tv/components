@@ -1,37 +1,92 @@
 import React from "react";
+import { css } from "styled-components";
 
-import { Flex } from "@app/components";
+import { ConnectedContext } from "@app/utilities";
+import { Flex, FlexProps } from "@app/components";
 
-import { Item, ItemProps } from "./components";
+import { Item, ItemProps, Connection, ConnectionProps } from "./components";
 
 export type { ItemProps as ConnectedItemProps };
 
-export interface ConnectedProps {
+export interface ConnectedProps extends FlexProps {
   children?: React.ReactNode;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  column?: boolean;
 }
 
 const ConnectedBase: React.FC<ConnectedProps> = (props) => {
-  const leftMarkup = props.left ? (
-    <Item connection column={props.column}>
-      {props.left}
-    </Item>
-  ) : null;
+  const { children, left, right, column, ...flexProps } = props;
 
-  const rightMarkup = props.right ? (
-    <Item connection column={props.column}>
-      {props.right}
-    </Item>
-  ) : null;
+  const leftMarkup = left ? <Connection>{left}</Connection> : null;
+
+  const rightMarkup = right ? <Connection>{right}</Connection> : null;
+
+  const style = css`
+    > ${Connection}:first-child * {
+      ${column
+        ? "border-bottom-left-radius"
+        : "border-top-right-radius"}: 0 !important;
+      border-bottom-right-radius: 0 !important;
+
+      &:after {
+        ${column
+          ? "border-bottom-left-radius"
+          : "border-top-right-radius"}: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+    }
+
+    > ${Connection}:last-child * {
+      border-top-left-radius: 0 !important;
+      ${column
+        ? "border-top-right-radius"
+        : "border-bottom-left-radius"}: 0 !important;
+
+      &:after {
+        border-top-left-radius: 0 !important;
+        ${column
+          ? "border-top-right-radius"
+          : "border-bottom-left-radius"}: 0 !important;
+      }
+    }
+
+    > ${Item}:not(:first-child) * {
+      border-top-left-radius: 0 !important;
+      ${column
+        ? "border-top-right-radius"
+        : "border-bottom-left-radius"}: 0 !important;
+
+      &:after {
+        border-top-left-radius: 0 !important;
+        ${column
+          ? "border-top-right-radius"
+          : "border-bottom-left-radius"}: 0 !important;
+      }
+    }
+
+    > ${Item}:not(:last-child) * {
+      ${column
+        ? "border-bottom-left-radius"
+        : "border-top-right-radius"}: 0 !important;
+      border-bottom-right-radius: 0 !important;
+
+      &:after {
+        ${column
+          ? "border-bottom-left-radius"
+          : "border-top-right-radius"}: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+    }
+  `;
 
   return (
-    <Flex column={props.column}>
-      {leftMarkup}
-      <Item column={props.column}>{props.children}</Item>
-      {rightMarkup}
-    </Flex>
+    <ConnectedContext.Provider value={column}>
+      <Flex css={style} column={column} {...flexProps}>
+        {leftMarkup}
+        {children}
+        {rightMarkup}
+      </Flex>
+    </ConnectedContext.Provider>
   );
 };
 

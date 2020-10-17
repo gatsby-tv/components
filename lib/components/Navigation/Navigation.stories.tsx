@@ -12,15 +12,15 @@ export default {
 } as Meta;
 
 const navigationStyle = css`
-  & li[data-selected] {
+  ${Navigation.Item}[data-selected] {
     color: ${(props) => props.theme.colors.blue};
     background-color: ${(props) => props.theme.colors.background[3]};
   }
 
-  & li {
+  ${Navigation.Item} {
     padding: ${(props) => props.theme.spacing.baseTight}
       ${(props) => props.theme.spacing.base};
-    transition: all 100ms ease;
+    transition: all ${(props) => props.theme.duration.fastest} ease;
   }
 
   ${Navigation.Section.Title} {
@@ -47,13 +47,13 @@ export const OneSection: Story<NavigationProps> = (args) => {
           onSelect={select}
         >
           <Navigation.Section>
-            <Navigation.Item $id="one">
+            <Navigation.Item id="one">
               <TextBox>One</TextBox>
             </Navigation.Item>
-            <Navigation.Item $id="two">
+            <Navigation.Item id="two">
               <TextBox>Two</TextBox>
             </Navigation.Item>
-            <Navigation.Item $id="three">
+            <Navigation.Item id="three">
               <TextBox>Three</TextBox>
             </Navigation.Item>
           </Navigation.Section>
@@ -77,21 +77,21 @@ export const MultipleSections: Story<NavigationProps> = (args) => {
           onSelect={select}
         >
           <Navigation.Section title="first">
-            <Navigation.Item $id="one">
+            <Navigation.Item id="one">
               <TextBox>One</TextBox>
             </Navigation.Item>
-            <Navigation.Item $id="two">
+            <Navigation.Item id="two">
               <TextBox>Two</TextBox>
             </Navigation.Item>
-            <Navigation.Item $id="three">
+            <Navigation.Item id="three">
               <TextBox>Three</TextBox>
             </Navigation.Item>
           </Navigation.Section>
           <Navigation.Section title="second">
-            <Navigation.Item $id="four">
+            <Navigation.Item id="four">
               <TextBox>Four</TextBox>
             </Navigation.Item>
-            <Navigation.Item $id="five">
+            <Navigation.Item id="five">
               <TextBox>Five</TextBox>
             </Navigation.Item>
           </Navigation.Section>

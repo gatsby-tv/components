@@ -1,20 +1,20 @@
 import styled from "styled-components";
 
 import { ifExists, ifNotExists } from "@app/utilities";
-import { Size, Styleable } from "@app/types";
+import { Size } from "@app/types";
 import { cssSize, cssProperty } from "@app/styles";
 
-export interface BoxProps extends Styleable {
+export interface BoxProps {
   bg?: string;
   fg?: string;
   absolute?: boolean;
   $fill?: boolean;
   $width?: Size;
   $height?: Size;
-  top?: Size;
-  right?: Size;
-  bottom?: Size;
-  left?: Size;
+  $top?: Size;
+  $right?: Size;
+  $bottom?: Size;
+  $left?: Size;
   maxWidth?: Size;
   maxHeight?: Size;
   minWidth?: Size;
@@ -53,25 +53,25 @@ export const Box = styled.div<BoxProps>`
   ${(props) =>
     cssSize(
       "top",
-      props.top,
+      props.$top,
       ifExists(props.absolute) && ifExists(props.$fill, 0)
     )}
   ${(props) =>
     cssSize(
       "right",
-      props.right,
+      props.$right,
       ifExists(props.absolute) && ifExists(props.$fill, 0)
     )}
   ${(props) =>
     cssSize(
       "bottom",
-      props.bottom,
+      props.$bottom,
       ifExists(props.absolute) && ifExists(props.$fill, 0)
     )}
   ${(props) =>
     cssSize(
       "left",
-      props.left,
+      props.$left,
       ifExists(props.absolute) && ifExists(props.$fill, 0)
     )}
   ${(props) => cssSize("max-width", props.maxWidth)}
@@ -88,5 +88,5 @@ export const Box = styled.div<BoxProps>`
   ${(props) => cssSize("padding-right", props.paddingRight)}
   ${(props) => cssSize("padding-bottom", props.paddingBottom)}
   ${(props) => cssSize("padding-left", props.paddingLeft)}
-  ${(props) => cssProperty("z-index", String(props.zIndex))}
+  ${(props) => cssProperty("z-index", props.zIndex?.toString())}
 `;

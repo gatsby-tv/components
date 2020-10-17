@@ -10,21 +10,29 @@ const rounded = css`
   border-radius: 1rem;
 `;
 
-const leftMarkup = <Box $fill bg="black" $width="6rem" css={rounded} />;
+const LeftMarkup = () => <Box $fill bg="black" $width="6rem" css={rounded} />;
 
-const rightMarkup = <Box $fill bg="black" $width="6rem" css={rounded} />;
+const RightMarkup = () => <Box $fill bg="black" $width="6rem" css={rounded} />;
 
-const leftColumnMarkup = <Box $fill bg="black" $height="2rem" css={rounded} />;
+const LeftColumnMarkup = () => (
+  <Box $fill bg="black" $height="2rem" css={rounded} />
+);
 
-const rightColumnMarkup = <Box $fill bg="black" $height="2rem" css={rounded} />;
+const RightColumnMarkup = () => (
+  <Box $fill bg="black" $height="2rem" css={rounded} />
+);
 
-const contentMarkup = <Box $fill bg="white" $height="2rem" css={rounded} />;
+const ContentMarkup = () => (
+  <Connected.Item>
+    <Box $fill bg="white" $height="2rem" css={rounded} />
+  </Connected.Item>
+);
 
-const contentListMarkup = (
+const ContentListMarkup = () => (
   <>
-    {contentMarkup}
-    {contentMarkup}
-    {contentMarkup}
+    <ContentMarkup />
+    <ContentMarkup />
+    <ContentMarkup />
   </>
 );
 
@@ -33,86 +41,102 @@ export default {
   component: Connected,
 } as Meta;
 
-const Template: Story<ConnectedProps> = (args) => (
+export const Default: Story<ConnectedProps> = (args) => (
   <AppProvider theme="dark">
-    <Connected {...args} />
+    <Connected>
+      <ContentMarkup />
+    </Connected>
   </AppProvider>
 );
 
-export const Default = Template.bind({});
-Default.args = {
-  children: contentMarkup,
-};
+export const WithMultipleItems: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected>
+      <ContentListMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const WithMultipleItems = Template.bind({});
-WithMultipleItems.args = {
-  children: contentListMarkup,
-};
+export const WithLeftConnection: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected left={<LeftMarkup />}>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const WithLeftConnection = Template.bind({});
-WithLeftConnection.args = {
-  children: contentMarkup,
-  left: leftMarkup,
-};
+export const WithRightConnection: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected right={<RightMarkup />}>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const WithRightConnection = Template.bind({});
-WithRightConnection.args = {
-  children: contentMarkup,
-  right: rightMarkup,
-};
+export const WithBothConnection: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected left={<LeftMarkup />} right={<RightMarkup />}>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const WithBothConnections = Template.bind({});
-WithBothConnections.args = {
-  children: contentMarkup,
-  left: leftMarkup,
-  right: rightMarkup,
-};
+export const WithBothConnectionsMultipleItems: Story<ConnectedProps> = (
+  args
+) => (
+  <AppProvider theme="dark">
+    <Connected left={<LeftMarkup />} right={<RightMarkup />}>
+      <ContentListMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const WithBothConnectionsMultipleItems = Template.bind({});
-WithBothConnectionsMultipleItems.args = {
-  children: contentListMarkup,
-  left: leftMarkup,
-  right: rightMarkup,
-};
+export const Column: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected column>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const Column = Template.bind({});
-Column.args = {
-  children: contentMarkup,
-  column: true,
-};
+export const ColumnWithMultipleItems: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected column>
+      <ContentListMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const ColumnWithMultipleItems = Template.bind({});
-ColumnWithMultipleItems.args = {
-  children: contentListMarkup,
-  column: true,
-};
+export const ColumnWithLeftConnection: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected column left={<LeftColumnMarkup />}>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const ColumnWithLeftConnection = Template.bind({});
-ColumnWithLeftConnection.args = {
-  children: contentMarkup,
-  left: leftColumnMarkup,
-  column: true,
-};
+export const ColumnWithRightConnection: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected column right={<RightColumnMarkup />}>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const ColumnWithRightConnection = Template.bind({});
-ColumnWithRightConnection.args = {
-  children: contentMarkup,
-  right: rightColumnMarkup,
-  column: true,
-};
+export const ColumnWithBothConnection: Story<ConnectedProps> = (args) => (
+  <AppProvider theme="dark">
+    <Connected column left={<LeftColumnMarkup />} right={<RightColumnMarkup />}>
+      <ContentMarkup />
+    </Connected>
+  </AppProvider>
+);
 
-export const ColumnWithBothConnections = Template.bind({});
-ColumnWithBothConnections.args = {
-  children: contentMarkup,
-  left: leftColumnMarkup,
-  right: rightColumnMarkup,
-  column: true,
-};
-
-export const ColumnWithBothConnectionsMultipleItems = Template.bind({});
-ColumnWithBothConnectionsMultipleItems.args = {
-  children: contentListMarkup,
-  left: leftColumnMarkup,
-  right: rightColumnMarkup,
-  column: true,
-};
+export const ColumnWithBothConnectionsMultipleItems: Story<ConnectedProps> = (
+  args
+) => (
+  <AppProvider theme="dark">
+    <Connected column left={<LeftColumnMarkup />} right={<RightColumnMarkup />}>
+      <ContentListMarkup />
+    </Connected>
+  </AppProvider>
+);

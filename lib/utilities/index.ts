@@ -1,5 +1,7 @@
 export * from "./frame";
 export * from "./navigation";
+export * from "./switch";
+export * from "./connected";
 export * from "./parse-css";
 export * from "./if-exists";
 export * from "./use-theme";

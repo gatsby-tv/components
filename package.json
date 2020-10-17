@@ -12,7 +12,7 @@
   "private": false,
   "scripts": {
     "pretty": "prettier --write .",
-    "build": "rm -rf dist && tsc -p . && echo \"Finsihed building the module, ready to publish.\"",
+    "build": "rm -rf dist && tsc -p .",
     "storybook": "start-storybook -p 6006 --no-dll",
     "build-storybook": "build-storybook"
   },

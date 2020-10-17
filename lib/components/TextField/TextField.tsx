@@ -112,37 +112,39 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       hidden={labelHidden}
     >
       <Connected left={left} right={right}>
-        <Flex
-          className={className}
-          css={inputStyle}
-          gap={theme.spacing.tight}
-          align="center"
-          data-focus={ifExists(focus)}
-          data-error={ifExists(error)}
-          paddingLeft={theme.spacing.baseTight}
-          paddingRight={theme.spacing.baseTight}
-          paddingTop={theme.spacing.tight}
-          paddingBottom={theme.spacing.tight}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onClick={handleClick}
-        >
-          {prefixMarkup}
-          <Flex.Item
-            as={multiline ? "textarea" : "input"}
-            ref={input}
-            id={id}
-            $width={1}
-            grow={1}
-            autoComplete={autoComplete ? "on" : "off"}
-            onChange={handleChange}
-            onKeyPress={(event: React.SyntheticEvent) =>
-              event.stopPropagation()
-            }
-            {...inputProps}
-          />
-          {suffixMarkup}
-        </Flex>
+        <Connected.Item>
+          <Flex
+            className={className}
+            css={inputStyle}
+            gap={theme.spacing.tight}
+            align="center"
+            data-focus={ifExists(focus)}
+            data-error={ifExists(error)}
+            paddingLeft={theme.spacing.baseTight}
+            paddingRight={theme.spacing.baseTight}
+            paddingTop={theme.spacing.tight}
+            paddingBottom={theme.spacing.tight}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onClick={handleClick}
+          >
+            {prefixMarkup}
+            <Flex.Item
+              as={multiline ? "textarea" : "input"}
+              ref={input}
+              id={id}
+              $width={1}
+              grow={1}
+              autoComplete={autoComplete ? "on" : "off"}
+              onChange={handleChange}
+              onKeyPress={(event: React.SyntheticEvent) =>
+                event.stopPropagation()
+              }
+              {...inputProps}
+            />
+            {suffixMarkup}
+          </Flex>
+        </Connected.Item>
       </Connected>
     </Labelled>
   );
