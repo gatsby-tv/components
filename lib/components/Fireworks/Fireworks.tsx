@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Color from "color";
 
-import { Box, Portal, EventListener } from "@app/components";
+import { Box, Portal, EventListener } from "@lib/components";
 
 interface Position {
   x: number;

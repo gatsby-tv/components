@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { cssTextHeading } from "@app/styles";
+import { cssTextHeading } from "@lib/styles";
 
 export interface HeadingProps {}
 

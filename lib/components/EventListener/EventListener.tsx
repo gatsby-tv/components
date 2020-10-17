@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { EventHandler } from "@app/types";
+import { EventHandler } from "@lib/types";
 
 export type EventListenerProps = EventHandler;
 

@@ -4,8 +4,8 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { Switch, SwitchProps } from "./Switch";
 
-import { useSelection } from "@app/utilities";
-import { AppProvider, Box, TextBox } from "@app/components";
+import { useSelection } from "@lib/utilities";
+import { AppProvider, Box, TextBox } from "@lib/components";
 
 export default {
   title: "Switch",

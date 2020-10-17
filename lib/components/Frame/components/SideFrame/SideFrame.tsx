@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Flex } from "@app/components";
+import { Flex } from "@lib/components";
 
 export interface SideFrameProps {
   children?: React.ReactNode;

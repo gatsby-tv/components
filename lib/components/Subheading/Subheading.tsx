@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { cssTextSubheading } from "@app/styles";
-import { Heading } from "@app/components";
+import { cssTextSubheading } from "@lib/styles";
+import { Heading } from "@lib/components";
 
 export interface SubheadingProps {}
 

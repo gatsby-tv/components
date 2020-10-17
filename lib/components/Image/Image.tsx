@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Size } from "@app/types";
-import { Box, Viewport } from "@app/components";
+import { Size } from "@lib/types";
+import { Box, Viewport } from "@lib/components";
 
 export type ImageProps = {
   width?: Size;

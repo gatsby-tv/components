@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, Box } from "@app/components";
+import { AppProvider, Box } from "@lib/components";
 
 import { Connected, ConnectedProps } from "./Connected";
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Box, BoxProps } from "@app/components";
+import { Box, BoxProps } from "@lib/components";
 
 export type CardProps = BoxProps;
 

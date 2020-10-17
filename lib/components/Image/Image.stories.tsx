@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider } from "@app/components";
+import { AppProvider } from "@lib/components";
 import { Image, ImageProps } from "./Image";
 
 export default {

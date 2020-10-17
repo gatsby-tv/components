@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { MetaSize } from "@app/types";
-import { cssTextSubdued } from "@app/styles";
-import { UnstyledLink, UnstyledLinkProps } from "@app/components";
+import { MetaSize } from "@lib/types";
+import { cssTextSubdued } from "@lib/styles";
+import { UnstyledLink, UnstyledLinkProps } from "@lib/components";
 
 import { Item } from "../Item";
 import { ItemTooltip } from "../ItemTooltip";

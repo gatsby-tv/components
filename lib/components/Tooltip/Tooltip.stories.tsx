@@ -10,7 +10,7 @@ import {
   Box,
   Button,
   TextBox,
-} from "@app/components";
+} from "@lib/components";
 
 export default {
   title: "Tooltip",

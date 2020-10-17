@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { Color, IconSource } from "@app/types";
-import { Box, BoxProps } from "@app/components";
+import { Color, IconSource } from "@lib/types";
+import { Box, BoxProps } from "@lib/components";
 
 export interface IconProps extends BoxProps {
   src: IconSource;

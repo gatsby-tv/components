@@ -4,8 +4,8 @@ import { css } from "styled-components";
 
 import { Fireworks, FireworksProps } from "./Fireworks";
 
-import { useToggle } from "@app/utilities";
-import { Button, AppProvider } from "@app/components";
+import { useToggle } from "@lib/utilities";
+import { Button, AppProvider } from "@lib/components";
 
 export default {
   title: "Fireworks",

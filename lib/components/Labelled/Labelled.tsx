@@ -9,9 +9,9 @@ import {
   cssTextLabel,
   cssVisuallyHidden,
   cssTextBody,
-} from "@app/styles";
-import { Box, Flex, Icon } from "@app/components";
-import { useTheme } from "@app/utilities";
+} from "@lib/styles";
+import { Box, Flex, Icon } from "@lib/components";
+import { useTheme } from "@lib/utilities";
 
 export interface LabelledProps {
   id: string;

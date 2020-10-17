@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useNavigation, ifExists } from "@app/utilities";
-import { Flex } from "@app/components";
+import { useNavigation, ifExists } from "@lib/utilities";
+import { Flex } from "@lib/components";
 
 export interface ItemProps {
   id: string;

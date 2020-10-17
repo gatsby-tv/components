@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, TextBox } from "@app/components";
+import { AppProvider, TextBox } from "@lib/components";
 import { Caption, CaptionProps } from "./Caption";
 
 export default {

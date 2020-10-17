@@ -3,7 +3,7 @@ import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { LoremIpsum } from "react-lorem-ipsum";
 
-import { useToggle } from "@app/utilities";
+import { useToggle } from "@lib/utilities";
 import {
   AppProvider,
   Card,
@@ -11,7 +11,7 @@ import {
   TextBox,
   Button,
   Scroll,
-} from "@app/components";
+} from "@lib/components";
 
 import { Modal, ModalProps } from "./Modal";
 

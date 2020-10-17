@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-import { ifExists } from "@app/utilities";
-import { MetaSize } from "@app/types";
+import { ifExists } from "@lib/utilities";
+import { MetaSize } from "@lib/types";
 import {
   cssTextMeta,
   cssTextBreakWord,
   cssTextTruncate,
   cssTextSubdued,
-} from "@app/styles";
+} from "@lib/styles";
 
 export interface ItemProps {
   size?: MetaSize;

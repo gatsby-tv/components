@@ -3,8 +3,8 @@ import { css } from "styled-components";
 
 import { Item, ItemProps } from "./components";
 
-import { SwitchContext } from "@app/utilities";
-import { Connected, Flex } from "@app/components";
+import { SwitchContext } from "@lib/utilities";
+import { Connected, Flex } from "@lib/components";
 
 export type { ItemProps as SwitchItemProps };
 

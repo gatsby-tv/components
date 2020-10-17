@@ -1,8 +1,8 @@
 import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
 
-import { ifExists } from "@app/utilities";
-import { Box, BoxProps } from "@app/components";
-import { cssProperty, cssSize } from "@app/styles";
+import { ifExists } from "@lib/utilities";
+import { Box, BoxProps } from "@lib/components";
+import { cssProperty, cssSize } from "@lib/styles";
 import {
   Size,
   FlexDistribute,
@@ -11,7 +11,7 @@ import {
   FlexJustifyContent,
   FlexAlignItems,
   FlexAlignContent,
-} from "@app/types";
+} from "@lib/types";
 
 import { Item, ItemProps } from "./components";
 

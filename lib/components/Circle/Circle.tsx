@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { Size } from "@app/types";
-import { cssSize } from "@app/styles";
-import { Box, BoxProps } from "@app/components";
+import { Size } from "@lib/types";
+import { cssSize } from "@lib/styles";
+import { Box, BoxProps } from "@lib/components";
 
 export type CircleProps = { size?: Size } & BoxProps;
 

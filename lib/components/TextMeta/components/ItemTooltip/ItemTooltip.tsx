@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useTheme } from "@app/utilities";
-import { Activatable, TextBox, Tooltip } from "@app/components";
+import { useTheme } from "@lib/utilities";
+import { Activatable, TextBox, Tooltip } from "@lib/components";
 
 export interface ItemTooltipProps {
   children?: string | [string];

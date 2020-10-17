@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Circle, Viewport } from "@app/components";
-import { useTheme } from "@app/utilities";
+import { Circle, Viewport } from "@lib/components";
+import { useTheme } from "@lib/utilities";
 
 type AvatarSize = "small" | "medium" | "large";
 

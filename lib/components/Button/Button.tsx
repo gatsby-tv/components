@@ -6,8 +6,8 @@ import {
   cssProperty,
   cssTextInput,
   cssInputBorder,
-} from "@app/styles";
-import { Box, BoxProps } from "@app/components";
+} from "@lib/styles";
+import { Box, BoxProps } from "@lib/components";
 
 export type ButtonProps = BoxProps & React.ButtonHTMLAttributes<HTMLElement>;
 

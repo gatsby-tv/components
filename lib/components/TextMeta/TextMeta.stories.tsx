@@ -7,7 +7,7 @@ import {
   TextMetaListProps,
   TextMetaLinkProps,
 } from "./TextMeta";
-import { AppProvider, TextBox } from "@app/components";
+import { AppProvider, TextBox } from "@lib/components";
 
 export default {
   title: "TextMeta",

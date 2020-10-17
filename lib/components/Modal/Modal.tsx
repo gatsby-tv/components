@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { css } from "styled-components";
 
-import { useTheme } from "@app/utilities";
-import { Card, Flex, Portal, EventListener } from "@app/components";
+import { useTheme } from "@lib/utilities";
+import { Card, Flex, Portal, EventListener } from "@lib/components";
 
 export interface ModalProps {
   children?: React.ReactNode;

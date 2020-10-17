@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { DisplaySize } from "@app/types";
-import { cssTextDisplay } from "@app/styles";
+import { DisplaySize } from "@lib/types";
+import { cssTextDisplay } from "@lib/styles";
 
 export interface TextDisplayProps {
   size?: DisplaySize;

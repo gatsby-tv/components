@@ -16,7 +16,7 @@ module.exports = {
         ...config.resolve,
         alias: {
           ...config.resolve.alias,
-          "@app": path.resolve(__dirname, "../lib/"),
+          "@lib": path.resolve(__dirname, "../lib/"),
         },
       },
     };

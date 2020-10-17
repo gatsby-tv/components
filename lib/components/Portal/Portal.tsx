@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import { useUniqueId } from "@app/utilities";
+import { useUniqueId } from "@lib/utilities";
 
 export interface PortalProps {
   children?: React.ReactNode;

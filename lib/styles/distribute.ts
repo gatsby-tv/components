@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-import { Space } from "@app/types";
+import { Space } from "@lib/types";
 
 export const cssDistribute = (space: Space) => css`
   > *:not(:first-child) {

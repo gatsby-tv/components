@@ -27,8 +27,8 @@ import {
   Viewport,
   Video,
   VideoProps,
-} from "@app/components";
-import { IconSource } from "@app/types";
+} from "@lib/components";
+import { IconSource } from "@lib/types";
 
 import { Shading, Signal } from "./components";
 

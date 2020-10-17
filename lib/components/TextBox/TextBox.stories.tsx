@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { LoremIpsum } from "react-lorem-ipsum";
 
-import { AppProvider, Heading, Subheading } from "@app/components";
+import { AppProvider, Heading, Subheading } from "@lib/components";
 import { TextBox, TextBoxProps } from "./TextBox";
 
 export default {

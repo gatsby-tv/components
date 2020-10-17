@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { NavigationContext } from "@app/utilities";
-import { Flex, Scroll } from "@app/components";
+import { NavigationContext } from "@lib/utilities";
+import { Flex, Scroll } from "@lib/components";
 
 import { Section, SectionProps, Item, ItemProps } from "./components";
 

@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import { css } from "styled-components";
 
-import { cssProperty, cssTextInput, cssInputBorder } from "@app/styles";
-import { ifExists, useUniqueId, useTheme } from "@app/utilities";
-import { Flex, Labelled, Connected } from "@app/components";
+import { cssProperty, cssTextInput, cssInputBorder } from "@lib/styles";
+import { ifExists, useUniqueId, useTheme } from "@lib/utilities";
+import { Flex, Labelled, Connected } from "@lib/components";
 
 export interface TextFieldProps {
   label: string;

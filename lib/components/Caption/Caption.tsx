@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { TextBox } from "@app/components";
-import { cssTextCaption } from "@app/styles";
+import { TextBox } from "@lib/components";
+import { cssTextCaption } from "@lib/styles";
 
 export interface CaptionProps {
   children?: React.ReactNode;

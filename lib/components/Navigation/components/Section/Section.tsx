@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Subheading, Flex } from "@app/components";
+import { Subheading, Flex } from "@lib/components";
 
 export interface SectionProps {
   className?: string;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { cssTextBody } from "@app/styles";
-import { Box, BoxProps } from "@app/components";
-import { Space } from "@app/types";
+import { cssTextBody } from "@lib/styles";
+import { Box, BoxProps } from "@lib/components";
+import { Space } from "@lib/types";
 
 export interface TextBoxProps extends BoxProps {
   $spacing?: Space;

@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { ConnectedContext } from "@app/utilities";
-import { Flex, FlexProps } from "@app/components";
+import { ConnectedContext } from "@lib/utilities";
+import { Flex, FlexProps } from "@lib/components";
 
 import { Item, ItemProps, Connection, ConnectionProps } from "./components";
 

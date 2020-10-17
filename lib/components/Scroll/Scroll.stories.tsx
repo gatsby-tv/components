@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { LoremIpsum } from "react-lorem-ipsum";
 
-import { AppProvider, TextBox, Box } from "@app/components";
+import { AppProvider, TextBox, Box } from "@lib/components";
 import { Scroll, ScrollProps } from "./Scroll";
 
 export default {

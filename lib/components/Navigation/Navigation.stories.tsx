@@ -2,8 +2,8 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { useSelection } from "@app/utilities";
-import { AppProvider, TextBox, Box } from "@app/components";
+import { useSelection } from "@lib/utilities";
+import { AppProvider, TextBox, Box } from "@lib/components";
 import { Navigation, NavigationProps } from "./Navigation";
 
 export default {

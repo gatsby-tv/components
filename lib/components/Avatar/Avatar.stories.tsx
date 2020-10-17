@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, Circle } from "@app/components";
+import { AppProvider, Circle } from "@lib/components";
 
 import { Avatar, AvatarProps } from "./Avatar";
 

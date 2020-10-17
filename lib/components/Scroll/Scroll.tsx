@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { ifExists, ifNotExists } from "@app/utilities";
-import { cssProperty } from "@app/styles";
+import { ifExists, ifNotExists } from "@lib/utilities";
+import { cssProperty } from "@lib/styles";
 
 export interface ScrollProps {
   $hidden?: boolean;

@@ -3,7 +3,7 @@ import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { Select, SelectProps } from "./Select";
-import { AppProvider } from "@app/components";
+import { AppProvider } from "@lib/components";
 
 const selectStyle = css`
   border-radius: ${(props) => props.theme.border.radius.small};

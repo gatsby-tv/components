@@ -3,9 +3,9 @@ import { css } from "styled-components";
 import type { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
 
-import { cssProperty } from "@app/styles";
-import { ifNotExists } from "@app/utilities";
-import { Portal } from "@app/components";
+import { cssProperty } from "@lib/styles";
+import { ifNotExists } from "@lib/utilities";
+import { Portal } from "@lib/components";
 
 export interface TooltipProps {
   children?: React.ReactNode;

@@ -10,7 +10,7 @@
     "outDir": "dist",
     "rootDir": "./",
     "baseUrl": "./lib",
-    "paths": { "@app/*": ["*"] },
+    "paths": { "@lib/*": ["*"] },
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true

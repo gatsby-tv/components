@@ -12,7 +12,7 @@ import {
   Spinner,
 } from "@gatsby-tv/icons";
 
-import { AppProvider } from "@app/components";
+import { AppProvider } from "@lib/components";
 import { Icon, IconProps } from "./Icon";
 
 export default {

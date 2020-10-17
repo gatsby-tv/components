@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Circle, CircleProps } from "@app/components";
+import { Circle, CircleProps } from "@lib/components";
 
 export type SignalProps = CircleProps;
 

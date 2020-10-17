@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
-import { useTheme } from "@app/utilities";
-import { DisplaySize, MetaSize } from "@app/types";
+import { useTheme } from "@lib/utilities";
+import { DisplaySize, MetaSize } from "@lib/types";
 
 export const cssTextSubdued = css`
   color: ${(props) => props.theme.colors.font.subdued};
