@@ -12,7 +12,7 @@
   "private": false,
   "scripts": {
     "pretty": "prettier --write .",
-    "build": "rm -rf dist && tsc -p .",
+    "build": "rm -rf dist && tsc -p . && tscpaths -p tsconfig.json -s lib -o dist",
     "storybook": "start-storybook -p 6006 --no-dll",
     "build-storybook": "build-storybook"
   },
@@ -39,6 +39,7 @@
     "react-lorem-ipsum": "^1.4.7",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.2.0",
+    "tscpaths": "^0.0.9",
     "typescript": "^3.9.7"
   },
   "dependencies": {
