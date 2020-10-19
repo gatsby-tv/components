@@ -14,6 +14,7 @@ export type ButtonProps = BoxProps & React.ButtonHTMLAttributes<HTMLElement>;
 const ButtonBase = styled(Box)<ButtonProps>`
   ${cssTextInput}
   ${cssInputBorder}
+  text-align: center;
   cursor: pointer;
   display: block;
   position: relative;
