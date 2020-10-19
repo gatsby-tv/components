@@ -18,6 +18,10 @@
   ],
   "plugins": [
     "babel-plugin-styled-components",
+    "@babel/plugin-transform-object-assign",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-private-methods",
+    "@babel/plugin-proposal-private-property-in-object",
     [
       "module-resolver", {
         "root": "./lib",

@@ -5,6 +5,9 @@ import { cssProperty, cssTextInput, cssInputBorder } from "@lib/styles";
 import { ifExists, useUniqueId, useTheme } from "@lib/utilities";
 import { Flex, Labelled, Connected } from "@lib/components";
 
+// workaround: see https://github.com/styled-components/babel-plugin-styled-components/issues/240
+const FlexItem = Flex.Item
+
 export interface TextFieldProps {
   label: string;
   labelHidden?: boolean;
@@ -79,15 +82,15 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
   `;
 
   const prefixMarkup = prefix ? (
-    <Flex.Item css={placeholderMarkup} shrink={0}>
+    <FlexItem css={placeholderMarkup} shrink={0}>
       {prefix}
-    </Flex.Item>
+    </FlexItem>
   ) : null;
 
   const suffixMarkup = suffix ? (
-    <Flex.Item css={placeholderMarkup} shrink={0}>
+    <FlexItem css={placeholderMarkup} shrink={0}>
       {suffix}
-    </Flex.Item>
+    </FlexItem>
   ) : null;
 
   const inputStyle = css`
