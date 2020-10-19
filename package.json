@@ -11,8 +11,13 @@
   "license": "AGPL-3.0",
   "private": false,
   "scripts": {
-    "pretty": "prettier --write .",
-    "build": "rm -rf dist && tsc -p . && tscpaths -p tsconfig.json -s lib -o dist/lib",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "types": "tsc --noEmit",
+    "types:watch": "yarn run check -- --watch",
+    "clean": "rm -rf dist",
+    "build": "yarn run build:tsc && yarn run build:babel",
+    "build:tsc": "tsc --emitDeclarationOnly",
+    "build:babel": "babel lib --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
     "storybook": "start-storybook -p 6006 --no-dll",
     "build-storybook": "build-storybook"
   },
@@ -23,6 +28,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@babel/cli": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-essentials": "^6.0.21",
     "@storybook/addon-links": "^6.0.21",
@@ -30,8 +39,13 @@
     "@storybook/react": "^6.0.21",
     "@storybook/theming": "^6.0.21",
     "@types/color": "^3.0.1",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.3",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.11.1",
+    "babel-plugin-module-resolver": "^4.0.0",
     "color": "^3.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -39,16 +53,11 @@
     "react-lorem-ipsum": "^1.4.7",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.2.0",
-    "tscpaths": "^0.0.9",
     "typescript": "^3.9.7"
   },
   "dependencies": {
     "@gatsby-tv/icons": "^0.3.3",
     "@popperjs/core": "^2.5.3",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.3",
     "react-popper": "^2.2.3"
   }
 }

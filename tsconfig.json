@@ -8,12 +8,12 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "./",
+    "rootDir": "./lib",
     "baseUrl": "./lib",
     "paths": { "@lib/*": ["*"] },
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "files": ["index.tsx", "index.d.ts"]
+  "files": ["lib/index.tsx", "lib/index.d.ts"]
 }

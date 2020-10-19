@@ -82,7 +82,12 @@ const ConnectedBase: React.FC<ConnectedProps> = (props) => {
 
   return (
     <ConnectedContext.Provider value={column}>
-      <Flex className={props.className} css={style} column={column} {...flexProps}>
+      <Flex
+        className={props.className}
+        css={style}
+        column={column}
+        {...flexProps}
+      >
         {leftMarkup}
         {children}
         {rightMarkup}
