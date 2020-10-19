@@ -199,7 +199,7 @@ export const Fireworks: React.FC<FireworksProps> = (props) => {
 
       return {
         ...Particle(origin),
-        velocity: { dx: 10 * Math.random() - 5, dy: -3 * Math.random() - 4 },
+        velocity: { dx: 6 * Math.random() - 3, dy: -3 * Math.random() - 4 },
         size: 4,
         hue: 0,
         saturation: 0,
