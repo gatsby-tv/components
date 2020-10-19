@@ -22,5 +22,5 @@ const ButtonBase = styled(Box)<ButtonProps>`
 `;
 
 export const Button: React.FC<ButtonProps> = (props) => (
-  <ButtonBase forwardedAs="button" {...props} />
+  <ButtonBase as="button" {...props} />
 );
