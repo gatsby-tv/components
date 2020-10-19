@@ -1,4 +1,11 @@
 import { createGlobalStyle } from "styled-components";
+import WebFont from "webfontloader";
+
+WebFont.load({
+  google: {
+    families: ["Inter:100,200,300,400,500,600,700,800,900"],
+  },
+});
 
 export const Global = createGlobalStyle`
   * {
@@ -14,6 +21,6 @@ export const Global = createGlobalStyle`
 
   body {
     color: ${(props) => props.theme.colors.font.body};
-    font-family: "Nunito Sans", "Noto Sans", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: "Inter", "Nunito Sans", "Noto Sans", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 `;

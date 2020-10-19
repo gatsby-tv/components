@@ -40,7 +40,7 @@ export const cssTextDisplay = (size: DisplaySize) => css`
     props.theme.font.height[
       size === "small" ? "displaySmall" : "displayLarge"
     ]};
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 export const cssTextMeta = (size: MetaSize, bold?: boolean) => {
