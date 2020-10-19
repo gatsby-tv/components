@@ -9,11 +9,11 @@ import {
 } from "@lib/styles";
 import { Box, BoxProps } from "@lib/components";
 
-export type ButtonProps = BoxProps & React.ButtonHTMLAttributes<HTMLElement>;
+export type ButtonProps = { border?: boolean } & BoxProps & React.ButtonHTMLAttributes<HTMLElement>;
 
 const ButtonBase = styled(Box)<ButtonProps>`
   ${cssTextInput}
-  ${cssInputBorder}
+  ${(props) => props.border ? cssInputBorder : ""}
   text-align: center;
   cursor: pointer;
   display: block;

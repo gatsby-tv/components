@@ -35,6 +35,7 @@ const ButtonMarkup: React.FC<{}> = () => {
   return (
     <Button
       css={buttonStyle}
+      border
       paddingLeft={theme.spacing.tight}
       paddingRight={theme.spacing.tight}
     >
