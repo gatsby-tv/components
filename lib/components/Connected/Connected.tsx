@@ -12,6 +12,7 @@ export interface ConnectedProps extends FlexProps {
   children?: React.ReactNode;
   left?: React.ReactNode;
   right?: React.ReactNode;
+  className?: string;
 }
 
 const ConnectedBase: React.FC<ConnectedProps> = (props) => {
@@ -81,7 +82,7 @@ const ConnectedBase: React.FC<ConnectedProps> = (props) => {
 
   return (
     <ConnectedContext.Provider value={column}>
-      <Flex css={style} column={column} {...flexProps}>
+      <Flex className={props.className} css={style} column={column} {...flexProps}>
         {leftMarkup}
         {children}
         {rightMarkup}
