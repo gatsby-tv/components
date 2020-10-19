@@ -12,20 +12,9 @@ export default {
   component: TextField,
 } as Meta;
 
-const buttonStyle = css`
-  border-radius: ${(props) => props.theme.border.radius.small};
-  background-color: ${(props) => props.theme.colors.background[4]};
-  height: 100%;
-`;
-
-const inputStyle = css`
-  border-radius: ${(props) => props.theme.border.radius.small};
-  background-color: ${(props) => props.theme.colors.background[3]};
-`;
-
 const Template: Story<TextFieldProps> = (args) => (
   <AppProvider theme="dark">
-    <TextField css={inputStyle} placeholder="Example text..." {...args} />
+    <TextField placeholder="Example text..." {...args} />
   </AppProvider>
 );
 
@@ -34,7 +23,6 @@ const ButtonMarkup: React.FC<{}> = () => {
 
   return (
     <Button
-      css={buttonStyle}
       border
       paddingLeft={theme.spacing.tight}
       paddingRight={theme.spacing.tight}

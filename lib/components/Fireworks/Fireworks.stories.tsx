@@ -12,11 +12,6 @@ export default {
   component: Fireworks,
 } as Meta;
 
-const buttonStyle = css`
-  padding: 1rem;
-  background-color: ${(props) => props.theme.colors.background[3]};
-`;
-
 export const Infinite: Story<FireworksProps> = (args) => {
   const origin = () => ({
     x: (Math.random() * window.innerWidth * 2) / 3 + window.innerWidth / 6,
@@ -33,7 +28,7 @@ export const Infinite: Story<FireworksProps> = (args) => {
 export const WithButton: Story<FireworksProps> = (args) => {
   const { toggle, flipToggle } = useToggle();
   const buttonMarkup = (
-    <Button css={buttonStyle} onClick={flipToggle}>
+    <Button onClick={flipToggle}>
       Fire
     </Button>
   );

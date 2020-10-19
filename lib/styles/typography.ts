@@ -116,3 +116,12 @@ export const cssTextInput = css`
     color: ${(props) => props.theme.colors.font.body.fade(0.5)};
   }
 `;
+
+export const cssTextButton = css`
+  font-size: ${(props) => props.theme.font.size.baseSmall};
+  line-height: ${(props) => props.theme.font.height.base};
+  font-weight: 600;
+  color: ${(props) => props.theme.colors.font.body.darken(0.1)};
+  appearance: none;
+  text-transform: uppercase;
+`;

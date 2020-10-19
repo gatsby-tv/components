@@ -97,6 +97,8 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     ${cssTextInput}
     ${cssInputBorder}
     cursor: text;
+    border-radius: ${(props) => props.theme.border.radius.small};
+    background-color: ${(props) => props.theme.colors.background[3]};
 
     input {
       ${cssTextInput}
