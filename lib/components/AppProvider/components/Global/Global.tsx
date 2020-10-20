@@ -1,11 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import WebFont from "webfontloader";
-
-WebFont.load({
-  google: {
-    families: ["Inter:100,200,300,400,500,600,700,800,900"],
-  },
-});
 
 export const Global = createGlobalStyle`
   * {
