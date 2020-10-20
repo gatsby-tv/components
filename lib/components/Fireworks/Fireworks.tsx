@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Color from "color";
 
 import { Box, Portal, EventListener } from "@lib/components";
@@ -128,22 +128,22 @@ export interface FireworksProps {
 }
 
 export const Fireworks: React.FC<FireworksProps> = (props) => {
-  const canvas = useRef<HTMLCanvasElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
   const [rockets, setRockets] = useState<ParticleType[]>([]);
   const [particles, setParticles] = useState<ParticleType[]>([]);
 
   const handleResize = useCallback(() => {
-    if (!canvas?.current) return;
-
-    canvas.current.width = window.innerWidth;
-    canvas.current.height = window.innerHeight;
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }, [canvas]);
 
   const draw = useCallback(() => {
-    const context = canvas.current?.getContext("2d");
-    if (!canvas.current || !context) return;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
 
-    context.clearRect(0, 0, canvas.current.width, canvas.current.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     let newParticles: ParticleType[] = [];
 
@@ -152,7 +152,7 @@ export const Fireworks: React.FC<FireworksProps> = (props) => {
         const updatedRocket = Particle.update(rocket);
 
         if (
-          updatedRocket.position.y < (canvas.current?.height ?? 0) / 5 ||
+          updatedRocket.position.y < (canvas.height ?? 0) / 5 ||
           Math.random() <= 0.01
         ) {
           newParticles = newParticles.concat(Particle.explode(rocket));
@@ -181,10 +181,10 @@ export const Fireworks: React.FC<FireworksProps> = (props) => {
 
     const id = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(id);
-  }, [canvas.current]);
+  }, [canvas]);
 
-  useEffect(() => handleResize(), [canvas.current]);
-  useEffect(() => draw(), [canvas.current]);
+  useEffect(() => handleResize(), [canvas]);
+  useEffect(() => draw(), [canvas]);
 
   useEffect(() => {
     if (props.toggle === null) return;
@@ -220,12 +220,14 @@ export const Fireworks: React.FC<FireworksProps> = (props) => {
     return () => clearInterval(id);
   }, [props.toggle]);
 
+  useEffect(() => setMounted(true), []);
+
   return (
     <>
       {props.activator}
       <Portal id="fireworks">
         <Box absolute $fill css={{ pointerEvents: "none" }}>
-          <canvas ref={canvas} />
+          <canvas ref={setCanvas} />
         </Box>
         <EventListener event="resize" handler={handleResize} />
       </Portal>
