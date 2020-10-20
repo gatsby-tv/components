@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import "../../../../../static/fonts.css"
+
 export const Global = createGlobalStyle`
   * {
     margin: 0;
