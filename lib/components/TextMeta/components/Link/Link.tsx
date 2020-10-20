@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 import { MetaSize } from "@lib/types";
 import { cssTextSubdued } from "@lib/styles";
-import { Link as UnstyledLink, LinkProps as UnstyledLinkProps } from "@lib/components";
+import {
+  Link as UnstyledLink,
+  LinkProps as UnstyledLinkProps,
+} from "@lib/components";
 
 import { Item } from "../Item";
 import { ItemTooltip } from "../ItemTooltip";

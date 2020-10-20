@@ -27,11 +27,7 @@ export const Infinite: Story<FireworksProps> = (args) => {
 
 export const WithButton: Story<FireworksProps> = (args) => {
   const { toggle, flipToggle } = useToggle();
-  const buttonMarkup = (
-    <Button onClick={flipToggle}>
-      Fire
-    </Button>
-  );
+  const buttonMarkup = <Button onClick={flipToggle}>Fire</Button>;
   const origin = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,

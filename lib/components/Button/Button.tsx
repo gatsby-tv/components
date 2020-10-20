@@ -9,14 +9,16 @@ import {
 } from "@lib/styles";
 import { Box, BoxProps } from "@lib/components";
 
-export type ButtonProps = { border?: boolean } & BoxProps & React.ButtonHTMLAttributes<HTMLElement>;
+export type ButtonProps = { border?: boolean } & BoxProps &
+  React.ButtonHTMLAttributes<HTMLElement>;
 
 const ButtonBase = styled(Box)<ButtonProps>`
   ${cssTextButton}
-  ${(props) => props.border ? cssInputBorder : ""}
+  ${(props) => (props.border ? cssInputBorder : "")}
   background-color: ${(props) => props.theme.colors.background[3]};
   border-radius: ${(props) => props.theme.border.radius.small};
-  padding: ${(props) => `${props.theme.spacing.tight} ${props.theme.spacing.baseTight}`};
+  padding: ${(props) =>
+    `${props.theme.spacing.tight} ${props.theme.spacing.baseTight}`};
   text-align: center;
   cursor: pointer;
   display: block;
@@ -29,7 +31,8 @@ const ButtonBase = styled(Box)<ButtonProps>`
   }
 
   &:active {
-    background-color: ${(props) => props.theme.colors.background[2].lighten(0.1)};
+    background-color: ${(props) =>
+      props.theme.colors.background[2].lighten(0.1)};
   }
 `;
 

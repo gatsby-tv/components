@@ -6,7 +6,7 @@ import { ifExists, useUniqueId, useTheme } from "@lib/utilities";
 import { Flex, Labelled, Connected } from "@lib/components";
 
 // workaround: see https://github.com/styled-components/babel-plugin-styled-components/issues/240
-const FlexItem = Flex.Item
+const FlexItem = Flex.Item;
 
 export interface TextFieldProps {
   label: string;
