@@ -1,31 +1,32 @@
 import React from "react";
 import styled, { css, CSSProp } from "styled-components";
 
-export interface UnstyledLinkProps {
+export interface LinkProps {
   url: string;
+  className?: string;
   children?: React.ReactNode;
   external?: boolean;
-  $css?: CSSProp;
 }
 
-const UnstyledLinkBase = styled.a`
+const LinkBase = styled.a`
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
   outline: none;
 `;
 
-export const UnstyledLink: React.FC<UnstyledLinkProps> = (props) => {
+export const Link: React.FC<LinkProps> = (props) => {
   const target = props.external ? "_blank" : undefined;
   const rel = props.external ? "noopener noreferrer" : undefined;
 
   return (
-    <UnstyledLinkBase
+    <LinkBase
       target={target}
       rel={rel}
       href={props.url}
-      css={props.$css}
+      className={props.className}
     >
       {props.children}
-    </UnstyledLinkBase>
+    </LinkBase>
   );
 };

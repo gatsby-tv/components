@@ -26,7 +26,7 @@ export * from "./Subheading";
 export * from "./Fireworks";
 export * from "./Tooltip";
 export * from "./Navigation";
-export * from "./UnstyledLink";
+export * from "./Link";
 export * from "./Card";
 export * from "./Modal";
 export * from "./Select";

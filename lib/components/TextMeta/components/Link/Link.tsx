@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { MetaSize } from "@lib/types";
 import { cssTextSubdued } from "@lib/styles";
-import { UnstyledLink, UnstyledLinkProps } from "@lib/components";
+import { Link as UnstyledLink, LinkProps as UnstyledLinkProps } from "@lib/components";
 
 import { Item } from "../Item";
 import { ItemTooltip } from "../ItemTooltip";
@@ -14,7 +14,6 @@ interface LinkBaseProps {
 
 const LinkBase = styled(Item)<LinkBaseProps>`
   ${cssTextSubdued}
-  cursor: pointer;
   transition: color ${(props) => props.theme.duration.fastest} ease;
   width: fit-content;
 
