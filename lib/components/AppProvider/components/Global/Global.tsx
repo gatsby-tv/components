@@ -9,6 +9,7 @@ export const Global = createGlobalStyle`
   }
 
   :root {
+    background-color: ${(props) => props.theme.colors.background[0]};
     font-size: 10px;
   }
 
