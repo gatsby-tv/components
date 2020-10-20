@@ -15,6 +15,7 @@ export const Global = createGlobalStyle`
 
   body {
     color: ${(props) => props.theme.colors.font.body};
+    overflow-x: hidden;
     font-family: "Inter", "Nunito Sans", "Noto Sans", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 `;
