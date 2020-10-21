@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useNavigation, ifExists } from "@lib/utilities";
-import { Flex } from "@lib/components";
+import { Flex, TextBox } from "@lib/components";
 
 export interface ItemProps {
   id: string;

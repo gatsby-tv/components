@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useNavigation, ifExists } from "@lib/utilities";
 import { Subheading, Flex } from "@lib/components";
 
 export interface SectionProps {
@@ -11,15 +12,18 @@ export interface SectionProps {
 }
 
 const SectionBase: React.FC<SectionProps> = (props) => {
+  const { column } = useNavigation();
+
   return (
     <Flex
       as="ul"
+      $fill
       className={props.className}
-      column
+      column={ifExists(column)}
       align="stretch"
-      data-flush={props.flush}
+      data-flush={ifExists(props.flush)}
     >
-      {props.title && <Subheading>{props.title}</Subheading>}
+      {column && props.title && <Subheading>{props.title}</Subheading>}
       {props.children}
     </Flex>
   );

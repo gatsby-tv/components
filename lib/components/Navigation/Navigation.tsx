@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { NavigationContext } from "@lib/utilities";
+import { NavigationContext, ifNotExists } from "@lib/utilities";
 import { Flex, Scroll } from "@lib/components";
 
 import { Section, SectionProps, Item, ItemProps } from "./components";
@@ -13,6 +13,7 @@ export interface NavigationProps {
   selection: Record<string, boolean>;
   onSelect: (id: string) => void;
   className?: string;
+  row?: boolean;
   children?: React.ReactNode;
   scrollHidden?: boolean;
 }
@@ -20,11 +21,11 @@ export interface NavigationProps {
 const NavigationBase: React.FC<NavigationProps> = (props) => {
   const style = css`
     > ${Section}:not(:first-child) {
-      margin-top: ${(props) => props.theme.spacing.base};
+      ${props.row ? "margin-left" : "margin-top"}: ${(props) => props.theme.spacing.base};
     }
 
     > ${Section}[data-flush] {
-      margin-top: auto;
+      ${props.row ? "margin-left" : "margin-top"}: auto;
     }
 
     ${Item} {
@@ -32,15 +33,27 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
     }
   `;
 
+  const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => props.row ? (
+    <>{children}</>
+  ) : (
+    <Scroll vertical $hidden={props.scrollHidden}>{children}</Scroll>
+  )
+
   return (
     <NavigationContext.Provider
-      value={{ selection: props.selection, onSelect: props.onSelect }}
+      value={{ column: !props.row, selection: props.selection, onSelect: props.onSelect }}
     >
-      <Scroll as="nav" vertical $hidden={props.scrollHidden}>
-        <Flex className={props.className} column align="stretch" css={style}>
+      <Container>
+        <Flex
+          as="nav"
+          className={props.className}
+          column={ifNotExists(props.row)}
+          align="stretch"
+          css={style}
+        >
           {props.children}
         </Flex>
-      </Scroll>
+      </Container>
     </NavigationContext.Provider>
   );
 };

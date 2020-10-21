@@ -100,3 +100,33 @@ export const MultipleSections: Story<NavigationProps> = (args) => {
     </AppProvider>
   );
 };
+
+export const Row: Story<NavigationProps> = (args) => {
+  const items = ["one", "two", "three"];
+  const [selection, select] = useSelection(items, "one");
+
+  return (
+    <AppProvider theme="dark">
+      <Box css={wrapperStyle} $width="20rem">
+        <Navigation
+          row
+          css={navigationStyle}
+          selection={selection}
+          onSelect={select}
+        >
+          <Navigation.Section>
+            <Navigation.Item id="one">
+              <TextBox>One</TextBox>
+            </Navigation.Item>
+            <Navigation.Item id="two">
+              <TextBox>Two</TextBox>
+            </Navigation.Item>
+            <Navigation.Item id="three">
+              <TextBox>Three</TextBox>
+            </Navigation.Item>
+          </Navigation.Section>
+        </Navigation>
+      </Box>
+    </AppProvider>
+  );
+};
