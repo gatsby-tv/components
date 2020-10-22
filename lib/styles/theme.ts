@@ -93,7 +93,7 @@ export const DarkTheme: DefaultTheme = {
     extraLoose: "32px",
   },
   duration: {
-    instant: "0",
+    instant: "0ms",
     fastest: "100ms",
     faster: "200ms",
     fast: "300ms",

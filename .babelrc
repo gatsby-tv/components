@@ -10,7 +10,8 @@
           "safari": "11.1"
         },
         "useBuiltIns": "usage",
-        "corejs": "3.6.4"
+        "corejs": "3.6.4",
+        "loose": true
       }
     ],
     "@babel/preset-typescript",
@@ -19,9 +20,9 @@
   "plugins": [
     "babel-plugin-styled-components",
     "@babel/plugin-transform-object-assign",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-private-methods",
-    "@babel/plugin-proposal-private-property-in-object",
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-proposal-private-methods", { "loose": true }],
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
     [
       "module-resolver", {
         "root": "./lib",

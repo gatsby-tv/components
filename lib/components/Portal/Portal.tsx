@@ -21,7 +21,7 @@ export const Portal: React.FC<PortalProps> = (props) => {
     portal.current = document.createElement("div");
     portal.current.setAttribute("data-portal-id", fullId);
     document.body.appendChild(portal.current);
-    setMounted(true)
+    setMounted(true);
     onMount();
 
     return () => {

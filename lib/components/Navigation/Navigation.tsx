@@ -21,7 +21,8 @@ export interface NavigationProps {
 const NavigationBase: React.FC<NavigationProps> = (props) => {
   const style = css`
     > ${Section}:not(:first-child) {
-      ${props.row ? "margin-left" : "margin-top"}: ${(props) => props.theme.spacing.base};
+      ${props.row ? "margin-left" : "margin-top"}: ${(props) =>
+        props.theme.spacing.base};
     }
 
     > ${Section}[data-flush] {
@@ -33,15 +34,22 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
     }
   `;
 
-  const Container: React.FC<{ children: React.ReactNode }> = ({ children }) => props.row ? (
-    <>{children}</>
-  ) : (
-    <Scroll vertical $hidden={props.scrollHidden}>{children}</Scroll>
-  )
+  const Container: React.FC<{ children: React.ReactNode }> = ({ children }) =>
+    props.row ? (
+      <>{children}</>
+    ) : (
+      <Scroll vertical $hidden={props.scrollHidden}>
+        {children}
+      </Scroll>
+    );
 
   return (
     <NavigationContext.Provider
-      value={{ column: !props.row, selection: props.selection, onSelect: props.onSelect }}
+      value={{
+        column: !props.row,
+        selection: props.selection,
+        onSelect: props.onSelect,
+      }}
     >
       <Container>
         <Flex
