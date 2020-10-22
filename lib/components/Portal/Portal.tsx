@@ -12,7 +12,7 @@ export interface PortalProps {
 export const Portal: React.FC<PortalProps> = (props) => {
   const id = useUniqueId("portal");
   const portal = useRef<HTMLElement | null>(null);
-  const mounted = useRef(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const { onMount = () => undefined } = props;
@@ -21,7 +21,7 @@ export const Portal: React.FC<PortalProps> = (props) => {
     portal.current = document.createElement("div");
     portal.current.setAttribute("data-portal-id", fullId);
     document.body.appendChild(portal.current);
-    mounted.current = true;
+    setMounted(true)
     onMount();
 
     return () => {
@@ -31,7 +31,7 @@ export const Portal: React.FC<PortalProps> = (props) => {
 
   return (
     (portal?.current &&
-      mounted.current &&
+      mounted &&
       createPortal(props.children, portal.current)) ||
     null
   );

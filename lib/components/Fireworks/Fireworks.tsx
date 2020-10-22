@@ -128,7 +128,6 @@ export interface FireworksProps {
 }
 
 export const Fireworks: React.FC<FireworksProps> = (props) => {
-  const [mounted, setMounted] = useState(false);
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
   const [rockets, setRockets] = useState<ParticleType[]>([]);
   const [particles, setParticles] = useState<ParticleType[]>([]);
@@ -219,8 +218,6 @@ export const Fireworks: React.FC<FireworksProps> = (props) => {
 
     return () => clearInterval(id);
   }, [props.toggle]);
-
-  useEffect(() => setMounted(true), []);
 
   return (
     <>
