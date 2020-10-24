@@ -9,7 +9,7 @@ export interface AppProviderProps {
   theme?: "dark" | "light";
 }
 
-export const AppProvider: React.FC<AppProviderProps> = (props) => {
+export function AppProvider(props: AppProviderProps) {
   const theme: DefaultTheme = props.theme === "light" ? LightTheme : DarkTheme;
 
   return (
@@ -18,4 +18,4 @@ export const AppProvider: React.FC<AppProviderProps> = (props) => {
       {props.children}
     </ThemeProvider>
   );
-};
+}

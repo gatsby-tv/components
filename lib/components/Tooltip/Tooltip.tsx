@@ -16,7 +16,7 @@ export interface TooltipProps {
   pointer?: boolean;
 }
 
-export const Tooltip: React.FC<TooltipProps> = (props) => {
+export function Tooltip(props: TooltipProps) {
   const popper = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const { styles, attributes } = usePopper(props.$for.current, popper.current, {
@@ -57,4 +57,4 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
       </div>
     </Portal>
   );
-};
+}

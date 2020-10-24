@@ -20,7 +20,7 @@ const wrapChildren = (children: React.ReactNode) =>
     <Connected.Item key={index}>{child}</Connected.Item>
   ));
 
-const SwitchBase: React.FC<SwitchProps> = (props) => {
+function SwitchBase(props: SwitchProps) {
   const style = css`
     ${Item} {
       cursor: pointer;
@@ -36,6 +36,6 @@ const SwitchBase: React.FC<SwitchProps> = (props) => {
       </Connected>
     </SwitchContext.Provider>
   );
-};
+}
 
 export const Switch = Object.assign(SwitchBase, { Item });

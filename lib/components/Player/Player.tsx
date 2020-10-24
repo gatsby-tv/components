@@ -72,7 +72,7 @@ export interface PlayerProps {
   toggleFullscreen?: () => void;
 }
 
-export const Player: React.FC<PlayerProps> = (props) => {
+export function Player(props: PlayerProps) {
   const player = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [signal, setSignal] = useState("");
@@ -258,7 +258,7 @@ export const Player: React.FC<PlayerProps> = (props) => {
   }, []);
 
   const handleKeydown = useCallback(
-    (event: Event) => {
+    (event: React.SyntheticEvent) => {
       const { toggleFullscreen = () => undefined } = props;
 
       switch ((event as any).key) {
@@ -331,16 +331,18 @@ export const Player: React.FC<PlayerProps> = (props) => {
   const iconMarkup = () => {
     switch (signal) {
       case "play":
-        return <Icon paddingLeft="0.28rem" paddingTop="0.24rem" src={Play} />;
+        return (
+          <Icon paddingLeft="0.28rem" paddingTop="0.24rem" source={Play} />
+        );
 
       case "pause":
-        return <Icon padding="0.4rem" src={Pause} />;
+        return <Icon padding="0.4rem" source={Pause} />;
 
       case "skipBackward":
-        return <Icon src={SkipBackward} />;
+        return <Icon source={SkipBackward} />;
 
       case "skipForward":
-        return <Icon src={SkipForward} />;
+        return <Icon source={SkipForward} />;
 
       default:
         return null;
@@ -361,7 +363,7 @@ export const Player: React.FC<PlayerProps> = (props) => {
     <Box absolute $fill>
       <Flex $fill center>
         <Circle size="11.6rem">
-          <Icon src={Spinner} />
+          <Icon source={Spinner} />
         </Circle>
       </Flex>
     </Box>
@@ -398,4 +400,4 @@ export const Player: React.FC<PlayerProps> = (props) => {
       <EventListener event="keydown" handler={handleKeydown} />
     </Viewport>
   );
-};
+}

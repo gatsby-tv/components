@@ -7,8 +7,8 @@ export interface SideFrameProps {
   sidebar?: React.ReactNode;
 }
 
-export const SideFrame: React.FC<SideFrameProps> = (props) => {
-  return props.sidebar ? (
+export const SideFrame: React.FC<SideFrameProps> = (props) =>
+  props.sidebar ? (
     <Flex>
       <Flex.Item shrink={0}>{props.sidebar}</Flex.Item>
       <Flex.Item shrink={0}>{props.children}</Flex.Item>
@@ -16,4 +16,3 @@ export const SideFrame: React.FC<SideFrameProps> = (props) => {
   ) : (
     <>{props.children}</>
   );
-};

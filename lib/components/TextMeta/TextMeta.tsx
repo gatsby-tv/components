@@ -17,7 +17,7 @@ export interface TextMetaProps extends ItemProps {
   children?: string | [string];
 }
 
-const TextMetaBase: React.FC<TextMetaProps> = (props) => {
+function TextMetaBase(props: TextMetaProps) {
   const text = useRef<HTMLParagraphElement>(null);
   const [truncated, setTruncated] = useState(false);
   const [active, setActive] = useState(false);
@@ -44,6 +44,6 @@ const TextMetaBase: React.FC<TextMetaProps> = (props) => {
       </ItemTooltip>
     </>
   );
-};
+}
 
 export const TextMeta = Object.assign(TextMetaBase, { List, Link });

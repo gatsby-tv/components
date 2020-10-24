@@ -2,9 +2,7 @@ import React, { CSSProperties } from "react";
 import { CSSProp } from "styled-components";
 
 export interface EventHandler {
-  event: string;
-  handler: (event: Event) => void;
-  capture?: boolean;
+  (event: React.SyntheticEvent): void;
 }
 
 export interface Styleable {
@@ -13,6 +11,12 @@ export interface Styleable {
 }
 
 export type IconSource = React.FC<React.SVGProps<SVGSVGElement>>;
+
+export type IconSize =
+  | "small"
+  | "medium"
+  | "large"
+  | "extraLarge"
 
 export type FontSize =
   | "heading"

@@ -22,7 +22,7 @@ export interface LabelledProps {
   children?: React.ReactNode;
 }
 
-export const Labelled: React.FC<LabelledProps> = (props) => {
+export function Labelled(props: LabelledProps) {
   const { id, label, help, error, hidden, children } = props;
   const theme = useTheme();
 
@@ -51,7 +51,7 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
 
   const errorMarkup = error ? (
     <Flex css={errorStyle}>
-      <Icon $width="1em" src={Exclamation} ariaLabel="Error" />
+      <Icon $width="1em" source={Exclamation} ariaLabel="Error" />
       {error.message}
     </Flex>
   ) : null;
@@ -66,4 +66,4 @@ export const Labelled: React.FC<LabelledProps> = (props) => {
       {helpMarkup}
     </Box>
   );
-};
+}

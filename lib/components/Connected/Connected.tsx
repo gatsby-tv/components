@@ -15,11 +15,10 @@ export interface ConnectedProps extends FlexProps {
   className?: string;
 }
 
-const ConnectedBase: React.FC<ConnectedProps> = (props) => {
+function ConnectedBase(props: ConnectedProps) {
   const { children, left, right, column, ...flexProps } = props;
 
   const leftMarkup = left ? <Connection>{left}</Connection> : null;
-
   const rightMarkup = right ? <Connection>{right}</Connection> : null;
 
   const style = css`
@@ -94,6 +93,6 @@ const ConnectedBase: React.FC<ConnectedProps> = (props) => {
       </Flex>
     </ConnectedContext.Provider>
   );
-};
+}
 
 export const Connected = Object.assign(ConnectedBase, { Item });

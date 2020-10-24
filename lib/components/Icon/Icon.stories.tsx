@@ -28,54 +28,54 @@ const Template: Story<IconProps> = (args) => (
 
 export const GatsbyLogo = Template.bind({});
 GatsbyLogo.args = {
-  src: Gatsby,
+  source: Gatsby,
   ariaLabel: "Gatsby Logo",
 };
 
 export const PlayIcon = Template.bind({});
 PlayIcon.args = {
-  src: Play,
+  source: Play,
   ariaLabel: "Play Icon",
 };
 
 export const PauseIcon = Template.bind({});
 PauseIcon.args = {
-  src: Pause,
+  source: Pause,
   ariaLabel: "Pause Icon",
 };
 
 export const ExpandIcon = Template.bind({});
 ExpandIcon.args = {
-  src: Expand,
+  source: Expand,
   ariaLabel: "Expand Icon",
 };
 
 export const CompressIcon = Template.bind({});
 CompressIcon.args = {
-  src: Compress,
+  source: Compress,
   ariaLabel: "Compress Icon",
 };
 
 export const SkipForwardIcon = Template.bind({});
 SkipForwardIcon.args = {
-  src: SkipForward,
+  source: SkipForward,
   ariaLabel: "Skip Forward Icon",
 };
 
 export const SkipBackwardIcon = Template.bind({});
 SkipBackwardIcon.args = {
-  src: SkipBackward,
+  source: SkipBackward,
   ariaLabel: "Skip Backward Icon",
 };
 
 export const SpinnerIcon = Template.bind({});
 SpinnerIcon.args = {
-  src: Spinner,
+  source: Spinner,
   ariaLabel: "Spinner Icon",
 };
 
 export const ExclamationIcon = Template.bind({});
 ExclamationIcon.args = {
-  src: Exclamation,
+  source: Exclamation,
   ariaLabel: "Exclamation Icon",
 };

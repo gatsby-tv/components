@@ -12,7 +12,7 @@ export interface FrameProps {
   sidebar?: React.ReactNode;
 }
 
-export const Frame: React.FC<FrameProps> = (props) => {
+export function Frame(props: FrameProps) {
   const [loadingSemaphore, setLoadingSemaphore] = useState(0);
 
   const startLoading = useCallback(
@@ -47,4 +47,4 @@ export const Frame: React.FC<FrameProps> = (props) => {
       </Box>
     </FrameContext.Provider>
   );
-};
+}

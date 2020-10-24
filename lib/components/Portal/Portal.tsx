@@ -9,7 +9,7 @@ export interface PortalProps {
   onMount?: () => void;
 }
 
-export const Portal: React.FC<PortalProps> = (props) => {
+export function Portal(props: PortalProps) {
   const id = useUniqueId("portal");
   const portal = useRef<HTMLElement | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -35,4 +35,4 @@ export const Portal: React.FC<PortalProps> = (props) => {
       createPortal(props.children, portal.current)) ||
     null
   );
-};
+}

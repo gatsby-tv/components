@@ -18,7 +18,7 @@ export interface NavigationProps {
   scrollHidden?: boolean;
 }
 
-const NavigationBase: React.FC<NavigationProps> = (props) => {
+function NavigationBase(props: NavigationProps) {
   const style = css`
     > ${Section}:not(:first-child) {
       ${props.row ? "margin-left" : "margin-top"}: ${(props) =>
@@ -64,6 +64,6 @@ const NavigationBase: React.FC<NavigationProps> = (props) => {
       </Container>
     </NavigationContext.Provider>
   );
-};
+}
 
 export const Navigation = Object.assign(NavigationBase, { Section, Item });

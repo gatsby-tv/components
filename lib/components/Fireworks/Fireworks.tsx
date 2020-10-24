@@ -127,7 +127,7 @@ export interface FireworksProps {
   interval?: number;
 }
 
-export const Fireworks: React.FC<FireworksProps> = (props) => {
+export function Fireworks(props: FireworksProps) {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
   const [rockets, setRockets] = useState<ParticleType[]>([]);
   const [particles, setParticles] = useState<ParticleType[]>([]);
@@ -230,4 +230,4 @@ export const Fireworks: React.FC<FireworksProps> = (props) => {
       </Portal>
     </>
   );
-};
+}

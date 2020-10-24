@@ -64,6 +64,12 @@ export const DarkTheme: DefaultTheme = {
       displayLarge: "40px",
     },
   },
+  icon: {
+    small: "36px",
+    medium: "44px",
+    large: "60px",
+    extraLarge: "72px",
+  },
   border: {
     radius: {
       none: "0",

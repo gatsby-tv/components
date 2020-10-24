@@ -2,18 +2,26 @@ import React, { useEffect } from "react";
 
 import { EventHandler } from "@lib/types";
 
-export type EventListenerProps = EventHandler;
+export interface EventListenerProps {
+  event: string;
+  handler: EventHandler;
+  capture?: boolean;
+}
 
-export const EventListener: React.FC<EventListenerProps> = (props) => {
+export function EventListener(props: EventListenerProps) {
   useEffect(() => {
-    window.addEventListener(props.event, props.handler, props.capture ?? false);
+    window.addEventListener(
+      props.event as any,
+      props.handler,
+      props.capture ?? false
+    );
     return () =>
       window.removeEventListener(
-        props.event,
+        props.event as any,
         props.handler,
         props.capture ?? false
       );
   });
 
   return null;
-};
+}

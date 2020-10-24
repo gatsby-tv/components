@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { css } from "styled-components";
 
 import { useTheme } from "@lib/utilities";
+import { EventHandler } from "@lib/types";
 import { Card, Flex, Portal, EventListener } from "@lib/components";
 
 export interface ModalProps {
@@ -10,7 +11,7 @@ export interface ModalProps {
   onExit?: () => void;
 }
 
-export const Modal: React.FC<ModalProps> = (props) => {
+export function Modal(props: ModalProps) {
   const theme = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -53,7 +54,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
     }
   `;
 
-  const handleKeydown = (event: Event) => {
+  const handleKeydown: EventHandler = (event) => {
     if ((event as any).code === "Escape") {
       props.onExit && props.onExit();
     }
@@ -71,4 +72,4 @@ export const Modal: React.FC<ModalProps> = (props) => {
       )}
     </Portal>
   );
-};
+}

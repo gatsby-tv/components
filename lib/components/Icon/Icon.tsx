@@ -5,12 +5,12 @@ import { Color, IconSource } from "@lib/types";
 import { Box, BoxProps } from "@lib/components";
 
 export interface IconProps extends BoxProps {
-  src: IconSource;
+  source: IconSource;
   ariaLabel?: string;
 }
 
-export const Icon: React.FC<IconProps> = (props) => {
-  const { src: SvgComponent, ariaLabel, ...boxProps } = props;
+export function Icon(props: IconProps) {
+  const { source: SvgComponent, ariaLabel, ...boxProps } = props;
 
   const style = css`
     & > svg {
@@ -28,4 +28,4 @@ export const Icon: React.FC<IconProps> = (props) => {
       <SvgComponent aria-hidden="true" focusable="false" />
     </Box>
   );
-};
+}

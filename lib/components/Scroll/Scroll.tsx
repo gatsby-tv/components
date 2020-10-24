@@ -1,15 +1,18 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 
-import { ifExists, ifNotExists } from "@lib/utilities";
+import { ifExists, ifNotExists, ScrollContext } from "@lib/utilities";
+import { EventHandler } from "@lib/types";
 import { cssProperty } from "@lib/styles";
 
 export interface ScrollProps {
+  children?: React.ReactNode;
   $hidden?: boolean;
   vertical?: boolean;
   horizontal?: boolean;
 }
 
-export const Scroll = styled.div<ScrollProps>`
+const ScrollBase = styled.div<ScrollProps>`
   height: 100%;
   ${(props) => cssProperty("overflow-y", ifExists(props.vertical, "auto"))}
   ${(props) => cssProperty("overflow-x", ifExists(props.horizontal, "auto"))}
@@ -36,3 +39,19 @@ export const Scroll = styled.div<ScrollProps>`
     transition: all 100ms ease;
   }
 `;
+
+export function Scroll(props: ScrollProps) {
+  const [callbacks, setCallbacks] = useState<EventHandler[]>([]);
+  const addCallback = (callback: EventHandler) =>
+    setCallbacks((current) => [...current, callback]);
+  const handleScroll: EventHandler = (event) =>
+    callbacks.forEach((callback) => callback(event));
+
+  return (
+    <ScrollContext.Provider value={addCallback}>
+      <ScrollBase onScroll={handleScroll} {...props}>
+        {props.children}
+      </ScrollBase>
+    </ScrollContext.Provider>
+  );
+}

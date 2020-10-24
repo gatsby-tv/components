@@ -11,7 +11,7 @@ export default {
 
 const Template: Story<ImageProps> = (args) => (
   <AppProvider theme="dark">
-    <Image width="15rem" {...args} />
+    <Image $width="15rem" {...args} />
   </AppProvider>
 );
 

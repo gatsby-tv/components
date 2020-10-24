@@ -2,40 +2,24 @@ import React from "react";
 
 import { Circle, Viewport } from "@lib/components";
 import { useTheme } from "@lib/utilities";
-
-type AvatarSize = "small" | "medium" | "large";
+import { IconSize } from "@lib/types";
 
 export type AvatarProps = {
-  size?: AvatarSize;
+  size?: IconSize;
   overlay?: React.ReactNode;
   ariaLabel?: string;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
-export const Avatar: React.FC<AvatarProps> = (props) => {
+export function Avatar(props: AvatarProps) {
   const theme = useTheme();
   const { size = "medium", overlay, ariaLabel, ...imgProps } = props;
-
-  let boxSize: string;
-  switch (size) {
-    case "small":
-      boxSize = "3.6rem";
-      break;
-
-    case "medium":
-      boxSize = "4.4rem";
-      break;
-
-    case "large":
-      boxSize = "6rem";
-      break;
-  }
 
   return (
     <Viewport
       placeholder
       rounded
-      $width={boxSize}
-      $height={boxSize}
+      $width={theme.icon[size]}
+      $height={theme.icon[size]}
       aspectRatio={1}
       ariaLabel={ariaLabel}
       overlay={overlay}
@@ -43,4 +27,4 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
       <Circle as="img" alt="" $width={1} {...imgProps} />
     </Viewport>
   );
-};
+}

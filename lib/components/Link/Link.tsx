@@ -15,7 +15,7 @@ const LinkBase = styled.a`
   outline: none;
 `;
 
-export const Link: React.FC<LinkProps> = (props) => {
+export function Link(props: LinkProps) {
   const target = props.external ? "_blank" : undefined;
   const rel = props.external ? "noopener noreferrer" : undefined;
 
@@ -29,4 +29,4 @@ export const Link: React.FC<LinkProps> = (props) => {
       {props.children}
     </LinkBase>
   );
-};
+}

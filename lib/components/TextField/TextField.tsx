@@ -41,7 +41,7 @@ export interface TextFieldProps {
   onBlur?: () => void;
 }
 
-export const TextField: React.FC<TextFieldProps> = (props) => {
+export function TextField(props: TextFieldProps) {
   const theme = useTheme();
   const id = useUniqueId(props.id ? `textfield-${props.id}` : "textfield");
 
@@ -153,4 +153,4 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       </Connected>
     </Labelled>
   );
-};
+}

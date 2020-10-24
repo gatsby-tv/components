@@ -45,6 +45,7 @@ const CollapsibleBase = styled.div`
   }
   
   ${Box}[data-collapsible="label"] {
+    cursor: pointer;
     display: inline-flex;
     outline: none;
     transition: all ${(props) => props.theme.duration.instant} linear ${(
@@ -69,7 +70,7 @@ const CollapsibleBase = styled.div`
   }
 `;
 
-export const Collapsible: React.FC<CollapsibleProps> = (props) => {
+export function Collapsible(props: CollapsibleProps) {
   const id = useUniqueId("collapsible");
   const label = useRef<HTMLLabelElement>(null);
   const content = useRef<HTMLDivElement>(null);
@@ -106,11 +107,11 @@ export const Collapsible: React.FC<CollapsibleProps> = (props) => {
         gap={theme.spacing.tight}
       >
         <TextBox>{props.label}</TextBox>
-        <Icon $width="1.2em" src={DownTick} />
+        <Icon $width="1.2em" source={DownTick} />
       </Flex>
       <Box ref={content} data-collapsible="content">
         {props.children}
       </Box>
     </CollapsibleBase>
   );
-};
+}

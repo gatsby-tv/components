@@ -73,7 +73,7 @@ export interface SelectProps {
   onBlur?: () => void;
 }
 
-export const Select: React.FC<SelectProps> = (props) => {
+export function Select(props: SelectProps) {
   const theme = useTheme();
   const id = useUniqueId(props.id ? `select-${props.id}` : "select");
 
@@ -143,7 +143,7 @@ export const Select: React.FC<SelectProps> = (props) => {
           {getSelectedLabel(options, value)}
         </Flex.Item>
         <Flex.Item as="span">
-          <Icon $height={1} ariaLabel="Selection Arrows" src={UpDownTick} />
+          <Icon $height={1} ariaLabel="Selection Arrows" source={UpDownTick} />
         </Flex.Item>
         <Box
           as="select"
@@ -161,4 +161,4 @@ export const Select: React.FC<SelectProps> = (props) => {
       </Flex>
     </Labelled>
   );
-};
+}
