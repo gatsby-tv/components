@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Flex } from "@lib/components";
+import { Flex } from "@lib/components/Flex";
 
 export interface NavFrameProps {
   children?: React.ReactNode;

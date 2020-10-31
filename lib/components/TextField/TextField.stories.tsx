@@ -2,8 +2,9 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, Button } from "@lib/components";
-import { useTheme } from "@lib/utilities";
+import { useTheme } from "@lib/utilities/use-theme";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Button } from "@lib/components/Button";
 
 import { TextField, TextFieldProps } from "./TextField";
 

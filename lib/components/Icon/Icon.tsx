@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "styled-components";
 
 import { Color, IconSource } from "@lib/types";
-import { Box, BoxProps } from "@lib/components";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export interface IconProps extends BoxProps {
   source: IconSource;

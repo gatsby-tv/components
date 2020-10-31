@@ -1,13 +1,15 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
+import { AppProvider } from "@lib/components/AppProvider";
+import { TextBox } from "@lib/components/TextBox";
+
 import {
   TextMeta,
   TextMetaProps,
   TextMetaListProps,
   TextMetaLinkProps,
 } from "./TextMeta";
-import { AppProvider, TextBox } from "@lib/components";
 
 export default {
   title: "TextMeta",

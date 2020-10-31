@@ -2,11 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { MetaSize } from "@lib/types";
-import { cssTextSubdued } from "@lib/styles";
+import { cssTextSubdued } from "@lib/styles/typography";
 import {
   Link as UnstyledLink,
   LinkProps as UnstyledLinkProps,
-} from "@lib/components";
+} from "@lib/components/Link";
 
 import { Item } from "../Item";
 import { ItemTooltip } from "../ItemTooltip";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Box, BoxProps } from "@lib/components";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export interface ItemProps extends BoxProps {
   grow?: number;

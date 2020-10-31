@@ -2,8 +2,11 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { useSelection } from "@lib/utilities";
-import { AppProvider, TextBox, Box } from "@lib/components";
+import { useSelection } from "@lib/utilities/use-selection";
+import { AppProvider } from "@lib/components/AppProvider";
+import { TextBox } from "@lib/components/TextBox";
+import { Box } from "@lib/components/Box";
+
 import { Navigation, NavigationProps } from "./Navigation";
 
 export default {

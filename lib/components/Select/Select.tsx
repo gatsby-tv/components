@@ -2,9 +2,16 @@ import React, { useState, useRef } from "react";
 import { css } from "styled-components";
 import { UpDownTick } from "@gatsby-tv/icons";
 
-import { cssProperty, cssTextInput, cssInputBorder } from "@lib/styles";
-import { ifExists, useUniqueId, useTheme } from "@lib/utilities";
-import { Box, Flex, Icon, Labelled } from "@lib/components";
+import { cssProperty } from "@lib/styles/property";
+import { cssTextInput } from "@lib/styles/typography";
+import { cssInputBorder } from "@lib/styles/borders";
+import { ifExists } from "@lib/utilities/if-exists";
+import { useUniqueId } from "@lib/utilities/use-unique-id";
+import { useTheme } from "@lib/utilities/use-theme";
+import { Box } from "@lib/components/Box";
+import { Flex } from "@lib/components/Flex";
+import { Icon } from "@lib/components/Icon";
+import { Labelled } from "@lib/components/Labelled";
 
 export interface SelectOption {
   value: string;

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-import { ifExists, ifNotExists } from "@lib/utilities";
+import { ifExists, ifNotExists } from "@lib/utilities/if-exists";
 import { Size } from "@lib/types";
-import { cssSize, cssProperty } from "@lib/styles";
+import { cssSize } from "@lib/styles/size";
+import { cssProperty } from "@lib/styles/property";
 
 export interface BoxProps {
   bg?: string;

@@ -2,7 +2,8 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, Box } from "@lib/components";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Box } from "@lib/components/Box";
 
 import { Connected, ConnectedProps } from "./Connected";
 

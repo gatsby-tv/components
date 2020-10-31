@@ -1,10 +1,11 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { Item, ItemProps } from "./components";
+import { SwitchContext } from "@lib/utilities/switch";
+import { Flex } from "@lib/components/Flex";
+import { Connected } from "@lib/components/Connected";
 
-import { SwitchContext } from "@lib/utilities";
-import { Connected, Flex } from "@lib/components";
+import { Item, ItemProps } from "./components";
 
 export type { ItemProps as SwitchItemProps };
 

@@ -2,15 +2,14 @@ import React, { useRef, useState } from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { css } from "styled-components";
 
+import { AppProvider } from "@lib/components/AppProvider";
+import { Activatable } from "@lib/components/Activatable";
+import { Box } from "@lib/components/Box";
+import { Flex } from "@lib/components/Flex";
+import { Button } from "@lib/components/Button";
+import { TextBox } from "@lib/components/TextBox";
+
 import { Tooltip, TooltipProps } from "./Tooltip";
-import {
-  AppProvider,
-  Activatable,
-  Flex,
-  Box,
-  Button,
-  TextBox,
-} from "@lib/components";
 
 export default {
   title: "Tooltip",

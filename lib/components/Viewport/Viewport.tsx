@@ -9,8 +9,8 @@ import React, {
 import { css } from "styled-components";
 
 import { Size } from "@lib/types";
-import { useTheme } from "@lib/utilities";
-import { Box, BoxProps } from "@lib/components";
+import { useTheme } from "@lib/utilities/use-theme";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export interface ViewportProps extends BoxProps {
   children?: React.ReactNode;

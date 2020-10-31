@@ -3,15 +3,13 @@ import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { LoremIpsum } from "react-lorem-ipsum";
 
-import { useToggle } from "@lib/utilities";
-import {
-  AppProvider,
-  Card,
-  Heading,
-  TextBox,
-  Button,
-  Scroll,
-} from "@lib/components";
+import { useToggle } from "@lib/utilities/use-toggle";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Card } from "@lib/components/Card";
+import { TextHeading } from "@lib/components/TextHeading";
+import { TextBox } from "@lib/components/TextBox";
+import { Button } from "@lib/components/Button";
+import { Scroll } from "@lib/components/Scroll";
 
 import { Modal, ModalProps } from "./Modal";
 

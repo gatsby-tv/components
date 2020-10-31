@@ -3,7 +3,9 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import { css } from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
 
-import { AppProvider, TextBox, Box } from "@lib/components";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Box } from "@lib/components/Box";
+import { TextBox } from "@lib/components/TextBox";
 
 import { Collapsible, CollapsibleProps } from "./Collapsible";
 

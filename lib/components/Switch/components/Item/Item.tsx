@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { useSwitch, ifExists } from "@lib/utilities";
-import { Flex } from "@lib/components";
+import { ifExists } from "@lib/utilities/if-exists";
+import { useSwitch } from "@lib/utilities/switch";
+import { Flex } from "@lib/components/Flex";
 
 export interface ItemProps {
   id: string;

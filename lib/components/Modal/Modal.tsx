@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { css } from "styled-components";
 
-import { useTheme } from "@lib/utilities";
 import { EventHandler } from "@lib/types";
-import { Card, Flex, Portal, EventListener } from "@lib/components";
+import { useTheme } from "@lib/utilities/use-theme";
+import { Card } from "@lib/components/Card";
+import { Flex } from "@lib/components/Flex";
+import { Portal } from "@lib/components/Portal";
+import { EventListener } from "@lib/components/EventListener";
 
 export interface ModalProps {
   children?: React.ReactNode;

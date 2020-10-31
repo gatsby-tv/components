@@ -1,13 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import {
-  cssSize,
-  cssProperty,
-  cssTextButton,
-  cssInputBorder,
-} from "@lib/styles";
-import { Box, BoxProps } from "@lib/components";
+import { cssSize } from "@lib/styles/size";
+import { cssProperty } from "@lib/styles/property";
+import { cssInputBorder } from "@lib/styles/borders";
+import { cssTextButton } from "@lib/styles/typography";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export type ButtonProps = { border?: boolean } & BoxProps &
   React.ButtonHTMLAttributes<HTMLElement>;

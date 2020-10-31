@@ -2,10 +2,11 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { css } from "styled-components";
 
-import { Fireworks, FireworksProps } from "./Fireworks";
+import { useToggle } from "@lib/utilities/use-toggle";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Button } from "@lib/components/Button";
 
-import { useToggle } from "@lib/utilities";
-import { Button, AppProvider } from "@lib/components";
+import { Fireworks, FireworksProps } from "./Fireworks";
 
 export default {
   title: "Fireworks",

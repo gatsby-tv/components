@@ -1,8 +1,9 @@
 import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
 
-import { ifExists } from "@lib/utilities";
-import { Box, BoxProps } from "@lib/components";
-import { cssProperty, cssSize } from "@lib/styles";
+import { ifExists } from "@lib/utilities/if-exists";
+import { Box, BoxProps } from "@lib/components/Box";
+import { cssProperty } from "@lib/styles/property";
+import { cssSize } from "@lib/styles/size";
 import {
   Size,
   FlexDistribute,

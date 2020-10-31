@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { css } from "styled-components";
 
-import { Box, EventListener } from "@lib/components";
-import { FrameContext } from "@lib/utilities";
+import { Box } from "@lib/components/Box";
+import { EventListener } from "@lib/components/EventListener";
+import { FrameContext } from "@lib/utilities/frame";
 
 import { NavFrame, SideFrame, MainFrame } from "./components";
 

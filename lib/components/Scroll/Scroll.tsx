@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { ifExists, ifNotExists, ScrollContext } from "@lib/utilities";
+import { ifExists, ifNotExists } from "@lib/utilities/if-exists";
+import { ScrollContext } from "@lib/utilities/scroll";
+import { cssProperty } from "@lib/styles/property";
 import { EventHandler } from "@lib/types";
-import { cssProperty } from "@lib/styles";
 
 export interface ScrollProps {
   children?: React.ReactNode;

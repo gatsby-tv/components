@@ -125,3 +125,9 @@ export const cssTextButton = css`
   appearance: none;
   text-transform: uppercase;
 `;
+
+export const cssTextTimeline = css`
+  ${cssTextCondensed}
+  font-weight: 600;
+  user-select: none;
+`;

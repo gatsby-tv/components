@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Circle, Viewport } from "@lib/components";
-import { useTheme } from "@lib/utilities";
+import { Circle } from "@lib/components/Circle";
+import { Viewport } from "@lib/components/Viewport";
+import { useTheme } from "@lib/utilities/use-theme";
 import { IconSize } from "@lib/types";
 
 export type AvatarProps = {

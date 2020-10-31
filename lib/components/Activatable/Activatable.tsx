@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { cssProperty } from "@lib/styles";
-import { ifExists, ifNotExists } from "@lib/utilities";
-import { Box, BoxProps } from "@lib/components";
+import { cssProperty } from "@lib/styles/property";
+import { ifExists, ifNotExists } from "@lib/utilities/if-exists";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export interface ActivatableProps extends BoxProps {
   active?: boolean;

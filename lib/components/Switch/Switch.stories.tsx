@@ -2,10 +2,12 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { Switch, SwitchProps } from "./Switch";
+import { useSelection } from "@lib/utilities/use-selection";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Box } from "@lib/components/Box";
+import { TextBox } from "@lib/components/TextBox";
 
-import { useSelection } from "@lib/utilities";
-import { AppProvider, Box, TextBox } from "@lib/components";
+import { Switch, SwitchProps } from "./Switch";
 
 export default {
   title: "Switch",

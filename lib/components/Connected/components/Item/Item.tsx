@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { useConnected } from "@lib/utilities";
-import { Box, BoxProps } from "@lib/components";
+import { useConnected } from "@lib/utilities/connected";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export type ItemProps = { className?: string } & BoxProps;
 

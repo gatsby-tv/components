@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
 
-import { ifExists } from "@lib/utilities";
 import { MetaSize } from "@lib/types";
-import { cssTextMeta, cssTextSubdued } from "@lib/styles";
-import { Flex } from "@lib/components";
+import { ifExists } from "@lib/utilities/if-exists";
+import { cssTextMeta, cssTextSubdued } from "@lib/styles/typography";
+import { Flex } from "@lib/components/Flex";
 
 import { Item, ItemProps } from "../Item";
 

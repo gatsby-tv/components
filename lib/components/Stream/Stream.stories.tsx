@@ -1,7 +1,10 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { AppProvider, Box, Scroll, Image } from "@lib/components";
+import { AppProvider } from "@lib/components/AppProvider";
+import { Box } from "@lib/components/Box";
+import { Scroll } from "@lib/components/Scroll";
+import { Image } from "@lib/components/Image";
 
 import { Stream, StreamProps } from "./Stream";
 

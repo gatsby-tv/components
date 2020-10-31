@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
-import { DarkTheme, LightTheme } from "@lib/styles";
+import { DarkTheme, LightTheme } from "@lib/styles/theme";
 import { Global } from "./components";
 
 export interface AppProviderProps {

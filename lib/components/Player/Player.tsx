@@ -17,20 +17,17 @@ import {
 } from "@gatsby-tv/icons";
 import { css } from "styled-components";
 
-import {
-  Activatable,
-  Box,
-  Circle,
-  Flex,
-  Icon,
-  EventListener,
-  Viewport,
-  Video,
-  VideoProps,
-} from "@lib/components";
+import { Activatable } from "@lib/components/Activatable";
+import { Box } from "@lib/components/Box";
+import { Circle } from "@lib/components/Circle";
+import { Flex } from "@lib/components/Flex";
+import { Icon } from "@lib/components/Icon";
+import { EventListener } from "@lib/components/EventListener";
+import { Viewport } from "@lib/components/Viewport";
+import { Video, VideoProps } from "@lib/components/Video";
 import { IconSource } from "@lib/types";
 
-import { Shading, Signal } from "./components";
+import { Shading, Signal, Timeline } from "./components";
 
 interface Dimensions {
   width: number;
@@ -50,6 +47,8 @@ type PlayerAction =
   | { type: "scrub"; time: number }
   | { type: "timeupdate"; time: number }
   | { type: "progress"; progress: number }
+  | { type: "hover"; position: number }
+  | { type: "nohover" }
   | { type: "ended" };
 
 interface PlayerState {
@@ -61,8 +60,10 @@ interface PlayerState {
   seeking: boolean;
   scrubbing: boolean;
   waiting: boolean;
+  hovering: boolean;
   time: number;
   progress: number;
+  hover: number;
   ended: boolean;
 }
 
@@ -75,6 +76,7 @@ export interface PlayerProps {
 export function Player(props: PlayerProps) {
   const player = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+  const timeline = useRef<HTMLDivElement>(null);
   const [signal, setSignal] = useState("");
   const [loading, setLoading] = useState(false);
   const [dimensions, setDimensions] = useState<Dimensions>({
@@ -143,13 +145,13 @@ export function Player(props: PlayerProps) {
         case "seeking":
           return {
             ...state,
+            scrubbing: false,
             seeking: true,
           };
 
         case "seeked":
           return {
             ...state,
-            scrubbing: false,
             seeking: false,
           };
 
@@ -172,6 +174,19 @@ export function Player(props: PlayerProps) {
             progress: action.progress,
           };
 
+        case "hover":
+          return {
+            ...state,
+            hovering: true,
+            hover: action.position,
+          };
+
+        case "nohover":
+          return {
+            ...state,
+            hovering: false,
+          };
+
         case "ended":
           return {
             ...state,
@@ -189,12 +204,14 @@ export function Player(props: PlayerProps) {
       idletime: 0,
       time: 0,
       progress: 0,
+      hover: 0,
       playing: false,
       paused: false,
       stalled: false,
       seeking: false,
       scrubbing: false,
       waiting: false,
+      hovering: false,
       ended: false,
     }
   );
@@ -235,10 +252,10 @@ export function Player(props: PlayerProps) {
 
   const togglePlayback = useCallback(() => {
     if (state.paused) {
-      video?.current?.play();
+      video.current?.play();
       setSignal("play");
     } else {
-      video?.current?.pause();
+      video.current?.pause();
       setSignal("pause");
     }
   }, [state.paused]);
@@ -246,7 +263,7 @@ export function Player(props: PlayerProps) {
   const seekTo = useCallback((time) => {
     if (video?.current) {
       video.current.currentTime = time;
-      dispatch({ type: "timeupdate", time: time });
+      dispatch({ type: "timeupdate", time: time / video.current.duration });
     }
   }, []);
 
@@ -304,21 +321,57 @@ export function Player(props: PlayerProps) {
     onEnded: useCallback(() => dispatch({ type: "ended" }), []),
     onTimeUpdate: useCallback((event: React.SyntheticEvent) => {
       const target = event.target as HTMLMediaElement;
-      dispatch({ type: "timeupdate", time: target.currentTime });
+      dispatch({
+        type: "timeupdate",
+        time: target.currentTime / target.duration,
+      });
     }, []),
     onProgress: useCallback((event: React.SyntheticEvent) => {
       const target = event.target as HTMLMediaElement;
       const bufferIndex = findBufferIndex(event);
       const progress = target.buffered.end(bufferIndex || 0);
-      dispatch({ type: "progress", progress: progress });
+      dispatch({ type: "progress", progress: progress / target.duration });
     }, []),
     onSeeked: useCallback((event: React.SyntheticEvent) => {
       const target = event.target as HTMLMediaElement;
       const bufferIndex = findBufferIndex(event);
       const progress = target.buffered.end(bufferIndex || 0);
       dispatch({ type: "seeked" });
-      dispatch({ type: "progress", progress: progress });
+      dispatch({ type: "progress", progress: progress / target.duration });
     }, []),
+  };
+
+  const timelineEvents = {
+    onClick: useCallback((event) => event.stopPropagation(), []),
+    onMouseDown: useCallback((event) => {
+      if (video.current && timeline.current) {
+        const rect = timeline.current.getBoundingClientRect();
+        const time = Math.min(
+          Math.max(0, ((event as any).clientX - rect.left) / rect.width),
+          1
+        );
+        dispatch({ type: "scrub", time });
+      }
+    }, []),
+    onMouseUp: useCallback((event) => {
+      if (video.current) {
+        const rect = event.target.getBoundingClientRect();
+        const time = Math.min(
+          Math.max(0, ((event as any).clientX - rect.left) / rect.width),
+          1
+        );
+        seekTo(video.current.duration * time);
+      }
+    }, []),
+    onMouseEnter: useCallback((event) => {
+      const rect = event.target.getBoundingClientRect();
+      const position = Math.min(
+        Math.max(0, ((event as any).clientX - rect.left) / rect.width),
+        1
+      );
+      dispatch({ type: "hover", position });
+    }, []),
+    onMouseLeave: useCallback(() => dispatch({ type: "nohover" }), []),
   };
 
   const playerEvents = {
@@ -331,12 +384,10 @@ export function Player(props: PlayerProps) {
   const iconMarkup = () => {
     switch (signal) {
       case "play":
-        return (
-          <Icon paddingLeft="0.28rem" paddingTop="0.24rem" source={Play} />
-        );
+        return <Icon paddingLeft="3px" paddingTop="2px" source={Play} />;
 
       case "pause":
-        return <Icon padding="0.4rem" source={Pause} />;
+        return <Icon padding="4px" source={Pause} />;
 
       case "skipBackward":
         return <Icon source={SkipBackward} />;
@@ -352,7 +403,7 @@ export function Player(props: PlayerProps) {
   const signalMarkup = signal ? (
     <Box absolute $fill>
       <Flex $fill center>
-        <Signal size="5.2rem" padding="3.2rem" bg="black" fg="white">
+        <Signal size="52px" padding="32px" bg="black" fg="white">
           {iconMarkup()}
         </Signal>
       </Flex>
@@ -362,12 +413,25 @@ export function Player(props: PlayerProps) {
   const loadingMarkup = loading ? (
     <Box absolute $fill>
       <Flex $fill center>
-        <Circle size="11.6rem">
+        <Circle size="116px">
           <Icon source={Spinner} />
         </Circle>
       </Flex>
     </Box>
   ) : null;
+
+  const timelineMarkup = (
+    <Box absolute $left="20px" $right="20px" $bottom="45px">
+      <Timeline
+        ref={timeline}
+        time={state.time}
+        progress={state.progress}
+        position={state.hover}
+        active={state.hovering}
+        duration={video.current?.duration ?? 0}
+      />
+    </Box>
+  );
 
   const overlayMarkup = (
     <Activatable
@@ -379,6 +443,7 @@ export function Player(props: PlayerProps) {
         <Shading $fill />
         {signalMarkup}
         {loadingMarkup}
+        {timelineMarkup}
       </Box>
     </Activatable>
   );
@@ -387,8 +452,8 @@ export function Player(props: PlayerProps) {
     <Viewport
       ref={player}
       $height={props.fullscreen ? "100vh" : "calc((9 / 16) * 100vw)"}
-      maxHeight={props.fullscreen ? "none" : "calc(100vh - 14rem)"}
-      minHeight="48rem"
+      maxHeight={props.fullscreen ? "none" : "calc(100vh - 140px)"}
+      minHeight="480px"
       overlay={overlayMarkup}
       aspectRatio={dimensions.height / dimensions.width}
       {...playerEvents}

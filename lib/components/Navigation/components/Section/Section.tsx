@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useNavigation, ifExists } from "@lib/utilities";
-import { Subheading, Flex } from "@lib/components";
+import { useNavigation } from "@lib/utilities/navigation";
+import { ifExists } from "@lib/utilities/if-exists";
+import { Flex } from "@lib/components/Flex";
+import { TextSubheading } from "@lib/components/TextSubheading";
 
 export interface SectionProps {
   className?: string;
@@ -23,12 +25,12 @@ const SectionBase: React.FC<SectionProps> = (props) => {
       align="stretch"
       data-flush={ifExists(props.flush)}
     >
-      {column && props.title && <Subheading>{props.title}</Subheading>}
+      {column && props.title && <TextSubheading>{props.title}</TextSubheading>}
       {props.children}
     </Flex>
   );
 };
 
 export const Section = styled(
-  Object.assign(SectionBase, { Title: Subheading })
+  Object.assign(SectionBase, { Title: TextSubheading })
 )``;

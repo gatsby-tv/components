@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-import { Box, BoxProps } from "@lib/components";
+import { Box, BoxProps } from "@lib/components/Box";
 
 export type VideoProps = React.VideoHTMLAttributes<HTMLElement> & BoxProps;
 

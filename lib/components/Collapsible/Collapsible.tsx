@@ -2,8 +2,13 @@ import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import { DownTick } from "@gatsby-tv/icons";
 
-import { TextBox, Box, Flex, Icon } from "@lib/components";
-import { ifExists, useUniqueId, useTheme } from "@lib/utilities";
+import { Box } from "@lib/components/Box";
+import { TextBox } from "@lib/components/TextBox";
+import { Flex } from "@lib/components/Flex";
+import { Icon } from "@lib/components/Icon";
+import { ifExists } from "@lib/utilities/if-exists";
+import { useUniqueId } from "@lib/utilities/use-unique-id";
+import { useTheme } from "@lib/utilities/use-theme";
 
 export interface CollapsibleProps {
   className?: string;

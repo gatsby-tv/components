@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Size } from "@lib/types";
-import { Box, Viewport } from "@lib/components";
+import { Box } from "@lib/components/Box";
+import { Viewport } from "@lib/components/Viewport";
 
 export type ImageProps = {
   $width?: Size;

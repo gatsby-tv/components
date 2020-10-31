@@ -4,18 +4,18 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import { AppProvider } from "@lib/components/AppProvider";
 import { TextBox } from "@lib/components/TextBox";
 
-import { TextDisplay, TextDisplayProps } from "./TextDisplay";
+import { TextCaption, TextCaptionProps } from "./TextCaption";
 
 export default {
-  title: "TextDisplay",
-  component: TextDisplay,
+  title: "TextCaption",
+  component: TextCaption,
 } as Meta;
 
-export const Example: Story<TextDisplayProps> = (args) => (
+export const Example: Story<TextCaptionProps> = (args) => (
   <AppProvider theme="dark">
     <TextBox>
-      <TextDisplay size="large">Large Display Text</TextDisplay>
-      <TextDisplay size="small">Small Display Text</TextDisplay>
+      <p>Example Text</p>
+      <TextCaption>With a caption</TextCaption>
     </TextBox>
   </AppProvider>
 );

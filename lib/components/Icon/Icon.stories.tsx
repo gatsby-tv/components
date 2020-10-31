@@ -12,7 +12,8 @@ import {
   Spinner,
 } from "@gatsby-tv/icons";
 
-import { AppProvider } from "@lib/components";
+import { AppProvider } from "@lib/components/AppProvider";
+
 import { Icon, IconProps } from "./Icon";
 
 export default {

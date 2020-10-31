@@ -4,14 +4,16 @@ import { Exclamation } from "@gatsby-tv/icons";
 
 import {
   cssTextBreakWord,
+  cssTextBody,
   cssTextSubdued,
   cssTextError,
   cssTextLabel,
-  cssVisuallyHidden,
-  cssTextBody,
-} from "@lib/styles";
-import { Box, Flex, Icon } from "@lib/components";
-import { useTheme } from "@lib/utilities";
+} from "@lib/styles/typography";
+import { cssVisuallyHidden } from "@lib/styles/visually-hidden";
+import { Box } from "@lib/components/Box";
+import { Flex } from "@lib/components/Flex";
+import { Icon } from "@lib/components/Icon";
+import { useTheme } from "@lib/utilities/use-theme";
 
 export interface LabelledProps {
   id: string;

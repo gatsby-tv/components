@@ -1,8 +1,10 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { NavigationContext, ifNotExists } from "@lib/utilities";
-import { Flex, Scroll } from "@lib/components";
+import { NavigationContext } from "@lib/utilities/navigation";
+import { ifNotExists } from "@lib/utilities/if-exists";
+import { Flex } from "@lib/components/Flex";
+import { Scroll } from "@lib/components/Scroll";
 
 import { Section, SectionProps, Item, ItemProps } from "./components";
 
