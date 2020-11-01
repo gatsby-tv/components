@@ -1,4 +1,8 @@
 export function format(seconds: number) {
+  if (isNaN(seconds)) {
+    return "0:00";
+  }
+
   let time = Time(seconds);
   let result = time
     .slice(time.findIndex((value) => value !== 0))

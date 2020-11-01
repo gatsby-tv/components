@@ -17,6 +17,7 @@ import {
 } from "@gatsby-tv/icons";
 import { css } from "styled-components";
 
+import { IconSource } from "@lib/types";
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
 import { Circle } from "@lib/components/Circle";
@@ -25,7 +26,7 @@ import { Icon } from "@lib/components/Icon";
 import { EventListener } from "@lib/components/EventListener";
 import { Viewport } from "@lib/components/Viewport";
 import { Video, VideoProps } from "@lib/components/Video";
-import { IconSource } from "@lib/types";
+import { cssCursorVisibility } from "@lib/styles/cursor";
 
 import { Shading, Signal, Timeline } from "./components";
 
@@ -45,6 +46,7 @@ type PlayerAction =
   | { type: "seeking" }
   | { type: "seeked" }
   | { type: "scrub"; time: number }
+  | { type: "noscrub" }
   | { type: "timeupdate"; time: number }
   | { type: "progress"; progress: number }
   | { type: "hover"; position: number }
@@ -77,7 +79,8 @@ export function Player(props: PlayerProps) {
   const player = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const timeline = useRef<HTMLDivElement>(null);
-  const [signal, setSignal] = useState("");
+  const signalKey = useRef(0);
+  const [signal, setSignalBase] = useState("");
   const [loading, setLoading] = useState(false);
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
@@ -91,15 +94,14 @@ export function Player(props: PlayerProps) {
           return {
             ...state,
             active: true,
-            idletime: state.paused ? -Infinity : 0,
+            idletime: state.paused || state.scrubbing ? -Infinity : 0,
           };
 
         case "deactivate":
           return {
             ...state,
-            active: state.paused,
-            idletime: state.paused ? -Infinity : Infinity,
-            scrubbing: false,
+            active: state.paused || state.scrubbing,
+            idletime: state.paused || state.scrubbing ? -Infinity : Infinity,
           };
 
         case "idle":
@@ -127,7 +129,6 @@ export function Player(props: PlayerProps) {
         case "playing":
           return {
             ...state,
-            active: true,
             idletime: 0,
             playing: true,
             paused: false,
@@ -145,7 +146,6 @@ export function Player(props: PlayerProps) {
         case "seeking":
           return {
             ...state,
-            scrubbing: false,
             seeking: true,
           };
 
@@ -160,6 +160,12 @@ export function Player(props: PlayerProps) {
             ...state,
             time: action.time,
             scrubbing: true,
+          };
+
+        case "noscrub":
+          return {
+            ...state,
+            scrubbing: false,
           };
 
         case "timeupdate":
@@ -237,6 +243,11 @@ export function Player(props: PlayerProps) {
     return () => clearInterval(id);
   }, []);
 
+  const setSignal = useCallback((value) => {
+    signalKey.current++;
+    setSignalBase(value);
+  }, []);
+
   const findBufferIndex = useCallback((event) => {
     let bufferIndex;
     let delta = Infinity;
@@ -261,21 +272,30 @@ export function Player(props: PlayerProps) {
   }, [state.paused]);
 
   const seekTo = useCallback((time) => {
-    if (video?.current) {
+    if (video.current) {
       video.current.currentTime = time;
       dispatch({ type: "timeupdate", time: time / video.current.duration });
     }
   }, []);
 
+  const timelinePercent = useCallback((x: number) => {
+    if (timeline.current) {
+      const rect = timeline.current.getBoundingClientRect();
+      return Math.min(Math.max(0, (x - rect.left) / rect.width), 1);
+    } else {
+      return 0;
+    }
+  }, []);
+
   const handleResize = useCallback(() => {
-    if (player?.current) {
+    if (player.current) {
       const rect = player.current.getBoundingClientRect();
       setDimensions({ width: rect.width, height: rect.height });
     }
   }, []);
 
   const handleKeydown = useCallback(
-    (event: React.SyntheticEvent) => {
+    (event) => {
       const { toggleFullscreen = () => undefined } = props;
 
       switch ((event as any).key) {
@@ -319,20 +339,20 @@ export function Player(props: PlayerProps) {
     onSeeking: useCallback(() => dispatch({ type: "seeking" }), []),
     onWaiting: useCallback(() => dispatch({ type: "waiting" }), []),
     onEnded: useCallback(() => dispatch({ type: "ended" }), []),
-    onTimeUpdate: useCallback((event: React.SyntheticEvent) => {
+    onTimeUpdate: useCallback((event) => {
       const target = event.target as HTMLMediaElement;
       dispatch({
         type: "timeupdate",
         time: target.currentTime / target.duration,
       });
     }, []),
-    onProgress: useCallback((event: React.SyntheticEvent) => {
+    onProgress: useCallback((event) => {
       const target = event.target as HTMLMediaElement;
       const bufferIndex = findBufferIndex(event);
       const progress = target.buffered.end(bufferIndex || 0);
       dispatch({ type: "progress", progress: progress / target.duration });
     }, []),
-    onSeeked: useCallback((event: React.SyntheticEvent) => {
+    onSeeked: useCallback((event) => {
       const target = event.target as HTMLMediaElement;
       const bufferIndex = findBufferIndex(event);
       const progress = target.buffered.end(bufferIndex || 0);
@@ -342,49 +362,64 @@ export function Player(props: PlayerProps) {
   };
 
   const timelineEvents = {
-    onClick: useCallback((event) => event.stopPropagation(), []),
-    onMouseDown: useCallback((event) => {
-      if (video.current && timeline.current) {
-        const rect = timeline.current.getBoundingClientRect();
-        const time = Math.min(
-          Math.max(0, ((event as any).clientX - rect.left) / rect.width),
-          1
-        );
-        dispatch({ type: "scrub", time });
-      }
+    onPointerDown: useCallback((event) => {
+      event.preventDefault();
+      timeline.current?.setPointerCapture((event as any).pointerId);
+      const time = timelinePercent((event as any).clientX);
+      dispatch({ type: "scrub", time });
     }, []),
-    onMouseUp: useCallback((event) => {
-      if (video.current) {
-        const rect = event.target.getBoundingClientRect();
-        const time = Math.min(
-          Math.max(0, ((event as any).clientX - rect.left) / rect.width),
-          1
-        );
-        seekTo(video.current.duration * time);
-      }
-    }, []),
-    onMouseEnter: useCallback((event) => {
-      const rect = event.target.getBoundingClientRect();
-      const position = Math.min(
-        Math.max(0, ((event as any).clientX - rect.left) / rect.width),
-        1
-      );
+    onPointerUp: useCallback(
+      (event) => {
+        if (video.current && state.scrubbing) {
+          timeline.current?.releasePointerCapture((event as any).pointerId);
+          const time = timelinePercent((event as any).clientX);
+          seekTo(video.current.duration * time);
+          dispatch({ type: "nohover" });
+          dispatch({ type: "noscrub" });
+        }
+      },
+      [state.scrubbing]
+    ),
+    onPointerEnter: useCallback((event) => {
+      const position = timelinePercent((event as any).clientX);
       dispatch({ type: "hover", position });
     }, []),
-    onMouseLeave: useCallback(() => dispatch({ type: "nohover" }), []),
+    onPointerMove: useCallback(
+      (event) => {
+        const position = timelinePercent((event as any).clientX);
+        dispatch({ type: "hover", position });
+        if (state.scrubbing) {
+          dispatch({ type: "scrub", time: position });
+        }
+      },
+      [state.scrubbing]
+    ),
+    onPointerLeave: useCallback(() => {
+      if (!state.scrubbing) {
+        dispatch({ type: "nohover" });
+      }
+    }, [state.scrubbing]),
   };
 
   const playerEvents = {
-    onClick: togglePlayback,
-    onMouseDown: useCallback(() => dispatch({ type: "activate" }), []),
-    onMouseMove: useCallback(() => dispatch({ type: "activate" }), []),
-    onMouseLeave: useCallback(() => dispatch({ type: "deactivate" }), []),
+    onPointerUp: useCallback(() => {
+      if (!state.scrubbing) {
+        togglePlayback();
+      }
+    }, [state.scrubbing, state.paused]),
+    onPointerDown: useCallback(() => dispatch({ type: "activate" }), []),
+    onPointerMove: useCallback(() => dispatch({ type: "activate" }), []),
+    onPointerLeave: useCallback(() => dispatch({ type: "deactivate" }), []),
   };
 
   const iconMarkup = () => {
     switch (signal) {
       case "play":
-        return <Icon paddingLeft="3px" paddingTop="2px" source={Play} />;
+        return (
+          <Box style={{ transform: "translateX(2px)" }}>
+            <Icon padding="4px" source={Play} />
+          </Box>
+        );
 
       case "pause":
         return <Icon padding="4px" source={Pause} />;
@@ -401,7 +436,7 @@ export function Player(props: PlayerProps) {
   };
 
   const signalMarkup = signal ? (
-    <Box absolute $fill>
+    <Box key={signalKey.current} absolute $fill>
       <Flex $fill center>
         <Signal size="52px" padding="32px" bg="black" fg="white">
           {iconMarkup()}
@@ -413,7 +448,7 @@ export function Player(props: PlayerProps) {
   const loadingMarkup = loading ? (
     <Box absolute $fill>
       <Flex $fill center>
-        <Circle size="116px">
+        <Circle style={{ transform: "rotate(-65deg)" }} size="116px">
           <Icon source={Spinner} />
         </Circle>
       </Flex>
@@ -421,7 +456,7 @@ export function Player(props: PlayerProps) {
   ) : null;
 
   const timelineMarkup = (
-    <Box absolute $left="20px" $right="20px" $bottom="45px">
+    <Box absolute $left="20px" $right="20px" $bottom="20px">
       <Timeline
         ref={timeline}
         time={state.time}
@@ -429,23 +464,27 @@ export function Player(props: PlayerProps) {
         position={state.hover}
         active={state.hovering}
         duration={video.current?.duration ?? 0}
+        {...timelineEvents}
       />
     </Box>
   );
 
   const overlayMarkup = (
-    <Activatable
-      $fill
-      style={{ cursor: state.active ? "default" : "none" }}
-      active={state.active}
-    >
-      <Box absolute $fill>
-        <Shading $fill />
-        {signalMarkup}
-        {loadingMarkup}
-        {timelineMarkup}
-      </Box>
-    </Activatable>
+    <>
+      {signalMarkup}
+      {loadingMarkup}
+      <Activatable
+        $fill
+        css={cssCursorVisibility(!state.active)}
+        active={state.active}
+        duration={200}
+      >
+        <Box absolute $fill>
+          <Shading $fill />
+          {timelineMarkup}
+        </Box>
+      </Activatable>
+    </>
   );
 
   return (

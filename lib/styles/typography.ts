@@ -128,6 +128,7 @@ export const cssTextButton = css`
 
 export const cssTextTimeline = css`
   ${cssTextCondensed}
+  font-size: ${(props) => props.theme.font.size.base};
   font-weight: 600;
   user-select: none;
 `;

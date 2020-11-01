@@ -9,18 +9,17 @@ export const Signal = styled(Circle)<SignalProps>`
 
   @keyframes enter {
     0% {
-      opacity: 0;
-      transform: scale(0.8);
+      opacity: 0.1;
+      transform: scale(0.6);
     }
 
-    40% {
-      opacity: 0.6;
-      transform: scale(1);
+    30% {
+      opacity: 0.5;
     }
 
     100% {
       opacity: 0;
-      transform: scale(1.2);
+      transform: scale(1);
     }
   }
 

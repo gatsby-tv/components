@@ -1,14 +1,8 @@
-import React, {
-  useRef,
-  useContext,
-  useCallback,
-  useReducer,
-  useEffect,
-  forwardRef,
-} from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import { usePopper } from "react-popper";
 import styled from "styled-components";
 
+import { EventHandler } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Activatable } from "@lib/components/Activatable";
 import { cssTextTimeline } from "@lib/styles/typography";
@@ -43,29 +37,33 @@ export interface TimelineProps {
   position: number;
   duration: number;
   active?: boolean;
+  onClick?: EventHandler;
+  onMouseDown?: EventHandler;
+  onMouseUp?: EventHandler;
+  onMouseEnter?: EventHandler;
+  onMouseLeave?: EventHandler;
 }
 
 export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
   (props, ref) => {
     const theme = useTheme();
-    const reference = useRef(null);
-    const popper = useRef(null);
+    const [reference, setReference] = useState<HTMLDivElement | null>(null);
+    const [popper, setPopper] = useState<HTMLDivElement | null>(null);
 
-    const { styles, attributes } = usePopper(
-      reference.current,
-      popper.current,
-      {
-        placement: "top",
-        modifiers: [
-          {
-            name: "offset",
-            options: {
-              offset: [0, 15],
-            },
+    const { time, progress, position, duration, active, ...events } = props;
+
+    const { styles, attributes } = usePopper(reference, popper, {
+      placement: "top",
+      strategy: "absolute",
+      modifiers: [
+        {
+          name: "offset",
+          options: {
+            offset: [0, 15],
           },
-        ],
-      }
-    );
+        },
+      ],
+    });
 
     const progressBallMarkup = (
       <Box
@@ -79,7 +77,7 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
         $right="-7px"
         $width="14px"
         $height="14px"
-        bg={theme.colors.gold}
+        bg={theme.colors.gold.darken(0.1)}
         data-progress-ball
       />
     );
@@ -87,16 +85,16 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
     const progressMarkup = (
       <>
         <Box
-          style={{ right: `${100 * (1 - props.progress)}%` }}
+          style={{ right: `${100 * (1 - progress)}%` }}
           absolute
           $fill
-          bg={theme.colors.placeholder.opaquer(0.1)}
+          bg={theme.colors.white.fade(0.85)}
         />
         <Box
-          style={{ right: `${100 * (1 - props.time)}%` }}
+          style={{ right: `${100 * (1 - time)}%` }}
           absolute
           $fill
-          bg={theme.colors.gold}
+          bg={theme.colors.gold.darken(0.1)}
         >
           {progressBallMarkup}
         </Box>
@@ -105,18 +103,25 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
 
     return (
       <>
-        <TimelineBase ref={ref} $height="4px" bg={theme.colors.placeholder}>
+        <TimelineBase
+          ref={ref}
+          $height="4px"
+          bg={theme.colors.white.fade(0.85)}
+          {...events}
+        >
           {progressMarkup}
         </TimelineBase>
-        <Box style={{ right: `${100 * (1 - props.position)}%` }} absolute>
-          <Box ref={reference} />
+        <Box style={{ right: `${100 * (1 - position)}%` }} absolute>
+          <Box ref={setReference} />
           <Activatable
-            ref={popper}
+            ref={setPopper}
+            style={styles.popper}
             css={cssTextTimeline}
-            active={props.active}
+            active={active}
             duration={150}
+            {...attributes.popper}
           >
-            {format(props.position * props.duration)}
+            {format(position * duration)}
           </Activatable>
         </Box>
       </>

@@ -6,19 +6,22 @@ export interface EventListenerProps {
   event: string;
   handler: EventHandler;
   capture?: boolean;
+  doc?: boolean;
 }
 
 export function EventListener(props: EventListenerProps) {
   useEffect(() => {
-    window.addEventListener(
+    const target = props.doc ? document : window;
+
+    target.addEventListener(
       props.event as any,
-      props.handler,
+      props.handler as any,
       props.capture ?? false
     );
     return () =>
-      window.removeEventListener(
+      target.removeEventListener(
         props.event as any,
-        props.handler,
+        props.handler as any,
         props.capture ?? false
       );
   });
