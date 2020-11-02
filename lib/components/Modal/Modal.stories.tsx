@@ -45,7 +45,7 @@ export const Example: Story<ModalProps> = (props) => {
         >
           <Scroll $hidden vertical>
             <TextBox padding="2rem">
-              <Heading>Example Modal</Heading>
+              <TextHeading>Example Modal</TextHeading>
               <LoremIpsum p={10} />
             </TextBox>
           </Scroll>

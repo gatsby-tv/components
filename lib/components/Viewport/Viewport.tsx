@@ -9,6 +9,8 @@ import React, {
 import { css } from "styled-components";
 
 import { Size } from "@lib/types";
+import { cssProperty } from "@lib/styles/property";
+import { ifExists } from "@lib/utilities/if-exists";
 import { useTheme } from "@lib/utilities/use-theme";
 import { Box, BoxProps } from "@lib/components/Box";
 
@@ -37,8 +39,8 @@ export const Viewport = forwardRef<HTMLElement, ViewportProps>((props, ref) => {
 
   const style = css`
     width: 100%;
-    border-radius: ${rounded ? "100%" : "0"};
     background-color: ${placeholder ? theme.colors.placeholder : "black"};
+    ${cssProperty("border-radius", ifExists(rounded, "100%"))}
   `;
 
   return (
