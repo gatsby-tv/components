@@ -8,7 +8,7 @@ import { AppProvider } from "@lib/components/AppProvider";
 import { Card } from "@lib/components/Card";
 import { TextHeading } from "@lib/components/TextHeading";
 import { TextBox } from "@lib/components/TextBox";
-import { Button } from "@lib/components/Button";
+import { FormButton } from "@lib/components/FormButton";
 import { Scroll } from "@lib/components/Scroll";
 
 import { Modal, ModalProps } from "./Modal";
@@ -33,9 +33,9 @@ export const Example: Story<ModalProps> = (props) => {
 
   return (
     <AppProvider theme="dark">
-      <Button css={buttonStyle} onClick={flipToggle}>
+      <FormButton css={buttonStyle} onClick={flipToggle}>
         ClickMe
-      </Button>
+      </FormButton>
       <Modal active={toggle} onExit={() => setToggle(false)}>
         <Card
           $width="60vw"

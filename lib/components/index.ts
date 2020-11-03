@@ -21,6 +21,7 @@ export * from "./Image";
 export * from "./Avatar";
 export * from "./Labelled";
 export * from "./Icon";
+export * from "./FormButton";
 export * from "./Button";
 export * from "./Activatable";
 export * from "./Fireworks";

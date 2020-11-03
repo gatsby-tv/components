@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { useTheme } from "@lib/utilities/use-theme";
 import { AppProvider } from "@lib/components/AppProvider";
-import { Button } from "@lib/components/Button";
+import { FormButton } from "@lib/components/FormButton";
 
 import { TextField, TextFieldProps } from "./TextField";
 
@@ -23,13 +23,13 @@ const ButtonMarkup: React.FC<{}> = () => {
   const theme = useTheme();
 
   return (
-    <Button
+    <FormButton
       border
       paddingLeft={theme.spacing.tight}
       paddingRight={theme.spacing.tight}
     >
       Button
-    </Button>
+    </FormButton>
   );
 };
 

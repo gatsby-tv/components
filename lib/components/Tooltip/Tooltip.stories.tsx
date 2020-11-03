@@ -6,7 +6,7 @@ import { AppProvider } from "@lib/components/AppProvider";
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
 import { Flex } from "@lib/components/Flex";
-import { Button } from "@lib/components/Button";
+import { FormButton } from "@lib/components/FormButton";
 import { TextBox } from "@lib/components/TextBox";
 
 import { Tooltip, TooltipProps } from "./Tooltip";
@@ -28,13 +28,13 @@ export const Example: Story<TooltipProps> = (props) => {
   return (
     <AppProvider theme="dark">
       <Box ref={ref} $width="fit-content">
-        <Button
+        <FormButton
           css={buttonStyle}
           onMouseOver={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >
           HoverMe
-        </Button>
+        </FormButton>
       </Box>
       <Tooltip $for={ref} placement="right">
         <Activatable active={active} duration={200} delay={500}>

@@ -4,7 +4,7 @@ import { css } from "styled-components";
 
 import { useToggle } from "@lib/utilities/use-toggle";
 import { AppProvider } from "@lib/components/AppProvider";
-import { Button } from "@lib/components/Button";
+import { FormButton } from "@lib/components/FormButton";
 
 import { Fireworks, FireworksProps } from "./Fireworks";
 
@@ -28,7 +28,7 @@ export const Infinite: Story<FireworksProps> = (args) => {
 
 export const WithButton: Story<FireworksProps> = (args) => {
   const { toggle, flipToggle } = useToggle();
-  const buttonMarkup = <Button onClick={flipToggle}>Fire</Button>;
+  const buttonMarkup = <FormButton onClick={flipToggle}>Fire</FormButton>;
   const origin = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
