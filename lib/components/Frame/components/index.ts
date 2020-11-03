@@ -1,3 +1,3 @@
-export * from "./NavFrame";
+export * from "./TopFrame";
 export * from "./SideFrame";
 export * from "./MainFrame";

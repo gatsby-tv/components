@@ -1,15 +1,23 @@
 import React, { useState, useCallback } from "react";
-import { css } from "styled-components";
+import styled from "styled-components";
 
-import { Box } from "@lib/components/Box";
-import { EventListener } from "@lib/components/EventListener";
+import { Scroll } from "@lib/components/Scroll";
 import { FrameContext } from "@lib/utilities/frame";
 
-import { NavFrame, SideFrame, MainFrame } from "./components";
+import { MainFrame, TopFrame, SideFrame } from "./components";
+
+const FrameBase = styled.div`
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
 
 export interface FrameProps {
   children?: React.ReactNode;
-  navbar?: React.ReactNode;
+  topbar?: React.ReactNode;
   sidebar?: React.ReactNode;
 }
 
@@ -33,19 +41,13 @@ export function Frame(props: FrameProps) {
 
   return (
     <FrameContext.Provider value={context}>
-      <Box
-        absolute
-        $fill
-        css={`
-          position: fixed;
-        `}
-      >
-        <NavFrame navbar={props.navbar}>
+      <FrameBase>
+        <TopFrame topbar={props.topbar}>
           <SideFrame sidebar={props.sidebar}>
             <MainFrame>{props.children}</MainFrame>
           </SideFrame>
-        </NavFrame>
-      </Box>
+        </TopFrame>
+      </FrameBase>
     </FrameContext.Provider>
   );
 }

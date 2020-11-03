@@ -43,7 +43,7 @@ export const Example: Story<ModalProps> = (props) => {
           css={cardStyle}
           onClick={(event) => event.stopPropagation()}
         >
-          <Scroll $hidden vertical>
+          <Scroll $hidden>
             <TextBox padding="2rem">
               <TextHeading>Example Modal</TextHeading>
               <LoremIpsum p={10} />

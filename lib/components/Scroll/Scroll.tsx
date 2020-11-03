@@ -9,15 +9,13 @@ import { EventHandler } from "@lib/types";
 export interface ScrollProps {
   children?: React.ReactNode;
   $hidden?: boolean;
-  vertical?: boolean;
-  horizontal?: boolean;
 }
 
 const ScrollBase = styled.div<ScrollProps>`
-  height: 100%;
-  ${(props) => cssProperty("overflow-y", ifExists(props.vertical, "auto"))}
-  ${(props) => cssProperty("overflow-x", ifExists(props.horizontal, "auto"))}
-  ${(props) => cssProperty("padding-right", ifNotExists(props.$hidden, "1rem"))}
+  min-width: 100%;
+  max-height: 100%;
+  box-sizing: content-box;
+  overflow-y: scroll;
   backface-visibility: hidden;
 
   &::-webkit-scrollbar {

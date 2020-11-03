@@ -10,6 +10,7 @@ export const Video = forwardRef<HTMLVideoElement, VideoProps>((props, ref) => {
       ref={ref as React.RefObject<HTMLVideoElement>}
       as="video"
       $width={1}
+      $height={1}
       {...props}
     />
   );

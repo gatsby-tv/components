@@ -24,12 +24,8 @@ const Template: Story<ScrollProps> = (args) => (
 );
 
 export const Vertical = Template.bind({});
-Vertical.args = {
-  vertical: true,
-};
 
 export const Hidden = Template.bind({});
 Hidden.args = {
-  vertical: true,
   $hidden: true,
 };

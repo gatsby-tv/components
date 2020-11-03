@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 
 import { Circle } from "@lib/components/Circle";
 import { Viewport } from "@lib/components/Viewport";
@@ -12,8 +12,11 @@ export type AvatarProps = {
 } & React.ImgHTMLAttributes<HTMLElement>;
 
 export function Avatar(props: AvatarProps) {
-  const theme = useTheme();
   const { size = "medium", overlay, ariaLabel, ...imgProps } = props;
+  const theme = useTheme();
+  const [loading, setLoading] = useState(true);
+
+  const handleLoad = useCallback(() => setLoading(false), []);
 
   return (
     <Viewport
@@ -25,7 +28,14 @@ export function Avatar(props: AvatarProps) {
       ariaLabel={ariaLabel}
       overlay={overlay}
     >
-      <Circle as="img" alt="" $width={1} {...imgProps} />
+      <Circle
+        as="img"
+        alt=""
+        style={loading ? { paddingTop: "100%", height: 0 } : undefined}
+        $width={1}
+        onLoad={handleLoad}
+        {...imgProps}
+      />
     </Viewport>
   );
 }

@@ -40,9 +40,7 @@ function NavigationBase(props: NavigationProps) {
     props.row ? (
       <>{children}</>
     ) : (
-      <Scroll vertical $hidden={props.scrollHidden}>
-        {children}
-      </Scroll>
+      <Scroll $hidden={props.scrollHidden}>{children}</Scroll>
     );
 
   return (

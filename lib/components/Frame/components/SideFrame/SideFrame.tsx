@@ -9,9 +9,11 @@ export interface SideFrameProps {
 
 export const SideFrame: React.FC<SideFrameProps> = (props) =>
   props.sidebar ? (
-    <Flex>
+    <Flex $fill>
       <Flex.Item shrink={0}>{props.sidebar}</Flex.Item>
-      <Flex.Item shrink={0}>{props.children}</Flex.Item>
+      <Flex.Item shrink={1} grow={1}>
+        {props.children}
+      </Flex.Item>
     </Flex>
   ) : (
     <>{props.children}</>

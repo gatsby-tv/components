@@ -21,7 +21,10 @@ async function generator() {
 export const Example: Story<StreamProps> = (args) => (
   <AppProvider theme="dark">
     <Box $width="30rem" $height="30rem">
-      <Scroll vertical>
+      <Scroll>
+        <Box marginBottom="2rem">
+          <Image src="https://loremflickr.com/405/405" />
+        </Box>
         <Stream source={Image} generator={generator} gap="2rem" />
       </Scroll>
     </Box>

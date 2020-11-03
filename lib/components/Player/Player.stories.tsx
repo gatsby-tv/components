@@ -2,6 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { AppProvider } from "@lib/components/AppProvider";
+import { TextMeta } from "@lib/components/TextMeta";
 
 import { Player, PlayerProps } from "./Player";
 

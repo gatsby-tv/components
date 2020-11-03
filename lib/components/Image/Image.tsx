@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 
 import { Size } from "@lib/types";
 import { Box } from "@lib/components/Box";
@@ -13,6 +13,9 @@ export type ImageProps = {
 
 export function Image(props: ImageProps) {
   const { aspectRatio = 1, $width, overlay, ariaLabel, ...imgProps } = props;
+  const [loading, setLoading] = useState(true);
+
+  const handleLoad = useCallback(() => setLoading(false), []);
 
   return (
     <Viewport
@@ -22,7 +25,18 @@ export function Image(props: ImageProps) {
       overlay={overlay}
       $width={$width}
     >
-      <Box as="img" alt="" $width={1} {...imgProps} />
+      <Box
+        as="img"
+        alt=""
+        style={
+          loading
+            ? { paddingTop: `${100 * aspectRatio}%`, height: 0 }
+            : undefined
+        }
+        $width={1}
+        onLoad={handleLoad}
+        {...imgProps}
+      />
     </Viewport>
   );
 }

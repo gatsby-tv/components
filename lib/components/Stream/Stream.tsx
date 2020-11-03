@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useCallback } from "react";
 import { Spinner } from "@gatsby-tv/icons";
 
 import { EventHandler, Size } from "@lib/types";
@@ -58,13 +58,22 @@ export function Stream<T>(props: StreamProps<T>) {
     { index: NaN, items: [], loading: false }
   );
 
+  const handleScroll = useCallback((event) => {
+    const target = event.currentTarget;
+    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+      dispatch({ type: "fetch" });
+    }
+  }, []);
+
   useEffect(() => {
     async function fetchItems() {
       const items = [await generator(state.index)].flat() as T[];
       dispatch({ type: "sync", items });
     }
 
-    fetchItems();
+    if (!isNaN(state.index)) {
+      fetchItems();
+    }
   }, [state.index]);
 
   useEffect(() => {
@@ -77,20 +86,13 @@ export function Stream<T>(props: StreamProps<T>) {
   }, [state.loading]);
 
   useEffect(() => {
-    const handleScroll: EventHandler = (event) => {
-      const target = event.currentTarget;
-      if (target.scrollHeight - target.scrollTop === target.clientHeight) {
-        dispatch({ type: "fetch" });
-      }
-    };
-
     addScrollListener(handleScroll);
     dispatch({ type: "fetch" });
   }, []);
 
   const loadingMarkup = waiting ? (
     <Flex $fill center>
-      <Icon $width="4.4rem" source={Spinner} />
+      <Icon $width="44px" source={Spinner} />
     </Flex>
   ) : null;
 
