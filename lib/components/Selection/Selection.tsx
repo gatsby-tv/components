@@ -1,17 +1,17 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { NavigationContext } from "@lib/utilities/navigation";
+import { SelectionContext } from "@lib/utilities/selection";
 import { ifNotExists } from "@lib/utilities/if-exists";
 import { Flex } from "@lib/components/Flex";
 import { Scroll } from "@lib/components/Scroll";
 
 import { Section, SectionProps, Item, ItemProps } from "./components";
 
-export type { SectionProps as NavigationSectionProps };
-export type { ItemProps as NavigationItemProps };
+export type { SectionProps as SelectionSectionProps };
+export type { ItemProps as SelectionItemProps };
 
-export interface NavigationProps {
+export interface SelectionProps {
   selection: Record<string, boolean>;
   onSelect: (id: string) => void;
   className?: string;
@@ -20,7 +20,7 @@ export interface NavigationProps {
   scrollHidden?: boolean;
 }
 
-function NavigationBase(props: NavigationProps) {
+function SelectionBase(props: SelectionProps) {
   const style = css`
     > ${Section}:not(:first-child) {
       ${props.row ? "margin-left" : "margin-top"}: ${(props) =>
@@ -44,7 +44,7 @@ function NavigationBase(props: NavigationProps) {
     );
 
   return (
-    <NavigationContext.Provider
+    <SelectionContext.Provider
       value={{
         column: !props.row,
         selection: props.selection,
@@ -62,8 +62,8 @@ function NavigationBase(props: NavigationProps) {
           {props.children}
         </Flex>
       </Container>
-    </NavigationContext.Provider>
+    </SelectionContext.Provider>
   );
 }
 
-export const Navigation = Object.assign(NavigationBase, { Section, Item });
+export const Selection = Object.assign(SelectionBase, { Section, Item });

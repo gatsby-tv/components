@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useNavigation } from "@lib/utilities/navigation";
+import { useSelection } from "@lib/utilities/selection";
 import { ifExists } from "@lib/utilities/if-exists";
 import { Flex } from "@lib/components/Flex";
 import { TextSubheading } from "@lib/components/TextSubheading";
@@ -14,7 +14,7 @@ export interface SectionProps {
 }
 
 const SectionBase: React.FC<SectionProps> = (props) => {
-  const { column } = useNavigation();
+  const { column } = useSelection();
 
   return (
     <Flex

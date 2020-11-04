@@ -2,31 +2,31 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { useSelection } from "@lib/utilities/use-selection";
+import { useSelect } from "@lib/utilities/use-select";
 import { AppProvider } from "@lib/components/AppProvider";
 import { TextBox } from "@lib/components/TextBox";
 import { Box } from "@lib/components/Box";
 
-import { Navigation, NavigationProps } from "./Navigation";
+import { Selection, SelectionProps } from "./Selection";
 
 export default {
-  title: "Navigation",
-  component: Navigation,
+  title: "Selection",
+  component: Selection,
 } as Meta;
 
-const navigationStyle = css`
-  ${Navigation.Item}[data-selected] {
+const selectionStyle = css`
+  ${Selection.Item}[data-selected] {
     color: ${(props) => props.theme.colors.blue};
     background-color: ${(props) => props.theme.colors.background[3]};
   }
 
-  ${Navigation.Item} {
+  ${Selection.Item} {
     padding: ${(props) => props.theme.spacing.baseTight}
       ${(props) => props.theme.spacing.base};
     transition: all ${(props) => props.theme.duration.fastest} ease;
   }
 
-  ${Navigation.Section.Title} {
+  ${Selection.Section.Title} {
     padding: ${(props) => props.theme.spacing.tight}
       ${(props) => props.theme.spacing.base};
   }
@@ -36,99 +36,99 @@ const wrapperStyle = css`
   background-color: ${(props) => props.theme.colors.background[4]};
 `;
 
-export const OneSection: Story<NavigationProps> = (args) => {
+export const OneSection: Story<SelectionProps> = (args) => {
   const items = ["one", "two", "three"];
-  const [selection, select] = useSelection(items, "one");
+  const [selection, select] = useSelect(items, "one");
 
   return (
     <AppProvider theme="dark">
       <Box css={wrapperStyle} $width="20rem">
-        <Navigation
+        <Selection
           scrollHidden
-          css={navigationStyle}
+          css={selectionStyle}
           selection={selection}
           onSelect={select}
         >
-          <Navigation.Section>
-            <Navigation.Item id="one">
+          <Selection.Section>
+            <Selection.Item id="one">
               <TextBox>One</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="two">
+            </Selection.Item>
+            <Selection.Item id="two">
               <TextBox>Two</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="three">
+            </Selection.Item>
+            <Selection.Item id="three">
               <TextBox>Three</TextBox>
-            </Navigation.Item>
-          </Navigation.Section>
-        </Navigation>
+            </Selection.Item>
+          </Selection.Section>
+        </Selection>
       </Box>
     </AppProvider>
   );
 };
 
-export const MultipleSections: Story<NavigationProps> = (args) => {
+export const MultipleSections: Story<SelectionProps> = (args) => {
   const items = ["one", "two", "three", "four", "five"];
-  const [selection, select] = useSelection(items, "one");
+  const [selection, select] = useSelect(items, "one");
 
   return (
     <AppProvider theme="dark">
       <Box css={wrapperStyle} $width="20rem">
-        <Navigation
+        <Selection
           scrollHidden
-          css={navigationStyle}
+          css={selectionStyle}
           selection={selection}
           onSelect={select}
         >
-          <Navigation.Section title="first">
-            <Navigation.Item id="one">
+          <Selection.Section title="first">
+            <Selection.Item id="one">
               <TextBox>One</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="two">
+            </Selection.Item>
+            <Selection.Item id="two">
               <TextBox>Two</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="three">
+            </Selection.Item>
+            <Selection.Item id="three">
               <TextBox>Three</TextBox>
-            </Navigation.Item>
-          </Navigation.Section>
-          <Navigation.Section title="second">
-            <Navigation.Item id="four">
+            </Selection.Item>
+          </Selection.Section>
+          <Selection.Section title="second">
+            <Selection.Item id="four">
               <TextBox>Four</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="five">
+            </Selection.Item>
+            <Selection.Item id="five">
               <TextBox>Five</TextBox>
-            </Navigation.Item>
-          </Navigation.Section>
-        </Navigation>
+            </Selection.Item>
+          </Selection.Section>
+        </Selection>
       </Box>
     </AppProvider>
   );
 };
 
-export const Row: Story<NavigationProps> = (args) => {
+export const Row: Story<SelectionProps> = (args) => {
   const items = ["one", "two", "three"];
-  const [selection, select] = useSelection(items, "one");
+  const [selection, select] = useSelect(items, "one");
 
   return (
     <AppProvider theme="dark">
       <Box css={wrapperStyle} $width="20rem">
-        <Navigation
+        <Selection
           row
-          css={navigationStyle}
+          css={selectionStyle}
           selection={selection}
           onSelect={select}
         >
-          <Navigation.Section>
-            <Navigation.Item id="one">
+          <Selection.Section>
+            <Selection.Item id="one">
               <TextBox>One</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="two">
+            </Selection.Item>
+            <Selection.Item id="two">
               <TextBox>Two</TextBox>
-            </Navigation.Item>
-            <Navigation.Item id="three">
+            </Selection.Item>
+            <Selection.Item id="three">
               <TextBox>Three</TextBox>
-            </Navigation.Item>
-          </Navigation.Section>
-        </Navigation>
+            </Selection.Item>
+          </Selection.Section>
+        </Selection>
       </Box>
     </AppProvider>
   );

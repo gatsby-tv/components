@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { useSelection } from "@lib/utilities/use-selection";
+import { useSelect } from "@lib/utilities/use-select";
 import { AppProvider } from "@lib/components/AppProvider";
 import { Box } from "@lib/components/Box";
 import { TextBox } from "@lib/components/TextBox";
@@ -31,7 +31,7 @@ const switchStyle = css`
 
 export const TwoSettings: Story<SwitchProps> = (args) => {
   const items = ["one", "two"];
-  const [selection, select] = useSelection(items, "one");
+  const [selection, select] = useSelect(items, "one");
 
   return (
     <AppProvider theme="dark">
@@ -51,7 +51,7 @@ export const TwoSettings: Story<SwitchProps> = (args) => {
 
 export const ThreeSettings: Story<SwitchProps> = (args) => {
   const items = ["one", "two", "three"];
-  const [selection, select] = useSelection(items, "one");
+  const [selection, select] = useSelect(items, "one");
 
   return (
     <AppProvider theme="dark">

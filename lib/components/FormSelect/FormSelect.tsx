@@ -13,48 +13,48 @@ import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { Labelled } from "@lib/components/Labelled";
 
-export interface SelectOption {
+export interface FormSelectOption {
   value: string;
   label: string;
   disabled?: boolean;
 }
 
-export interface SelectGroup {
+export interface FormSelectGroup {
   title: string;
-  options: SelectOption[];
+  options: FormSelectOption[];
 }
 
-const isGroup = (option: SelectOption | SelectGroup) =>
-  typeof option === "object" && (option as SelectGroup).options != null;
+const isGroup = (option: FormSelectOption | FormSelectGroup) =>
+  typeof option === "object" && (option as FormSelectGroup).options != null;
 
-const parseOption = (option: SelectOption) => (
+const parseOption = (option: FormSelectOption) => (
   <option key={option.value} value={option.value}>
     {option.label}
   </option>
 );
 
-const parseGroup = (group: SelectGroup) => (
+const parseGroup = (group: FormSelectGroup) => (
   <optgroup key={group.title} label={group.title}>
     {group.options.map(parseOption)}
   </optgroup>
 );
 
-const parseOptionOrGroup = (option: SelectOption | SelectGroup) =>
+const parseOptionOrGroup = (option: FormSelectOption | FormSelectGroup) =>
   isGroup(option)
-    ? parseGroup(option as SelectGroup)
-    : parseOption(option as SelectOption);
+    ? parseGroup(option as FormSelectGroup)
+    : parseOption(option as FormSelectOption);
 
-const flattenOptions = (options: (SelectOption | SelectGroup)[]) =>
+const flattenOptions = (options: (FormSelectOption | FormSelectGroup)[]) =>
   options.reduce(
-    (acc: SelectOption[], optionOrGroup: SelectOption | SelectGroup) =>
+    (acc: FormSelectOption[], optionOrGroup: FormSelectOption | FormSelectGroup) =>
       isGroup(optionOrGroup)
-        ? [...acc, ...(optionOrGroup as SelectGroup).options]
-        : [...acc, optionOrGroup as SelectOption],
+        ? [...acc, ...(optionOrGroup as FormSelectGroup).options]
+        : [...acc, optionOrGroup as FormSelectOption],
     []
   );
 
-const getSelectedLabel = (
-  options: (SelectOption | SelectGroup)[],
+const getFormSelectedLabel = (
+  options: (FormSelectOption | FormSelectGroup)[],
   value?: string
 ) => {
   if (value == null) return "";
@@ -64,12 +64,12 @@ const getSelectedLabel = (
   return selected ? selected.label : "";
 };
 
-export interface SelectProps {
+export interface FormSelectProps {
   label: string;
   labelHidden?: boolean;
   id?: string;
   className?: string;
-  options?: (SelectOption | SelectGroup)[];
+  options?: (FormSelectOption | FormSelectGroup)[];
   name?: string;
   value?: string;
   focused?: boolean;
@@ -80,7 +80,7 @@ export interface SelectProps {
   onBlur?: () => void;
 }
 
-export function Select(props: SelectProps) {
+export function FormSelect(props: FormSelectProps) {
   const theme = useTheme();
   const id = useUniqueId(props.id ? `select-${props.id}` : "select");
 
@@ -147,7 +147,7 @@ export function Select(props: SelectProps) {
         onClick={handleClick}
       >
         <Flex.Item as="span" grow={1}>
-          {getSelectedLabel(options, value)}
+          {getFormSelectedLabel(options, value)}
         </Flex.Item>
         <Flex.Item as="span">
           <Icon $height={1} ariaLabel="Selection Arrows" source={UpDownTick} />

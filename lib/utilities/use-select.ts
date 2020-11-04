@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-export const useSelection = (items: string[], initial?: string) => {
+export const useSelect = (items: string[], initial?: string) => {
   const fresh = Object.fromEntries(items.map((id) => [id, false]));
   const [state, setState] = useState(
     initial ? { ...fresh, [initial]: true } : fresh

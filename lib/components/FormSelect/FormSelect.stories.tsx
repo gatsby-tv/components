@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { AppProvider } from "@lib/components/AppProvider";
 
-import { Select, SelectProps } from "./Select";
+import { FormSelect, FormSelectProps } from "./FormSelect";
 
 const selectStyle = css`
   border-radius: ${(props) => props.theme.border.radius.small};
@@ -16,11 +16,11 @@ const selectStyle = css`
 `;
 
 export default {
-  title: "Select",
-  component: Select,
+  title: "FormSelect",
+  component: FormSelect,
 } as Meta;
 
-export const Example: Story<SelectProps> = (args) => {
+export const Example: Story<FormSelectProps> = (args) => {
   const [selection, setSelection] = useState("one");
   const onChange = useCallback((value) => setSelection(value), []);
   const options = [
@@ -31,7 +31,7 @@ export const Example: Story<SelectProps> = (args) => {
 
   return (
     <AppProvider theme="dark">
-      <Select
+      <FormSelect
         css={selectStyle}
         label="Example Selection"
         options={options}
