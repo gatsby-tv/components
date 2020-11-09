@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/gatsby-tv/components.git"
   },
-  "version": "0.4.46",
+  "version": "0.4.47",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "AGPL-3.0",
@@ -63,9 +63,9 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "core-js": "^3.7.0",
     "@popperjs/core": "^2.5.4",
     "color": "^3.1.2",
+    "core-js": "^3.7.0",
     "react-popper": "^2.2.4"
   }
 }
