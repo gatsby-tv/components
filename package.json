@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/gatsby-tv/components.git"
   },
-  "version": "0.4.44",
+  "version": "0.4.45",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "AGPL-3.0",
@@ -22,12 +22,12 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
+    "core-js": "^3.7.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.0",
-    "core-js": "^3.7.0"
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
