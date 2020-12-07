@@ -2,10 +2,11 @@ import React, { forwardRef } from "react";
 import styled, { css, CSSProp } from "styled-components";
 
 export interface LinkProps {
-  url: string;
+  href: string;
   className?: string;
   children?: React.ReactNode;
   external?: boolean;
+  onClick?: () => void;
 }
 
 const LinkBase = styled.a`
@@ -15,16 +16,17 @@ const LinkBase = styled.a`
   outline: none;
 `;
 
-export const Link = forwardRef<HTMLElement, LinkProps>((props, ref) => {
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   const target = props.external ? "_blank" : undefined;
   const rel = props.external ? "noopener noreferrer" : undefined;
 
   return (
     <LinkBase
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={ref as React.RefObject<HTMLAnchorElement>}
       target={target}
       rel={rel}
-      href={props.url}
+      href={props.href}
+      onClick={props.onClick}
       className={props.className}
     >
       {props.children}
