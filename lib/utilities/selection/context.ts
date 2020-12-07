@@ -6,6 +6,6 @@ export interface SelectionContextType {
   onSelect: (id: string) => void;
 }
 
-export const SelectionContext = createContext<
-  SelectionContextType | undefined
->(undefined);
+export const SelectionContext = createContext<SelectionContextType | undefined>(
+  undefined
+);

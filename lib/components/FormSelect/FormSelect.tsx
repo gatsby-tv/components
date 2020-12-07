@@ -46,7 +46,10 @@ const parseOptionOrGroup = (option: FormSelectOption | FormSelectGroup) =>
 
 const flattenOptions = (options: (FormSelectOption | FormSelectGroup)[]) =>
   options.reduce(
-    (acc: FormSelectOption[], optionOrGroup: FormSelectOption | FormSelectGroup) =>
+    (
+      acc: FormSelectOption[],
+      optionOrGroup: FormSelectOption | FormSelectGroup
+    ) =>
       isGroup(optionOrGroup)
         ? [...acc, ...(optionOrGroup as FormSelectGroup).options]
         : [...acc, optionOrGroup as FormSelectOption],
