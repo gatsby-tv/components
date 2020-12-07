@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled, { css, CSSProp } from "styled-components";
 
 export interface LinkProps {
@@ -15,12 +15,13 @@ const LinkBase = styled.a`
   outline: none;
 `;
 
-export function Link(props: LinkProps) {
+export const Link = forwardRef<HTMLElement, LinkProps>((props, ref) => {
   const target = props.external ? "_blank" : undefined;
   const rel = props.external ? "noopener noreferrer" : undefined;
 
   return (
     <LinkBase
+      ref={ref as React.RefObject<HTMLElement>}
       target={target}
       rel={rel}
       href={props.url}
@@ -29,4 +30,4 @@ export function Link(props: LinkProps) {
       {props.children}
     </LinkBase>
   );
-}
+});
