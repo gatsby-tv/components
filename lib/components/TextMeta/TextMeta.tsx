@@ -15,23 +15,19 @@ export type { LinkProps as TextMetaLinkProps };
 
 export interface TextMetaProps extends ItemProps {
   children?: string | [string];
+  tooltip?: boolean;
 }
 
 function TextMetaBase(props: TextMetaProps) {
   const text = useRef<HTMLParagraphElement>(null);
-  const [truncated, setTruncated] = useState(false);
   const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    if (!text.current) return;
-    setTruncated(text.current.offsetWidth < text.current.scrollWidth);
-  });
 
   return (
     <>
       <Item
         ref={text}
         size={props.size}
+        clamp={props.clamp}
         bold={props.bold}
         subdued={props.subdued}
         onMouseEnter={() => setActive(true)}
@@ -39,7 +35,7 @@ function TextMetaBase(props: TextMetaProps) {
       >
         {props.children}
       </Item>
-      <ItemTooltip $for={text} active={truncated && active}>
+      <ItemTooltip $for={text} active={props.tooltip && active}>
         {props.children}
       </ItemTooltip>
     </>

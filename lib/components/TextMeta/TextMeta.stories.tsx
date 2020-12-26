@@ -18,7 +18,7 @@ export default {
 
 const Template: Story<TextMetaProps> = (args) => (
   <AppProvider theme="dark">
-    <TextBox $spacing="tight" $width="17rem">
+    <TextBox $spacing="tight" $width="20rem">
       <TextMeta {...args} />
     </TextBox>
   </AppProvider>
@@ -59,6 +59,8 @@ Subdued.args = {
 export const Truncated = Template.bind({});
 Truncated.args = {
   children: "The Art of Storytelling and The Legend of Chun Li",
+  tooltip: true,
+  clamp: 2,
   size: "large",
   bold: true,
 };

@@ -23,8 +23,13 @@ export const cssTextBreakWord = css`
 
 export const cssTextTruncate = css`
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+export const cssTextLineClamp = (lines: number) => css`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: ${lines};
 `;
 
 export const cssTextBody = css`
