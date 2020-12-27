@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import styled, { css, CSSProp } from "styled-components";
 
 export interface LinkProps {
-  href: string;
+  href?: string;
   className?: string;
   children?: React.ReactNode;
   external?: boolean;

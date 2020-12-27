@@ -1,14 +1,21 @@
 import { useState, useCallback } from "react";
 
-export const useSelect = (items: string[], initial?: string) => {
+export interface SelectionState {
+  [key: string]: boolean;
+}
+
+export interface SelectionCallback {
+  (id?: string): void;
+}
+
+export function useSelect(items: string[], initial?: string) {
   const fresh = Object.fromEntries(items.map((id) => [id, false]));
-  const [state, setState] = useState(
+  const [state, setState] = useState<SelectionState>(
     initial ? { ...fresh, [initial]: true } : fresh
   );
   const select = useCallback((id?: string) => {
-    if (!id) setState(fresh);
-    setState({ ...fresh, [id as string]: true });
+    setState(id ? { ...fresh, [id as string]: true } : fresh);
   }, []);
 
-  return [state, select];
-};
+  return [state, select] as [SelectionState, SelectionCallback];
+}

@@ -5,7 +5,7 @@ import { Box, BoxProps } from "@lib/components/Box";
 export interface ItemProps extends BoxProps {
   grow?: number;
   shrink?: number;
-  basis?: number | "auto";
+  basis?: number | string;
 }
 
 export const Item = styled(Box)<ItemProps>`

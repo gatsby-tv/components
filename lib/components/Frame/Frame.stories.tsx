@@ -37,14 +37,18 @@ const SourceMarkup = () => (
 );
 
 const ContentMarkup = () => (
-  <Box margin="52px" $height="calc(100vh - 156px)">
-    <Flex column gap="52px" marginBottom="52px">
-      <SourceMarkup />
-      <SourceMarkup />
-      <SourceMarkup />
-      <SourceMarkup />
-    </Flex>
-    <Stream source={SourceMarkup} generator={() => ({})} gap="52px" />
+  <Box
+    marginTop="52px"
+    marginLeft="52px"
+    marginRight="52px"
+    $height="calc(100vh - 104px)"
+  >
+    <Stream
+      column
+      source={SourceMarkup}
+      generator={() => [...Array(4)].map(() => ({}))}
+      gap="52px"
+    />
   </Box>
 );
 

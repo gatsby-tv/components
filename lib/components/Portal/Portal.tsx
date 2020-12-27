@@ -30,7 +30,7 @@ export function Portal(props: PortalProps) {
   }, []);
 
   return (
-    (portal?.current &&
+    (portal.current &&
       mounted &&
       createPortal(props.children, portal.current)) ||
     null

@@ -5,6 +5,7 @@ import { usePopper } from "react-popper";
 
 import { cssProperty } from "@lib/styles/property";
 import { ifNotExists } from "@lib/utilities/if-exists";
+import { Box } from "@lib/components/Box";
 import { Portal } from "@lib/components/Portal";
 
 export interface TooltipProps {
@@ -47,14 +48,14 @@ export function Tooltip(props: TooltipProps) {
 
   return (
     <Portal id="tooltip" onMount={() => setMounted(true)}>
-      <div
+      <Box
         ref={popper}
         css={popperStyle}
         style={styles.popper}
         {...attributes.popper}
       >
         {props.children}
-      </div>
+      </Box>
     </Portal>
   );
 }

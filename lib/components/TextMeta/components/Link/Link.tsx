@@ -13,6 +13,7 @@ import { ItemTooltip } from "../ItemTooltip";
 
 interface LinkBaseProps {
   size?: MetaSize;
+  bold?: boolean;
 }
 
 const LinkBase = styled(Item)<LinkBaseProps>`
@@ -28,13 +29,14 @@ const LinkBase = styled(Item)<LinkBaseProps>`
 export interface LinkProps extends UnstyledLinkProps {
   children?: string | [string];
   size?: MetaSize;
+  bold?: boolean;
 }
 
 export const Link: React.FC<LinkProps> = (props) => {
   const text = useRef<HTMLParagraphElement>(null);
   const [truncated, setTruncated] = useState(false);
   const [active, setActive] = useState(false);
-  const { size, ...rest } = props;
+  const { size, bold, ...rest } = props;
 
   useEffect(() => {
     if (!text.current) return;
@@ -46,6 +48,7 @@ export const Link: React.FC<LinkProps> = (props) => {
       <LinkBase
         ref={text}
         size={size}
+        bold={bold}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
       >

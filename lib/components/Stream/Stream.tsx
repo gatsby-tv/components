@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer, useCallback } from "react";
 import { Spinner } from "@gatsby-tv/icons";
 
 import { EventHandler, Size } from "@lib/types";
-import { Flex } from "@lib/components/Flex";
+import { Flex, FlexProps } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { useScroll } from "@lib/utilities/scroll";
 import { useTheme } from "@lib/utilities/use-theme";
@@ -27,11 +27,10 @@ type StreamState<T> = {
 export interface StreamProps<T> {
   source: React.FC<T>;
   generator: (index: number) => T | T[];
-  gap?: Size;
 }
 
-export function Stream<T>(props: StreamProps<T>) {
-  const { source: SourceComponent, generator, gap } = props;
+export function Stream<T>(props: StreamProps<T> & FlexProps) {
+  const { source: SourceComponent, generator, ...flexProps } = props;
   const theme = useTheme();
   const [waiting, setWaiting] = useState(false);
   const addScrollListener = useScroll();
@@ -101,7 +100,7 @@ export function Stream<T>(props: StreamProps<T>) {
   ));
 
   return (
-    <Flex column gap={gap}>
+    <Flex {...flexProps}>
       {children}
       {loadingMarkup}
     </Flex>

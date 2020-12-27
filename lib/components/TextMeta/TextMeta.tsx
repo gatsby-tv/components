@@ -22,6 +22,12 @@ function TextMetaBase(props: TextMetaProps) {
   const text = useRef<HTMLParagraphElement>(null);
   const [active, setActive] = useState(false);
 
+  const tooltipMarkup = props.tooltip && (
+    <ItemTooltip $for={text} active={active}>
+      {props.children}
+    </ItemTooltip>
+  );
+
   return (
     <>
       <Item
@@ -35,9 +41,7 @@ function TextMetaBase(props: TextMetaProps) {
       >
         {props.children}
       </Item>
-      <ItemTooltip $for={text} active={props.tooltip && active}>
-        {props.children}
-      </ItemTooltip>
+      {tooltipMarkup}
     </>
   );
 }

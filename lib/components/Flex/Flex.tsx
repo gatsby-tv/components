@@ -48,7 +48,7 @@ export interface FlexProps extends BoxProps {
   center?: boolean;
   column?: boolean;
   distribute?: FlexDistribute;
-  wrap?: FlexWrap;
+  $wrap?: FlexWrap;
   justify?: FlexJustifyContent;
   align?: FlexAlignItems;
   alignContent?: FlexAlignContent;
@@ -58,7 +58,7 @@ export interface FlexProps extends BoxProps {
 const FlexBase = styled(Box)<FlexProps>`
   display: flex;
   ${(props) => cssProperty("flex-direction", ifExists(props.column, "column"))}
-  ${(props) => cssProperty("flex-wrap", props.wrap)}
+  ${(props) => cssProperty("flex-wrap", props.$wrap)}
   ${(props) =>
     cssProperty(
       "justify-content",

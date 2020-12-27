@@ -15,14 +15,19 @@ const globalIdGeneratorsFactory = () => {
     if (!generators[prefix]) {
       generators = { ...generators, [prefix]: newIdGenerator(prefix) };
     }
-    return generators;
+    return generators[prefix];
   };
 };
 
-const useGlobalIdGenerators = globalIdGeneratorsFactory();
+const useGlobalIdGenerator = globalIdGeneratorsFactory();
 
 export const useUniqueId = (prefix: string) => {
-  const generators = useGlobalIdGenerators(prefix);
-  const id = useRef(generators[prefix]());
+  const generator = useGlobalIdGenerator(prefix);
+  const id = useRef<string | null>(null);
+
+  if (!id.current) {
+    id.current = generator();
+  }
+
   return id.current;
 };
