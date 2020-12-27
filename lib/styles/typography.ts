@@ -53,28 +53,32 @@ export const cssTextMeta = (size: MetaSize, bold?: boolean) => {
 
   let fontSize: string;
   let lineHeight: string;
+  let weight: number;
 
   switch (size) {
     case "small":
       fontSize = theme.font.size.metaSmall;
       lineHeight = theme.font.height.metaSmall;
+      weight = bold ? 500 : 400;
       break;
 
     case "medium":
       fontSize = theme.font.size.metaMedium;
       lineHeight = theme.font.height.metaMedium;
+      weight = bold ? 600 : 400;
       break;
 
     case "large":
       fontSize = theme.font.size.metaLarge;
       lineHeight = theme.font.height.metaLarge;
+      weight = bold ? 600 : 400;
       break;
   }
 
   return css`
     font-size: ${fontSize};
     line-height: ${lineHeight};
-    font-weight: ${bold ? 500 : 400};
+    font-weight: ${weight};
   `;
 };
 
