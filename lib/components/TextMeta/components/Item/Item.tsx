@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
 
 import { MetaSize } from "@lib/types";
-import { ifExists, ifNotExists } from "@lib/utilities/if-exists";
 import { cssProperty } from "@lib/styles/property";
 import {
   cssTextMeta,

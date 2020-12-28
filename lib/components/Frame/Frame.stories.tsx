@@ -1,13 +1,13 @@
 import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
+import { useTheme } from "@gatsby-tv/utilities";
 
 import { AppProvider } from "@lib/components/AppProvider";
 import { Box } from "@lib/components/Box";
 import { Flex } from "@lib/components/Flex";
 import { Stream } from "@lib/components/Stream";
 import { Image } from "@lib/components/Image";
-import { useTheme } from "@lib/utilities/use-theme";
 
 import { Frame, FrameProps } from "./Frame";
 

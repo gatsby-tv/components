@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { css } from "styled-components";
+import { useTheme } from "@gatsby-tv/utilities";
 
 import { EventHandler } from "@lib/types";
-import { useTheme } from "@lib/utilities/use-theme";
 import { Card } from "@lib/components/Card";
 import { Flex } from "@lib/components/Flex";
 import { Portal } from "@lib/components/Portal";

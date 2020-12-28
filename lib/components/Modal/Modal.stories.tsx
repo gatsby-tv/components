@@ -2,8 +2,8 @@ import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { LoremIpsum } from "react-lorem-ipsum";
+import { useToggle } from "@gatsby-tv/utilities";
 
-import { useToggle } from "@lib/utilities/use-toggle";
 import { AppProvider } from "@lib/components/AppProvider";
 import { Card } from "@lib/components/Card";
 import { TextHeading } from "@lib/components/TextHeading";

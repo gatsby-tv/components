@@ -1,8 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { css } from "styled-components";
+import { useToggle } from "@gatsby-tv/utilities";
 
-import { useToggle } from "@lib/utilities/use-toggle";
 import { AppProvider } from "@lib/components/AppProvider";
 import { FormButton } from "@lib/components/FormButton";
 

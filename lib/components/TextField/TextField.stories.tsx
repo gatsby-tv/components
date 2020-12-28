@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
+import { useTheme } from "@gatsby-tv/utilities";
 
-import { useTheme } from "@lib/utilities/use-theme";
 import { AppProvider } from "@lib/components/AppProvider";
 import { FormButton } from "@lib/components/FormButton";
 

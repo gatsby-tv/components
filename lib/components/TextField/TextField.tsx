@@ -1,12 +1,10 @@
 import React, { useState, useRef } from "react";
 import { css } from "styled-components";
+import { ifExists, useTheme, useUniqueId } from "@gatsby-tv/utilities";
 
 import { cssProperty } from "@lib/styles/property";
 import { cssTextInput } from "@lib/styles/typography";
 import { cssInputBorder } from "@lib/styles/borders";
-import { ifExists } from "@lib/utilities/if-exists";
-import { useTheme } from "@lib/utilities/use-theme";
-import { useUniqueId } from "@lib/utilities/use-unique-id";
 import { Flex } from "@lib/components/Flex";
 import { Labelled } from "@lib/components/Labelled";
 import { Connected } from "@lib/components/Connected";

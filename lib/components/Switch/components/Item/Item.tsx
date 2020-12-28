@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { ifExists } from "@gatsby-tv/utilities";
 
-import { ifExists } from "@lib/utilities/if-exists";
 import { useSwitch } from "@lib/utilities/switch";
 import { Flex } from "@lib/components/Flex";
 

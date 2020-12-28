@@ -7,11 +7,10 @@ import React, {
   CSSProperties,
 } from "react";
 import { css } from "styled-components";
+import { ifExists, useTheme } from "@gatsby-tv/utilities";
 
 import { Size } from "@lib/types";
 import { cssProperty } from "@lib/styles/property";
-import { ifExists } from "@lib/utilities/if-exists";
-import { useTheme } from "@lib/utilities/use-theme";
 import { Box, BoxProps } from "@lib/components/Box";
 
 export interface ViewportProps {

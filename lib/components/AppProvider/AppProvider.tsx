@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
-import { DarkTheme, LightTheme } from "@lib/styles/theme";
 import { AppContext } from "@lib/utilities/app";
+import { DarkTheme, LightTheme } from "@lib/styles/theme";
 
 import { Global } from "./components";
 

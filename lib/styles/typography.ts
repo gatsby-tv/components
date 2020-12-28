@@ -1,6 +1,6 @@
 import { css } from "styled-components";
+import { useTheme } from "@gatsby-tv/utilities";
 
-import { useTheme } from "@lib/utilities";
 import { DisplaySize, MetaSize } from "@lib/types";
 
 export const cssTextSubdued = css`

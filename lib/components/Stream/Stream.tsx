@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
 import { Spinner } from "@gatsby-tv/icons";
+import { useTheme } from "@gatsby-tv/utilities";
 
 import { EventHandler, Size } from "@lib/types";
+import { useScroll } from "@lib/utilities/scroll";
 import { Flex, FlexProps } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
-import { useScroll } from "@lib/utilities/scroll";
-import { useTheme } from "@lib/utilities/use-theme";
 
 interface FetchAction {
   type: "fetch";

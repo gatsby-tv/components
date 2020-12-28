@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
+import { useTheme } from "@gatsby-tv/utilities";
 
+import { IconSize } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Viewport } from "@lib/components/Viewport";
-import { useTheme } from "@lib/utilities/use-theme";
-import { IconSize } from "@lib/types";
 
 export type AvatarProps = {
   ariaLabel?: string;

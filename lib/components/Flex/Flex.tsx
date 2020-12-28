@@ -1,9 +1,6 @@
 import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
+import { ifExists } from "@gatsby-tv/utilities";
 
-import { ifExists } from "@lib/utilities/if-exists";
-import { Box, BoxProps } from "@lib/components/Box";
-import { cssProperty } from "@lib/styles/property";
-import { cssSize } from "@lib/styles/size";
 import {
   Size,
   FlexDistribute,
@@ -13,6 +10,9 @@ import {
   FlexAlignItems,
   FlexAlignContent,
 } from "@lib/types";
+import { Box, BoxProps } from "@lib/components/Box";
+import { cssProperty } from "@lib/styles/property";
+import { cssSize } from "@lib/styles/size";
 
 import { Item, ItemProps } from "./components";
 

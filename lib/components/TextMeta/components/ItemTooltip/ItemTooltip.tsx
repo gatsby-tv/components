@@ -1,6 +1,6 @@
 import React from "react";
+import { useTheme } from "@gatsby-tv/utilities";
 
-import { useTheme } from "@lib/utilities/use-theme";
 import { Activatable } from "@lib/components/Activatable";
 import { TextBox } from "@lib/components/TextBox";
 import { Tooltip } from "@lib/components/Tooltip";

@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "styled-components";
 import { Exclamation } from "@gatsby-tv/icons";
+import { useTheme } from "@gatsby-tv/utilities";
 
 import {
   cssTextBreakWord,
@@ -13,7 +14,6 @@ import { cssVisuallyHidden } from "@lib/styles/visually-hidden";
 import { Box } from "@lib/components/Box";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
-import { useTheme } from "@lib/utilities/use-theme";
 
 export interface LabelledProps {
   children?: React.ReactNode;

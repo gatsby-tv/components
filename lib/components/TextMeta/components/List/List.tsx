@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { DefaultTheme } from "styled-components";
+import { ifExists } from "@gatsby-tv/utilities";
 
 import { MetaSize } from "@lib/types";
-import { ifExists } from "@lib/utilities/if-exists";
 import { cssTextMeta, cssTextSubdued } from "@lib/styles/typography";
 import { Flex } from "@lib/components/Flex";
 

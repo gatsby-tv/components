@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { ifExists } from "@gatsby-tv/utilities";
 
 import { useSelection } from "@lib/utilities/selection";
-import { ifExists } from "@lib/utilities/if-exists";
 import { Flex } from "@lib/components/Flex";
 import { TextSubheading } from "@lib/components/TextSubheading";
 

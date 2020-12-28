@@ -1136,6 +1136,11 @@
   resolved "https://registry.yarnpkg.com/@gatsby-tv/icons/-/icons-0.3.25.tgz#c94e44d90a5d7934180af60a741e4b0a66dfc624"
   integrity sha512-ocKKi84ZuAQlDzFYtQT2OXgwyrnU4ufBUMZEptTLbyeatKsg4j4tkHDOhXNxpx+fDbqqbDuSNuSqtfsh2SjGkQ==
 
+"@gatsby-tv/utilities@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@gatsby-tv/utilities/-/utilities-0.4.1.tgz#7b13cc787deac5632a16c3cf9e9a7e304d4ca57b"
+  integrity sha512-O917YM9vQgxnU95bzXHhw4TEgKPcESN4msLSEoBOgVnpaqdqjY48zgsQ6X6I0AUlX1hHDVAefr+dlOYY5P9Qyw==
+
 "@icons/material@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
@@ -2111,11 +2116,6 @@
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
-
-"@types/webfontloader@^1.6.32":
-  version "1.6.32"
-  resolved "https://registry.yarnpkg.com/@types/webfontloader/-/webfontloader-1.6.32.tgz#8a02698b7a07a9f2cc8e34d7223dc5d59ccff77a"
-  integrity sha512-l83V/2iHvBTIlKUM1+UlabS/Jd65HVfKmqS+zPhwDlgldPtd5ujPDt0Y1es19xLWcN8NC3wwSTd71Qxbst+Kpw==
 
 "@types/webpack-env@^1.15.3":
   version "1.16.0"

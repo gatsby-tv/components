@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import { css } from "styled-components";
 import type { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
+import { ifNotExists } from "@gatsby-tv/utilities";
 
 import { cssProperty } from "@lib/styles/property";
-import { ifNotExists } from "@lib/utilities/if-exists";
 import { Box } from "@lib/components/Box";
 import { Portal } from "@lib/components/Portal";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "styled-components";
+import { ifNotExists } from "@gatsby-tv/utilities";
 
 import { SelectionContext } from "@lib/utilities/selection";
-import { ifNotExists } from "@lib/utilities/if-exists";
 import { Flex } from "@lib/components/Flex";
 import { Scroll } from "@lib/components/Scroll";
 

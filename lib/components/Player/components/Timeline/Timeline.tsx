@@ -1,13 +1,12 @@
 import React, { useState, useEffect, forwardRef } from "react";
 import { usePopper } from "react-popper";
 import styled from "styled-components";
+import { useTheme, Time } from "@gatsby-tv/utilities";
 
 import { EventHandler } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Activatable } from "@lib/components/Activatable";
 import { cssTextTimeline } from "@lib/styles/typography";
-import { useTheme } from "@lib/utilities/use-theme";
-import { format } from "@lib/utilities/time";
 
 const TimelineBase = styled(Box)`
   cursor: pointer;
@@ -128,7 +127,7 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
             $duration={150}
             {...attributes.popper}
           >
-            {format($position * $duration)}
+            {Time($position * $duration)}
           </Activatable>
         </Box>
       </>

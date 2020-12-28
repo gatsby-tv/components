@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
+import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
 
 import { Size } from "@lib/types";
 import { cssSize } from "@lib/styles/size";
 import { cssTextButton } from "@lib/styles/typography";
-import { ifExists, ifNotExists } from "@lib/utilities/if-exists";
 
 const cssHighlight = (circular?: boolean) => css`
   &:before {
