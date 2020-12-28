@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-import { Circle, CircleProps } from "@lib/components/Circle";
+import { Size } from "@lib/types";
+import { cssSize } from "@lib/styles/size";
+import { Box, BoxProps } from "@lib/components/Box";
 
-export type SignalProps = CircleProps;
+export type SignalProps = { $size: Size } & BoxProps;
 
-export const Signal = styled(Circle)<SignalProps>`
+export const Signal = styled(Box)<SignalProps>`
   opacity: 0;
+  border-radius: 100%;
+  ${(props) => cssSize("width", props.$size)}
+  ${(props) => cssSize("height", props.$size)}
 
   @keyframes enter {
     0% {

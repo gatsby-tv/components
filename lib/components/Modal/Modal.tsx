@@ -10,7 +10,7 @@ import { EventListener } from "@lib/components/EventListener";
 
 export interface ModalProps {
   children?: React.ReactNode;
-  active?: boolean;
+  $active?: boolean;
   onExit?: () => void;
 }
 
@@ -65,12 +65,12 @@ export function Modal(props: ModalProps) {
 
   return (
     <Portal id="modal" onMount={() => setMounted(true)}>
-      {props.active && (
+      {props.$active && (
         <>
-          <Flex absolute $fill center css={style} onClick={handleClick}>
+          <Flex $absolute $fill $center css={style} onClick={handleClick}>
             {props.children}
           </Flex>
-          <EventListener event="keydown" handler={handleKeydown} />
+          <EventListener $event="keydown" $handler={handleKeydown} />
         </>
       )}
     </Portal>

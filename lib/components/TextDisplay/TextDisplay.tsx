@@ -4,9 +4,9 @@ import { DisplaySize } from "@lib/types";
 import { cssTextDisplay } from "@lib/styles/typography";
 
 export interface TextDisplayProps {
-  size?: DisplaySize;
+  $size?: DisplaySize;
 }
 
 export const TextDisplay = styled.h1<TextDisplayProps>`
-  ${(props) => cssTextDisplay(props.size ?? "small")}
+  ${(props) => cssTextDisplay(props.$size ?? "small")}
 `;

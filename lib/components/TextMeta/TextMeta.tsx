@@ -15,15 +15,15 @@ export type { LinkProps as TextMetaLinkProps };
 
 export interface TextMetaProps extends ItemProps {
   children?: string | [string];
-  tooltip?: boolean;
+  $tooltip?: boolean;
 }
 
 function TextMetaBase(props: TextMetaProps) {
   const text = useRef<HTMLParagraphElement>(null);
   const [active, setActive] = useState(false);
 
-  const tooltipMarkup = props.tooltip && (
-    <ItemTooltip $for={text} active={active}>
+  const tooltipMarkup = props.$tooltip && (
+    <ItemTooltip $for={text} $active={active}>
       {props.children}
     </ItemTooltip>
   );
@@ -32,10 +32,10 @@ function TextMetaBase(props: TextMetaProps) {
     <>
       <Item
         ref={text}
-        size={props.size}
-        clamp={props.clamp}
-        bold={props.bold}
-        subdued={props.subdued}
+        $size={props.$size}
+        $clamp={props.$clamp}
+        $bold={props.$bold}
+        $subdued={props.$subdued}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
       >

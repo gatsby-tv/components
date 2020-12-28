@@ -19,42 +19,42 @@ export default {
 const TopbarMarkup = () => {
   const theme = useTheme();
 
-  return <Box $height="52px" bg={theme.colors.background[1]} />;
+  return <Box $height="52px" $bg={theme.colors.background[1]} />;
 };
 
 const SidebarMarkup = () => {
   const theme = useTheme();
 
-  return <Box $width="52px" $height={1} bg={theme.colors.background[2]} />;
+  return <Box $width="52px" $height={1} $bg={theme.colors.background[2]} />;
 };
 
 const SourceMarkup = () => (
-  <Flex gap="16px">
-    <Image src="" aspectRatio={9 / 16} />
-    <Image src="" aspectRatio={9 / 16} />
-    <Image src="" aspectRatio={9 / 16} />
+  <Flex $gap="16px">
+    <Image src="" $aspectRatio={9 / 16} />
+    <Image src="" $aspectRatio={9 / 16} />
+    <Image src="" $aspectRatio={9 / 16} />
   </Flex>
 );
 
 const ContentMarkup = () => (
   <Box
-    marginTop="52px"
-    marginLeft="52px"
-    marginRight="52px"
+    $marginTop="52px"
+    $marginLeft="52px"
+    $marginRight="52px"
     $height="calc(100vh - 104px)"
   >
     <Stream
-      column
-      source={SourceMarkup}
-      generator={() => [...Array(4)].map(() => ({}))}
-      gap="52px"
+      $column
+      $source={SourceMarkup}
+      $generator={() => [...Array(4)].map(() => ({}))}
+      $gap="52px"
     />
   </Box>
 );
 
 export const Example: Story<FrameProps> = (args) => (
-  <AppProvider theme="dark">
-    <Frame topbar={<TopbarMarkup />} sidebar={<SidebarMarkup />}>
+  <AppProvider $theme="dark">
+    <Frame $topbar={<TopbarMarkup />} $sidebar={<SidebarMarkup />}>
       <ContentMarkup />
     </Frame>
   </AppProvider>

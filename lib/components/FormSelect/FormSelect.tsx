@@ -68,16 +68,16 @@ const getFormSelectedLabel = (
 };
 
 export interface FormSelectProps {
-  label: string;
-  labelHidden?: boolean;
   id?: string;
   className?: string;
-  options?: (FormSelectOption | FormSelectGroup)[];
-  name?: string;
-  value?: string;
-  focused?: boolean;
-  help?: string;
-  error?: Error;
+  $label: string;
+  $labelHidden?: boolean;
+  $options?: (FormSelectOption | FormSelectGroup)[];
+  $name?: string;
+  $value?: string;
+  $focused?: boolean;
+  $help?: string;
+  $error?: Error;
   onChange?: (value: string, id: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
@@ -89,19 +89,19 @@ export function FormSelect(props: FormSelectProps) {
 
   const {
     className,
-    label,
-    labelHidden,
-    options = [],
-    name,
-    value,
-    focused,
-    help,
-    error,
+    $label,
+    $labelHidden,
+    $options = [],
+    $name,
+    $value,
+    $focused,
+    $help,
+    $error,
     onChange = () => undefined,
     ...selectProps
   } = props;
 
-  const [focus, setFocus] = useState(Boolean(props.focused));
+  const [focus, setFocus] = useState(Boolean(props.$focused));
   const select = useRef<HTMLSelectElement>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -129,44 +129,44 @@ export function FormSelect(props: FormSelectProps) {
   return (
     <Labelled
       id={id}
-      label={label}
-      help={help}
-      error={error}
-      hidden={labelHidden}
+      $label={$label}
+      $help={$help}
+      $error={$error}
+      $hidden={$labelHidden}
     >
       <Flex
         className={className}
         css={selectStyle}
-        gap={theme.spacing.tight}
-        align="center"
         data-focus={ifExists(focus)}
-        data-error={ifExists(error)}
-        paddingLeft={theme.spacing.baseTight}
-        paddingRight={theme.spacing.baseTight}
-        paddingTop={theme.spacing.tight}
-        paddingBottom={theme.spacing.tight}
+        data-error={ifExists($error)}
+        $gap={theme.spacing.tight}
+        $align="center"
+        $paddingLeft={theme.spacing.baseTight}
+        $paddingRight={theme.spacing.baseTight}
+        $paddingTop={theme.spacing.tight}
+        $paddingBottom={theme.spacing.tight}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onClick={handleClick}
       >
-        <Flex.Item as="span" grow={1}>
-          {getFormSelectedLabel(options, value)}
+        <Flex.Item as="span" $grow={1}>
+          {getFormSelectedLabel($options, $value)}
         </Flex.Item>
         <Flex.Item as="span">
-          <Icon $height={1} ariaLabel="Selection Arrows" source={UpDownTick} />
+          <Icon $source={UpDownTick} $height={1} ariaLabel="Selection Arrows" />
         </Flex.Item>
         <Box
           as="select"
-          ref={select}
           id={id}
-          absolute
+          ref={select}
+          $absolute
           $fill
           $width={1}
           onChange={handleChange}
           onKeyPress={(event: React.SyntheticEvent) => event.stopPropagation()}
           {...selectProps}
         >
-          {options.map(parseOptionOrGroup)}
+          {$options.map(parseOptionOrGroup)}
         </Box>
       </Flex>
     </Labelled>

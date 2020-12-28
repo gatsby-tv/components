@@ -2,7 +2,6 @@ export * from "./AppProvider";
 export * from "./Portal";
 export * from "./EventListener";
 export * from "./Box";
-export * from "./Circle";
 export * from "./Flex";
 export * from "./Scroll";
 export * from "./Frame";

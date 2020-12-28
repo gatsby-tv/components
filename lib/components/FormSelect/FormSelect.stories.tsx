@@ -30,12 +30,12 @@ export const Example: Story<FormSelectProps> = (args) => {
   ];
 
   return (
-    <AppProvider theme="dark">
+    <AppProvider $theme="dark">
       <FormSelect
         css={selectStyle}
-        label="Example Selection"
-        options={options}
-        value={selection}
+        $label="Example Selection"
+        $options={options}
+        $value={selection}
         onChange={onChange}
       />
     </AppProvider>

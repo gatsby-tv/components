@@ -20,7 +20,6 @@ import { css } from "styled-components";
 import { IconSource } from "@lib/types";
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
-import { Circle } from "@lib/components/Circle";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { EventListener } from "@lib/components/EventListener";
@@ -70,9 +69,9 @@ interface PlayerState {
 }
 
 export interface PlayerProps {
-  video: VideoProps;
-  fullscreen?: boolean;
-  toggleFullscreen?: () => void;
+  $video: VideoProps;
+  $fullscreen?: boolean;
+  $toggleFullscreen?: () => void;
 }
 
 export function Player(props: PlayerProps) {
@@ -296,7 +295,7 @@ export function Player(props: PlayerProps) {
 
   const handleKeydown = useCallback(
     (event) => {
-      const { toggleFullscreen = () => undefined } = props;
+      const { $toggleFullscreen = () => undefined } = props;
 
       switch ((event as any).key) {
         case " ":
@@ -306,7 +305,7 @@ export function Player(props: PlayerProps) {
 
         case "f":
         case "F":
-          toggleFullscreen();
+          $toggleFullscreen();
           return;
 
         case "k":
@@ -417,18 +416,18 @@ export function Player(props: PlayerProps) {
       case "play":
         return (
           <Box style={{ transform: "translateX(2px)" }}>
-            <Icon padding="4px" source={Play} />
+            <Icon $source={Play} $padding="4px" />
           </Box>
         );
 
       case "pause":
-        return <Icon padding="4px" source={Pause} />;
+        return <Icon $source={Pause} $padding="4px" />;
 
       case "skipBackward":
-        return <Icon source={SkipBackward} />;
+        return <Icon $source={SkipBackward} />;
 
       case "skipForward":
-        return <Icon source={SkipForward} />;
+        return <Icon $source={SkipForward} />;
 
       default:
         return null;
@@ -436,9 +435,9 @@ export function Player(props: PlayerProps) {
   };
 
   const signalMarkup = signal ? (
-    <Box key={signalKey.current} absolute $fill>
-      <Flex $fill center>
-        <Signal size="52px" padding="32px" bg="black" fg="white">
+    <Box key={signalKey.current} $absolute $fill>
+      <Flex $fill $center>
+        <Signal $size="52px" $padding="32px" $bg="black" $fg="white">
           {iconMarkup()}
         </Signal>
       </Flex>
@@ -446,24 +445,29 @@ export function Player(props: PlayerProps) {
   ) : null;
 
   const loadingMarkup = loading ? (
-    <Box absolute $fill>
-      <Flex $fill center>
-        <Circle style={{ transform: "rotate(-65deg)" }} size="116px">
-          <Icon source={Spinner} />
-        </Circle>
+    <Box $absolute $fill>
+      <Flex $fill $center>
+        <Box
+          style={{ transform: "rotate(-65deg)" }}
+          $width="116px"
+          $height="116px"
+          $rounded={1}
+        >
+          <Icon $source={Spinner} />
+        </Box>
       </Flex>
     </Box>
   ) : null;
 
   const timelineMarkup = (
-    <Box absolute $left="20px" $right="20px" $bottom="20px">
+    <Box $absolute $left="20px" $right="20px" $bottom="20px">
       <Timeline
         ref={timeline}
-        time={state.time}
-        progress={state.progress}
-        position={state.hover}
-        active={state.hovering}
-        duration={video.current?.duration ?? 0}
+        $time={state.time}
+        $progress={state.progress}
+        $position={state.hover}
+        $active={state.hovering}
+        $duration={video.current?.duration ?? 0}
         {...timelineEvents}
       />
     </Box>
@@ -474,12 +478,12 @@ export function Player(props: PlayerProps) {
       {signalMarkup}
       {loadingMarkup}
       <Activatable
-        $fill
         css={cssCursorVisibility(!state.active)}
-        active={state.active}
-        duration={200}
+        $fill
+        $active={state.active}
+        $duration={200}
       >
-        <Box absolute $fill>
+        <Box $absolute $fill>
           <Shading $fill />
           {timelineMarkup}
         </Box>
@@ -490,18 +494,18 @@ export function Player(props: PlayerProps) {
   return (
     <Viewport
       ref={player}
-      $height={props.fullscreen ? "100vh" : "calc((9 / 16) * 100vw)"}
-      maxHeight={props.fullscreen ? "none" : "calc(100vh - 140px)"}
-      minHeight="480px"
-      overlay={overlayMarkup}
-      aspectRatio={dimensions.height / dimensions.width}
+      $height={props.$fullscreen ? "100vh" : "calc((9 / 16) * 100vw)"}
+      $maxHeight={props.$fullscreen ? "none" : "calc(100vh - 140px)"}
+      $minHeight="480px"
+      $overlay={overlayMarkup}
+      $aspectRatio={dimensions.height / dimensions.width}
       {...playerEvents}
     >
-      <Flex center $height={1}>
-        <Video ref={video} {...videoEvents} {...props.video} />
+      <Flex $center $height={1}>
+        <Video ref={video} {...videoEvents} {...props.$video} />
       </Flex>
-      <EventListener event="resize" handler={handleResize} />
-      <EventListener event="keydown" handler={handleKeydown} />
+      <EventListener $event="resize" $handler={handleResize} />
+      <EventListener $event="keydown" $handler={handleKeydown} />
     </Viewport>
   );
 }

@@ -17,7 +17,7 @@ export default {
 } as Meta;
 
 const Template: Story<TextMetaProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <TextBox $spacing="tight" $width="20rem">
       <TextMeta {...args} />
     </TextBox>
@@ -27,46 +27,46 @@ const Template: Story<TextMetaProps> = (args) => (
 export const Small = Template.bind({});
 Small.args = {
   children: "Meta Text Small",
-  size: "small",
+  $size: "small",
 };
 
 export const Medium = Template.bind({});
 Medium.args = {
   children: "Meta Text Medium",
-  size: "medium",
+  $size: "medium",
 };
 
 export const Large = Template.bind({});
 Large.args = {
   children: "Meta Text Large",
-  size: "large",
+  $size: "large",
 };
 
 export const Bold = Template.bind({});
 Bold.args = {
   children: "Meta Text Bold",
-  size: "large",
-  bold: true,
+  $size: "large",
+  $bold: true,
 };
 
 export const Subdued = Template.bind({});
 Subdued.args = {
   children: "Meta Text Subdued",
-  size: "large",
-  subdued: true,
+  $size: "large",
+  $subdued: true,
 };
 
 export const Truncated = Template.bind({});
 Truncated.args = {
   children: "The Art of Storytelling and The Legend of Chun Li",
-  tooltip: true,
-  clamp: 2,
-  size: "large",
-  bold: true,
+  $tooltip: true,
+  $clamp: 2,
+  $size: "large",
+  $bold: true,
 };
 
 const ListTemplate: Story<TextMetaListProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <TextMeta.List {...args}>
       <TextMeta>First</TextMeta>
       <TextMeta>Second</TextMeta>
@@ -77,36 +77,36 @@ const ListTemplate: Story<TextMetaListProps> = (args) => (
 
 export const ListSmall = ListTemplate.bind({});
 ListSmall.args = {
-  size: "small",
+  $size: "small",
 };
 
 export const ListMedium = ListTemplate.bind({});
 ListMedium.args = {
-  size: "medium",
+  $size: "medium",
 };
 
 export const ListLarge = ListTemplate.bind({});
 ListLarge.args = {
-  size: "large",
+  $size: "large",
 };
 
 const LinkTemplate: Story<TextMetaLinkProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <TextMeta.Link {...args}>Text Meta Link</TextMeta.Link>
   </AppProvider>
 );
 
 export const LinkSmall = LinkTemplate.bind({});
 LinkSmall.args = {
-  size: "small",
+  $size: "small",
 };
 
 export const LinkMedium = LinkTemplate.bind({});
 LinkMedium.args = {
-  size: "medium",
+  $size: "medium",
 };
 
 export const LinkLarge = LinkTemplate.bind({});
 LinkLarge.args = {
-  size: "large",
+  $size: "large",
 };

@@ -12,9 +12,9 @@ import { useTheme } from "@lib/utilities/use-theme";
 
 export interface CollapsibleProps {
   className?: string;
-  label?: string;
   children?: React.ReactNode;
-  active?: boolean;
+  $label?: string;
+  $active?: boolean;
 }
 
 const CollapsibleBase = styled.div`
@@ -99,7 +99,7 @@ export function Collapsible(props: CollapsibleProps) {
 
   return (
     <CollapsibleBase>
-      <input id={id} type="checkbox" checked={ifExists(props.active)} />
+      <input id={id} type="checkbox" checked={ifExists(props.$active)} />
       <Flex
         as="label"
         ref={label}
@@ -108,11 +108,11 @@ export function Collapsible(props: CollapsibleProps) {
         className={props.className}
         data-collapsible="label"
         $fill
-        justify="space-between"
-        gap={theme.spacing.tight}
+        $justify="space-between"
+        $gap={theme.spacing.tight}
       >
-        <TextBox>{props.label}</TextBox>
-        <Icon $width="1.2em" source={DownTick} />
+        <TextBox>{props.$label}</TextBox>
+        <Icon $width="1.2em" $source={DownTick} />
       </Flex>
       <Box ref={content} data-collapsible="content">
         {props.children}

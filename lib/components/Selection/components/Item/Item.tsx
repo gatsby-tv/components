@@ -6,9 +6,9 @@ import { ifExists } from "@lib/utilities/if-exists";
 import { Flex } from "@lib/components/Flex";
 
 export interface ItemProps {
+  children?: React.ReactNode;
   id: string;
   className?: string;
-  children?: React.ReactNode;
 }
 
 const ItemBase: React.FC<ItemProps> = (props) => {
@@ -19,8 +19,8 @@ const ItemBase: React.FC<ItemProps> = (props) => {
     <Flex.Item
       as="li"
       className={props.className}
-      grow={1}
       data-selected={ifExists(selection[props.id])}
+      $grow={1}
       onClick={handleClick}
     >
       {props.children}

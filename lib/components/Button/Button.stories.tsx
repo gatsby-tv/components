@@ -13,15 +13,15 @@ export default {
 } as Meta;
 
 export const TextButton: Story<ButtonProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <Button>Button</Button>
   </AppProvider>
 );
 
 export const IconButton: Story<ButtonProps> = (args) => (
-  <AppProvider theme="dark">
-    <Button circular>
-      <Icon $width="20px" source={Pause} />
+  <AppProvider $theme="dark">
+    <Button $circular>
+      <Icon $source={Pause} $width="20px" />
     </Button>
   </AppProvider>
 );

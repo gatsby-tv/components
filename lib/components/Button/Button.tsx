@@ -54,9 +54,9 @@ const cssPadding = (padding?: Size, circular?: boolean) => css`
 `;
 
 export type ButtonProps = {
-  circular?: boolean;
-  nohighlight?: boolean;
-  padding?: Size;
+  $circular?: boolean;
+  $nohighlight?: boolean;
+  $padding?: Size;
 } & React.ButtonHTMLAttributes<HTMLElement>;
 
 const ButtonBase = styled.button<ButtonProps>`
@@ -69,8 +69,11 @@ const ButtonBase = styled.button<ButtonProps>`
   position: relative;
   outline: none;
   ${(props) =>
-    ifNotExists(props.nohighlight, cssPadding(props.padding, props.circular))}
-  ${(props) => ifNotExists(props.nohighlight, cssHighlight(props.circular))}
+    ifNotExists(
+      props.$nohighlight,
+      cssPadding(props.$padding, props.$circular)
+    )}
+  ${(props) => ifNotExists(props.$nohighlight, cssHighlight(props.$circular))}
 `;
 
 export function Button(props: ButtonProps) {

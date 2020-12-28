@@ -25,12 +25,12 @@ type StreamState<T> = {
 };
 
 export interface StreamProps<T> {
-  source: React.FC<T>;
-  generator: (index: number) => T | T[];
+  $source: React.FC<T>;
+  $generator: (index: number) => T | T[];
 }
 
 export function Stream<T>(props: StreamProps<T> & FlexProps) {
-  const { source: SourceComponent, generator, ...flexProps } = props;
+  const { $source: SourceComponent, $generator, ...flexProps } = props;
   const theme = useTheme();
   const [waiting, setWaiting] = useState(false);
   const addScrollListener = useScroll();
@@ -66,7 +66,7 @@ export function Stream<T>(props: StreamProps<T> & FlexProps) {
 
   useEffect(() => {
     async function fetchItems() {
-      const items = [await generator(state.index)].flat() as T[];
+      const items = [await $generator(state.index)].flat() as T[];
       dispatch({ type: "sync", items });
     }
 
@@ -90,8 +90,8 @@ export function Stream<T>(props: StreamProps<T> & FlexProps) {
   }, []);
 
   const loadingMarkup = waiting ? (
-    <Flex $fill center>
-      <Icon $width="44px" source={Spinner} />
+    <Flex $fill $center>
+      <Icon $source={Spinner} $width="44px" />
     </Flex>
   ) : null;
 

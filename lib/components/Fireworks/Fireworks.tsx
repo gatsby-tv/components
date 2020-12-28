@@ -122,11 +122,11 @@ Particle.render = (
 };
 
 export interface FireworksProps {
-  origin: Origin;
-  activator?: React.ReactNode;
-  toggle?: boolean;
-  count?: number;
-  interval?: number;
+  $origin: Origin;
+  $activator?: React.ReactNode;
+  $toggle?: boolean;
+  $count?: number;
+  $interval?: number;
 }
 
 export function Fireworks(props: FireworksProps) {
@@ -188,14 +188,14 @@ export function Fireworks(props: FireworksProps) {
   useEffect(() => draw(), [canvas]);
 
   useEffect(() => {
-    if (props.toggle === null) return;
+    if (props.$toggle === null) return;
 
     const rocketGenerator = () => {
       let origin;
-      if (typeof props.origin === "function") {
-        origin = props.origin();
+      if (typeof props.$origin === "function") {
+        origin = props.$origin();
       } else {
-        origin = props.origin;
+        origin = props.$origin;
       }
 
       return {
@@ -210,25 +210,25 @@ export function Fireworks(props: FireworksProps) {
 
     let iterations = 0;
     const id = setInterval(() => {
-      if (iterations < (props.count ?? 3)) {
+      if (iterations < (props.$count ?? 3)) {
         iterations += 1;
         setRockets((current) => [...current, rocketGenerator()]);
       } else {
         clearInterval(id);
       }
-    }, props.interval ?? 500);
+    }, props.$interval ?? 500);
 
     return () => clearInterval(id);
-  }, [props.toggle]);
+  }, [props.$toggle]);
 
   return (
     <>
-      {props.activator}
+      {props.$activator}
       <Portal id="fireworks">
-        <Box absolute $fill css={{ pointerEvents: "none" }}>
+        <Box $absolute $fill css={{ pointerEvents: "none" }}>
           <canvas ref={setCanvas} />
         </Box>
-        <EventListener event="resize" handler={handleResize} />
+        <EventListener $event="resize" $handler={handleResize} />
       </Portal>
     </>
   );

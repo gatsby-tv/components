@@ -12,23 +12,23 @@ export type { SectionProps as SelectionSectionProps };
 export type { ItemProps as SelectionItemProps };
 
 export interface SelectionProps {
-  selection: Record<string, boolean>;
-  onSelect: (id: string) => void;
-  className?: string;
-  row?: boolean;
   children?: React.ReactNode;
-  scrollHidden?: boolean;
+  className?: string;
+  selection: Record<string, boolean>;
+  $row?: boolean;
+  $scrollHidden?: boolean;
+  onSelect: (id: string) => void;
 }
 
 function SelectionBase(props: SelectionProps) {
   const style = css`
     > ${Section}:not(:first-child) {
-      ${props.row ? "margin-left" : "margin-top"}: ${(props) =>
+      ${props.$row ? "margin-left" : "margin-top"}: ${(props) =>
         props.theme.spacing.base};
     }
 
     > ${Section}[data-flush] {
-      ${props.row ? "margin-left" : "margin-top"}: auto;
+      ${props.$row ? "margin-left" : "margin-top"}: auto;
     }
 
     ${Item} {
@@ -37,16 +37,16 @@ function SelectionBase(props: SelectionProps) {
   `;
 
   const Container: React.FC<{ children: React.ReactNode }> = ({ children }) =>
-    props.row ? (
+    props.$row ? (
       <>{children}</>
     ) : (
-      <Scroll $hidden={props.scrollHidden}>{children}</Scroll>
+      <Scroll $hidden={props.$scrollHidden}>{children}</Scroll>
     );
 
   return (
     <SelectionContext.Provider
       value={{
-        column: !props.row,
+        column: !props.$row,
         selection: props.selection,
         onSelect: props.onSelect,
       }}
@@ -55,9 +55,9 @@ function SelectionBase(props: SelectionProps) {
         <Flex
           as="nav"
           className={props.className}
-          column={ifNotExists(props.row)}
-          align="stretch"
           css={style}
+          $column={ifNotExists(props.$row)}
+          $align="stretch"
         >
           {props.children}
         </Flex>

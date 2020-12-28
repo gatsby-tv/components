@@ -45,31 +45,31 @@ const cssDistribute = (distribute?: FlexDistribute) => {
 export type { ItemProps as FlexItemProps };
 
 export interface FlexProps extends BoxProps {
-  center?: boolean;
-  column?: boolean;
-  distribute?: FlexDistribute;
+  $center?: boolean;
+  $column?: boolean;
+  $distribute?: FlexDistribute;
   $wrap?: FlexWrap;
-  justify?: FlexJustifyContent;
-  align?: FlexAlignItems;
-  alignContent?: FlexAlignContent;
-  gap?: Size;
+  $justify?: FlexJustifyContent;
+  $align?: FlexAlignItems;
+  $alignContent?: FlexAlignContent;
+  $gap?: Size;
 }
 
 const FlexBase = styled(Box)<FlexProps>`
   display: flex;
-  ${(props) => cssProperty("flex-direction", ifExists(props.column, "column"))}
+  ${(props) => cssProperty("flex-direction", ifExists(props.$column, "column"))}
   ${(props) => cssProperty("flex-wrap", props.$wrap)}
   ${(props) =>
     cssProperty(
       "justify-content",
-      props.justify,
-      ifExists(props.center, "center")
+      props.$justify,
+      ifExists(props.$center, "center")
     )}
   ${(props) =>
-    cssProperty("align-items", props.align, ifExists(props.center, "center"))}
-  ${(props) => cssProperty("align-content", props.alignContent)}
-  ${(props) => cssDistribute(props.distribute)}
-  ${(props) => cssSize("gap", props.gap)}
+    cssProperty("align-items", props.$align, ifExists(props.$center, "center"))}
+  ${(props) => cssProperty("align-content", props.$alignContent)}
+  ${(props) => cssDistribute(props.$distribute)}
+  ${(props) => cssSize("gap", props.$gap)}
 `;
 
 export const Flex = Object.assign(FlexBase, { Item });

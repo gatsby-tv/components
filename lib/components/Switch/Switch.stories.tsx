@@ -31,12 +31,12 @@ const switchStyle = css`
 
 export const TwoSettings: Story<SwitchProps> = (args) => {
   const items = ["one", "two"];
-  const [selection, select] = useSelect(items, "one");
+  const [selection, setSelection] = useSelect(items, "one");
 
   return (
-    <AppProvider theme="dark">
+    <AppProvider $theme="dark">
       <Box $width="20rem">
-        <Switch css={switchStyle} selection={selection} onSelect={select}>
+        <Switch css={switchStyle} selection={selection} onSelect={setSelection}>
           <Switch.Item id="one">
             <TextBox>One</TextBox>
           </Switch.Item>
@@ -51,12 +51,12 @@ export const TwoSettings: Story<SwitchProps> = (args) => {
 
 export const ThreeSettings: Story<SwitchProps> = (args) => {
   const items = ["one", "two", "three"];
-  const [selection, select] = useSelect(items, "one");
+  const [selection, setSelection] = useSelect(items, "one");
 
   return (
-    <AppProvider theme="dark">
+    <AppProvider $theme="dark">
       <Box $width="20rem">
-        <Switch css={switchStyle} selection={selection} onSelect={select}>
+        <Switch css={switchStyle} selection={selection} onSelect={setSelection}>
           <Switch.Item id="one">
             <TextBox>One</TextBox>
           </Switch.Item>

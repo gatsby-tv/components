@@ -2,12 +2,20 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { AppProvider } from "@lib/components/AppProvider";
-import { Circle } from "@lib/components/Circle";
+import { Box } from "@lib/components/Box";
 
 import { Avatar, AvatarProps } from "./Avatar";
 
 const overlayMarkup = (
-  <Circle absolute $bottom={0} $right={0} size="1.5rem" bg="red" />
+  <Box
+    $absolute
+    $bg="red"
+    $bottom={0}
+    $right={0}
+    $width="1.5rem"
+    $height="1.5rem"
+    $rounded={1}
+  />
 );
 
 export default {
@@ -16,7 +24,7 @@ export default {
 } as Meta;
 
 const Template: Story<AvatarProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <Avatar {...args} />
   </AppProvider>
 );
@@ -24,62 +32,62 @@ const Template: Story<AvatarProps> = (args) => (
 export const Small = Template.bind({});
 Small.args = {
   src: "https://loremflickr.com/150/150",
-  size: "small",
   ariaLabel: "Small avatar",
+  $size: "small",
 };
 
 export const SmallWithOverlay = Template.bind({});
 SmallWithOverlay.args = {
   src: "https://loremflickr.com/150/150",
-  overlay: overlayMarkup,
-  size: "small",
   ariaLabel: "Small avatar",
+  $overlay: overlayMarkup,
+  $size: "small",
 };
 
 export const SmallSkeleton = Template.bind({});
 SmallSkeleton.args = {
-  size: "small",
   ariaLabel: "Small avatar",
+  $size: "small",
 };
 
 export const Medium = Template.bind({});
 Medium.args = {
   src: "https://loremflickr.com/150/150",
-  size: "medium",
   ariaLabel: "Medium avatar",
+  $size: "medium",
 };
 
 export const MediumWithOverlay = Template.bind({});
 MediumWithOverlay.args = {
   src: "https://loremflickr.com/150/150",
-  overlay: overlayMarkup,
-  size: "medium",
   ariaLabel: "Medium avatar",
+  $overlay: overlayMarkup,
+  $size: "medium",
 };
 
 export const MediumSkeleton = Template.bind({});
 MediumSkeleton.args = {
-  size: "medium",
   ariaLabel: "Medium avatar",
+  $size: "medium",
 };
 
 export const Large = Template.bind({});
 Large.args = {
   src: "https://loremflickr.com/150/150",
-  size: "large",
   ariaLabel: "Large avatar",
+  $size: "large",
 };
 
 export const LargeWithOverlay = Template.bind({});
 LargeWithOverlay.args = {
   src: "https://loremflickr.com/150/150",
-  overlay: overlayMarkup,
-  size: "large",
   ariaLabel: "Large avatar",
+  $overlay: overlayMarkup,
+  $size: "large",
 };
 
 export const LargeSkeleton = Template.bind({});
 LargeSkeleton.args = {
-  size: "large",
   ariaLabel: "Large avatar",
+  $size: "large",
 };

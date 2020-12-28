@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 export const Example: Story<TextCaptionProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <TextBox>
       <p>Example Text</p>
       <TextCaption>With a caption</TextCaption>

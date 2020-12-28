@@ -5,12 +5,12 @@ import { Color, IconSource } from "@lib/types";
 import { Box, BoxProps } from "@lib/components/Box";
 
 export interface IconProps {
-  source: IconSource;
+  $source: IconSource;
   ariaLabel?: string;
 }
 
 export function Icon(props: IconProps & BoxProps) {
-  const { source: SvgComponent, ariaLabel, ...boxProps } = props;
+  const { $source: SvgComponent, ariaLabel, ...boxProps } = props;
 
   const style = css`
     & > svg {

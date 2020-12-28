@@ -7,10 +7,10 @@ import { Flex } from "@lib/components/Flex";
 import { TextSubheading } from "@lib/components/TextSubheading";
 
 export interface SectionProps {
-  className?: string;
   children?: React.ReactNode;
-  title?: React.ReactNode;
-  flush?: boolean;
+  className?: string;
+  $title?: React.ReactNode;
+  $flush?: boolean;
 }
 
 const SectionBase: React.FC<SectionProps> = (props) => {
@@ -19,13 +19,15 @@ const SectionBase: React.FC<SectionProps> = (props) => {
   return (
     <Flex
       as="ul"
-      $fill
       className={props.className}
-      column={ifExists(column)}
-      align="stretch"
-      data-flush={ifExists(props.flush)}
+      data-flush={ifExists(props.$flush)}
+      $fill
+      $column={ifExists(column)}
+      $align="stretch"
     >
-      {column && props.title && <TextSubheading>{props.title}</TextSubheading>}
+      {column && props.$title && (
+        <TextSubheading>{props.$title}</TextSubheading>
+      )}
       {props.children}
     </Flex>
   );

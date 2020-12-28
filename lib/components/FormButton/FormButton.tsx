@@ -5,12 +5,12 @@ import { cssInputBorder } from "@lib/styles/borders";
 import { cssTextButton } from "@lib/styles/typography";
 import { Box, BoxProps } from "@lib/components/Box";
 
-export type FormButtonProps = { border?: boolean } & BoxProps &
+export type FormButtonProps = { $border?: boolean } & BoxProps &
   React.ButtonHTMLAttributes<HTMLElement>;
 
 const FormButtonBase = styled(Box)<FormButtonProps>`
   ${cssTextButton}
-  ${(props) => (props.border ? cssInputBorder : "")}
+  ${(props) => (props.$border ? cssInputBorder : "")}
   background-color: ${(props) => props.theme.colors.background[3]};
   border-radius: ${(props) => props.theme.border.radius.small};
   padding: ${(props) =>

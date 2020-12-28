@@ -31,9 +31,9 @@ const contentStyle = css`
 `;
 
 export const Example: Story<CollapsibleProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <Box $width="42rem">
-      <Collapsible css={labelStyle} label="Click Me">
+      <Collapsible css={labelStyle} $label="Click Me">
         <TextBox css={contentStyle}>
           <LoremIpsum p={2} />
         </TextBox>

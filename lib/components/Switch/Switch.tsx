@@ -10,10 +10,10 @@ import { Item, ItemProps } from "./components";
 export type { ItemProps as SwitchItemProps };
 
 export interface SwitchProps {
+  children?: React.ReactNode;
+  className?: string;
   selection: Record<string, boolean>;
   onSelect: (id: string) => void;
-  className?: string;
-  children?: React.ReactNode;
 }
 
 const wrapChildren = (children: React.ReactNode) =>
@@ -32,7 +32,7 @@ function SwitchBase(props: SwitchProps) {
     <SwitchContext.Provider
       value={{ selection: props.selection, onSelect: props.onSelect }}
     >
-      <Connected className={props.className} css={style} align="stretch">
+      <Connected className={props.className} css={style} $align="stretch">
         {wrapChildren(props.children)}
       </Connected>
     </SwitchContext.Provider>

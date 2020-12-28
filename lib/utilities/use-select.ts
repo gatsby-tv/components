@@ -13,9 +13,9 @@ export function useSelect(items: string[], initial?: string) {
   const [state, setState] = useState<SelectionState>(
     initial ? { ...fresh, [initial]: true } : fresh
   );
-  const select = useCallback((id?: string) => {
+  const setSelection = useCallback((id?: string) => {
     setState(id ? { ...fresh, [id as string]: true } : fresh);
   }, []);
 
-  return [state, select] as [SelectionState, SelectionCallback];
+  return [state, setSelection] as [SelectionState, SelectionCallback];
 }

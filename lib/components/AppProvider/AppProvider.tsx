@@ -8,11 +8,11 @@ import { Global } from "./components";
 
 export interface AppProviderProps {
   children?: React.ReactNode;
-  theme?: "dark" | "light";
+  $theme?: "dark" | "light";
 }
 
 export function AppProvider(props: AppProviderProps) {
-  const theme: DefaultTheme = props.theme === "light" ? LightTheme : DarkTheme;
+  const theme: DefaultTheme = props.$theme === "light" ? LightTheme : DarkTheme;
   const [loadingSemaphore, setLoadingSemaphore] = useState(0);
 
   const startLoading = useCallback(

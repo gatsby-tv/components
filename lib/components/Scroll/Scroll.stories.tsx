@@ -14,7 +14,7 @@ export default {
 } as Meta;
 
 const Template: Story<ScrollProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <Scroll {...args}>
       <TextBox $height="30rem">
         <LoremIpsum p={7} />

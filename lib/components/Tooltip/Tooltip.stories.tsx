@@ -26,7 +26,7 @@ export const Example: Story<TooltipProps> = (props) => {
   const [active, setActive] = useState(false);
 
   return (
-    <AppProvider theme="dark">
+    <AppProvider $theme="dark">
       <Box ref={ref} $width="fit-content">
         <FormButton
           css={buttonStyle}
@@ -36,8 +36,8 @@ export const Example: Story<TooltipProps> = (props) => {
           HoverMe
         </FormButton>
       </Box>
-      <Tooltip $for={ref} placement="right">
-        <Activatable active={active} duration={200} delay={500}>
+      <Tooltip $for={ref} $placement="right">
+        <Activatable $active={active} $duration={200} $delay={500}>
           <TextBox>
             <p>Hello! This is a tooltip.</p>
           </TextBox>

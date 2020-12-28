@@ -16,14 +16,14 @@ const FrameBase = styled.div`
 
 export interface FrameProps {
   children?: React.ReactNode;
-  topbar?: React.ReactNode;
-  sidebar?: React.ReactNode;
+  $topbar?: React.ReactNode;
+  $sidebar?: React.ReactNode;
 }
 
 export const Frame: React.FC<FrameProps> = (props) => (
   <FrameBase>
-    <TopFrame topbar={props.topbar}>
-      <SideFrame sidebar={props.sidebar}>
+    <TopFrame $topbar={props.$topbar}>
+      <SideFrame $sidebar={props.$sidebar}>
         <MainFrame>{props.children}</MainFrame>
       </SideFrame>
     </TopFrame>

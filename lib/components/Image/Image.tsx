@@ -6,31 +6,31 @@ import { Viewport } from "@lib/components/Viewport";
 
 export type ImageProps = {
   $width?: Size;
-  aspectRatio?: number;
-  overlay?: React.ReactNode;
+  $aspectRatio?: number;
+  $overlay?: React.ReactNode;
   ariaLabel?: string;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
 export function Image(props: ImageProps) {
-  const { aspectRatio = 1, $width, overlay, ariaLabel, ...imgProps } = props;
+  const { $aspectRatio = 1, $width, $overlay, ariaLabel, ...imgProps } = props;
   const [loading, setLoading] = useState(true);
 
   const handleLoad = useCallback(() => setLoading(false), []);
 
   return (
     <Viewport
-      placeholder
-      aspectRatio={aspectRatio}
-      ariaLabel={ariaLabel}
-      overlay={overlay}
+      $placeholder
+      $overlay={$overlay}
+      $aspectRatio={$aspectRatio}
       $width={$width}
+      ariaLabel={ariaLabel}
     >
       <Box
         as="img"
         alt=""
         style={
           loading
-            ? { paddingTop: `${100 * aspectRatio}%`, height: 0 }
+            ? { paddingTop: `${100 * $aspectRatio}%`, height: 0 }
             : undefined
         }
         $width={1}

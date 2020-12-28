@@ -12,14 +12,14 @@ export default {
 } as Meta;
 
 const Template: Story<PlayerProps> = (args) => (
-  <AppProvider theme="dark">
+  <AppProvider $theme="dark">
     <Player {...args} />
   </AppProvider>
 );
 
 export const Blank = Template.bind({});
 Blank.args = {
-  video: {
+  $video: {
     src: "",
     loop: true,
     muted: true,
@@ -29,7 +29,7 @@ Blank.args = {
 
 export const DefaultAspectRatio = Template.bind({});
 DefaultAspectRatio.args = {
-  video: {
+  $video: {
     src:
       "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps_1920x1080_8000k.mp4",
     loop: true,
@@ -40,7 +40,7 @@ DefaultAspectRatio.args = {
 
 export const WideAspectRatio = Template.bind({});
 WideAspectRatio.args = {
-  video: {
+  $video: {
     src:
       "https://upload.wikimedia.org/wikipedia/commons/a/a5/Spring_-_Blender_Open_Movie.webm",
     loop: true,
