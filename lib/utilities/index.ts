@@ -3,7 +3,6 @@ export * from "./selection";
 export * from "./switch";
 export * from "./connected";
 export * from "./scroll";
-export * from "./parse-size";
 export * from "./if-exists";
 export * from "./time";
 export * from "./use-theme";

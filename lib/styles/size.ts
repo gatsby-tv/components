@@ -1,7 +1,14 @@
 import { css } from "styled-components";
 
 import { Size } from "@lib/types";
-import { parseSize } from "@lib/utilities";
+
+const parseSize = (size: Size) => {
+  if (typeof size === "number") {
+    return `${100 * size}%`;
+  } else {
+    return size;
+  }
+};
 
 export const cssSize = (property: string, size?: Size, defaultValue?: Size) => {
   if (size == null) {
