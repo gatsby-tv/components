@@ -65,6 +65,7 @@ export const DarkTheme: DefaultTheme = {
     },
   },
   icon: {
+    extraSmall: "32px",
     small: "36px",
     medium: "44px",
     large: "60px",

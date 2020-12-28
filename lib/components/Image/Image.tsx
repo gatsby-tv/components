@@ -6,13 +6,21 @@ import { Viewport } from "@lib/components/Viewport";
 
 export type ImageProps = {
   $width?: Size;
+  $rounded?: Size;
   $aspectRatio?: number;
   $overlay?: React.ReactNode;
   ariaLabel?: string;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
 export function Image(props: ImageProps) {
-  const { $aspectRatio = 1, $width, $overlay, ariaLabel, ...imgProps } = props;
+  const {
+    $aspectRatio = 1,
+    $width,
+    $overlay,
+    $rounded,
+    ariaLabel,
+    ...imgProps
+  } = props;
   const [loading, setLoading] = useState(true);
 
   const handleLoad = useCallback(() => setLoading(false), []);
@@ -23,6 +31,7 @@ export function Image(props: ImageProps) {
       $overlay={$overlay}
       $aspectRatio={$aspectRatio}
       $width={$width}
+      $rounded={$rounded}
       ariaLabel={ariaLabel}
     >
       <Box
@@ -34,6 +43,7 @@ export function Image(props: ImageProps) {
             : undefined
         }
         $width={1}
+        $rounded={$rounded}
         onLoad={handleLoad}
         {...imgProps}
       />

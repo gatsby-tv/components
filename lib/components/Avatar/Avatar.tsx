@@ -32,7 +32,7 @@ export function Avatar(props: AvatarProps) {
         as="img"
         alt=""
         style={loading ? { paddingTop: "100%", height: 0 } : undefined}
-        $rounded={1}
+        $rounded={theme.border.radius.full}
         $width={1}
         onLoad={handleLoad}
         {...imgProps}
