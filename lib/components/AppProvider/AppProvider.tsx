@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
+import { UniqueIdContext, useUniqueIdGenerator } from "@gatsby-tv/utilities";
 
 import { AppContext } from "@lib/utilities/app";
 import { DarkTheme, LightTheme } from "@lib/styles/theme";
@@ -13,6 +14,7 @@ export interface AppProviderProps {
 
 export function AppProvider(props: AppProviderProps) {
   const theme: DefaultTheme = props.$theme === "light" ? LightTheme : DarkTheme;
+  const uniqueIdGenerator = useUniqueIdGenerator();
   const [loadingSemaphore, setLoadingSemaphore] = useState(0);
 
   const startLoading = useCallback(
@@ -32,10 +34,12 @@ export function AppProvider(props: AppProviderProps) {
 
   return (
     <AppContext.Provider value={context}>
-      <ThemeProvider theme={theme}>
-        <Global />
-        {props.children}
-      </ThemeProvider>
+      <UniqueIdContext.Provider value={uniqueIdGenerator}>
+        <ThemeProvider theme={theme}>
+          <Global />
+          {props.children}
+        </ThemeProvider>
+      </UniqueIdContext.Provider>
     </AppContext.Provider>
   );
 }

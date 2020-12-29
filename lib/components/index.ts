@@ -33,3 +33,4 @@ export * from "./Modal";
 export * from "./Switch";
 export * from "./Collapsible";
 export * from "./Stream";
+export * from "./Rule";

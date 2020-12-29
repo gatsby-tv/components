@@ -84,7 +84,7 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
         $right="-7px"
         $width="14px"
         $height="14px"
-        $bg={theme.colors.gold.darken(0.1)}
+        $bg={theme.colors.gold}
       />
     );
 
@@ -100,7 +100,7 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
           style={{ right: `${100 * (1 - $time)}%` }}
           $absolute
           $fill
-          $bg={theme.colors.gold.darken(0.1)}
+          $bg={theme.colors.gold}
         >
           {progressBallMarkup}
         </Box>

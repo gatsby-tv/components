@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from "react";
 import { useTheme } from "@gatsby-tv/utilities";
 
-import { IconSize } from "@lib/types";
+import { AvatarSize } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Viewport } from "@lib/components/Viewport";
 
 export type AvatarProps = {
   ariaLabel?: string;
-  $size?: IconSize;
+  $size?: AvatarSize;
   $overlay?: React.ReactNode;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
@@ -22,8 +22,8 @@ export function Avatar(props: AvatarProps) {
     <Viewport
       $placeholder
       $rounded={1}
-      $width={theme.icon[$size]}
-      $height={theme.icon[$size]}
+      $width={theme.avatar[$size]}
+      $height={theme.avatar[$size]}
       $aspectRatio={1}
       $overlay={$overlay}
       ariaLabel={ariaLabel}

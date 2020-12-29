@@ -28,7 +28,7 @@ export const DarkTheme: DefaultTheme = {
     pink: Color("#ed6495"),
     green: Color("#00853e"),
     white: Color("#fff"),
-    black: Color("#111"),
+    black: Color("#010101"),
   },
   font: {
     size: {
@@ -42,7 +42,7 @@ export const DarkTheme: DefaultTheme = {
       large: "18px",
       extraLarge: "22px",
       metaSmall: "13px",
-      metaMedium: "14px",
+      metaMedium: "15px",
       metaLarge: "18px",
       displaySmall: "24px",
       displayLarge: "32px",
@@ -65,6 +65,13 @@ export const DarkTheme: DefaultTheme = {
     },
   },
   icon: {
+    extraSmall: "11px",
+    small: "15px",
+    medium: "23px",
+    large: "31px",
+    extraLarge: "39px",
+  },
+  avatar: {
     extraSmall: "32px",
     small: "36px",
     medium: "44px",
@@ -96,8 +103,9 @@ export const DarkTheme: DefaultTheme = {
     tight: "8px",
     baseTight: "12px",
     base: "16px",
-    loose: "20px",
-    extraLoose: "32px",
+    baseLoose: "20px",
+    loose: "32px",
+    extraLoose: "40px",
   },
   duration: {
     instant: "0ms",

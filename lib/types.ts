@@ -12,7 +12,7 @@ export interface Styleable {
 
 export type IconSource = React.FC<React.SVGProps<SVGSVGElement>>;
 
-export type IconSize = "small" | "medium" | "large" | "extraLarge";
+export type AvatarSize = "small" | "medium" | "large" | "extraLarge";
 
 export type FontSize =
   | "heading"

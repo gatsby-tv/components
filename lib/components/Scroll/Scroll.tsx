@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
+import { ifExists, ifNotExists, ScrollContext } from "@gatsby-tv/utilities";
 
 import { EventHandler } from "@lib/types";
 import { cssProperty } from "@lib/styles/property";
-import { ScrollContext } from "@lib/utilities/scroll";
 
 export interface ScrollProps {
   children?: React.ReactNode;

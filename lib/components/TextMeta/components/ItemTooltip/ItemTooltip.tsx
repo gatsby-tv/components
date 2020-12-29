@@ -15,7 +15,7 @@ export const ItemTooltip: React.FC<ItemTooltipProps> = (props) => {
   const theme = useTheme();
 
   return (
-    <Tooltip $for={props.$for} $placement="top">
+    <Tooltip $for={props.$for} $placement="bottom">
       <Activatable $active={props.$active} $delay={500} $duration={200}>
         <TextBox
           $bg={theme.colors.popover}

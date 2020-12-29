@@ -16,7 +16,6 @@ export interface ModalProps {
 
 export function Modal(props: ModalProps) {
   const theme = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   const handleClick = () => props.onExit && props.onExit();
 
@@ -64,7 +63,7 @@ export function Modal(props: ModalProps) {
   };
 
   return (
-    <Portal id="modal" onMount={() => setMounted(true)}>
+    <Portal id="modal">
       {props.$active && (
         <>
           <Flex $absolute $fill $center css={style} onClick={handleClick}>

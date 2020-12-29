@@ -5,23 +5,20 @@ import { useUniqueId } from "@gatsby-tv/utilities";
 export interface PortalProps {
   children?: React.ReactNode;
   id?: string;
-  onMount?: () => void;
 }
 
 export function Portal(props: PortalProps) {
-  const id = useUniqueId("portal");
+  const baseId = useUniqueId("portal");
   const portal = useRef<HTMLElement | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const { onMount = () => undefined } = props;
-    const fullId = props.id ? `${props.id}-${id}` : `${id}`;
+    const id = props.id ? `${props.id}-${baseId}` : baseId;
 
     portal.current = document.createElement("div");
-    portal.current.setAttribute("data-portal-id", fullId);
+    portal.current.id = id;
     document.body.appendChild(portal.current);
     setMounted(true);
-    onMount();
 
     return () => {
       document.body.removeChild(portal.current as HTMLElement);

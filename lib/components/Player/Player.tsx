@@ -69,6 +69,7 @@ interface PlayerState {
 }
 
 export interface PlayerProps {
+  children?: React.ReactNode;
   $video: VideoProps;
   $fullscreen?: boolean;
   $toggleFullscreen?: () => void;
@@ -502,7 +503,9 @@ export function Player(props: PlayerProps) {
       {...playerEvents}
     >
       <Flex $center $height={1}>
-        <Video ref={video} {...videoEvents} {...props.$video} />
+        <Video ref={video} {...videoEvents} {...props.$video}>
+          {props.children}
+        </Video>
       </Flex>
       <EventListener $event="resize" $handler={handleResize} />
       <EventListener $event="keydown" $handler={handleKeydown} />

@@ -19,7 +19,6 @@ export interface TooltipProps {
 
 export function Tooltip(props: TooltipProps) {
   const popper = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
   const { styles, attributes } = usePopper(props.$for.current, popper.current, {
     placement: props.$placement,
     strategy: props.$fixed ? "fixed" : "absolute",
@@ -47,7 +46,7 @@ export function Tooltip(props: TooltipProps) {
   `;
 
   return (
-    <Portal id="tooltip" onMount={() => setMounted(true)}>
+    <Portal id="tooltip">
       <Box
         ref={popper}
         css={popperStyle}
