@@ -1,16 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  forwardRef,
-  CSSProperties,
-} from "react";
-import { css } from "styled-components";
-import { ifExists, useTheme } from "@gatsby-tv/utilities";
+import React, { forwardRef } from "react";
+import { useTheme } from "@gatsby-tv/utilities";
 
-import { Size } from "@lib/types";
-import { cssProperty } from "@lib/styles/property";
 import { Box, BoxProps } from "@lib/components/Box";
 
 export interface ViewportProps {
@@ -22,7 +12,7 @@ export interface ViewportProps {
 }
 
 export const Viewport = forwardRef<HTMLElement, ViewportProps & BoxProps>(
-  (props, ref) => {
+  (props: ViewportProps & BoxProps, ref) => {
     const {
       children,
       ariaLabel,
@@ -60,3 +50,5 @@ export const Viewport = forwardRef<HTMLElement, ViewportProps & BoxProps>(
     );
   }
 );
+
+Viewport.displayName = "Viewport";

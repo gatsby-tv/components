@@ -29,7 +29,7 @@ const switchStyle = css`
   }
 `;
 
-export const TwoSettings: Story<SwitchProps> = (args) => {
+export const TwoSettings: Story<SwitchProps> = () => {
   const items = ["one", "two"];
   const [selection, setSelection] = useSelect(items, "one");
 
@@ -49,7 +49,7 @@ export const TwoSettings: Story<SwitchProps> = (args) => {
   );
 };
 
-export const ThreeSettings: Story<SwitchProps> = (args) => {
+export const ThreeSettings: Story<SwitchProps> = () => {
   const items = ["one", "two", "three"];
   const [selection, setSelection] = useSelect(items, "one");
 

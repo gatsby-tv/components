@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { EventHandler } from "@lib/types";
 
@@ -9,7 +9,7 @@ export interface EventListenerProps {
   $doc?: boolean;
 }
 
-export function EventListener(props: EventListenerProps) {
+export function EventListener(props: EventListenerProps): null {
   useEffect(() => {
     const target = props.$doc ? document : window;
 

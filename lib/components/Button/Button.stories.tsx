@@ -12,13 +12,13 @@ export default {
   component: Button,
 } as Meta;
 
-export const TextButton: Story<ButtonProps> = (args) => (
+export const TextButton: Story<ButtonProps> = () => (
   <AppProvider $theme="dark">
     <Button>Button</Button>
   </AppProvider>
 );
 
-export const IconButton: Story<ButtonProps> = (args) => (
+export const IconButton: Story<ButtonProps> = () => (
   <AppProvider $theme="dark">
     <Button $circular>
       <Icon $source={Pause} $width="20px" />

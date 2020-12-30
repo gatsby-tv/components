@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import { SelectionContext } from "./context";
+import { SelectionContext, SelectionContextType } from "./context";
 
-export const useSelection = () => {
+export function useSelection(): SelectionContextType {
   const selection = useContext(SelectionContext);
 
   if (!selection) {
@@ -10,4 +10,4 @@ export const useSelection = () => {
   }
 
   return selection;
-};
+}

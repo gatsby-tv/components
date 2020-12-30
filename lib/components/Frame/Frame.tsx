@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Scroll } from "@lib/components/Scroll";
-
 import { MainFrame, TopFrame, SideFrame } from "./components";
 
 const FrameBase = styled.div`
@@ -20,7 +18,7 @@ export interface FrameProps {
   $sidebar?: React.ReactNode;
 }
 
-export const Frame: React.FC<FrameProps> = (props) => (
+export const Frame: React.FC<FrameProps> = (props: FrameProps) => (
   <FrameBase>
     <TopFrame $topbar={props.$topbar}>
       <SideFrame $sidebar={props.$sidebar}>

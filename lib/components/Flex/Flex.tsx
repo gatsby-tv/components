@@ -1,10 +1,9 @@
-import styled, { css, StyledComponent, DefaultTheme } from "styled-components";
+import styled, { css } from "styled-components";
 import { ifExists } from "@gatsby-tv/utilities";
 
 import {
   Size,
   FlexDistribute,
-  FlexDirection,
   FlexWrap,
   FlexJustifyContent,
   FlexAlignItems,

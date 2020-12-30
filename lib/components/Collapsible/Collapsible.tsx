@@ -73,7 +73,7 @@ const CollapsibleBase = styled.div`
   }
 `;
 
-export function Collapsible(props: CollapsibleProps) {
+export function Collapsible(props: CollapsibleProps): React.ReactElement {
   const id = useUniqueId("collapsible");
   const label = useRef<HTMLLabelElement>(null);
   const content = useRef<HTMLDivElement>(null);

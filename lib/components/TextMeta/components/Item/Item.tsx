@@ -24,5 +24,5 @@ export const Item = styled.p<ItemProps>`
   ${(props) => cssProperty("white-space", ifNotExists(props.$clamp, "nowrap"))}
   ${(props) => ifExists(props.$clamp, cssTextLineClamp(props.$clamp as number))}
   ${(props) => ifExists(props.$subdued, cssTextSubdued)}
-  ${(props) => cssTextMeta(props.$size ?? "medium", props.$bold)}
+  ${(props) => cssTextMeta(props.theme, props.$size ?? "medium", props.$bold)}
 `;

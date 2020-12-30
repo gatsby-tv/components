@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { ifExists, ifNotExists, ScrollContext } from "@gatsby-tv/utilities";
+import { ScrollContext } from "@gatsby-tv/utilities";
 
 import { EventHandler } from "@lib/types";
-import { cssProperty } from "@lib/styles/property";
 
 export interface ScrollProps {
   children?: React.ReactNode;
@@ -38,12 +37,19 @@ const ScrollBase = styled.div<ScrollProps>`
   }
 `;
 
-export function Scroll(props: ScrollProps) {
+export function Scroll(props: ScrollProps): React.ReactElement {
   const [callbacks, setCallbacks] = useState<EventHandler[]>([]);
-  const addCallback = (callback: EventHandler) =>
-    setCallbacks((current) => [...current, callback]);
-  const handleScroll: EventHandler = (event) =>
-    callbacks.forEach((callback) => callback(event));
+
+  const addCallback = useCallback(
+    (callback: EventHandler) =>
+      setCallbacks((current) => [...current, callback]),
+    []
+  );
+
+  const handleScroll: EventHandler = useCallback(
+    (event) => callbacks.forEach((callback) => callback(event)),
+    [callbacks]
+  );
 
   return (
     <ScrollContext.Provider value={addCallback}>

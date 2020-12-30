@@ -34,3 +34,4 @@ export * from "./Switch";
 export * from "./Collapsible";
 export * from "./Stream";
 export * from "./Rule";
+export * from "./Optional";

@@ -11,7 +11,7 @@ export default {
   component: TextDisplay,
 } as Meta;
 
-export const Example: Story<TextDisplayProps> = (args) => (
+export const Example: Story<TextDisplayProps> = () => (
   <AppProvider $theme="dark">
     <TextBox>
       <TextDisplay $size="large">Large Display Text</TextDisplay>

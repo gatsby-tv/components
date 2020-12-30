@@ -12,7 +12,7 @@ export interface AppProviderProps {
   $theme?: "dark" | "light";
 }
 
-export function AppProvider(props: AppProviderProps) {
+export function AppProvider(props: AppProviderProps): React.ReactElement {
   const theme: DefaultTheme = props.$theme === "light" ? LightTheme : DarkTheme;
   const uniqueIdGenerator = useUniqueIdGenerator();
   const [loadingSemaphore, setLoadingSemaphore] = useState(0);

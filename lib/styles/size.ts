@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css, CSSProp } from "styled-components";
 
 import { Size } from "@lib/types";
 
@@ -10,7 +10,11 @@ const parseSize = (size: Size) => {
   }
 };
 
-export const cssSize = (property: string, size?: Size, defaultValue?: Size) => {
+export const cssSize = (
+  property: string,
+  size?: Size,
+  defaultValue?: Size
+): CSSProp => {
   if (size == null) {
     return defaultValue != null
       ? css`

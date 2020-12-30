@@ -4,22 +4,22 @@ import { css } from "styled-components";
 import { ConnectedContext } from "@lib/utilities/connected";
 import { Flex, FlexProps } from "@lib/components/Flex";
 
-import { Item, ItemProps, Connection, ConnectionProps } from "./components";
+import { Item, ItemProps, Connection } from "./components";
 
 export type { ItemProps as ConnectedItemProps };
 
-export interface ConnectedProps {
+export interface ConnectedProps extends FlexProps {
   className?: string;
   children?: React.ReactNode;
-  $left?: React.ReactNode;
-  $right?: React.ReactNode;
+  $prefix?: React.ReactNode;
+  $suffix?: React.ReactNode;
 }
 
-function ConnectedBase(props: ConnectedProps & FlexProps) {
-  const { children, $left, $right, $column, ...flexProps } = props;
+function ConnectedBase(props: ConnectedProps) {
+  const { children, $prefix, $suffix, $column, ...flexProps } = props;
 
-  const leftMarkup = $left ? <Connection>{$left}</Connection> : null;
-  const rightMarkup = $right ? <Connection>{$right}</Connection> : null;
+  const prefixMarkup = $prefix ? <Connection>{$prefix}</Connection> : null;
+  const suffixMarkup = $suffix ? <Connection>{$suffix}</Connection> : null;
 
   const style = css`
     > ${Connection}:first-child * {
@@ -80,16 +80,16 @@ function ConnectedBase(props: ConnectedProps & FlexProps) {
   `;
 
   return (
-    <ConnectedContext.Provider value={$column}>
+    <ConnectedContext.Provider value={{ column: $column }}>
       <Flex
         className={props.className}
         css={style}
         $column={$column}
         {...flexProps}
       >
-        {leftMarkup}
+        {prefixMarkup}
         {children}
-        {rightMarkup}
+        {suffixMarkup}
       </Flex>
     </ConnectedContext.Provider>
   );

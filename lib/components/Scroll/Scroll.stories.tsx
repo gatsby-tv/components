@@ -4,7 +4,6 @@ import { LoremIpsum } from "react-lorem-ipsum";
 
 import { AppProvider } from "@lib/components/AppProvider";
 import { TextBox } from "@lib/components/TextBox";
-import { Box } from "@lib/components/Box";
 
 import { Scroll, ScrollProps } from "./Scroll";
 

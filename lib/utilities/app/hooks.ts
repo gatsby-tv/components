@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import { AppContext } from "./context";
+import { AppContext, AppContextType } from "./context";
 
-export const useApp = () => {
+export function useApp(): AppContextType {
   const app = useContext(AppContext);
 
   if (!app) {
@@ -10,4 +10,4 @@ export const useApp = () => {
   }
 
   return app;
-};
+}

@@ -5,7 +5,6 @@ import { css } from "styled-components";
 import { AppProvider } from "@lib/components/AppProvider";
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
-import { Flex } from "@lib/components/Flex";
 import { FormButton } from "@lib/components/FormButton";
 import { TextBox } from "@lib/components/TextBox";
 
@@ -14,14 +13,14 @@ import { Tooltip, TooltipProps } from "./Tooltip";
 export default {
   title: "Tooltip",
   component: Tooltip,
-};
+} as Meta;
 
 const buttonStyle = css`
   padding: 1rem;
   background-color: ${(props) => props.theme.colors.background[3]};
 `;
 
-export const Example: Story<TooltipProps> = (props) => {
+export const Example: Story<TooltipProps> = () => {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(false);
 

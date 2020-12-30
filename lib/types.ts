@@ -81,11 +81,6 @@ export type ColorValue = number | string;
 export type Color = ColorHue | [ColorHue, ColorValue];
 
 export type FlexDistribute = "fill" | "fill-evenly";
-export type FlexDirection =
-  | "row"
-  | "column"
-  | "row-reversed"
-  | "column-reversed";
 export type FlexWrap = "nowrap" | "wrap" | "wrap-reversed";
 
 export type FlexJustifyContent =

@@ -1,8 +1,13 @@
-import React, { useState, useEffect, useReducer, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useCallback,
+  useMemo,
+} from "react";
 import { Spinner } from "@gatsby-tv/icons";
-import { useTheme, useScroll } from "@gatsby-tv/utilities";
+import { useScroll, useAsync } from "@gatsby-tv/utilities";
 
-import { EventHandler, Size } from "@lib/types";
 import { Flex, FlexProps } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 
@@ -26,11 +31,18 @@ type StreamState<T> = {
 export interface StreamProps<T> {
   $source: React.FC<T>;
   $generator: (index: number) => T | T[];
+  $max?: number;
 }
 
-export function Stream<T>(props: StreamProps<T> & FlexProps) {
-  const { $source: SourceComponent, $generator, ...flexProps } = props;
-  const theme = useTheme();
+export function Stream<T>(
+  props: StreamProps<T> & FlexProps
+): React.ReactElement {
+  const {
+    $source: SourceComponent,
+    $generator,
+    $max = Infinity,
+    ...flexProps
+  } = props;
   const [waiting, setWaiting] = useState(false);
   const addScrollListener = useScroll();
 
@@ -38,7 +50,7 @@ export function Stream<T>(props: StreamProps<T> & FlexProps) {
     (state: StreamState<T>, action: StreamAction<T>) => {
       switch (action.type) {
         case "fetch":
-          return state.loading
+          return state.loading || (state.index + 1 || 0) >= $max
             ? state
             : { ...state, index: state.index + 1 || 0, loading: true };
 
@@ -63,16 +75,13 @@ export function Stream<T>(props: StreamProps<T> & FlexProps) {
     }
   }, []);
 
-  useEffect(() => {
-    async function fetchItems() {
-      const items = [await $generator(state.index)].flat() as T[];
-      dispatch({ type: "sync", items });
-    }
-
-    if (!isNaN(state.index)) {
-      fetchItems();
-    }
-  }, [state.index]);
+  useAsync(
+    useCallback(async () => {
+      if (isNaN(state.index)) return;
+      return [await $generator(state.index)].flat() as T[];
+    }, [$generator, state.index]),
+    useCallback((items) => items && dispatch({ type: "sync", items }), [])
+  );
 
   useEffect(() => {
     if (state.loading) {
@@ -86,17 +95,23 @@ export function Stream<T>(props: StreamProps<T> & FlexProps) {
   useEffect(() => {
     addScrollListener(handleScroll);
     dispatch({ type: "fetch" });
-  }, []);
+  }, [addScrollListener, handleScroll]);
+
+  const children = useMemo(() => state.items.map((item, index) => (
+    <SourceComponent key={index} {...item} />
+  )), [state.items, SourceComponent]);
+
+  /*
+  const children = state.items.map((item, index) => (
+    <SourceComponent key={index} {...item} />
+  ));
+   */
 
   const loadingMarkup = waiting ? (
     <Flex $fill $center>
       <Icon $source={Spinner} $width="44px" />
     </Flex>
   ) : null;
-
-  const children = state.items.map((item, index) => (
-    <SourceComponent key={index} {...item} />
-  ));
 
   return (
     <Flex {...flexProps}>

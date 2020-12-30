@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { Size } from "@lib/types";
@@ -16,4 +15,4 @@ export const Rule = styled.hr<RuleProps>`
   ${(props) => cssSize("width", props.$width)}
   ${(props) => cssSize("margin-top", props.$margin)}
   ${(props) => cssSize("margin-bottom", props.$margin)}
-`
+`;

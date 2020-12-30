@@ -11,7 +11,7 @@ export interface ItemTooltipProps {
   $active?: boolean;
 }
 
-export const ItemTooltip: React.FC<ItemTooltipProps> = (props) => {
+export function ItemTooltip(props: ItemTooltipProps): React.ReactElement {
   const theme = useTheme();
 
   return (
@@ -30,4 +30,4 @@ export const ItemTooltip: React.FC<ItemTooltipProps> = (props) => {
       </Activatable>
     </Tooltip>
   );
-};
+}

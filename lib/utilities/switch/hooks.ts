@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import { SwitchContext } from "./context";
+import { SwitchContext, SwitchContextType } from "./context";
 
-export const useSwitch = () => {
+export function useSwitch(): SwitchContextType {
   const context = useContext(SwitchContext);
 
   if (!context) {
@@ -10,4 +10,4 @@ export const useSwitch = () => {
   }
 
   return context;
-};
+}

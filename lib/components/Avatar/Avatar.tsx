@@ -11,7 +11,7 @@ export type AvatarProps = {
   $overlay?: React.ReactNode;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
-export function Avatar(props: AvatarProps) {
+export function Avatar(props: AvatarProps): React.ReactElement {
   const theme = useTheme();
   const { $size = "medium", $overlay, ariaLabel, ...imgProps } = props;
   const [loading, setLoading] = useState(true);

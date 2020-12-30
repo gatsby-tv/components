@@ -28,7 +28,7 @@ const cardStyle = css`
   background-color: ${(props) => props.theme.colors.white};
 `;
 
-export const Example: Story<ModalProps> = (props) => {
+export const Example: Story<ModalProps> = () => {
   const { toggle, flipToggle, setToggle } = useToggle(false);
 
   return (

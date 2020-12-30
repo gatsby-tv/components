@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "styled-components";
 
-import { Color, IconSource } from "@lib/types";
+import { IconSource } from "@lib/types";
 import { Box, BoxProps } from "@lib/components/Box";
 
 export interface IconProps {
@@ -9,7 +9,7 @@ export interface IconProps {
   ariaLabel?: string;
 }
 
-export function Icon(props: IconProps & BoxProps) {
+export function Icon(props: IconProps & BoxProps): React.ReactElement {
   const { $source: SvgComponent, ariaLabel, ...boxProps } = props;
 
   const style = css`

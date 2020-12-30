@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, forwardRef } from "react";
 import { usePopper } from "react-popper";
 import styled from "styled-components";
 import { useTheme, Time } from "@gatsby-tv/utilities";
@@ -44,7 +44,7 @@ export interface TimelineProps {
 }
 
 export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
-  (props, ref) => {
+  (props: TimelineProps, ref) => {
     const theme = useTheme();
     const [reference, setReference] = useState<HTMLDivElement | null>(null);
     const [popper, setPopper] = useState<HTMLDivElement | null>(null);

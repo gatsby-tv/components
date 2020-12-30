@@ -11,7 +11,7 @@ export default {
   component: TextCaption,
 } as Meta;
 
-export const Example: Story<TextCaptionProps> = (args) => (
+export const Example: Story<TextCaptionProps> = () => (
   <AppProvider $theme="dark">
     <TextBox>
       <p>Example Text</p>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { css } from "styled-components";
 import type { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
@@ -17,7 +17,7 @@ export interface TooltipProps {
   $pointer?: boolean;
 }
 
-export function Tooltip(props: TooltipProps) {
+export function Tooltip(props: TooltipProps): React.ReactElement {
   const popper = useRef<HTMLDivElement>(null);
   const { styles, attributes } = usePopper(props.$for.current, popper.current, {
     placement: props.$placement,

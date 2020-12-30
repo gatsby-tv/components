@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
+import { ifExists } from "@gatsby-tv/utilities";
 
 import { cssProperty } from "@lib/styles/property";
 import { Box, BoxProps } from "@lib/components/Box";

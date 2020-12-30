@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { AppProvider } from "@lib/components/AppProvider";
@@ -13,20 +13,22 @@ export default {
   component: Stream,
 } as Meta;
 
-async function generator() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  return { src: "https://loremflickr.com/405/405" };
-}
+export const Example: Story<StreamProps> = () => {
+  const generator = useCallback(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    return { src: "https://loremflickr.com/405/405" };
+  }, []);
 
-export const Example: Story<StreamProps> = (args) => (
-  <AppProvider $theme="dark">
-    <Box $width="30rem" $height="30rem">
-      <Scroll>
-        <Box $marginBottom="2rem">
-          <Image src="https://loremflickr.com/405/405" />
-        </Box>
-        <Stream $source={Image} $generator={generator} $gap="2rem" />
-      </Scroll>
-    </Box>
-  </AppProvider>
-);
+  return (
+    <AppProvider $theme="dark">
+      <Box $width="30rem" $height="30rem">
+        <Scroll>
+          <Box $marginBottom="2rem">
+            <Image src="https://loremflickr.com/405/405" />
+          </Box>
+          <Stream $source={Image} $generator={generator} $gap="2rem" />
+        </Scroll>
+      </Box>
+    </AppProvider>
+  );
+};

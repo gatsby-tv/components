@@ -30,7 +30,7 @@ const contentStyle = css`
   background-color: ${(props) => props.theme.colors.background[2]};
 `;
 
-export const Example: Story<CollapsibleProps> = (args) => (
+export const Example: Story<CollapsibleProps> = () => (
   <AppProvider $theme="dark">
     <Box $width="42rem">
       <Collapsible css={labelStyle} $label="Click Me">

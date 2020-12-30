@@ -1,5 +1,4 @@
 import React from "react";
-import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { useTheme } from "@gatsby-tv/utilities";
 
@@ -19,7 +18,7 @@ const Template: Story<TextFieldProps> = (args) => (
   </AppProvider>
 );
 
-const ButtonMarkup: React.FC<{}> = () => {
+const ButtonMarkup: React.FC = () => {
   const theme = useTheme();
 
   return (

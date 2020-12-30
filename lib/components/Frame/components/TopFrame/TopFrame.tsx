@@ -7,7 +7,7 @@ export interface TopFrameProps {
   $topbar?: React.ReactNode;
 }
 
-export const TopFrame: React.FC<TopFrameProps> = (props) =>
+export const TopFrame: React.FC<TopFrameProps> = (props: TopFrameProps) =>
   props.$topbar ? (
     <Flex $column $fill>
       <Flex.Item as="nav" $shrink={0}>

@@ -9,25 +9,23 @@ import { TextSubheading } from "@lib/components/TextSubheading";
 export interface SectionProps {
   children?: React.ReactNode;
   className?: string;
-  $title?: React.ReactNode;
-  $flush?: boolean;
+  title?: React.ReactNode;
+  flush?: boolean;
 }
 
-const SectionBase: React.FC<SectionProps> = (props) => {
+const SectionBase: React.FC<SectionProps> = (props: SectionProps) => {
   const { column } = useSelection();
 
   return (
     <Flex
       as="ul"
       className={props.className}
-      data-flush={ifExists(props.$flush)}
+      data-flush={ifExists(props.flush)}
       $fill
       $column={ifExists(column)}
       $align="stretch"
     >
-      {column && props.$title && (
-        <TextSubheading>{props.$title}</TextSubheading>
-      )}
+      {column && props.title && <TextSubheading>{props.title}</TextSubheading>}
       {props.children}
     </Flex>
   );

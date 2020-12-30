@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ifExists } from "@gatsby-tv/utilities";
 
 import { useSwitch } from "@lib/utilities/switch";
@@ -11,7 +11,7 @@ export interface ItemProps {
   children?: React.ReactNode;
 }
 
-const ItemBase: React.FC<ItemProps> = (props) => {
+const ItemBase: React.FC<ItemProps> = (props: ItemProps) => {
   const { selection, onSelect } = useSwitch();
   const handleClick = () => onSelect(props.id);
 

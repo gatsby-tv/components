@@ -11,7 +11,7 @@ export interface ItemProps {
   className?: string;
 }
 
-const ItemBase: React.FC<ItemProps> = (props) => {
+const ItemBase: React.FC<ItemProps> = (props: ItemProps) => {
   const { selection, onSelect } = useSelection();
   const handleClick = () => onSelect(props.id);
 

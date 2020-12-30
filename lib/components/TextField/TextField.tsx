@@ -39,13 +39,12 @@ export interface TextFieldProps {
   pattern?: string;
   type?: string;
   role?: string;
-  onClear?: (id: string) => void;
   onChange?: (value: string, id: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
 }
 
-export function TextField(props: TextFieldProps) {
+export function TextField(props: TextFieldProps): React.ReactElement {
   const theme = useTheme();
   const id = useUniqueId(props.id ? `textfield-${props.id}` : "textfield");
 
@@ -61,11 +60,8 @@ export function TextField(props: TextFieldProps) {
     $align,
     $help,
     $error,
-    $clearButton,
-    $disabled,
     $focused,
     autoComplete,
-    onClear,
     onChange = () => undefined,
     ...inputProps
   } = props;

@@ -36,7 +36,7 @@ const wrapperStyle = css`
   background-color: ${(props) => props.theme.colors.background[4]};
 `;
 
-export const OneSection: Story<SelectionProps> = (args) => {
+export const OneSection: Story<SelectionProps> = () => {
   const items = ["one", "two", "three"];
   const [selection, select] = useSelect(items, "one");
 
@@ -66,7 +66,7 @@ export const OneSection: Story<SelectionProps> = (args) => {
   );
 };
 
-export const MultipleSections: Story<SelectionProps> = (args) => {
+export const MultipleSections: Story<SelectionProps> = () => {
   const items = ["one", "two", "three", "four", "five"];
   const [selection, select] = useSelect(items, "one");
 
@@ -79,7 +79,7 @@ export const MultipleSections: Story<SelectionProps> = (args) => {
           selection={selection}
           onSelect={select}
         >
-          <Selection.Section $title="first">
+          <Selection.Section title="first">
             <Selection.Item id="one">
               <TextBox>One</TextBox>
             </Selection.Item>
@@ -90,7 +90,7 @@ export const MultipleSections: Story<SelectionProps> = (args) => {
               <TextBox>Three</TextBox>
             </Selection.Item>
           </Selection.Section>
-          <Selection.Section $title="second">
+          <Selection.Section title="second">
             <Selection.Item id="four">
               <TextBox>Four</TextBox>
             </Selection.Item>
@@ -104,7 +104,7 @@ export const MultipleSections: Story<SelectionProps> = (args) => {
   );
 };
 
-export const Row: Story<SelectionProps> = (args) => {
+export const Row: Story<SelectionProps> = () => {
   const items = ["one", "two", "three"];
   const [selection, select] = useSelect(items, "one");
 
@@ -113,7 +113,7 @@ export const Row: Story<SelectionProps> = (args) => {
       <Box css={wrapperStyle} $width="20rem">
         <Selection
           css={selectionStyle}
-          $row
+          row
           selection={selection}
           onSelect={select}
         >

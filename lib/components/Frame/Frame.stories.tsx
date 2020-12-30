@@ -1,5 +1,4 @@
 import React from "react";
-import { css } from "styled-components";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { useTheme } from "@gatsby-tv/utilities";
 
@@ -52,7 +51,7 @@ const ContentMarkup = () => (
   </Box>
 );
 
-export const Example: Story<FrameProps> = (args) => (
+export const Example: Story<FrameProps> = () => (
   <AppProvider $theme="dark">
     <Frame $topbar={<TopbarMarkup />} $sidebar={<SidebarMarkup />}>
       <ContentMarkup />

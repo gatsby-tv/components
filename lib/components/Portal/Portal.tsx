@@ -7,23 +7,26 @@ export interface PortalProps {
   id?: string;
 }
 
-export function Portal(props: PortalProps) {
+export function Portal(props: PortalProps): React.ReactPortal | null {
   const baseId = useUniqueId("portal");
   const portal = useRef<HTMLElement | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const id = props.id ? `${props.id}-${baseId}` : baseId;
+    portal.current = document.getElementById(id);
 
-    portal.current = document.createElement("div");
-    portal.current.id = id;
-    document.body.appendChild(portal.current);
-    setMounted(true);
+    if (!portal.current) {
+      portal.current = document.createElement("div");
+      portal.current.id = id;
+      document.body.appendChild(portal.current);
+      setMounted(true);
+    }
 
     return () => {
       document.body.removeChild(portal.current as HTMLElement);
     };
-  }, []);
+  }, [props.id, baseId]);
 
   return (
     (portal.current &&

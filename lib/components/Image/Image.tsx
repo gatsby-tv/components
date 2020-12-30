@@ -12,7 +12,7 @@ export type ImageProps = {
   ariaLabel?: string;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
-export function Image(props: ImageProps) {
+export function Image(props: ImageProps): React.ReactElement {
   const {
     $aspectRatio = 1,
     $width,

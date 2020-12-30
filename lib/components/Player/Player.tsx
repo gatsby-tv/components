@@ -4,20 +4,15 @@ import React, {
   useEffect,
   useReducer,
   useRef,
-  CSSProperties,
 } from "react";
 import {
   Play,
   Pause,
   SkipForward,
   SkipBackward,
-  Expand,
-  Compress,
   Spinner,
 } from "@gatsby-tv/icons";
-import { css } from "styled-components";
 
-import { IconSource } from "@lib/types";
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
 import { Flex } from "@lib/components/Flex";
@@ -75,7 +70,7 @@ export interface PlayerProps {
   $toggleFullscreen?: () => void;
 }
 
-export function Player(props: PlayerProps) {
+export function Player(props: PlayerProps): React.ReactElement {
   const player = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const timeline = useRef<HTMLDivElement>(null);
@@ -222,27 +217,6 @@ export function Player(props: PlayerProps) {
     }
   );
 
-  useEffect(() => handleResize(), []);
-
-  useEffect(() => {
-    const id = setTimeout(() => setSignal(""), 700);
-    return () => clearTimeout(id);
-  }, [signal]);
-
-  useEffect(() => {
-    if (state.waiting) {
-      const id = setTimeout(() => setLoading(true), 200);
-      return () => clearTimeout(id);
-    } else {
-      setLoading(false);
-    }
-  }, [state.waiting]);
-
-  useEffect(() => {
-    const id = setInterval(() => dispatch({ type: "idle" }), 250);
-    return () => clearInterval(id);
-  }, []);
-
   const setSignal = useCallback((value) => {
     signalKey.current++;
     setSignalBase(value);
@@ -269,7 +243,7 @@ export function Player(props: PlayerProps) {
       video.current?.pause();
       setSignal("pause");
     }
-  }, [state.paused]);
+  }, [state.paused, setSignal]);
 
   const seekTo = useCallback((time) => {
     if (video.current) {
@@ -329,8 +303,29 @@ export function Player(props: PlayerProps) {
           return;
       }
     },
-    [state.paused, state.seeking]
+    [state.seeking, props, seekTo, setSignal, togglePlayback]
   );
+
+  useEffect(() => handleResize(), [handleResize]);
+
+  useEffect(() => {
+    const id = setTimeout(() => setSignal(""), 700);
+    return () => clearTimeout(id);
+  }, [signal, setSignal]);
+
+  useEffect(() => {
+    if (state.waiting) {
+      const id = setTimeout(() => setLoading(true), 200);
+      return () => clearTimeout(id);
+    } else {
+      setLoading(false);
+    }
+  }, [state.waiting]);
+
+  useEffect(() => {
+    const id = setInterval(() => dispatch({ type: "idle" }), 250);
+    return () => clearInterval(id);
+  }, []);
 
   const videoEvents = {
     onPause: useCallback(() => dispatch({ type: "pause" }), []),
@@ -346,28 +341,37 @@ export function Player(props: PlayerProps) {
         time: target.currentTime / target.duration,
       });
     }, []),
-    onProgress: useCallback((event) => {
-      const target = event.target as HTMLMediaElement;
-      const bufferIndex = findBufferIndex(event);
-      const progress = target.buffered.end(bufferIndex || 0);
-      dispatch({ type: "progress", progress: progress / target.duration });
-    }, []),
-    onSeeked: useCallback((event) => {
-      const target = event.target as HTMLMediaElement;
-      const bufferIndex = findBufferIndex(event);
-      const progress = target.buffered.end(bufferIndex || 0);
-      dispatch({ type: "seeked" });
-      dispatch({ type: "progress", progress: progress / target.duration });
-    }, []),
+    onProgress: useCallback(
+      (event) => {
+        const target = event.target as HTMLMediaElement;
+        const bufferIndex = findBufferIndex(event);
+        const progress = target.buffered.end(bufferIndex || 0);
+        dispatch({ type: "progress", progress: progress / target.duration });
+      },
+      [findBufferIndex]
+    ),
+    onSeeked: useCallback(
+      (event) => {
+        const target = event.target as HTMLMediaElement;
+        const bufferIndex = findBufferIndex(event);
+        const progress = target.buffered.end(bufferIndex || 0);
+        dispatch({ type: "seeked" });
+        dispatch({ type: "progress", progress: progress / target.duration });
+      },
+      [findBufferIndex]
+    ),
   };
 
   const timelineEvents = {
-    onPointerDown: useCallback((event) => {
-      event.preventDefault();
-      timeline.current?.setPointerCapture((event as any).pointerId);
-      const time = timelinePercent((event as any).clientX);
-      dispatch({ type: "scrub", time });
-    }, []),
+    onPointerDown: useCallback(
+      (event) => {
+        event.preventDefault();
+        timeline.current?.setPointerCapture((event as any).pointerId);
+        const time = timelinePercent((event as any).clientX);
+        dispatch({ type: "scrub", time });
+      },
+      [timelinePercent]
+    ),
     onPointerUp: useCallback(
       (event) => {
         if (video.current && state.scrubbing) {
@@ -378,12 +382,15 @@ export function Player(props: PlayerProps) {
           dispatch({ type: "noscrub" });
         }
       },
-      [state.scrubbing]
+      [state.scrubbing, seekTo, timelinePercent]
     ),
-    onPointerEnter: useCallback((event) => {
-      const position = timelinePercent((event as any).clientX);
-      dispatch({ type: "hover", position });
-    }, []),
+    onPointerEnter: useCallback(
+      (event) => {
+        const position = timelinePercent((event as any).clientX);
+        dispatch({ type: "hover", position });
+      },
+      [timelinePercent]
+    ),
     onPointerMove: useCallback(
       (event) => {
         const position = timelinePercent((event as any).clientX);
@@ -392,7 +399,7 @@ export function Player(props: PlayerProps) {
           dispatch({ type: "scrub", time: position });
         }
       },
-      [state.scrubbing]
+      [state.scrubbing, timelinePercent]
     ),
     onPointerLeave: useCallback(() => {
       if (!state.scrubbing) {
@@ -406,7 +413,7 @@ export function Player(props: PlayerProps) {
       if (!state.scrubbing) {
         togglePlayback();
       }
-    }, [state.scrubbing, state.paused]),
+    }, [state.scrubbing, togglePlayback]),
     onPointerDown: useCallback(() => dispatch({ type: "activate" }), []),
     onPointerMove: useCallback(() => dispatch({ type: "activate" }), []),
     onPointerLeave: useCallback(() => dispatch({ type: "deactivate" }), []),

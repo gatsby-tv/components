@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import styled, { css, CSSProp } from "styled-components";
+import styled from "styled-components";
 
 export interface LinkProps {
   href?: string;
@@ -16,20 +16,24 @@ const LinkBase = styled.a`
   outline: none;
 `;
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
-  const target = props.$external ? "_blank" : undefined;
-  const rel = props.$external ? "noopener noreferrer" : undefined;
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  (props: LinkProps, ref) => {
+    const target = props.$external ? "_blank" : undefined;
+    const rel = props.$external ? "noopener noreferrer" : undefined;
 
-  return (
-    <LinkBase
-      ref={ref as React.RefObject<HTMLAnchorElement>}
-      target={target}
-      rel={rel}
-      href={props.href}
-      onClick={props.onClick}
-      className={props.className}
-    >
-      {props.children}
-    </LinkBase>
-  );
-});
+    return (
+      <LinkBase
+        ref={ref as React.RefObject<HTMLAnchorElement>}
+        target={target}
+        rel={rel}
+        href={props.href}
+        onClick={props.onClick}
+        className={props.className}
+      >
+        {props.children}
+      </LinkBase>
+    );
+  }
+);
+
+Link.displayName = "Link";

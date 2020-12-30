@@ -34,7 +34,7 @@ export interface ListProps extends ListBaseProps {
   children?: React.ReactNode;
 }
 
-export const List: React.FC<ListProps> = (props) => (
+export const List: React.FC<ListProps> = (props: ListProps) => (
   <ListBase as="span" $align="center" {...props}>
     {props.children}
   </ListBase>

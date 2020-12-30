@@ -2,7 +2,6 @@ import React from "react";
 import { css } from "styled-components";
 
 import { SwitchContext } from "@lib/utilities/switch";
-import { Flex } from "@lib/components/Flex";
 import { Connected } from "@lib/components/Connected";
 
 import { Item, ItemProps } from "./components";

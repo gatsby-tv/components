@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { css } from "styled-components";
-import { useTheme } from "@gatsby-tv/utilities";
 
 import { EventHandler } from "@lib/types";
 import { Card } from "@lib/components/Card";
@@ -14,9 +13,7 @@ export interface ModalProps {
   onExit?: () => void;
 }
 
-export function Modal(props: ModalProps) {
-  const theme = useTheme();
-
+export function Modal(props: ModalProps): React.ReactElement {
   const handleClick = () => props.onExit && props.onExit();
 
   const style = css`

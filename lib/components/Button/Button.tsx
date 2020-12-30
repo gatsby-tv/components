@@ -76,7 +76,7 @@ const ButtonBase = styled.button<ButtonProps>`
   ${(props) => ifNotExists(props.$nohighlight, cssHighlight(props.$circular))}
 `;
 
-export function Button(props: ButtonProps) {
+export function Button(props: ButtonProps): React.ReactElement {
   const key = useRef(0);
   const [active, setActive] = useState(false);
   const [held, setHeld] = useState(false);

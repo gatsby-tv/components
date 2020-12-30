@@ -1,6 +1,5 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { css } from "styled-components";
 import { useToggle } from "@gatsby-tv/utilities";
 
 import { AppProvider } from "@lib/components/AppProvider";
@@ -13,7 +12,7 @@ export default {
   component: Fireworks,
 } as Meta;
 
-export const Infinite: Story<FireworksProps> = (args) => {
+export const Infinite: Story<FireworksProps> = () => {
   const origin = () => ({
     x: (Math.random() * window.innerWidth * 2) / 3 + window.innerWidth / 6,
     y: window.innerHeight,
@@ -26,7 +25,7 @@ export const Infinite: Story<FireworksProps> = (args) => {
   );
 };
 
-export const WithButton: Story<FireworksProps> = (args) => {
+export const WithButton: Story<FireworksProps> = () => {
   const { toggle, flipToggle } = useToggle();
   const buttonMarkup = <FormButton onClick={flipToggle}>Fire</FormButton>;
   const origin = {

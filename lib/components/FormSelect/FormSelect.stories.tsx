@@ -20,7 +20,7 @@ export default {
   component: FormSelect,
 } as Meta;
 
-export const Example: Story<FormSelectProps> = (args) => {
+export const Example: Story<FormSelectProps> = () => {
   const [selection, setSelection] = useState("one");
   const onChange = useCallback((value) => setSelection(value), []);
   const options = [

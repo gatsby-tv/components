@@ -1,7 +1,6 @@
 import React from "react";
 import { css } from "styled-components";
 import { Exclamation } from "@gatsby-tv/icons";
-import { useTheme } from "@gatsby-tv/utilities";
 
 import {
   cssTextBreakWord,
@@ -24,9 +23,8 @@ export interface LabelledProps {
   $hidden?: boolean;
 }
 
-export function Labelled(props: LabelledProps) {
+export function Labelled(props: LabelledProps): React.ReactElement {
   const { children, id, $label, $help, $error, $hidden } = props;
-  const theme = useTheme();
 
   const helpStyle = css`
     margin-top: ${(props) => props.theme.spacing.extraTight};
@@ -44,7 +42,7 @@ export function Labelled(props: LabelledProps) {
 
   const labelStyle = css`
     margin-bottom: ${(props) => props.theme.spacing.extraTight};
-    ${(props) => ($hidden ? cssVisuallyHidden : "")}
+    ${() => ($hidden ? cssVisuallyHidden : "")}
     ${cssTextBreakWord}
     ${cssTextLabel}
   `;

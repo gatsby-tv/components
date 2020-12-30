@@ -7,7 +7,7 @@ import { Box, BoxProps } from "@lib/components/Box";
 export type ItemProps = { className?: string } & BoxProps;
 
 const ItemBase: React.FC<ItemProps> = (props) => {
-  const column = useConnected();
+  const { column } = useConnected();
 
   const style = css`
     flex: 1 1 auto;

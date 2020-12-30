@@ -3,7 +3,6 @@ import { css } from "styled-components";
 import { UpDownTick } from "@gatsby-tv/icons";
 import { ifExists, useUniqueId, useTheme } from "@gatsby-tv/utilities";
 
-import { cssProperty } from "@lib/styles/property";
 import { cssTextInput } from "@lib/styles/typography";
 import { cssInputBorder } from "@lib/styles/borders";
 import { Box } from "@lib/components/Box";
@@ -71,7 +70,6 @@ export interface FormSelectProps {
   $label: string;
   $labelHidden?: boolean;
   $options?: (FormSelectOption | FormSelectGroup)[];
-  $name?: string;
   $value?: string;
   $focused?: boolean;
   $help?: string;
@@ -81,7 +79,7 @@ export interface FormSelectProps {
   onBlur?: () => void;
 }
 
-export function FormSelect(props: FormSelectProps) {
+export function FormSelect(props: FormSelectProps): React.ReactElement {
   const theme = useTheme();
   const id = useUniqueId(props.id ? `select-${props.id}` : "select");
 
@@ -90,9 +88,7 @@ export function FormSelect(props: FormSelectProps) {
     $label,
     $labelHidden,
     $options = [],
-    $name,
     $value,
-    $focused,
     $help,
     $error,
     onChange = () => undefined,

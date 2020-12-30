@@ -129,10 +129,14 @@ export interface FireworksProps {
   $interval?: number;
 }
 
-export function Fireworks(props: FireworksProps) {
+export function Fireworks(props: FireworksProps): React.ReactElement {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const [rockets, setRockets] = useState<ParticleType[]>([]);
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const [particles, setParticles] = useState<ParticleType[]>([]);
+
+  const { $origin, $toggle, $count, $interval } = props;
 
   const handleResize = useCallback(() => {
     if (!canvas) return;
@@ -184,18 +188,18 @@ export function Fireworks(props: FireworksProps) {
     return () => cancelAnimationFrame(id);
   }, [canvas]);
 
-  useEffect(() => handleResize(), [canvas]);
-  useEffect(() => draw(), [canvas]);
+  useEffect(() => handleResize(), [canvas, handleResize]);
+  useEffect(() => draw(), [canvas, draw]);
 
   useEffect(() => {
-    if (props.$toggle === null) return;
+    if ($toggle === null) return;
 
     const rocketGenerator = () => {
       let origin;
-      if (typeof props.$origin === "function") {
-        origin = props.$origin();
+      if (typeof $origin === "function") {
+        origin = $origin();
       } else {
-        origin = props.$origin;
+        origin = $origin;
       }
 
       return {
@@ -210,16 +214,16 @@ export function Fireworks(props: FireworksProps) {
 
     let iterations = 0;
     const id = setInterval(() => {
-      if (iterations < (props.$count ?? 3)) {
+      if (iterations < ($count ?? 3)) {
         iterations += 1;
         setRockets((current) => [...current, rocketGenerator()]);
       } else {
         clearInterval(id);
       }
-    }, props.$interval ?? 500);
+    }, $interval ?? 500);
 
     return () => clearInterval(id);
-  }, [props.$toggle]);
+  }, [$origin, $count, $interval, $toggle]);
 
   return (
     <>

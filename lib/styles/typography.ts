@@ -1,5 +1,4 @@
-import { css } from "styled-components";
-import { useTheme } from "@gatsby-tv/utilities";
+import { css, CSSProp, DefaultTheme } from "styled-components";
 
 import { DisplaySize, MetaSize } from "@lib/types";
 
@@ -26,7 +25,7 @@ export const cssTextTruncate = css`
   text-overflow: ellipsis;
 `;
 
-export const cssTextLineClamp = (lines: number) => css`
+export const cssTextLineClamp = (lines: number): CSSProp => css`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: ${lines};
@@ -38,7 +37,7 @@ export const cssTextBody = css`
   font-weight: 400;
 `;
 
-export const cssTextDisplay = (size: DisplaySize) => css`
+export const cssTextDisplay = (size: DisplaySize): CSSProp => css`
   font-size: ${(props) =>
     props.theme.font.size[size === "small" ? "displaySmall" : "displayLarge"]};
   line-height: ${(props) =>
@@ -48,9 +47,11 @@ export const cssTextDisplay = (size: DisplaySize) => css`
   font-weight: 700;
 `;
 
-export const cssTextMeta = (size: MetaSize, bold?: boolean) => {
-  const theme = useTheme();
-
+export const cssTextMeta = (
+  theme: DefaultTheme,
+  size: MetaSize,
+  bold?: boolean
+): CSSProp => {
   let fontSize: string;
   let lineHeight: string;
   let weight: number;

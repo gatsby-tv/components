@@ -1,7 +1,13 @@
 import { useContext } from "react";
 
-import { ConnectedContext } from "./context";
+import { ConnectedContext, ConnectedContextType } from "./context";
 
-export const useConnected = () => {
-  return useContext(ConnectedContext);
-};
+export function useConnected(): ConnectedContextType {
+  const context = useContext(ConnectedContext);
+
+  if (!context) {
+    throw Error("No Connected context provided for component.");
+  }
+
+  return context;
+}

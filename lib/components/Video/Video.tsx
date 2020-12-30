@@ -15,3 +15,5 @@ export const Video = forwardRef<HTMLVideoElement, VideoProps>((props, ref) => {
     />
   );
 });
+
+Video.displayName = "Video";

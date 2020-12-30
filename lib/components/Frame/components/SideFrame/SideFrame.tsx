@@ -7,7 +7,7 @@ export interface SideFrameProps {
   $sidebar?: React.ReactNode;
 }
 
-export const SideFrame: React.FC<SideFrameProps> = (props) =>
+export const SideFrame: React.FC<SideFrameProps> = (props: SideFrameProps) =>
   props.$sidebar ? (
     <Flex $fill>
       <Flex.Item $shrink={0}>{props.$sidebar}</Flex.Item>
