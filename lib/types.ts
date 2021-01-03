@@ -19,11 +19,18 @@ export type FontSize =
   | "subheading"
   | "extraSmall"
   | "small"
+  | "baseSmall"
   | "base"
+  | "baseLarge"
   | "large"
   | "extraLarge"
+  | "metaSmall"
+  | "metaMedium"
+  | "metaLarge"
   | "displaySmall"
   | "displayLarge";
+
+export type FontStretch = "condensed" | "semi-condensed";
 
 export type Space =
   | "none"
@@ -31,6 +38,7 @@ export type Space =
   | "tight"
   | "baseTight"
   | "base"
+  | "baseLoose"
   | "loose"
   | "extraLoose";
 

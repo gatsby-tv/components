@@ -20,7 +20,7 @@ export const TextButton: Story<ButtonProps> = () => (
 
 export const IconButton: Story<ButtonProps> = () => (
   <AppProvider $theme="dark">
-    <Button $circular>
+    <Button $animate $rounded={"100%"}>
       <Icon $source={Pause} $width="20px" />
     </Button>
   </AppProvider>

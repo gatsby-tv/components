@@ -6,7 +6,7 @@ import { TextBox } from "@lib/components/TextBox";
 import { Tooltip } from "@lib/components/Tooltip";
 
 export interface ItemTooltipProps {
-  children?: string | [string];
+  children?: React.ReactNode;
   $for: React.RefObject<HTMLElement>;
   $active?: boolean;
 }

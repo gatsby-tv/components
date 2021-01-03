@@ -76,11 +76,12 @@ export function Stream<T>(
   }, []);
 
   useAsync(
-    useCallback(async () => {
+    async () => {
       if (isNaN(state.index)) return;
       return [await $generator(state.index)].flat() as T[];
-    }, [$generator, state.index]),
-    useCallback((items) => items && dispatch({ type: "sync", items }), [])
+    },
+    (items) => dispatch({ type: "sync", items }),
+    [$generator, state.index]
   );
 
   useEffect(() => {
@@ -97,15 +98,19 @@ export function Stream<T>(
     dispatch({ type: "fetch" });
   }, [addScrollListener, handleScroll]);
 
-  const children = useMemo(() => state.items.map((item, index) => (
-    <SourceComponent key={index} {...item} />
-  )), [state.items, SourceComponent]);
-
   /*
   const children = state.items.map((item, index) => (
     <SourceComponent key={index} {...item} />
   ));
-   */
+  */
+
+  const children = useMemo(
+    () =>
+      state.items.map((item, index) => (
+        <SourceComponent key={index} {...item} />
+      )),
+    [state.items, SourceComponent]
+  );
 
   const loadingMarkup = waiting ? (
     <Flex $fill $center>

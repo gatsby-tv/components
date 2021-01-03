@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  forwardRef,
+} from "react";
 import styled from "styled-components";
 
 import { MetaSize } from "@lib/types";
@@ -33,34 +39,41 @@ export interface LinkProps extends UnstyledLinkProps {
   $bold?: boolean;
 }
 
-export const Link: React.FC<LinkProps> = (props: LinkProps) => {
-  const text = useRef<HTMLParagraphElement>(null);
-  const [truncated, setTruncated] = useState(false);
-  const [active, setActive] = useState(false);
-  const { $size, $bold, ...rest } = props;
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  (props: LinkProps, ref) => {
+    const text = useRef<HTMLParagraphElement>(null);
+    const [truncated, setTruncated] = useState(false);
+    const [active, setActive] = useState(false);
+    const { $size, $bold, ...rest } = props;
 
-  const handleResize = useCallback(() => {
-    if (!text.current) return;
-    setTruncated(text.current.offsetWidth < text.current.scrollWidth);
-  }, []);
+    const handleResize = useCallback(() => {
+      if (!text.current) return;
+      setTruncated(text.current.offsetWidth < text.current.scrollWidth);
+    }, []);
 
-  useEffect(() => handleResize(), [handleResize]);
+    useEffect(() => handleResize(), [handleResize]);
 
-  return (
-    <>
-      <LinkBase
-        ref={text}
-        $size={$size}
-        $bold={$bold}
-        onMouseEnter={() => setActive(true)}
-        onMouseLeave={() => setActive(false)}
-      >
-        <UnstyledLink {...rest} />
-      </LinkBase>
-      <ItemTooltip $for={text} $active={truncated && active}>
-        {props.children}
-      </ItemTooltip>
-      <EventListener $event="resize" $handler={handleResize} />
-    </>
-  );
-};
+    return (
+      <>
+        <LinkBase
+          ref={text}
+          $size={$size}
+          $bold={$bold}
+          onMouseEnter={() => setActive(true)}
+          onMouseLeave={() => setActive(false)}
+        >
+          <UnstyledLink
+            ref={ref as React.RefObject<HTMLAnchorElement>}
+            {...rest}
+          />
+        </LinkBase>
+        <ItemTooltip $for={text} $active={truncated && active}>
+          {props.children}
+        </ItemTooltip>
+        <EventListener $event="resize" $handler={handleResize} />
+      </>
+    );
+  }
+);
+
+Link.displayName = "Link";

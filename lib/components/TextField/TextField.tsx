@@ -9,9 +9,6 @@ import { Flex } from "@lib/components/Flex";
 import { Labelled } from "@lib/components/Labelled";
 import { Connected } from "@lib/components/Connected";
 
-// workaround: see https://github.com/styled-components/babel-plugin-styled-components/issues/240
-const FlexItem = Flex.Item;
-
 export interface TextFieldProps {
   id?: string;
   className?: string;
@@ -82,15 +79,15 @@ export function TextField(props: TextFieldProps): React.ReactElement {
   `;
 
   const prefixMarkup = $prefix ? (
-    <FlexItem css={placeholderMarkup} $shrink={0}>
+    <Flex.Item css={placeholderMarkup} $shrink={0}>
       {$prefix}
-    </FlexItem>
+    </Flex.Item>
   ) : null;
 
   const suffixMarkup = $suffix ? (
-    <FlexItem css={placeholderMarkup} $shrink={0}>
+    <Flex.Item css={placeholderMarkup} $shrink={0}>
       {$suffix}
-    </FlexItem>
+    </Flex.Item>
   ) : null;
 
   const inputStyle = css`

@@ -26,7 +26,7 @@ export const Example: Story<StreamProps> = () => {
           <Box $marginBottom="2rem">
             <Image src="https://loremflickr.com/405/405" />
           </Box>
-          <Stream $source={Image} $generator={generator} $gap="2rem" />
+          <Stream $source={Image} $generator={generator} $column $gap="2rem" />
         </Scroll>
       </Box>
     </AppProvider>

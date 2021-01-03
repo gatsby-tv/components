@@ -14,14 +14,11 @@ export function Portal(props: PortalProps): React.ReactPortal | null {
 
   useEffect(() => {
     const id = props.id ? `${props.id}-${baseId}` : baseId;
-    portal.current = document.getElementById(id);
 
-    if (!portal.current) {
-      portal.current = document.createElement("div");
-      portal.current.id = id;
-      document.body.appendChild(portal.current);
-      setMounted(true);
-    }
+    portal.current = document.createElement("div");
+    portal.current.id = id;
+    document.body.appendChild(portal.current);
+    setMounted(true);
 
     return () => {
       document.body.removeChild(portal.current as HTMLElement);

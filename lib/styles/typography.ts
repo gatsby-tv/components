@@ -32,6 +32,7 @@ export const cssTextLineClamp = (lines: number): CSSProp => css`
 `;
 
 export const cssTextBody = css`
+  white-space: pre-line;
   font-size: ${(props) => props.theme.font.size.base};
   line-height: ${(props) => props.theme.font.height.base};
   font-weight: 400;

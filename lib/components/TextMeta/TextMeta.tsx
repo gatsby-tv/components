@@ -14,7 +14,7 @@ export type { ListProps as TextMetaListProps };
 export type { LinkProps as TextMetaLinkProps };
 
 export interface TextMetaProps extends ItemProps {
-  children?: string | [string];
+  children?: React.ReactNode;
   $tooltip?: boolean;
 }
 

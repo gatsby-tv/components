@@ -37,10 +37,11 @@ export interface TimelineProps {
   $duration: number;
   $active?: boolean;
   onClick?: EventHandler;
-  onMouseDown?: EventHandler;
-  onMouseUp?: EventHandler;
-  onMouseEnter?: EventHandler;
-  onMouseLeave?: EventHandler;
+  onPointerDown?: EventHandler;
+  onPointerUp?: EventHandler;
+  onPointerEnter?: EventHandler;
+  onPointerMove?: EventHandler;
+  onPointerLeave?: EventHandler;
 }
 
 export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(

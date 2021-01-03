@@ -18,7 +18,7 @@ export interface ItemProps {
   $subdued?: boolean;
 }
 
-export const Item = styled.p<ItemProps>`
+export const Item = styled.span<ItemProps>`
   ${cssTextBreakWord}
   ${cssTextTruncate}
   ${(props) => cssProperty("white-space", ifNotExists(props.$clamp, "nowrap"))}
