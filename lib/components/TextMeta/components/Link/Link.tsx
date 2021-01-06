@@ -16,7 +16,6 @@ import {
 } from "@lib/components/Link";
 
 import { Item } from "../Item";
-import { ItemTooltip } from "../ItemTooltip";
 
 interface LinkBaseProps {
   $size?: MetaSize;
@@ -35,6 +34,8 @@ const LinkBase = styled(Item)<LinkBaseProps>`
 
 export interface LinkProps extends UnstyledLinkProps {
   children?: string | [string];
+  href?: string;
+  $external?: boolean;
   $size?: MetaSize;
   $bold?: boolean;
 }
@@ -67,9 +68,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
             {...rest}
           />
         </LinkBase>
-        <ItemTooltip $for={text} $active={truncated && active}>
-          {props.children}
-        </ItemTooltip>
         <EventListener $event="resize" $handler={handleResize} />
       </>
     );

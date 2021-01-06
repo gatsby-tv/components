@@ -31,6 +31,7 @@ export type FontSize =
   | "displayLarge";
 
 export type FontStretch = "condensed" | "semi-condensed";
+export type FontWeight = "normal" | "semi-bold" | "bold";
 
 export type Space =
   | "none"

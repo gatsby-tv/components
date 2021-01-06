@@ -6,7 +6,7 @@ import React, {
   useMemo,
 } from "react";
 import { Spinner } from "@gatsby-tv/icons";
-import { useScroll, useAsync } from "@gatsby-tv/utilities";
+import { useScroll, useAsync, useTheme } from "@gatsby-tv/utilities";
 
 import { Flex, FlexProps } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
@@ -45,6 +45,7 @@ export function Stream<T>(
   } = props;
   const [waiting, setWaiting] = useState(false);
   const addScrollListener = useScroll();
+  const theme = useTheme();
 
   const [state, dispatch] = useReducer(
     (state: StreamState<T>, action: StreamAction<T>) => {
@@ -98,12 +99,6 @@ export function Stream<T>(
     dispatch({ type: "fetch" });
   }, [addScrollListener, handleScroll]);
 
-  /*
-  const children = state.items.map((item, index) => (
-    <SourceComponent key={index} {...item} />
-  ));
-  */
-
   const children = useMemo(
     () =>
       state.items.map((item, index) => (
@@ -114,7 +109,7 @@ export function Stream<T>(
 
   const loadingMarkup = waiting ? (
     <Flex $fill $center>
-      <Icon $source={Spinner} $width="44px" />
+      <Icon $source={Spinner} $width={theme.avatar.medium} />
     </Flex>
   ) : null;
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { Size } from "@lib/types";
 import { Box } from "@lib/components/Box";
@@ -24,6 +24,8 @@ export function Image(props: ImageProps): React.ReactElement {
   const [loading, setLoading] = useState(true);
 
   const handleLoad = useCallback(() => setLoading(false), []);
+
+  useEffect(() => setLoading(true), [imgProps.src]);
 
   return (
     <Viewport

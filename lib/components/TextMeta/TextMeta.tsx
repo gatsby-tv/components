@@ -7,7 +7,6 @@ import {
   ItemProps,
   Link,
   LinkProps,
-  ItemTooltip,
 } from "./components";
 
 export type { ListProps as TextMetaListProps };
@@ -22,27 +21,18 @@ function TextMetaBase(props: TextMetaProps) {
   const text = useRef<HTMLParagraphElement>(null);
   const [active, setActive] = useState(false);
 
-  const tooltipMarkup = props.$tooltip && (
-    <ItemTooltip $for={text} $active={active}>
-      {props.children}
-    </ItemTooltip>
-  );
-
   return (
-    <>
-      <Item
-        ref={text}
-        $size={props.$size}
-        $clamp={props.$clamp}
-        $bold={props.$bold}
-        $subdued={props.$subdued}
-        onMouseEnter={() => setActive(true)}
-        onMouseLeave={() => setActive(false)}
-      >
-        {props.children}
-      </Item>
-      {tooltipMarkup}
-    </>
+    <Item
+      ref={text}
+      $size={props.$size}
+      $clamp={props.$clamp}
+      $bold={props.$bold}
+      $subdued={props.$subdued}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+    >
+      {props.children}
+    </Item>
   );
 }
 

@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useState,
   useEffect,
-  useLayoutEffect,
   useReducer,
   useRef,
   forwardRef,
@@ -19,6 +18,7 @@ import { useForwardedRef } from "@gatsby-tv/utilities";
 
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
+import { Button } from "@lib/components/Button";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { EventListener } from "@lib/components/EventListener";
@@ -26,7 +26,7 @@ import { Viewport } from "@lib/components/Viewport";
 import { Video, VideoProps } from "@lib/components/Video";
 import { cssCursorVisibility } from "@lib/styles/cursor";
 
-import { Shading, Signal, Timeline } from "./components";
+import { Controls, Shading, Signal, Timeline } from "./components";
 
 interface Dimensions {
   width: number;
@@ -229,16 +229,16 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
     }, []);
 
     const findBufferIndex = useCallback((event) => {
-      let bufferIndex;
+      let index;
       let delta = Infinity;
       for (let i = 0; i < event.target.buffered.length; i++) {
         const x = event.target.buffered.end(i) - event.target.currentTime;
         if (x > 0 && x < delta) {
-          bufferIndex = i;
+          index = i;
           delta = x;
         }
       }
-      return bufferIndex;
+      return index;
     }, []);
 
     const togglePlayback = useCallback(() => {
@@ -310,7 +310,8 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       [state.seeking, props, seekTo, setSignal, togglePlayback]
     );
 
-    useLayoutEffect(() => {
+    // Consider switching to useLayoutEffect eventually.
+    useEffect(() => {
       if (player.current) {
         const rect = player.current.getBoundingClientRect();
         setDimensions({ width: rect.width, height: rect.height });
@@ -353,11 +354,9 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       onProgress: useCallback(
         (event) => {
           const target = event.target as HTMLMediaElement;
-          const bufferIndex = findBufferIndex(event);
+          const index = findBufferIndex(event);
           const progress =
-            bufferIndex !== target.buffered.length
-              ? target.buffered.end(bufferIndex || 0)
-              : 0;
+            (index !== undefined && target.buffered.end(index)) || 0;
           dispatch({ type: "progress", progress: progress / target.duration });
         },
         [findBufferIndex]
@@ -365,8 +364,9 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       onSeeked: useCallback(
         (event) => {
           const target = event.target as HTMLMediaElement;
-          const bufferIndex = findBufferIndex(event);
-          const progress = target.buffered.end(bufferIndex || 0);
+          const index = findBufferIndex(event);
+          const progress =
+            (index !== undefined && target.buffered.end(index)) || 0;
           dispatch({ type: "seeked" });
           dispatch({ type: "progress", progress: progress / target.duration });
         },
@@ -481,7 +481,7 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
     ) : null;
 
     const timelineMarkup = (
-      <Box $absolute $left="20px" $right="20px" $bottom="20px">
+      <Box $absolute $left="20px" $right="20px" $bottom="40px">
         <Timeline
           ref={timeline}
           $time={state.time}
@@ -490,6 +490,25 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
           $active={state.hovering}
           $duration={video.current?.duration ?? 0}
           {...timelineEvents}
+        />
+      </Box>
+    );
+
+    const controlsMarkup = (
+      <Box
+        $absolute
+        $left="20px"
+        $right="20px"
+        $bottom="0px"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <Controls
+          $paused={state.paused}
+          $fullscreen={props.$fullscreen}
+          $position={state.time}
+          $duration={video.current?.duration ?? 0}
+          $togglePlayback={togglePlayback}
+          $toggleFullscreen={props.$toggleFullscreen}
         />
       </Box>
     );
@@ -506,6 +525,7 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
         >
           <Box $absolute $fill>
             <Shading $fill />
+            {controlsMarkup}
             {timelineMarkup}
           </Box>
         </Activatable>
