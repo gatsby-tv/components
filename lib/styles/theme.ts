@@ -34,8 +34,8 @@ export const DarkTheme: DefaultTheme = {
     size: {
       heading: "17px",
       subheading: "13px",
-      extraSmall: "8px",
-      small: "11px",
+      extraSmall: "9px",
+      small: "12px",
       baseSmall: "14px",
       base: "15px",
       baseLarge: "16px",
@@ -77,7 +77,7 @@ export const DarkTheme: DefaultTheme = {
     extraSmall: "32px",
     small: "36px",
     medium: "44px",
-    large: "60px",
+    large: "52px",
     extraLarge: "72px",
   },
   border: {

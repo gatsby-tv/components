@@ -29,29 +29,29 @@ type StreamState<T> = {
 };
 
 export interface StreamProps<T> {
-  $source: React.FC<T>;
-  $generator: (index: number) => T | T[];
-  $max?: number;
+  component: React.FC<T>;
+  generator: (index: number) => T | T[];
+  max?: number;
 }
 
 export function Stream<T>(
   props: StreamProps<T> & FlexProps
 ): React.ReactElement {
   const {
-    $source: SourceComponent,
-    $generator,
-    $max = Infinity,
+    component: SourceComponent,
+    generator,
+    max = Infinity,
     ...flexProps
   } = props;
   const [waiting, setWaiting] = useState(false);
-  const addScrollListener = useScroll();
+  const [addScrollListener, removeScrollListener] = useScroll();
   const theme = useTheme();
 
   const [state, dispatch] = useReducer(
     (state: StreamState<T>, action: StreamAction<T>) => {
       switch (action.type) {
         case "fetch":
-          return state.loading || (state.index + 1 || 0) >= $max
+          return state.loading || (state.index + 1 || 0) >= max
             ? state
             : { ...state, index: state.index + 1 || 0, loading: true };
 
@@ -79,10 +79,10 @@ export function Stream<T>(
   useAsync(
     async () => {
       if (isNaN(state.index)) return;
-      return [await $generator(state.index)].flat() as T[];
+      return [await generator(state.index)].flat() as T[];
     },
     (items) => dispatch({ type: "sync", items }),
-    [$generator, state.index]
+    [generator, state.index]
   );
 
   useEffect(() => {
@@ -97,6 +97,7 @@ export function Stream<T>(
   useEffect(() => {
     addScrollListener(handleScroll);
     dispatch({ type: "fetch" });
+    return () => removeScrollListener(handleScroll);
   }, [addScrollListener, handleScroll]);
 
   const children = useMemo(
@@ -108,8 +109,8 @@ export function Stream<T>(
   );
 
   const loadingMarkup = waiting ? (
-    <Flex $fill $center>
-      <Icon $source={Spinner} $width={theme.avatar.medium} />
+    <Flex expand center>
+      <Icon src={Spinner} w={theme.avatar.medium} />
     </Flex>
   ) : null;
 

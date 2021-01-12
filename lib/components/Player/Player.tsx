@@ -69,9 +69,9 @@ interface PlayerState {
 
 export interface PlayerProps {
   children?: React.ReactNode;
-  $video: VideoProps;
-  $fullscreen?: boolean;
-  $toggleFullscreen?: () => void;
+  video: VideoProps;
+  fullscreen?: boolean;
+  toggleFullscreen?: () => void;
 }
 
 export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
@@ -274,7 +274,7 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
 
     const handleKeydown = useCallback(
       (event) => {
-        const { $toggleFullscreen = () => undefined } = props;
+        const { toggleFullscreen = () => undefined } = props;
 
         switch ((event as any).key) {
           case " ":
@@ -284,7 +284,7 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
 
           case "f":
           case "F":
-            $toggleFullscreen();
+            toggleFullscreen();
             return;
 
           case "k":
@@ -437,18 +437,18 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
         case "play":
           return (
             <Box style={{ transform: "translateX(2px)" }}>
-              <Icon $source={Play} $padding="4px" />
+              <Icon src={Play} padding="4px" />
             </Box>
           );
 
         case "pause":
-          return <Icon $source={Pause} $padding="4px" />;
+          return <Icon src={Pause} padding="4px" />;
 
         case "skipBackward":
-          return <Icon $source={SkipBackward} />;
+          return <Icon src={SkipBackward} />;
 
         case "skipForward":
-          return <Icon $source={SkipForward} />;
+          return <Icon src={SkipForward} />;
 
         default:
           return null;
@@ -456,9 +456,9 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
     };
 
     const signalMarkup = signal ? (
-      <Box key={signalKey.current} $absolute $fill>
-        <Flex $fill $center>
-          <Signal $size="52px" $padding="32px" $bg="black" $fg="white">
+      <Box key={signalKey.current} absolute expand>
+        <Flex expand center>
+          <Signal w="52px" padding="32px" bg="black" fg="white">
             {iconMarkup()}
           </Signal>
         </Flex>
@@ -466,29 +466,29 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
     ) : null;
 
     const loadingMarkup = loading ? (
-      <Box $absolute $fill>
-        <Flex $fill $center>
+      <Box absolute expand>
+        <Flex center expand>
           <Box
             style={{ transform: "rotate(-65deg)" }}
-            $width="116px"
-            $height="116px"
-            $rounded={1}
+            w="116px"
+            h="116px"
+            rounded={1}
           >
-            <Icon $source={Spinner} />
+            <Icon src={Spinner} />
           </Box>
         </Flex>
       </Box>
     ) : null;
 
     const timelineMarkup = (
-      <Box $absolute $left="20px" $right="20px" $bottom="40px">
+      <Box absolute left="20px" right="20px" bottom="40px">
         <Timeline
           ref={timeline}
-          $time={state.time}
-          $progress={state.progress}
-          $position={state.hover}
-          $active={state.hovering}
-          $duration={video.current?.duration ?? 0}
+          time={state.time}
+          progress={state.progress}
+          position={state.hover}
+          active={state.hovering}
+          duration={video.current?.duration ?? 0}
           {...timelineEvents}
         />
       </Box>
@@ -496,19 +496,19 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
 
     const controlsMarkup = (
       <Box
-        $absolute
-        $left="20px"
-        $right="20px"
-        $bottom="0px"
+        absolute
+        left="20px"
+        right="20px"
+        bottom="0px"
         onClick={(event) => event.stopPropagation()}
       >
         <Controls
-          $paused={state.paused}
-          $fullscreen={props.$fullscreen}
-          $position={state.time}
-          $duration={video.current?.duration ?? 0}
-          $togglePlayback={togglePlayback}
-          $toggleFullscreen={props.$toggleFullscreen}
+          paused={state.paused}
+          fullscreen={props.fullscreen}
+          position={state.time}
+          duration={video.current?.duration ?? 0}
+          togglePlayback={togglePlayback}
+          toggleFullscreen={props.toggleFullscreen}
         />
       </Box>
     );
@@ -519,12 +519,12 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
         {loadingMarkup}
         <Activatable
           css={cssCursorVisibility(!state.active)}
-          $fill
-          $active={state.active}
-          $duration={200}
+          expand
+          active={state.active}
+          duration={200}
         >
-          <Box $absolute $fill>
-            <Shading $fill />
+          <Box absolute expand>
+            <Shading expand />
             {controlsMarkup}
             {timelineMarkup}
           </Box>
@@ -535,20 +535,20 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
     return (
       <Viewport
         ref={player}
-        $height={props.$fullscreen ? "100vh" : "calc((9 / 16) * 100vw)"}
-        $maxHeight={props.$fullscreen ? "none" : "calc(100vh - 140px)"}
-        $minHeight="480px"
-        $overlay={overlayMarkup}
-        $aspectRatio={dimensions.height / dimensions.width}
+        h={props.fullscreen ? "100vh" : "calc((9 / 16) * 100vw)"}
+        maxh={props.fullscreen ? "none" : "calc(100vh - 140px)"}
+        minh="480px"
+        overlay={overlayMarkup}
+        aspectRatio={dimensions.height / dimensions.width}
         {...playerEvents}
       >
-        <Flex $center $height={1}>
-          <Video ref={video} {...videoEvents} {...props.$video}>
+        <Flex center h={1}>
+          <Video ref={video} {...videoEvents} {...props.video}>
             {props.children}
           </Video>
         </Flex>
-        <EventListener $event="resize" $handler={updateLayout} />
-        <EventListener $event="keydown" $handler={handleKeydown} />
+        <EventListener event="resize" handler={updateLayout} />
+        <EventListener event="keydown" handler={handleKeydown} />
       </Viewport>
     );
   }

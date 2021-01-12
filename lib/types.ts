@@ -72,6 +72,11 @@ export type DisplaySize = "small" | "large";
 export type MetaSize = "small" | "medium" | "large";
 
 export type Size = number | string;
+export type Margin =
+  | Size
+  | [Size, Size]
+  | [Size, Size, Size]
+  | [Size, Size, Size, Size];
 
 export interface Shape {
   width?: Size;
@@ -90,7 +95,6 @@ export type ColorValue = number | string;
 export type Color = ColorHue | [ColorHue, ColorValue];
 
 export type FlexDistribute = "fill" | "fill-evenly";
-export type FlexWrap = "nowrap" | "wrap" | "wrap-reversed";
 
 export type FlexJustifyContent =
   | "flex-start"

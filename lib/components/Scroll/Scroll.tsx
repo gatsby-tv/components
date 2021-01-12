@@ -1,12 +1,18 @@
-import React, { useState, useCallback } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import styled from "styled-components";
-import { ScrollContext } from "@gatsby-tv/utilities";
+import {
+  ifExists,
+  ScrollContext,
+  useParentRef,
+  useResizeObserver,
+} from "@gatsby-tv/utilities";
 
+import { Box } from "@lib/components/Box";
 import { EventHandler } from "@lib/types";
 
 export interface ScrollProps {
   children?: React.ReactNode;
-  $hidden?: boolean;
+  hide?: boolean;
 }
 
 const ScrollBase = styled.div<ScrollProps>`
@@ -17,8 +23,8 @@ const ScrollBase = styled.div<ScrollProps>`
   backface-visibility: hidden;
 
   &::-webkit-scrollbar {
-    width: ${(props) => (props.$hidden ? "0" : "1rem")};
-    height: ${(props) => (props.$hidden ? "0" : "1rem")};
+    width: ${(props) => (props.hide ? "0" : "1rem")};
+    height: ${(props) => (props.hide ? "0" : "1rem")};
   }
 
   &::-webkit-scrollbar-corner {
@@ -31,7 +37,7 @@ const ScrollBase = styled.div<ScrollProps>`
 
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) =>
-      props.$hidden ? "transparent" : props.theme.colors.background[3]};
+      props.hide ? "transparent" : props.theme.colors.background[3]};
     border-radius: 2rem;
     transition: all 100ms ease;
   }
@@ -39,10 +45,21 @@ const ScrollBase = styled.div<ScrollProps>`
 
 export function Scroll(props: ScrollProps): React.ReactElement {
   const [callbacks, setCallbacks] = useState<EventHandler[]>([]);
+  const [height, setHeight] = useState<number | undefined>(undefined);
+  const ref = useRef<HTMLDivElement>(null);
+  const container = useParentRef<HTMLDivElement>(ref);
+
+  useResizeObserver(container, (content) => setHeight(content.blockSize));
 
   const addCallback = useCallback(
     (callback: EventHandler) =>
       setCallbacks((current) => [...current, callback]),
+    []
+  );
+
+  const removeCallback = useCallback(
+    (callback: EventHandler) =>
+      setCallbacks((current) => current.filter((entry) => entry !== callback)),
     []
   );
 
@@ -52,10 +69,12 @@ export function Scroll(props: ScrollProps): React.ReactElement {
   );
 
   return (
-    <ScrollContext.Provider value={addCallback}>
-      <ScrollBase onScroll={handleScroll} {...props}>
-        {props.children}
-      </ScrollBase>
+    <ScrollContext.Provider value={[addCallback, removeCallback]}>
+      <Box ref={ref} absolute expand h={ifExists(height, `${height}px`)}>
+        <ScrollBase onScroll={handleScroll} {...props}>
+          {props.children}
+        </ScrollBase>
+      </Box>
     </ScrollContext.Provider>
   );
 }

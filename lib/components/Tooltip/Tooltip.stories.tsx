@@ -3,7 +3,6 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import { css } from "styled-components";
 
 import { AppProvider } from "@lib/components/AppProvider";
-import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
 import { FormButton } from "@lib/components/FormButton";
 import { TextBox } from "@lib/components/TextBox";
@@ -25,22 +24,14 @@ export const Example: Story<TooltipProps> = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <AppProvider $theme="dark">
-      <Box ref={ref} $width="fit-content">
-        <FormButton
-          css={buttonStyle}
-          onMouseOver={() => setActive(true)}
-          onMouseLeave={() => setActive(false)}
-        >
-          HoverMe
-        </FormButton>
+    <AppProvider theme="dark">
+      <Box ref={ref} w="fit-content">
+        <FormButton css={buttonStyle}>HoverMe</FormButton>
       </Box>
-      <Tooltip $for={ref} $placement="right">
-        <Activatable $active={active} $duration={200} $delay={500}>
-          <TextBox>
-            <p>Hello! This is a tooltip.</p>
-          </TextBox>
-        </Activatable>
+      <Tooltip for={ref} fade placement="right">
+        <TextBox>
+          <p>Hello! This is a tooltip.</p>
+        </TextBox>
       </Tooltip>
     </AppProvider>
   );

@@ -11,8 +11,8 @@ import { Icon } from "@lib/components/Icon";
 export interface CollapsibleProps {
   className?: string;
   children?: React.ReactNode;
-  $label?: string;
-  $active?: boolean;
+  label?: string;
+  active?: boolean;
 }
 
 const CollapsibleBase = styled.div`
@@ -97,7 +97,7 @@ export function Collapsible(props: CollapsibleProps): React.ReactElement {
 
   return (
     <CollapsibleBase>
-      <input id={id} type="checkbox" checked={ifExists(props.$active)} />
+      <input id={id} type="checkbox" checked={ifExists(props.active)} />
       <Flex
         as="label"
         ref={label}
@@ -105,12 +105,12 @@ export function Collapsible(props: CollapsibleProps): React.ReactElement {
         tabIndex={-1}
         className={props.className}
         data-collapsible="label"
-        $fill
-        $justify="space-between"
-        $gap={theme.spacing.tight}
+        expand
+        justify="space-between"
+        gap={theme.spacing.tight}
       >
-        <TextBox>{props.$label}</TextBox>
-        <Icon $width="1.2em" $source={DownTick} />
+        <TextBox>{props.label}</TextBox>
+        <Icon src={DownTick} w="1.2em" />
       </Flex>
       <Box ref={content} data-collapsible="content">
         {props.children}

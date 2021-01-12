@@ -32,19 +32,14 @@ export const Example: Story<ModalProps> = () => {
   const { toggle, flipToggle, setToggle } = useToggle(false);
 
   return (
-    <AppProvider $theme="dark">
+    <AppProvider theme="dark">
       <FormButton css={buttonStyle} onClick={flipToggle}>
         ClickMe
       </FormButton>
-      <Modal $active={toggle} onExit={() => setToggle(false)}>
-        <Card
-          css={cardStyle}
-          $width="60vw"
-          $height="70vh"
-          onClick={(event) => event.stopPropagation()}
-        >
-          <Scroll $hidden>
-            <TextBox $padding="2rem">
+      <Modal fullscreen active={toggle} onExit={() => setToggle(false)}>
+        <Card css={cardStyle} w="60vw" h="70vh">
+          <Scroll hide>
+            <TextBox padding="2rem">
               <TextHeading>Example Modal</TextHeading>
               <LoremIpsum p={10} />
             </TextBox>

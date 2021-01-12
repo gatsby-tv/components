@@ -1,4 +1,4 @@
-import React, { RefObject } from "react";
+import React, { useState, useRef, RefObject } from "react";
 import {
   Play,
   Pause,
@@ -15,24 +15,26 @@ import { TextBox } from "@lib/components/TextBox";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { Button } from "@lib/components/Button";
+import { Tooltip } from "@lib/components/Tooltip";
 
 export interface ControlsProps {
-  $paused: boolean;
-  $fullscreen?: boolean;
-  $position: number;
-  $duration: number;
-  $nextVideo?: unknown;
-  $playlist?: unknown;
-  $togglePlayback: () => void;
-  $toggleFullscreen?: () => void;
+  paused: boolean;
+  fullscreen?: boolean;
+  position: number;
+  duration: number;
+  nextVideo?: unknown;
+  playlist?: unknown;
+  togglePlayback: () => void;
+  toggleFullscreen?: () => void;
 }
 
 export function Controls(props: ControlsProps): React.ReactElement {
   const theme = useTheme();
   const noop = () => null;
+  const play = useRef<HTMLButtonElement>(null);
 
-  const progress = Time(props.$position * props.$duration);
-  const duration = Time(props.$duration);
+  const progress = Time(props.position * props.duration);
+  const duration = Time(props.duration);
 
   const progressMarkup = (
     <TextBox
@@ -40,58 +42,55 @@ export function Controls(props: ControlsProps): React.ReactElement {
       css={`
         font-variant-numeric: tabular-nums;
       `}
-      $weight="semi-bold"
+      weight="semi-bold"
     >
       {`${progress} / ${duration}`}
     </TextBox>
   );
 
   const playMarkup = (
-    <Button onClick={props.$togglePlayback}>
-      <Box $paddingRight={theme.spacing.tight}>
-        <Icon
-          $source={props.$paused ? Play : Pause}
-          $width={theme.icon.baseSmall}
-        />
+    <Button ref={play} onClick={props.togglePlayback}>
+      <Box paddingRight={theme.spacing.tight}>
+        <Icon src={props.paused ? Play : Pause} w={theme.icon.baseSmall} />
       </Box>
     </Button>
   );
 
-  const nextMarkup = props.$nextVideo ? (
+  const nextMarkup = props.nextVideo ? (
     <Button onClick={noop}>
-      <Icon $source={Next} $width="17px" />
+      <Icon src={Next} w="17px" />
     </Button>
   ) : null;
 
-  const playlistMarkup = props.$playlist ? (
+  const playlistMarkup = props.playlist ? (
     <Button onClick={noop}>
-      <Icon $source={Playlist} $width={theme.icon.base} />
+      <Icon src={Playlist} w={theme.icon.base} />
     </Button>
   ) : null;
 
   const fullscreenMarkup = (
-    <Button onClick={props.$toggleFullscreen}>
+    <Button onClick={props.toggleFullscreen}>
       <Icon
-        $source={props.$fullscreen ? Compress : Expand}
-        $width={theme.icon.baseSmall}
+        src={props.fullscreen ? Compress : Expand}
+        w={theme.icon.baseSmall}
       />
     </Button>
   );
 
   return (
-    <Flex $align="stretch" $height="39px">
-      <Flex.Item $grow={1}>
-        <Flex $fill $justify="flex-start" $align="stretch">
+    <Flex align="stretch" h="39px">
+      <Flex.Item grow={1}>
+        <Flex expand justify="flex-start" align="stretch">
           {playMarkup}
           {nextMarkup}
           {playlistMarkup}
-          <Flex $center $paddingLeft={theme.spacing.tight}>
+          <Flex center paddingLeft={theme.spacing.tight}>
             {progressMarkup}
           </Flex>
         </Flex>
       </Flex.Item>
-      <Flex.Item $grow={1}>
-        <Flex $fill $justify="flex-end" $align="center">
+      <Flex.Item grow={1}>
+        <Flex expand justify="flex-end" align="center">
           {fullscreenMarkup}
         </Flex>
       </Flex.Item>

@@ -31,11 +31,11 @@ const TimelineBase = styled(Box)`
 `;
 
 export interface TimelineProps {
-  $time: number;
-  $progress: number;
-  $position: number;
-  $duration: number;
-  $active?: boolean;
+  time: number;
+  progress: number;
+  position: number;
+  duration: number;
+  active?: boolean;
   onClick?: EventHandler;
   onPointerDown?: EventHandler;
   onPointerUp?: EventHandler;
@@ -50,14 +50,7 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
     const [reference, setReference] = useState<HTMLDivElement | null>(null);
     const [popper, setPopper] = useState<HTMLDivElement | null>(null);
 
-    const {
-      $time,
-      $progress,
-      $position,
-      $duration,
-      $active,
-      ...events
-    } = props;
+    const { time, progress, position, duration, active, ...events } = props;
 
     const { styles, attributes } = usePopper(reference, popper, {
       placement: "top",
@@ -80,28 +73,28 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
           transform: scale(0);
         `}
         data-progress-ball
-        $absolute
-        $top={-1.37}
-        $right="-7px"
-        $width="14px"
-        $height="14px"
-        $bg={theme.colors.gold}
+        absolute
+        top={-1.37}
+        right="-7px"
+        w="14px"
+        h="14px"
+        bg={theme.colors.gold}
       />
     );
 
     const progressMarkup = (
       <>
         <Box
-          style={{ right: `${100 * (1 - $progress)}%` }}
-          $absolute
-          $fill
-          $bg={theme.colors.white.fade(0.85)}
+          style={{ right: `${100 * (1 - progress)}%` }}
+          absolute
+          expand
+          bg={theme.colors.white.fade(0.85)}
         />
         <Box
-          style={{ right: `${100 * (1 - $time)}%` }}
-          $absolute
-          $fill
-          $bg={theme.colors.gold}
+          style={{ right: `${100 * (1 - time)}%` }}
+          absolute
+          expand
+          bg={theme.colors.gold}
         >
           {progressBallMarkup}
         </Box>
@@ -112,23 +105,23 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
       <>
         <TimelineBase
           ref={ref}
-          $height="4px"
-          $bg={theme.colors.white.fade(0.85)}
+          h="4px"
+          bg={theme.colors.white.fade(0.85)}
           {...events}
         >
           {progressMarkup}
         </TimelineBase>
-        <Box style={{ right: `${100 * (1 - $position)}%` }} $absolute>
+        <Box style={{ right: `${100 * (1 - position)}%` }} absolute>
           <Box ref={setReference} />
           <Activatable
             ref={setPopper}
             style={styles.popper}
             css={cssTextTimeline}
-            $active={$active}
-            $duration={150}
+            active={active}
+            duration={150}
             {...attributes.popper}
           >
-            {Time($position * $duration)}
+            {Time(position * duration)}
           </Activatable>
         </Box>
       </>

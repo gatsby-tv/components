@@ -13,15 +13,17 @@ export default {
 } as Meta;
 
 export const TextButton: Story<ButtonProps> = () => (
-  <AppProvider $theme="dark">
-    <Button>Button</Button>
+  <AppProvider theme="dark">
+    <Button animate onClick={() => console.log("Click")}>
+      Button
+    </Button>
   </AppProvider>
 );
 
 export const IconButton: Story<ButtonProps> = () => (
-  <AppProvider $theme="dark">
-    <Button $animate $rounded={"100%"}>
-      <Icon $source={Pause} $width="20px" />
+  <AppProvider theme="dark">
+    <Button animate rounded="100%" onClick={() => console.log("Click")}>
+      <Icon src={Pause} w="20px" />
     </Button>
   </AppProvider>
 );

@@ -9,7 +9,7 @@ export interface MainFrameProps {
 
 export function MainFrame(props: MainFrameProps): React.ReactElement {
   return (
-    <Box as="main" $fill>
+    <Box as="main" expand>
       <Scroll>{props.children}</Scroll>
     </Box>
   );

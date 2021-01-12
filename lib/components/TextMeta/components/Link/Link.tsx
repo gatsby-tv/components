@@ -18,8 +18,8 @@ import {
 import { Item } from "../Item";
 
 interface LinkBaseProps {
-  $size?: MetaSize;
-  $bold?: boolean;
+  font?: MetaSize;
+  bold?: boolean;
 }
 
 const LinkBase = styled(Item)<LinkBaseProps>`
@@ -35,9 +35,9 @@ const LinkBase = styled(Item)<LinkBaseProps>`
 export interface LinkProps extends UnstyledLinkProps {
   children?: string | [string];
   href?: string;
-  $external?: boolean;
-  $size?: MetaSize;
-  $bold?: boolean;
+  external?: boolean;
+  font?: MetaSize;
+  bold?: boolean;
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -45,7 +45,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     const text = useRef<HTMLParagraphElement>(null);
     const [truncated, setTruncated] = useState(false);
     const [active, setActive] = useState(false);
-    const { $size, $bold, ...rest } = props;
+    const { font, bold, ...rest } = props;
 
     const handleResize = useCallback(() => {
       if (!text.current) return;
@@ -58,8 +58,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       <>
         <LinkBase
           ref={text}
-          $size={$size}
-          $bold={$bold}
+          font={font}
+          bold={bold}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >
@@ -68,7 +68,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
             {...rest}
           />
         </LinkBase>
-        <EventListener $event="resize" $handler={handleResize} />
+        <EventListener event="resize" handler={handleResize} />
       </>
     );
   }

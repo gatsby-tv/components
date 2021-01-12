@@ -35,3 +35,5 @@ export * from "./Collapsible";
 export * from "./Stream";
 export * from "./Rule";
 export * from "./Optional";
+export * from "./Menu";
+export * from "./Tabs";

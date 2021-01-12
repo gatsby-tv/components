@@ -9,8 +9,8 @@ export const Video = forwardRef<HTMLVideoElement, VideoProps>((props, ref) => {
     <Box
       ref={ref as React.RefObject<HTMLVideoElement>}
       as="video"
-      $width={1}
-      $height={1}
+      w={1}
+      h={1}
       {...props}
     />
   );

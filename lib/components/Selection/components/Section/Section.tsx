@@ -21,9 +21,9 @@ const SectionBase: React.FC<SectionProps> = (props: SectionProps) => {
       as="ul"
       className={props.className}
       data-flush={ifExists(props.flush)}
-      $fill
-      $column={ifExists(column)}
-      $align="stretch"
+      expand
+      column={ifExists(column)}
+      align="stretch"
     >
       {column && props.title && <TextSubheading>{props.title}</TextSubheading>}
       {props.children}

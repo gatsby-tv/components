@@ -20,13 +20,13 @@ export const Example: Story<StreamProps> = () => {
   }, []);
 
   return (
-    <AppProvider $theme="dark">
-      <Box $width="30rem" $height="30rem">
+    <AppProvider theme="dark">
+      <Box w="30rem" h="30rem">
         <Scroll>
-          <Box $marginBottom="2rem">
+          <Box marginBottom="2rem">
             <Image src="https://loremflickr.com/405/405" />
           </Box>
-          <Stream $source={Image} $generator={generator} $column $gap="2rem" />
+          <Stream component={Image} generator={generator} column gap="2rem" />
         </Scroll>
       </Box>
     </AppProvider>

@@ -20,7 +20,7 @@ const ItemBase: React.FC<ItemProps> = (props: ItemProps) => {
       as="li"
       className={props.className}
       data-selected={ifExists(selection[props.id])}
-      $grow={1}
+      grow={1}
       onClick={handleClick}
     >
       {props.children}

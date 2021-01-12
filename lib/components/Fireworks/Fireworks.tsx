@@ -5,14 +5,20 @@ import { Box } from "@lib/components/Box";
 import { Portal } from "@lib/components/Portal";
 import { EventListener } from "@lib/components/EventListener";
 
-interface Position {
-  x: number;
-  y: number;
+export interface FireworksProps {
+  origin: Origin;
+  activator?: React.ReactNode;
+  toggle?: boolean;
+  count?: number;
+  interval?: number;
 }
 
-interface Origin extends Position {
-  (): Position;
-}
+type Position = {
+  x: number;
+  y: number;
+};
+
+type Origin = Position | (() => Position);
 
 interface Velocity {
   dx: number;
@@ -121,14 +127,6 @@ Particle.render = (
   context.restore();
 };
 
-export interface FireworksProps {
-  $origin: Origin;
-  $activator?: React.ReactNode;
-  $toggle?: boolean;
-  $count?: number;
-  $interval?: number;
-}
-
 export function Fireworks(props: FireworksProps): React.ReactElement {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -136,7 +134,7 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const [particles, setParticles] = useState<ParticleType[]>([]);
 
-  const { $origin, $toggle, $count, $interval } = props;
+  const { origin, toggle, count, interval } = props;
 
   const handleResize = useCallback(() => {
     if (!canvas) return;
@@ -192,18 +190,18 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
   useEffect(() => draw(), [canvas, draw]);
 
   useEffect(() => {
-    if ($toggle === null) return;
+    if (toggle === null) return;
 
     const rocketGenerator = () => {
-      let origin;
-      if (typeof $origin === "function") {
-        origin = $origin();
+      let position;
+      if (typeof origin === "function") {
+        position = origin();
       } else {
-        origin = $origin;
+        position = origin;
       }
 
       return {
-        ...Particle(origin),
+        ...Particle(position),
         velocity: { dx: 6 * Math.random() - 3, dy: -3 * Math.random() - 4 },
         size: 4,
         hue: 0,
@@ -214,25 +212,25 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
 
     let iterations = 0;
     const id = setInterval(() => {
-      if (iterations < ($count ?? 3)) {
+      if (iterations < (count ?? 3)) {
         iterations += 1;
         setRockets((current) => [...current, rocketGenerator()]);
       } else {
         clearInterval(id);
       }
-    }, $interval ?? 500);
+    }, interval ?? 500);
 
     return () => clearInterval(id);
-  }, [$origin, $count, $interval, $toggle]);
+  }, [origin, count, interval, toggle]);
 
   return (
     <>
-      {props.$activator}
+      {props.activator}
       <Portal id="fireworks">
-        <Box $absolute $fill css={{ pointerEvents: "none" }}>
+        <Box absolute expand css={{ pointerEvents: "none" }}>
           <canvas ref={setCanvas} />
         </Box>
-        <EventListener $event="resize" $handler={handleResize} />
+        <EventListener event="resize" handler={handleResize} />
       </Portal>
     </>
   );

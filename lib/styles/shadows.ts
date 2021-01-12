@@ -1,4 +1,8 @@
-import { css } from "styled-components";
+import { css, CSSProp } from "styled-components";
+
+export const cssShadow = css`
+  box-shadow: 0 0 10px ${(props) => props.theme.colors.shadow.dark};
+`;
 
 export const cssShadowEmbross = (
   offset: number,

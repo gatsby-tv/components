@@ -2,14 +2,14 @@ import React from "react";
 
 export interface OptionalProps {
   children?: React.ReactNode;
-  $component: React.FC<any>;
+  active?: boolean;
+  component: React.FC<any>;
   $props?: any;
-  $active?: boolean;
 }
 
 export function Optional(props: OptionalProps): React.ReactElement {
-  const { $component: Component, $props = {} } = props;
-  return props.$active ? (
+  const { component: Component, $props = {} } = props;
+  return props.active ? (
     <Component {...$props}>{props.children}</Component>
   ) : (
     <>{props.children}</>

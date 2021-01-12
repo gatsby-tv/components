@@ -5,19 +5,19 @@ import { Box } from "@lib/components/Box";
 import { Viewport } from "@lib/components/Viewport";
 
 export type ImageProps = {
-  $width?: Size;
-  $rounded?: Size;
-  $aspectRatio?: number;
-  $overlay?: React.ReactNode;
+  w?: Size;
+  rounded?: Size;
+  aspectRatio?: number;
+  overlay?: React.ReactNode;
   ariaLabel?: string;
 } & React.ImgHTMLAttributes<HTMLElement>;
 
 export function Image(props: ImageProps): React.ReactElement {
   const {
-    $aspectRatio = 1,
-    $width,
-    $overlay,
-    $rounded,
+    aspectRatio = 1,
+    w,
+    overlay,
+    rounded,
     ariaLabel,
     ...imgProps
   } = props;
@@ -29,11 +29,11 @@ export function Image(props: ImageProps): React.ReactElement {
 
   return (
     <Viewport
-      $placeholder
-      $overlay={$overlay}
-      $aspectRatio={$aspectRatio}
-      $width={$width}
-      $rounded={$rounded}
+      placeholder
+      overlay={overlay}
+      aspectRatio={aspectRatio}
+      w={w}
+      rounded={rounded}
       ariaLabel={ariaLabel}
     >
       <Box
@@ -41,11 +41,11 @@ export function Image(props: ImageProps): React.ReactElement {
         alt=""
         style={
           loading
-            ? { paddingTop: `${100 * $aspectRatio}%`, height: 0 }
+            ? { paddingTop: `${100 * aspectRatio}%`, height: 0 }
             : undefined
         }
-        $width={1}
-        $rounded={$rounded}
+        w={1}
+        rounded={rounded}
         onLoad={handleLoad}
         {...imgProps}
       />

@@ -20,13 +20,13 @@ const getSpacing = (theme: DefaultTheme, size?: MetaSize) => {
 
 const ListBase = styled(Flex)<ListBaseProps>`
   & > ${Item} {
-    ${(props) => ifExists(props.$subdued, cssTextSubdued)}
-    ${(props) => cssTextMeta(props.$size ?? "medium", props.$bold)}
+    ${(props) => ifExists(props.subdued, cssTextSubdued)}
+    ${(props) => cssTextMeta(props.font ?? "medium", props.bold)}
   }
 
   & > ${Item}:not(:last-child):after {
     content: "•";
-    margin: 0 ${(props) => getSpacing(props.theme, props.$size)};
+    margin: 0 ${(props) => getSpacing(props.theme, props.font)};
   }
 `;
 
@@ -35,7 +35,7 @@ export interface ListProps extends ListBaseProps {
 }
 
 export const List: React.FC<ListProps> = (props: ListProps) => (
-  <ListBase as="span" $align="center" {...props}>
+  <ListBase as="span" align="center" {...props}>
     {props.children}
   </ListBase>
 );

@@ -41,11 +41,11 @@ export const OneSection: Story<SelectionProps> = () => {
   const [selection, select] = useSelect(items, "one");
 
   return (
-    <AppProvider $theme="dark">
-      <Box css={wrapperStyle} $width="20rem">
+    <AppProvider theme="dark">
+      <Box css={wrapperStyle} w="20rem">
         <Selection
           css={selectionStyle}
-          $scrollHidden
+          scrollHidden
           selection={selection}
           onSelect={select}
         >
@@ -71,11 +71,11 @@ export const MultipleSections: Story<SelectionProps> = () => {
   const [selection, select] = useSelect(items, "one");
 
   return (
-    <AppProvider $theme="dark">
-      <Box css={wrapperStyle} $width="20rem">
+    <AppProvider theme="dark">
+      <Box css={wrapperStyle} w="20rem">
         <Selection
           css={selectionStyle}
-          $scrollHidden
+          scrollHidden
           selection={selection}
           onSelect={select}
         >
@@ -109,8 +109,8 @@ export const Row: Story<SelectionProps> = () => {
   const [selection, select] = useSelect(items, "one");
 
   return (
-    <AppProvider $theme="dark">
-      <Box css={wrapperStyle} $width="20rem">
+    <AppProvider theme="dark">
+      <Box css={wrapperStyle} w="25rem">
         <Selection
           css={selectionStyle}
           row
@@ -119,13 +119,13 @@ export const Row: Story<SelectionProps> = () => {
         >
           <Selection.Section>
             <Selection.Item id="one">
-              <TextBox>One</TextBox>
+              <TextBox align="center">One</TextBox>
             </Selection.Item>
             <Selection.Item id="two">
-              <TextBox>Two</TextBox>
+              <TextBox align="center">Two</TextBox>
             </Selection.Item>
             <Selection.Item id="three">
-              <TextBox>Three</TextBox>
+              <TextBox align="center">Three</TextBox>
             </Selection.Item>
           </Selection.Section>
         </Selection>

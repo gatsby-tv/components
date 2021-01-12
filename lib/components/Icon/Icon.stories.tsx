@@ -22,61 +22,61 @@ export default {
 } as Meta;
 
 const Template: Story<IconProps> = (args) => (
-  <AppProvider $theme="dark">
-    <Icon $width="5rem" $height="5rem" {...args} />
+  <AppProvider theme="dark">
+    <Icon w="5rem" h="5rem" {...args} />
   </AppProvider>
 );
 
 export const GatsbyLogo = Template.bind({});
 GatsbyLogo.args = {
-  $source: Gatsby,
+  src: Gatsby,
   ariaLabel: "Gatsby Logo",
 };
 
 export const PlayIcon = Template.bind({});
 PlayIcon.args = {
-  $source: Play,
+  src: Play,
   ariaLabel: "Play Icon",
 };
 
 export const PauseIcon = Template.bind({});
 PauseIcon.args = {
-  $source: Pause,
+  src: Pause,
   ariaLabel: "Pause Icon",
 };
 
 export const ExpandIcon = Template.bind({});
 ExpandIcon.args = {
-  $source: Expand,
+  src: Expand,
   ariaLabel: "Expand Icon",
 };
 
 export const CompressIcon = Template.bind({});
 CompressIcon.args = {
-  $source: Compress,
+  src: Compress,
   ariaLabel: "Compress Icon",
 };
 
 export const SkipForwardIcon = Template.bind({});
 SkipForwardIcon.args = {
-  $source: SkipForward,
+  src: SkipForward,
   ariaLabel: "Skip Forward Icon",
 };
 
 export const SkipBackwardIcon = Template.bind({});
 SkipBackwardIcon.args = {
-  $source: SkipBackward,
+  src: SkipBackward,
   ariaLabel: "Skip Backward Icon",
 };
 
 export const SpinnerIcon = Template.bind({});
 SpinnerIcon.args = {
-  $source: Spinner,
+  src: Spinner,
   ariaLabel: "Spinner Icon",
 };
 
 export const ExclamationIcon = Template.bind({});
 ExclamationIcon.args = {
-  $source: Exclamation,
+  src: Exclamation,
   ariaLabel: "Exclamation Icon",
 };

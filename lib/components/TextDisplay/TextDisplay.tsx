@@ -6,11 +6,11 @@ import { cssProperty } from "@lib/styles/property";
 import { cssTextDisplay } from "@lib/styles/typography";
 
 export interface TextDisplayProps {
-  $size?: DisplaySize;
-  $thin?: boolean;
+  font?: DisplaySize;
+  thin?: boolean;
 }
 
 export const TextDisplay = styled.h1<TextDisplayProps>`
-  ${(props) => cssTextDisplay(props.$size ?? "small")}
-  ${(props) => cssProperty("font-weight", ifExists(props.$thin, 500))}
+  ${(props) => cssTextDisplay(props.font ?? "small")}
+  ${(props) => cssProperty("font-weight", ifExists(props.thin, 500))}
 `;

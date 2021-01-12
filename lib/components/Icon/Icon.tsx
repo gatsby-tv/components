@@ -5,12 +5,12 @@ import { IconSource } from "@lib/types";
 import { Box, BoxProps } from "@lib/components/Box";
 
 export interface IconProps {
-  $source: IconSource;
+  src: IconSource;
   ariaLabel?: string;
 }
 
 export function Icon(props: IconProps & BoxProps): React.ReactElement {
-  const { $source: SvgComponent, ariaLabel, ...boxProps } = props;
+  const { src: SvgComponent, ariaLabel, ...boxProps } = props;
 
   const style = css`
     & > svg {

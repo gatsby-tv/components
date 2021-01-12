@@ -4,13 +4,13 @@ import { Size } from "@lib/types";
 import { cssSize } from "@lib/styles/size";
 import { Box, BoxProps } from "@lib/components/Box";
 
-export type SignalProps = { $size: Size } & BoxProps;
+export type SignalProps = Omit<BoxProps, "h">;
 
 export const Signal = styled(Box)<SignalProps>`
   opacity: 0;
   border-radius: 100%;
-  ${(props) => cssSize("width", props.$size)}
-  ${(props) => cssSize("height", props.$size)}
+  ${(props) => cssSize("width", props.w)}
+  ${(props) => cssSize("height", props.w)}
 
   @keyframes enter {
     0% {

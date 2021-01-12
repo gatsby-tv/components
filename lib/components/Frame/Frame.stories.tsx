@@ -6,7 +6,7 @@ import { AppProvider } from "@lib/components/AppProvider";
 import { Box } from "@lib/components/Box";
 import { Flex } from "@lib/components/Flex";
 import { Stream } from "@lib/components/Stream";
-import { Image } from "@lib/components/Image";
+import { Image, ImageProps } from "@lib/components/Image";
 
 import { Frame, FrameProps } from "./Frame";
 
@@ -18,42 +18,37 @@ export default {
 const TopbarMarkup = () => {
   const theme = useTheme();
 
-  return <Box $height="52px" $bg={theme.colors.background[1]} />;
+  return <Box h="52px" bg={theme.colors.background[1]} />;
 };
 
 const SidebarMarkup = () => {
   const theme = useTheme();
 
-  return <Box $width="52px" $height={1} $bg={theme.colors.background[2]} />;
+  return <Box w="52px" h={1} bg={theme.colors.background[2]} />;
 };
 
-const SourceMarkup = () => (
-  <Flex $gap="16px">
-    <Image src="" $aspectRatio={9 / 16} />
-    <Image src="" $aspectRatio={9 / 16} />
-    <Image src="" $aspectRatio={9 / 16} />
-  </Flex>
+const SourceMarkup = (props: ImageProps) => (
+  <Flex.Item>
+    <Image {...props} />
+  </Flex.Item>
 );
 
 const ContentMarkup = () => (
-  <Box
-    $marginTop="52px"
-    $marginLeft="52px"
-    $marginRight="52px"
-    $height="calc(100vh - 104px)"
-  >
+  <Box margin={["52px", "52px", "0px"]}>
     <Stream
-      $column
-      $source={SourceMarkup}
-      $generator={() => [...Array(4)].map(() => ({}))}
-      $gap="52px"
+      component={SourceMarkup}
+      generator={() =>
+        [...Array(12)].map(() => ({ src: "", aspectRatio: 0.5625 }))
+      }
+      groups={3}
+      gap="16px"
     />
   </Box>
 );
 
 export const Example: Story<FrameProps> = () => (
-  <AppProvider $theme="dark">
-    <Frame $topbar={<TopbarMarkup />} $sidebar={<SidebarMarkup />}>
+  <AppProvider theme="dark">
+    <Frame topbar={<TopbarMarkup />} sidebar={<SidebarMarkup />}>
       <ContentMarkup />
     </Frame>
   </AppProvider>

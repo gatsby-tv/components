@@ -10,6 +10,21 @@ import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { Labelled } from "@lib/components/Labelled";
 
+export interface FormSelectProps {
+  id?: string;
+  className?: string;
+  label: string;
+  labelHidden?: boolean;
+  options?: (FormSelectOption | FormSelectGroup)[];
+  selected?: string;
+  focused?: boolean;
+  help?: string;
+  error?: Error;
+  onChange?: (value: string, id: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+}
+
 export interface FormSelectOption {
   value: string;
   label: string;
@@ -64,38 +79,23 @@ const getFormSelectedLabel = (
   return selected ? selected.label : "";
 };
 
-export interface FormSelectProps {
-  id?: string;
-  className?: string;
-  $label: string;
-  $labelHidden?: boolean;
-  $options?: (FormSelectOption | FormSelectGroup)[];
-  $value?: string;
-  $focused?: boolean;
-  $help?: string;
-  $error?: Error;
-  onChange?: (value: string, id: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-}
-
 export function FormSelect(props: FormSelectProps): React.ReactElement {
   const theme = useTheme();
   const id = useUniqueId(props.id ? `select-${props.id}` : "select");
 
   const {
     className,
-    $label,
-    $labelHidden,
-    $options = [],
-    $value,
-    $help,
-    $error,
+    label,
+    labelHidden,
+    options = [],
+    selected,
+    help,
+    error,
     onChange = () => undefined,
     ...selectProps
   } = props;
 
-  const [focus, setFocus] = useState(Boolean(props.$focused));
+  const [focus, setFocus] = useState(Boolean(props.focused));
   const select = useRef<HTMLSelectElement>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -123,44 +123,41 @@ export function FormSelect(props: FormSelectProps): React.ReactElement {
   return (
     <Labelled
       id={id}
-      $label={$label}
-      $help={$help}
-      $error={$error}
-      $hidden={$labelHidden}
+      label={label}
+      help={help}
+      error={error}
+      hidden={labelHidden}
     >
       <Flex
         className={className}
         css={selectStyle}
         data-focus={ifExists(focus)}
-        data-error={ifExists($error)}
-        $gap={theme.spacing.tight}
-        $align="center"
-        $paddingLeft={theme.spacing.baseTight}
-        $paddingRight={theme.spacing.baseTight}
-        $paddingTop={theme.spacing.tight}
-        $paddingBottom={theme.spacing.tight}
+        data-error={ifExists(error)}
+        gap={theme.spacing.tight}
+        align="center"
+        padding={[theme.spacing.tight, theme.spacing.baseTight]}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onClick={handleClick}
       >
-        <Flex.Item as="span" $grow={1}>
-          {getFormSelectedLabel($options, $value)}
+        <Flex.Item as="span" grow={1}>
+          {getFormSelectedLabel(options, selected)}
         </Flex.Item>
         <Flex.Item as="span">
-          <Icon $source={UpDownTick} $height={1} ariaLabel="Selection Arrows" />
+          <Icon src={UpDownTick} h={1} ariaLabel="Selection Arrows" />
         </Flex.Item>
         <Box
           as="select"
           id={id}
           ref={select}
-          $absolute
-          $fill
-          $width={1}
+          absolute
+          expand
+          w={1}
           onChange={handleChange}
           onKeyPress={(event: React.SyntheticEvent) => event.stopPropagation()}
           {...selectProps}
         >
-          {$options.map(parseOptionOrGroup)}
+          {options.map(parseOptionOrGroup)}
         </Box>
       </Flex>
     </Labelled>

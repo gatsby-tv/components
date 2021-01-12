@@ -34,8 +34,8 @@ export const TwoSettings: Story<SwitchProps> = () => {
   const [selection, setSelection] = useSelect(items, "one");
 
   return (
-    <AppProvider $theme="dark">
-      <Box $width="20rem">
+    <AppProvider theme="dark">
+      <Box w="20rem">
         <Switch css={switchStyle} selection={selection} onSelect={setSelection}>
           <Switch.Item id="one">
             <TextBox>One</TextBox>
@@ -54,8 +54,8 @@ export const ThreeSettings: Story<SwitchProps> = () => {
   const [selection, setSelection] = useSelect(items, "one");
 
   return (
-    <AppProvider $theme="dark">
-      <Box $width="20rem">
+    <AppProvider theme="dark">
+      <Box w="20rem">
         <Switch css={switchStyle} selection={selection} onSelect={setSelection}>
           <Switch.Item id="one">
             <TextBox>One</TextBox>

@@ -5,7 +5,7 @@ export interface LinkProps {
   href?: string;
   className?: string;
   children?: React.ReactNode;
-  $external?: boolean;
+  external?: boolean;
   onClick?: () => void;
 }
 
@@ -18,8 +18,8 @@ const LinkBase = styled.a`
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (props: LinkProps, ref) => {
-    const target = props.$external ? "_blank" : undefined;
-    const rel = props.$external ? "noopener noreferrer" : undefined;
+    const target = props.external ? "_blank" : undefined;
+    const rel = props.external ? "noopener noreferrer" : undefined;
 
     return (
       <LinkBase

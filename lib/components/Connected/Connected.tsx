@@ -10,26 +10,28 @@ export type { ItemProps as ConnectedItemProps };
 
 export interface ConnectedProps extends FlexProps {
   className?: string;
+  style?: React.CSSProperties;
   children?: React.ReactNode;
-  $prefix?: React.ReactNode;
-  $suffix?: React.ReactNode;
+  column?: boolean;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
 }
 
 function ConnectedBase(props: ConnectedProps) {
-  const { children, $prefix, $suffix, $column, ...flexProps } = props;
+  const { children, prefix, suffix, column, ...flexProps } = props;
 
-  const prefixMarkup = $prefix ? <Connection>{$prefix}</Connection> : null;
-  const suffixMarkup = $suffix ? <Connection>{$suffix}</Connection> : null;
+  const prefixMarkup = prefix ? <Connection>{prefix}</Connection> : null;
+  const suffixMarkup = suffix ? <Connection>{suffix}</Connection> : null;
 
   const style = css`
     > ${Connection}:first-child * {
-      ${$column
+      ${column
         ? "border-bottom-left-radius"
         : "border-top-right-radius"}: 0 !important;
       border-bottom-right-radius: 0 !important;
 
       &:after {
-        ${$column
+        ${column
           ? "border-bottom-left-radius"
           : "border-top-right-radius"}: 0 !important;
         border-bottom-right-radius: 0 !important;
@@ -38,13 +40,13 @@ function ConnectedBase(props: ConnectedProps) {
 
     > ${Connection}:last-child * {
       border-top-left-radius: 0 !important;
-      ${$column
+      ${column
         ? "border-top-right-radius"
         : "border-bottom-left-radius"}: 0 !important;
 
       &:after {
         border-top-left-radius: 0 !important;
-        ${$column
+        ${column
           ? "border-top-right-radius"
           : "border-bottom-left-radius"}: 0 !important;
       }
@@ -52,26 +54,26 @@ function ConnectedBase(props: ConnectedProps) {
 
     > ${Item}:not(:first-child) * {
       border-top-left-radius: 0 !important;
-      ${$column
+      ${column
         ? "border-top-right-radius"
         : "border-bottom-left-radius"}: 0 !important;
 
       &:after {
         border-top-left-radius: 0 !important;
-        ${$column
+        ${column
           ? "border-top-right-radius"
           : "border-bottom-left-radius"}: 0 !important;
       }
     }
 
     > ${Item}:not(:last-child) * {
-      ${$column
+      ${column
         ? "border-bottom-left-radius"
         : "border-top-right-radius"}: 0 !important;
       border-bottom-right-radius: 0 !important;
 
       &:after {
-        ${$column
+        ${column
           ? "border-bottom-left-radius"
           : "border-top-right-radius"}: 0 !important;
         border-bottom-right-radius: 0 !important;
@@ -80,13 +82,8 @@ function ConnectedBase(props: ConnectedProps) {
   `;
 
   return (
-    <ConnectedContext.Provider value={{ column: $column }}>
-      <Flex
-        className={props.className}
-        css={style}
-        $column={$column}
-        {...flexProps}
-      >
+    <ConnectedContext.Provider value={{ column: column }}>
+      <Flex css={style} column={column} {...flexProps}>
         {prefixMarkup}
         {children}
         {suffixMarkup}

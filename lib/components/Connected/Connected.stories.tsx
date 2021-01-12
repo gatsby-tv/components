@@ -11,25 +11,21 @@ const rounded = css`
   border-radius: 1rem;
 `;
 
-const PrefixMarkup = () => (
-  <Box css={rounded} $fill $bg="black" $width="6rem" />
-);
+const PrefixMarkup = () => <Box css={rounded} expand bg="black" w="6rem" />;
 
-const SuffixMarkup = () => (
-  <Box css={rounded} $fill $bg="black" $width="6rem" />
-);
+const SuffixMarkup = () => <Box css={rounded} expand bg="black" w="6rem" />;
 
 const PrefixColumnMarkup = () => (
-  <Box css={rounded} $fill $bg="black" $height="2rem" />
+  <Box css={rounded} expand bg="black" h="2rem" />
 );
 
 const SuffixColumnMarkup = () => (
-  <Box css={rounded} $fill $bg="black" $height="2rem" />
+  <Box css={rounded} expand bg="black" h="2rem" />
 );
 
 const ContentMarkup = () => (
   <Connected.Item>
-    <Box css={rounded} $fill $bg="white" $height="2rem" />
+    <Box css={rounded} expand bg="white" h="2rem" />
   </Connected.Item>
 );
 
@@ -47,7 +43,7 @@ export default {
 } as Meta;
 
 export const Default: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
+  <AppProvider theme="dark">
     <Connected>
       <ContentMarkup />
     </Connected>
@@ -55,7 +51,7 @@ export const Default: Story<ConnectedProps> = () => (
 );
 
 export const WithMultipleItems: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
+  <AppProvider theme="dark">
     <Connected>
       <ContentListMarkup />
     </Connected>
@@ -63,75 +59,75 @@ export const WithMultipleItems: Story<ConnectedProps> = () => (
 );
 
 export const WithPrefixConnection: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $prefix={<PrefixMarkup />}>
+  <AppProvider theme="dark">
+    <Connected prefix={<PrefixMarkup />}>
       <ContentMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const WithSuffixConnection: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $suffix={<SuffixMarkup />}>
+  <AppProvider theme="dark">
+    <Connected suffix={<SuffixMarkup />}>
       <ContentMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const WithBothConnection: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $prefix={<PrefixMarkup />} $suffix={<SuffixMarkup />}>
+  <AppProvider theme="dark">
+    <Connected prefix={<PrefixMarkup />} suffix={<SuffixMarkup />}>
       <ContentMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const WithBothConnectionsMultipleItems: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $prefix={<PrefixMarkup />} $suffix={<SuffixMarkup />}>
+  <AppProvider theme="dark">
+    <Connected prefix={<PrefixMarkup />} suffix={<SuffixMarkup />}>
       <ContentListMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const Column: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $column>
+  <AppProvider theme="dark">
+    <Connected column>
       <ContentMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const ColumnWithMultipleItems: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $column>
+  <AppProvider theme="dark">
+    <Connected column>
       <ContentListMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const ColumnWithPrefixConnection: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $column $prefix={<PrefixColumnMarkup />}>
+  <AppProvider theme="dark">
+    <Connected column prefix={<PrefixColumnMarkup />}>
       <ContentMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const ColumnWithSuffixConnection: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
-    <Connected $column $suffix={<SuffixColumnMarkup />}>
+  <AppProvider theme="dark">
+    <Connected column suffix={<SuffixColumnMarkup />}>
       <ContentMarkup />
     </Connected>
   </AppProvider>
 );
 
 export const ColumnWithBothConnection: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
+  <AppProvider theme="dark">
     <Connected
-      $column
-      $prefix={<PrefixColumnMarkup />}
-      $suffix={<SuffixColumnMarkup />}
+      column
+      prefix={<PrefixColumnMarkup />}
+      suffix={<SuffixColumnMarkup />}
     >
       <ContentMarkup />
     </Connected>
@@ -139,11 +135,11 @@ export const ColumnWithBothConnection: Story<ConnectedProps> = () => (
 );
 
 export const ColumnWithBothConnectionsMultipleItems: Story<ConnectedProps> = () => (
-  <AppProvider $theme="dark">
+  <AppProvider theme="dark">
     <Connected
-      $column
-      $prefix={<PrefixColumnMarkup />}
-      $suffix={<SuffixColumnMarkup />}
+      column
+      prefix={<PrefixColumnMarkup />}
+      suffix={<SuffixColumnMarkup />}
     >
       <ContentListMarkup />
     </Connected>

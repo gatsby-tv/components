@@ -17,14 +17,14 @@ import { Icon } from "@lib/components/Icon";
 export interface LabelledProps {
   children?: React.ReactNode;
   id: string;
-  $label: string;
-  $help?: string;
-  $error?: Error;
-  $hidden?: boolean;
+  label: string;
+  help?: string;
+  error?: Error;
+  hidden?: boolean;
 }
 
 export function Labelled(props: LabelledProps): React.ReactElement {
-  const { children, id, $label, $help, $error, $hidden } = props;
+  const { children, id, label, help, error, hidden } = props;
 
   const helpStyle = css`
     margin-top: ${(props) => props.theme.spacing.extraTight};
@@ -42,25 +42,24 @@ export function Labelled(props: LabelledProps): React.ReactElement {
 
   const labelStyle = css`
     margin-bottom: ${(props) => props.theme.spacing.extraTight};
-    ${() => ($hidden ? cssVisuallyHidden : "")}
+    ${() => (hidden ? cssVisuallyHidden : "")}
     ${cssTextBreakWord}
     ${cssTextLabel}
   `;
 
-  const helpMarkup =
-    $help && !$error ? <Box css={helpStyle}>{$help}</Box> : null;
+  const helpMarkup = help && !error ? <Box css={helpStyle}>{help}</Box> : null;
 
-  const errorMarkup = $error ? (
+  const errorMarkup = error ? (
     <Flex css={errorStyle}>
-      <Icon $source={Exclamation} $width="1em" ariaLabel="Error" />
-      {$error.message}
+      <Icon src={Exclamation} w="1em" ariaLabel="Error" />
+      {error.message}
     </Flex>
   ) : null;
 
   return (
     <Box>
-      <Box as="label" htmlFor={id} hidden={$hidden} css={labelStyle}>
-        {$label}
+      <Box as="label" htmlFor={id} hidden={hidden} css={labelStyle}>
+        {label}
       </Box>
       {children}
       {errorMarkup}

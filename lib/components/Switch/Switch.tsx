@@ -31,7 +31,7 @@ function SwitchBase(props: SwitchProps) {
     <SwitchContext.Provider
       value={{ selection: props.selection, onSelect: props.onSelect }}
     >
-      <Connected className={props.className} css={style} $align="stretch">
+      <Connected className={props.className} css={style} align="stretch">
         {wrapChildren(props.children)}
       </Connected>
     </SwitchContext.Provider>

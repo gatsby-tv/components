@@ -14,7 +14,7 @@ export type { LinkProps as TextMetaLinkProps };
 
 export interface TextMetaProps extends ItemProps {
   children?: React.ReactNode;
-  $tooltip?: boolean;
+  tooltip?: boolean;
 }
 
 function TextMetaBase(props: TextMetaProps) {
@@ -24,10 +24,10 @@ function TextMetaBase(props: TextMetaProps) {
   return (
     <Item
       ref={text}
-      $size={props.$size}
-      $clamp={props.$clamp}
-      $bold={props.$bold}
-      $subdued={props.$subdued}
+      font={props.font}
+      clamp={props.clamp}
+      bold={props.bold}
+      subdued={props.subdued}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
     >

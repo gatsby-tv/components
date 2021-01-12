@@ -48,16 +48,16 @@ function SelectionBase(props: SelectionProps): React.ReactElement {
       }}
     >
       <Optional
-        $active={!props.row}
-        $component={Scroll}
-        $props={{ $hidden: scrollHidden }}
+        active={!props.row}
+        component={Scroll}
+        $props={{ hide: scrollHidden }}
       >
         <Flex
           as="nav"
           className={props.className}
           css={style}
-          $column={ifNotExists(props.row)}
-          $align="stretch"
+          column={ifNotExists(props.row)}
+          align="stretch"
         >
           {props.children}
         </Flex>

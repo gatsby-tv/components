@@ -19,10 +19,10 @@ const ItemBase: React.FC<ItemProps> = (props: ItemProps) => {
     <Flex.Item
       className={props.className}
       data-selected={ifExists(selection[props.id])}
-      $grow={1}
+      grow={1}
       onClick={handleClick}
     >
-      <Flex $center>{props.children}</Flex>
+      <Flex center>{props.children}</Flex>
     </Flex.Item>
   );
 };

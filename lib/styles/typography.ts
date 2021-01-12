@@ -1,6 +1,6 @@
 import { css, CSSProp, DefaultTheme } from "styled-components";
 
-import { DisplaySize, MetaSize } from "@lib/types";
+import { DisplaySize, MetaSize, FontSize } from "@lib/types";
 
 export const cssTextSubdued = css`
   color: ${(props) => props.theme.colors.font.subdued};
@@ -27,6 +27,7 @@ export const cssTextTruncate = css`
 
 export const cssTextLineClamp = (lines: number): CSSProp => css`
   display: -webkit-box;
+  overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: ${lines};
 `;
@@ -129,10 +130,7 @@ export const cssTextInput = css`
 `;
 
 export const cssTextButton = css`
-  font-size: ${(props) => props.theme.font.size.baseSmall};
-  line-height: ${(props) => props.theme.font.height.base};
   font-weight: 600;
-  color: ${(props) => props.theme.colors.font.body.darken(0.1)};
   appearance: none;
   text-transform: uppercase;
 `;
@@ -141,5 +139,14 @@ export const cssTextTimeline = css`
   ${cssTextCondensed}
   font-size: ${(props) => props.theme.font.size.base};
   font-weight: 600;
+  user-select: none;
+`;
+
+export const cssTextTab = (size?: FontSize) => css`
+  ${cssTextCondensed}
+  font-size: ${(props) =>
+    size ? props.theme.font.size[size] : props.theme.font.size.base};
+  font-weight: 600;
+  text-align: center;
   user-select: none;
 `;

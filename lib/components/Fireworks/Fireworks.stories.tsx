@@ -19,8 +19,8 @@ export const Infinite: Story<FireworksProps> = () => {
   });
 
   return (
-    <AppProvider $theme="dark">
-      <Fireworks $origin={origin} $count={Infinity} $interval={800} />
+    <AppProvider theme="dark">
+      <Fireworks origin={origin} count={Infinity} interval={800} />
     </AppProvider>
   );
 };
@@ -34,13 +34,13 @@ export const WithButton: Story<FireworksProps> = () => {
   };
 
   return (
-    <AppProvider $theme="dark">
+    <AppProvider theme="dark">
       <Fireworks
-        $origin={origin}
-        $activator={buttonMarkup}
-        $toggle={toggle}
-        $count={5}
-        $interval={100}
+        origin={origin}
+        activator={buttonMarkup}
+        toggle={toggle}
+        count={5}
+        interval={100}
       />
     </AppProvider>
   );

@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
-import { Size } from "@lib/types";
-import { cssSize } from "@lib/styles/size";
+import { Size, Margin } from "@lib/types";
+import { cssSize, cssMargin } from "@lib/styles/size";
 
 export interface RuleProps {
-  $width?: Size;
-  $margin?: Size;
+  w?: Size;
+  margin?: Margin;
+  thin?: boolean;
 }
 
 export const Rule = styled.hr<RuleProps>`
-  border: solid;
-  border-width: thin;
-  border-color: ${(props) => props.theme.colors.background[3]};
-  ${(props) => cssSize("width", props.$width)}
-  ${(props) => cssSize("margin-top", props.$margin)}
-  ${(props) => cssSize("margin-bottom", props.$margin)}
+  border: none;
+  height: ${(props) => (props.thin ? "1px" : "2px")};
+  background-color: ${(props) => props.theme.colors.background[3]};
+  ${(props) => cssSize("width", props.w)}
+  ${(props) => cssMargin("margin", props.margin)}
 `;
