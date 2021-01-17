@@ -7,6 +7,7 @@ import { Card } from "@lib/components/Card";
 
 export interface OverlayProps {
   children?: React.ReactNode;
+  zIndex?: number;
 }
 
 export function Overlay(props: OverlayProps): React.ReactElement {
@@ -30,9 +31,11 @@ export function Overlay(props: OverlayProps): React.ReactElement {
     animation-timing-function: ease;
 
     & > ${Box} > ${Card} {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.1);
+
       @keyframes slide {
         from {
-          transform: translateY(${(props) => props.theme.spacing.extraLoose});
+          transform: translateY(${(props) => props.theme.spacing.extraloose});
         }
 
         to {
@@ -48,7 +51,7 @@ export function Overlay(props: OverlayProps): React.ReactElement {
   `;
 
   return (
-    <Flex css={overlay} absolute expand center>
+    <Flex css={overlay} absolute expand center zIndex={props.zIndex}>
       {props.children}
     </Flex>
   );

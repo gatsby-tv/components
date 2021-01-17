@@ -16,7 +16,7 @@ export default {
 
 const style = css`
   padding: ${(props) => props.theme.spacing.tight}
-    ${(props) => props.theme.spacing.baseTight};
+    ${(props) => props.theme.spacing.basetight};
   border-radius: ${(props) => props.theme.border.radius.small};
 `;
 

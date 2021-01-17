@@ -51,7 +51,7 @@ export function Controls(props: ControlsProps): React.ReactElement {
   const playMarkup = (
     <Button ref={play} onClick={props.togglePlayback}>
       <Box paddingRight={theme.spacing.tight}>
-        <Icon src={props.paused ? Play : Pause} w={theme.icon.baseSmall} />
+        <Icon src={props.paused ? Play : Pause} w={theme.icon.basesmall} />
       </Box>
     </Button>
   );
@@ -72,7 +72,7 @@ export function Controls(props: ControlsProps): React.ReactElement {
     <Button onClick={props.toggleFullscreen}>
       <Icon
         src={props.fullscreen ? Compress : Expand}
-        w={theme.icon.baseSmall}
+        w={theme.icon.basesmall}
       />
     </Button>
   );

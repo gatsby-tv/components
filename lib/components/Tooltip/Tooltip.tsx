@@ -2,30 +2,26 @@ import React, { useRef, useState, useEffect } from "react";
 import { css } from "styled-components";
 import type { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
-import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
+import { ifExists, ifNotExists, useTheme } from "@gatsby-tv/utilities";
 
 import { cssProperty } from "@lib/styles/property";
-import { Box } from "@lib/components/Box";
+import { cssShadow } from "@lib/styles/shadows";
+import { TextBox } from "@lib/components/TextBox";
 import { Portal } from "@lib/components/Portal";
 
 export interface TooltipProps {
-  children?: React.ReactNode;
+  children?: string | string[];
   for: React.RefObject<HTMLElement>;
-  fade?: boolean;
-  delay?: number;
-  fixed?: boolean;
   offset?: number;
   placement?: Placement;
-  pointer?: boolean;
 }
 
-export function Tooltip(props: TooltipProps): React.ReactElement {
-  const { fade, delay } = props;
+export function Tooltip(props: TooltipProps): React.ReactElement | null {
+  const theme = useTheme();
   const [active, setActive] = useState(false);
-  const popper = useRef<HTMLDivElement>(null);
-  const { styles, attributes } = usePopper(props.for.current, popper.current, {
-    placement: props.placement,
-    strategy: props.fixed ? "fixed" : "absolute",
+  const [popper, setPopper] = useState<HTMLDivElement | null>(null);
+  const { styles, attributes } = usePopper(props.for.current, popper, {
+    placement: props.placement ?? "bottom",
     modifiers: [
       {
         name: "offset",
@@ -46,15 +42,13 @@ export function Tooltip(props: TooltipProps): React.ReactElement {
   });
 
   const popperStyle = css`
-    ${cssProperty("pointer-events", ifNotExists(props.pointer, "none"))}
-
-    & > * {
-      opacity: 0;
-      animation-name: appear;
-      animation-duration: ${(props) => (fade ? props.theme.duration.fast : 0)};
-      animation-fill-mode: forwards;
-      animation-delay: ${ifExists(fade && delay, `${delay}ms`)};
-    }
+    ${cssShadow}
+    pointer-events: none;
+    opacity: 0;
+    animation-name: appear;
+    animation-duration: ${(props) => props.theme.duration.fast};
+    animation-fill-mode: forwards;
+    animation-delay: ${(props) => props.theme.duration.base};
 
     @keyframes appear {
       from {
@@ -78,18 +72,21 @@ export function Tooltip(props: TooltipProps): React.ReactElement {
     };
   }, []);
 
-  return (
+  return active ? (
     <Portal id="tooltip">
-      {active && (
-        <Box
-          ref={popper}
-          css={popperStyle}
-          style={styles.popper}
-          {...attributes.popper}
-        >
-          {props.children}
-        </Box>
-      )}
+      <TextBox
+        ref={setPopper}
+        css={popperStyle}
+        style={styles.popper}
+        weight="semi-bold"
+        bg={theme.colors.background[5]}
+        rounded={theme.border.radius.small}
+        padding={[theme.spacing.extratight, theme.spacing.tight]}
+        zIndex={1000}
+        {...attributes.popper}
+      >
+        {props.children}
+      </TextBox>
     </Portal>
-  );
+  ) : null;
 }

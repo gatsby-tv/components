@@ -1,18 +1,30 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { IPFSContent } from "@gatsby-tv/types";
+import { useIPFSContent } from "@gatsby-tv/utilities";
 
 import { Size } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Viewport } from "@lib/components/Viewport";
 
-export type ImageProps = {
+type ImageBaseProps = {
   w?: Size;
   rounded?: Size;
   aspectRatio?: number;
   overlay?: React.ReactNode;
   ariaLabel?: string;
-} & React.ImgHTMLAttributes<HTMLElement>;
+} & Omit<React.ImgHTMLAttributes<HTMLElement>, "src">;
 
-export function Image(props: ImageProps): React.ReactElement {
+type ImageURLProps = ImageBaseProps & { src?: string };
+
+type ImageIPFSProps = ImageBaseProps & { src: IPFSContent };
+
+export type ImageProps = ImageURLProps | ImageIPFSProps;
+
+function isImageURLProps(props: ImageProps): props is ImageURLProps {
+  return typeof (props as ImageURLProps).src !== "object";
+}
+
+function ImageURL(props: ImageURLProps): React.ReactElement {
   const {
     aspectRatio = 1,
     w,
@@ -51,4 +63,19 @@ export function Image(props: ImageProps): React.ReactElement {
       />
     </Viewport>
   );
+}
+
+function ImageIPFS(props: ImageIPFSProps): React.ReactElement {
+  const { src, ...rest } = props;
+  const { url } = useIPFSContent(src);
+
+  return <ImageURL src={url} {...rest} />;
+}
+
+export function Image(props: ImageProps): React.ReactElement {
+  if (isImageURLProps(props)) {
+    return <ImageURL {...props} />;
+  } else {
+    return <ImageIPFS {...props} />;
+  }
 }

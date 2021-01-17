@@ -135,7 +135,7 @@ export function FormSelect(props: FormSelectProps): React.ReactElement {
         data-error={ifExists(error)}
         gap={theme.spacing.tight}
         align="center"
-        padding={[theme.spacing.tight, theme.spacing.baseTight]}
+        padding={[theme.spacing.tight, theme.spacing.basetight]}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onClick={handleClick}

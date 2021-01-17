@@ -1,19 +1,29 @@
 import React, { useState, useCallback } from "react";
-import { useTheme } from "@gatsby-tv/utilities";
+import { IPFSContent } from "@gatsby-tv/types";
+import { useTheme, useIPFSContent } from "@gatsby-tv/utilities";
 
-import { AvatarSize } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Viewport } from "@lib/components/Viewport";
 
-export type AvatarProps = {
+type AvatarBaseProps = {
   ariaLabel?: string;
   size?: string;
   overlay?: React.ReactNode;
-} & React.ImgHTMLAttributes<HTMLElement>;
+} & Omit<React.ImgHTMLAttributes<HTMLElement>, "src">;
 
-export function Avatar(props: AvatarProps): React.ReactElement {
+type AvatarURLProps = AvatarBaseProps & { src?: string };
+
+type AvatarIPFSProps = AvatarBaseProps & { src: IPFSContent };
+
+export type AvatarProps = AvatarURLProps | AvatarIPFSProps;
+
+function isAvatarURLProps(props: AvatarProps): props is AvatarURLProps {
+  return typeof (props as AvatarURLProps).src !== "object";
+}
+
+function AvatarURL(props: AvatarURLProps): React.ReactElement {
   const theme = useTheme();
-  const { size = theme.avatar.medium, overlay, ariaLabel, ...imgProps } = props;
+  const { size = theme.avatar.base, overlay, ariaLabel, ...imgProps } = props;
   const [loading, setLoading] = useState(true);
 
   const handleLoad = useCallback(() => setLoading(false), []);
@@ -39,4 +49,19 @@ export function Avatar(props: AvatarProps): React.ReactElement {
       />
     </Viewport>
   );
+}
+
+function AvatarIPFS(props: AvatarIPFSProps): React.ReactElement {
+  const { src, ...rest } = props;
+  const { url } = useIPFSContent(src);
+
+  return <AvatarURL src={url} {...rest} />;
+}
+
+export function Avatar(props: AvatarProps): React.ReactElement {
+  if (isAvatarURLProps(props)) {
+    return <AvatarURL {...props} />;
+  } else {
+    return <AvatarIPFS {...props} />;
+  }
 }

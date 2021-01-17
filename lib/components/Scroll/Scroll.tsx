@@ -2,17 +2,20 @@ import React, { useRef, useState, useCallback } from "react";
 import styled from "styled-components";
 import {
   ifExists,
+  ifNotExists,
   ScrollContext,
   useParentRef,
   useResizeObserver,
 } from "@gatsby-tv/utilities";
 
 import { Box } from "@lib/components/Box";
-import { EventHandler } from "@lib/types";
+import { cssSize } from "@lib/styles/size";
+import { EventHandler, Size } from "@lib/types";
 
 export interface ScrollProps {
   children?: React.ReactNode;
   hide?: boolean;
+  maxh?: Size;
 }
 
 const ScrollBase = styled.div<ScrollProps>`
@@ -46,32 +49,59 @@ const ScrollBase = styled.div<ScrollProps>`
 export function Scroll(props: ScrollProps): React.ReactElement {
   const [callbacks, setCallbacks] = useState<EventHandler[]>([]);
   const [height, setHeight] = useState<number | undefined>(undefined);
-  const ref = useRef<HTMLDivElement>(null);
-  const container = useParentRef<HTMLDivElement>(ref);
+  const scroll = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
+  const parent = useParentRef<HTMLDivElement>(container);
+  const scrollPosition = useRef<number>(0);
 
-  useResizeObserver(container, (content) => setHeight(content.blockSize));
+  useResizeObserver(parent, (content) => setHeight(content.blockSize));
 
-  const addCallback = useCallback(
+  const addScrollListener = useCallback(
     (callback: EventHandler) =>
       setCallbacks((current) => [...current, callback]),
     []
   );
 
-  const removeCallback = useCallback(
+  const removeScrollListener = useCallback(
     (callback: EventHandler) =>
       setCallbacks((current) => current.filter((entry) => entry !== callback)),
     []
   );
 
   const handleScroll: EventHandler = useCallback(
-    (event) => callbacks.forEach((callback) => callback(event)),
+    (event) => {
+      if (scroll.current) {
+        scrollPosition.current = scroll.current.scrollTop;
+      }
+      callbacks.forEach((callback) => callback(event));
+    },
     [callbacks]
   );
 
+  const setScrollPosition = useCallback((value: number) => {
+    scrollPosition.current = value;
+    if (scroll.current) {
+      scroll.current.scrollTop = value;
+    }
+  }, []);
+
   return (
-    <ScrollContext.Provider value={[addCallback, removeCallback]}>
-      <Box ref={ref} absolute expand h={ifExists(height, `${height}px`)}>
-        <ScrollBase onScroll={handleScroll} {...props}>
+    <ScrollContext.Provider
+      value={{
+        scrollPosition,
+        setScrollPosition,
+        addScrollListener,
+        removeScrollListener,
+      }}
+    >
+      <Box
+        ref={container}
+        absolute={ifNotExists(props.maxh)}
+        expand
+        h={ifExists(height && ifNotExists(props.maxh), `${height}px`)}
+        maxh={props.maxh}
+      >
+        <ScrollBase ref={scroll} onScroll={handleScroll} {...props}>
           {props.children}
         </ScrollBase>
       </Box>

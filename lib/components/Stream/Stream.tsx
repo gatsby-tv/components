@@ -44,7 +44,7 @@ export function Stream<T>(
     ...flexProps
   } = props;
   const [waiting, setWaiting] = useState(false);
-  const [addScrollListener, removeScrollListener] = useScroll();
+  const { addScrollListener, removeScrollListener } = useScroll();
   const theme = useTheme();
 
   const [state, dispatch] = useReducer(

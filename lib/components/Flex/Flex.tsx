@@ -20,6 +20,7 @@ export type { ItemProps as FlexItemProps };
 export interface FlexProps extends BoxProps {
   center?: boolean;
   column?: boolean;
+  reverse?: boolean;
   groups?: number;
   distribute?: FlexDistribute;
   justify?: FlexJustifyContent;
@@ -30,7 +31,12 @@ export interface FlexProps extends BoxProps {
 
 const FlexBase = styled(Box)<FlexProps>`
   display: flex;
-  ${(props) => cssProperty("flex-direction", ifExists(props.column, "column"))}
+  ${(props) =>
+    cssProperty(
+      "flex-direction",
+      ifExists(props.column, props.reverse ? "column-reverse" : "column"),
+      ifExists(props.reverse, "row-reverse")
+    )}
   ${(props) =>
     cssProperty(
       "justify-content",

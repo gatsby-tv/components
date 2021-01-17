@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { css } from "styled-components";
-import { ifExists, useModal } from "@gatsby-tv/utilities";
+import { ifExists, useModalCallback } from "@gatsby-tv/utilities";
 
 import { EventHandler } from "@lib/types";
 import { Box } from "@lib/components/Box";
@@ -18,10 +18,11 @@ export interface ModalProps {
   fullscreen?: boolean;
   active?: boolean;
   onExit?: () => void;
+  zIndex?: number;
 }
 
 export function Modal(props: ModalProps): React.ReactElement | null {
-  useModal(() => props.onExit && props.onExit(), [props.onExit]);
+  useModalCallback(() => props.onExit && props.onExit(), [props.onExit]);
 
   const handleKeydown: EventHandler = useCallback((event) => {
     if ((event as any).code === "Escape") {
@@ -31,7 +32,11 @@ export function Modal(props: ModalProps): React.ReactElement | null {
 
   return props.active ? (
     <Portal id={props.id ? `modal-${props.id}` : "modal"}>
-      <Optional active={ifExists(props.fullscreen)} component={Overlay}>
+      <Optional
+        active={ifExists(props.fullscreen)}
+        component={Overlay}
+        $props={{ zIndex: props.zIndex }}
+      >
         <Box onPointerDown={(event) => event.stopPropagation()}>
           {props.children}
         </Box>

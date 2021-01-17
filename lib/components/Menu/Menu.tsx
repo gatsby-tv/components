@@ -37,7 +37,7 @@ function MenuBase(props: MenuProps): React.ReactElement {
     offset = [0, 10],
     bg = theme.colors.background[1],
     highlight = theme.colors.background[3],
-    padding = [theme.spacing.baseTight, theme.spacing.base],
+    padding = [theme.spacing.basetight, theme.spacing.base],
   } = props;
 
   const [popper, setPopper] = useState<HTMLDivElement | null>(null);
@@ -73,7 +73,7 @@ function MenuBase(props: MenuProps): React.ReactElement {
       ${(props) =>
         cssMargin("padding", padding, [
           props.theme.spacing.tight,
-          props.theme.spacing.baseTight,
+          props.theme.spacing.basetight,
         ])}
     }
 
@@ -90,12 +90,7 @@ function MenuBase(props: MenuProps): React.ReactElement {
         w={props.w}
         {...attributes.popper}
       >
-        <Connected
-          style={styles.offset}
-          css={containerStyle}
-          column
-          align="stretch"
-        >
+        <Connected css={containerStyle} column align="stretch">
           {props.children}
         </Connected>
       </Box>

@@ -34,17 +34,17 @@ export const cssTextLineClamp = (lines: number): CSSProp => css`
 
 export const cssTextBody = css`
   white-space: pre-line;
+  font-weight: 400;
   font-size: ${(props) => props.theme.font.size.base};
   line-height: ${(props) => props.theme.font.height.base};
-  font-weight: 400;
 `;
 
 export const cssTextDisplay = (size: DisplaySize): CSSProp => css`
   font-size: ${(props) =>
-    props.theme.font.size[size === "small" ? "displaySmall" : "displayLarge"]};
+    props.theme.font.size[size === "small" ? "displaysmall" : "displaylarge"]};
   line-height: ${(props) =>
     props.theme.font.height[
-      size === "small" ? "displaySmall" : "displayLarge"
+      size === "small" ? "displaysmall" : "displaylarge"
     ]};
   font-weight: 700;
 `;
@@ -60,20 +60,20 @@ export const cssTextMeta = (
 
   switch (size) {
     case "small":
-      fontSize = theme.font.size.metaSmall;
-      lineHeight = theme.font.height.metaSmall;
+      fontSize = theme.font.size.metasmall;
+      lineHeight = theme.font.height.metasmall;
       weight = bold ? 500 : 400;
       break;
 
     case "medium":
-      fontSize = theme.font.size.metaMedium;
-      lineHeight = theme.font.height.metaMedium;
+      fontSize = theme.font.size.metamedium;
+      lineHeight = theme.font.height.metamedium;
       weight = bold ? 600 : 400;
       break;
 
     case "large":
-      fontSize = theme.font.size.metaLarge;
-      lineHeight = theme.font.height.metaLarge;
+      fontSize = theme.font.size.metalarge;
+      lineHeight = theme.font.height.metalarge;
       weight = bold ? 600 : 400;
       break;
   }
@@ -99,17 +99,13 @@ export const cssTextSubheading = css`
 `;
 
 export const cssTextError = css`
-  font-size: ${(props) => props.theme.font.size.base};
-  line-height: ${(props) => props.theme.font.height.base};
   color: ${(props) => props.theme.colors.error};
   font-weight: 500;
 `;
 
 export const cssTextLabel = css`
   ${cssTextCondensed}
-  font-size: ${(props) => props.theme.font.size.base};
-  line-height: ${(props) => props.theme.font.height.base};
-  font-weight: 400;
+  font-weight: 500;
 `;
 
 export const cssTextCaption = css`
@@ -120,16 +116,12 @@ export const cssTextCaption = css`
 `;
 
 export const cssTextInput = css`
-  ${cssTextBody}
-  color: ${(props) => props.theme.colors.font.body.darken(0.1)};
+  white-space: pre-line;
+  font-weight: 400;
   appearance: none;
-
-  &::placeholder {
-    color: ${(props) => props.theme.colors.font.body.fade(0.5)};
-  }
 `;
 
-export const cssTextButton = css`
+export const cssTextUppercase = css`
   font-weight: 600;
   appearance: none;
   text-transform: uppercase;

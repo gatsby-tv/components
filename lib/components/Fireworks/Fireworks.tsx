@@ -6,11 +6,13 @@ import { Portal } from "@lib/components/Portal";
 import { EventListener } from "@lib/components/EventListener";
 
 export interface FireworksProps {
-  origin: Origin;
+  origin?: Origin;
   activator?: React.ReactNode;
+  infinite?: boolean;
   toggle?: boolean;
   count?: number;
   interval?: number;
+  zIndex?: number;
 }
 
 type Position = {
@@ -115,8 +117,8 @@ Particle.render = (
   );
   context.beginPath();
   context.arc(
-    particle.position.x,
-    particle.position.y,
+    Math.floor(particle.position.x),
+    Math.floor(particle.position.y),
     particle.size,
     0,
     2 * Math.PI,
@@ -134,7 +136,20 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const [particles, setParticles] = useState<ParticleType[]>([]);
 
-  const { origin, toggle, count, interval } = props;
+  const {
+    origin = useCallback(
+      () => ({
+        x: (Math.random() * window.innerWidth * 2) / 3 + window.innerWidth / 6,
+        y: window.innerHeight,
+      }),
+      []
+    ),
+    count = Infinity,
+    interval = 800,
+    infinite,
+    toggle,
+    zIndex,
+  } = props;
 
   const handleResize = useCallback(() => {
     if (!canvas) return;
@@ -190,7 +205,7 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
   useEffect(() => draw(), [canvas, draw]);
 
   useEffect(() => {
-    if (toggle === null) return;
+    if (!infinite && toggle == null) return;
 
     const rocketGenerator = () => {
       let position;
@@ -212,9 +227,20 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
 
     let iterations = 0;
     const id = setInterval(() => {
-      if (iterations < (count ?? 3)) {
-        iterations += 1;
-        setRockets((current) => [...current, rocketGenerator()]);
+      if (iterations < count) {
+        setRockets((current) => {
+          /* For infinite fireworks, if rendering is slow then this interval
+           * will fire rockets faster than they can explode. This will cause
+           * rockets to build up on screen which will only perpetuate the poor
+           * rendering performance.
+           **/
+          if (count !== Infinity || current.length < 5) {
+            iterations += 1;
+            return [...current, rocketGenerator()];
+          } else {
+            return current;
+          }
+        });
       } else {
         clearInterval(id);
       }
@@ -227,7 +253,7 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
     <>
       {props.activator}
       <Portal id="fireworks">
-        <Box absolute expand css={{ pointerEvents: "none" }}>
+        <Box absolute expand css={{ pointerEvents: "none" }} zIndex={zIndex}>
           <canvas ref={setCanvas} />
         </Box>
         <EventListener event="resize" handler={handleResize} />

@@ -21,7 +21,7 @@ const selectionStyle = css`
   }
 
   ${Selection.Item} {
-    padding: ${(props) => props.theme.spacing.baseTight}
+    padding: ${(props) => props.theme.spacing.basetight}
       ${(props) => props.theme.spacing.base};
     transition: all ${(props) => props.theme.duration.fastest} ease;
   }

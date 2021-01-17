@@ -14,7 +14,7 @@ const getSpacing = (theme: DefaultTheme, size?: MetaSize) => {
   if (size === "large") {
     return theme.spacing.tight;
   } else {
-    return theme.spacing.extraTight;
+    return theme.spacing.extratight;
   }
 };
 

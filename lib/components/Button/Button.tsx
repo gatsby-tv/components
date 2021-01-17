@@ -6,22 +6,26 @@ import React, {
   forwardRef,
 } from "react";
 import styled, { css } from "styled-components";
-import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
+import { ifExists, ifNotExists, useForwardedRef } from "@gatsby-tv/utilities";
 
+import { Tooltip } from "@lib/components/Tooltip";
 import { Size, Margin, FontSize } from "@lib/types";
 import { cssSize, cssMargin } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
-import { cssTextButton } from "@lib/styles/typography";
+import { cssTextUppercase } from "@lib/styles/typography";
 
 export type ButtonProps = {
   animate?: boolean;
   rounded?: Size;
   padding?: Margin;
+  w?: Size;
+  h?: Size;
   bg?: string;
   fg?: string;
   highlight?: string | [string, string];
   font?: FontSize;
   fontHeight?: FontSize;
+  tooltip?: string;
   onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLElement>;
 
@@ -29,8 +33,8 @@ const cssHighlight = (
   highlight: (string | undefined)[],
   animated?: boolean
 ) => css`
-  &:hover,
-  &:active {
+  &:not(:disabled):hover,
+  &:not(:disabled):active {
     ${(props) =>
       cssProperty(
         "background-color",
@@ -38,7 +42,7 @@ const cssHighlight = (
       )}
   }
 
-  &:active {
+  &:not(:disabled):active {
     ${(props) =>
       cssProperty("background-color", ifNotExists(animated, highlight[1]))}
   }
@@ -91,21 +95,23 @@ const cssPadding = (padding?: Margin, rounded?: Size) => css`
       "padding",
       padding,
       rounded === props.theme.border.radius.full
-        ? props.theme.spacing.baseTight
-        : [props.theme.spacing.tight, props.theme.spacing.baseTight]
+        ? props.theme.spacing.basetight
+        : [props.theme.spacing.tight, props.theme.spacing.basetight]
     )}
 `;
 
 const ButtonBase = styled.button<ButtonProps>`
-  ${cssTextButton}
+  ${cssTextUppercase}
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   display: block;
   position: relative;
   outline: none;
+  ${(props) => cssSize("width", props.w)}
+  ${(props) => cssSize("height", props.h)}
   ${(props) =>
-    cssProperty("font-size", props.theme.font.size[props.font ?? "baseSmall"])}
+    cssProperty("font-size", props.theme.font.size[props.font ?? "basesmall"])}
   ${(props) =>
     cssProperty(
       "line-height",
@@ -115,7 +121,6 @@ const ButtonBase = styled.button<ButtonProps>`
       ),
       props.theme.font.height[props.font ?? "base"]
     )}
-  ${(props) => cssProperty("background-color", props.bg, "transparent")}
   ${(props) =>
     cssProperty("color", props.fg, props.theme.colors.font.body.darken(0.1))}
   ${(props) =>
@@ -131,11 +136,24 @@ const ButtonBase = styled.button<ButtonProps>`
       props.animate,
       cssAnimate([props.highlight].flat(), props.rounded)
     )}
+
+  &:not(:disabled) {
+    ${(props) => cssProperty("background-color", props.bg, "transparent")}
+  }
+
+  &:disabled {
+    ${(props) =>
+      cssProperty(
+        "background-color",
+        ifExists(props.bg, props.theme.colors.placeholder)
+      )}
+  }
 `;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
     const key = useRef(0);
+    const button = useForwardedRef<HTMLButtonElement>(ref);
     const [active, setActive] = useState(0);
     const [held, setHeld] = useState(false);
     const { onClick = () => undefined, ...rest } = props;
@@ -184,16 +202,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ]);
 
     return (
-      <ButtonBase
-        ref={ref}
-        key={key.current}
-        data-animating={ifExists(props.animate && (active || held))}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-        onClick={ifNotExists(props.animate, onClick)}
-        {...rest}
-      />
+      <>
+        <ButtonBase
+          ref={button}
+          key={key.current}
+          data-animating={ifExists(props.animate && (active || held))}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          onClick={ifNotExists(props.animate, onClick)}
+          {...rest}
+        />
+        {props.tooltip && !held && (
+          <Tooltip for={button} offset={7}>
+            {props.tooltip}
+          </Tooltip>
+        )}
+      </>
     );
   }
 );

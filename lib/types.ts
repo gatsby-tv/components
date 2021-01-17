@@ -12,36 +12,34 @@ export interface Styleable {
 
 export type IconSource = React.FC<React.SVGProps<SVGSVGElement>>;
 
-export type AvatarSize = "small" | "medium" | "large" | "extraLarge";
-
 export type FontSize =
   | "heading"
   | "subheading"
-  | "extraSmall"
+  | "extrasmall"
   | "small"
-  | "baseSmall"
+  | "basesmall"
   | "base"
-  | "baseLarge"
+  | "baselarge"
   | "large"
-  | "extraLarge"
-  | "metaSmall"
-  | "metaMedium"
-  | "metaLarge"
-  | "displaySmall"
-  | "displayLarge";
+  | "extralarge"
+  | "metasmall"
+  | "metamedium"
+  | "metalarge"
+  | "displaysmall"
+  | "displaylarge";
 
 export type FontStretch = "condensed" | "semi-condensed";
 export type FontWeight = "normal" | "semi-bold" | "bold";
 
 export type Space =
   | "none"
-  | "extraTight"
+  | "extratight"
   | "tight"
-  | "baseTight"
+  | "basetight"
   | "base"
-  | "baseLoose"
+  | "baseloose"
   | "loose"
-  | "extraLoose";
+  | "extraloose";
 
 export type Duration =
   | "instant"
@@ -87,7 +85,7 @@ export type ColorHue =
   | "white"
   | "black"
   | "placeholder"
-  | "gatsbyGold"
+  | "gold"
   | "background";
 
 export type ColorValue = number | string;

@@ -48,7 +48,7 @@ const ContentMarkup = () => (
 
 export const Example: Story<FrameProps> = () => (
   <AppProvider theme="dark">
-    <Frame topbar={<TopbarMarkup />} sidebar={<SidebarMarkup />}>
+    <Frame topbar={TopbarMarkup} sidebar={SidebarMarkup}>
       <ContentMarkup />
     </Frame>
   </AppProvider>
