@@ -42,7 +42,8 @@ export function Controls(props: ControlsProps): React.ReactElement {
       css={`
         font-variant-numeric: tabular-nums;
       `}
-      weight="semi-bold"
+      font={theme.font[4]}
+      weight={theme.weight.semiBold}
     >
       {`${progress} / ${duration}`}
     </TextBox>
@@ -50,8 +51,8 @@ export function Controls(props: ControlsProps): React.ReactElement {
 
   const playMarkup = (
     <Button ref={play} onClick={props.togglePlayback}>
-      <Box paddingRight={theme.spacing.tight}>
-        <Icon src={props.paused ? Play : Pause} w={theme.icon.basesmall} />
+      <Box paddingRight={theme.spacing[0.5]}>
+        <Icon src={props.paused ? Play : Pause} w={theme.icon.small} />
       </Box>
     </Button>
   );
@@ -70,10 +71,7 @@ export function Controls(props: ControlsProps): React.ReactElement {
 
   const fullscreenMarkup = (
     <Button onClick={props.toggleFullscreen}>
-      <Icon
-        src={props.fullscreen ? Compress : Expand}
-        w={theme.icon.basesmall}
-      />
+      <Icon src={props.fullscreen ? Compress : Expand} w={theme.icon.small} />
     </Button>
   );
 
@@ -84,7 +82,7 @@ export function Controls(props: ControlsProps): React.ReactElement {
           {playMarkup}
           {nextMarkup}
           {playlistMarkup}
-          <Flex center paddingLeft={theme.spacing.tight}>
+          <Flex center paddingLeft={theme.spacing[0.5]}>
             {progressMarkup}
           </Flex>
         </Flex>

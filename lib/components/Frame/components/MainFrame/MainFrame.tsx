@@ -7,13 +7,19 @@ import { Scroll } from "@lib/components/Scroll";
 
 export interface MainFrameProps {
   children?: React.ReactNode;
-  offset?: number;
+  offsetX?: number;
+  offsetY?: number;
 }
 
 export function MainFrame(props: MainFrameProps): React.ReactElement {
+  const { offsetX, offsetY } = props;
+
   return (
     <Box as="main" expand>
-      <Scroll maxh={ifExists(props.offset, `calc(100vh - ${props.offset}px)`)}>
+      <Scroll
+        maxw={offsetX ? `calc(100vw - ${offsetX}px)` : "100vw"}
+        maxh={offsetY ? `calc(100vh - ${offsetY}px)` : "100vh"}
+      >
         {props.children}
       </Scroll>
     </Box>

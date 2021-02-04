@@ -13,7 +13,7 @@ export default {
 
 export const Example: Story<TextCaptionProps> = () => (
   <AppProvider theme="dark">
-    <TextBox>
+    <TextBox font="1.8rem">
       <p>Example Text</p>
       <TextCaption>With a caption</TextCaption>
     </TextBox>

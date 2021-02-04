@@ -24,11 +24,14 @@ export interface FrameProps {
 }
 
 export function Frame(props: FrameProps) {
-  const topframe = useRef<HTMLElement>(null);
-  const [offset, setOffset] = useState<number | undefined>(undefined);
+  const topframe = useRef<HTMLDivElement>(null);
+  const sideframe = useRef<HTMLDivElement>(null);
+  const [offsetX, setOffsetX] = useState<number | undefined>(undefined);
+  const [offsetY, setOffsetY] = useState<number | undefined>(undefined);
   const [fullscreen, toggleFullscreen, setFullscreen] = useToggle(false);
 
-  useResizeObserver(topframe, (content) => setOffset(content.blockSize));
+  useResizeObserver(sideframe, (content) => setOffsetX(content.inlineSize));
+  useResizeObserver(topframe, (content) => setOffsetY(content.blockSize));
 
   return (
     <FrameContext.Provider
@@ -40,8 +43,10 @@ export function Frame(props: FrameProps) {
     >
       <FrameBase>
         <TopFrame ref={topframe} topbar={props.topbar}>
-          <SideFrame sidebar={props.sidebar}>
-            <MainFrame offset={offset}>{props.children}</MainFrame>
+          <SideFrame ref={sideframe} sidebar={props.sidebar}>
+            <MainFrame offsetX={offsetX} offsetY={offsetY}>
+              {props.children}
+            </MainFrame>
           </SideFrame>
         </TopFrame>
       </FrameBase>

@@ -14,7 +14,7 @@ import {
   SkipBackward,
   Spinner,
 } from "@gatsby-tv/icons";
-import { useForwardedRef } from "@gatsby-tv/utilities";
+import { useForwardedRef, useResizeObserver } from "@gatsby-tv/utilities";
 
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
@@ -82,7 +82,6 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
     const signalKey = useRef(0);
     const [signal, setSignalState] = useState("");
     const [loading, setLoading] = useState(false);
-    const [layoutKey, setLayoutKey] = useState(0);
     const [dimensions, setDimensions] = useState<Dimensions>({
       width: 0,
       height: 0,
@@ -267,11 +266,6 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       }
     }, []);
 
-    const updateLayout = useCallback(
-      () => setLayoutKey((current) => current + 1),
-      []
-    );
-
     const handleKeydown = useCallback(
       (event) => {
         const { toggleFullscreen = () => undefined } = props;
@@ -310,13 +304,9 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       [state.seeking, props, seekTo, setSignal, togglePlayback]
     );
 
-    // Consider switching to useLayoutEffect eventually.
-    useEffect(() => {
-      if (player.current) {
-        const rect = player.current.getBoundingClientRect();
-        setDimensions({ width: rect.width, height: rect.height });
-      }
-    }, [layoutKey]);
+    useResizeObserver(player, (content) =>
+      setDimensions({ width: content.inlineSize, height: content.blockSize })
+    );
 
     useEffect(() => {
       const id = setTimeout(() => setSignal(""), 700);
@@ -547,7 +537,6 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
             {props.children}
           </Video>
         </Flex>
-        <EventListener event="resize" handler={updateLayout} />
         <EventListener event="keydown" handler={handleKeydown} />
       </Viewport>
     );

@@ -37,7 +37,7 @@ function MenuBase(props: MenuProps): React.ReactElement {
     offset = [0, 10],
     bg = theme.colors.background[1],
     highlight = theme.colors.background[3],
-    padding = [theme.spacing.basetight, theme.spacing.base],
+    padding = [theme.spacing[1], theme.spacing[1.5]],
   } = props;
 
   const [popper, setPopper] = useState<HTMLDivElement | null>(null);
@@ -72,8 +72,8 @@ function MenuBase(props: MenuProps): React.ReactElement {
       border-radius: ${(props) => props.theme.border.radius.smallest};
       ${(props) =>
         cssMargin("padding", padding, [
-          props.theme.spacing.tight,
-          props.theme.spacing.basetight,
+          props.theme.spacing[0.5],
+          props.theme.spacing[1],
         ])}
     }
 

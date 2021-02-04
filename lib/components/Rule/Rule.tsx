@@ -3,14 +3,14 @@ import styled, { css } from "styled-components";
 import { useTheme } from "@gatsby-tv/utilities";
 
 import { Flex } from "@lib/components/Flex";
-import { FontSize, Size, Margin } from "@lib/types";
+import { Size, Margin } from "@lib/types";
 import { cssProperty } from "@lib/styles/property";
 import { cssSize, cssMargin } from "@lib/styles/size";
 import { cssTextUppercase } from "@lib/styles/typography";
 
 export interface RuleProps {
   children?: string | string[];
-  font?: FontSize;
+  font?: string;
   bg?: string;
   fg?: string;
   w?: Size;
@@ -31,8 +31,7 @@ export function Rule(props: RuleProps): React.ReactElement {
 
   const text = css`
     ${cssTextUppercase}
-    ${cssProperty("font-size", theme.font.size[props.font ?? "basesmall"])}
-    ${cssProperty("line-height", theme.font.height[props.font ?? "basesmall"])}
+    ${cssProperty("font-size", props.font)}
     color: ${props.fg ?? theme.colors.font.subdued};
     text-align: center;
     vertical-align: middle;
@@ -47,10 +46,10 @@ export function Rule(props: RuleProps): React.ReactElement {
           bg={props.bg}
           thin={props.thin}
           margin={[
-            theme.spacing.none,
-            theme.spacing.basetight,
-            theme.spacing.none,
-            theme.spacing.none,
+            theme.spacing[0],
+            theme.spacing[1],
+            theme.spacing[0],
+            theme.spacing[0],
           ]}
         />
         {props.children}
@@ -59,10 +58,10 @@ export function Rule(props: RuleProps): React.ReactElement {
           thin={props.thin}
           bg={props.bg}
           margin={[
-            theme.spacing.none,
-            theme.spacing.none,
-            theme.spacing.none,
-            theme.spacing.basetight,
+            theme.spacing[0],
+            theme.spacing[0],
+            theme.spacing[0],
+            theme.spacing[1],
           ]}
         />
       </Flex>

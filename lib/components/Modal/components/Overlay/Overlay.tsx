@@ -35,7 +35,7 @@ export function Overlay(props: OverlayProps): React.ReactElement {
 
       @keyframes slide {
         from {
-          transform: translateY(${(props) => props.theme.spacing.extraloose});
+          transform: translateY(${(props) => props.theme.spacing[4]});
         }
 
         to {

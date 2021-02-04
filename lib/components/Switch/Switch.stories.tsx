@@ -23,8 +23,8 @@ const switchStyle = css`
   ${Switch.Item} {
     background-color: ${(props) => props.theme.colors.background[4]};
     border-radius: ${(props) => props.theme.border.radius.small};
-    padding: ${(props) => props.theme.spacing.basetight}
-      ${(props) => props.theme.spacing.base};
+    padding: ${(props) => props.theme.spacing[0.5]}
+      ${(props) => props.theme.spacing[1.5]};
     transition: all ${(props) => props.theme.duration.fastest} ease;
   }
 `;

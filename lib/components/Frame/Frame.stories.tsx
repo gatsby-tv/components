@@ -3,8 +3,9 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import { useTheme } from "@gatsby-tv/utilities";
 
 import { AppProvider } from "@lib/components/AppProvider";
+import { Grid } from "@lib/components/Grid";
 import { Box } from "@lib/components/Box";
-import { Flex } from "@lib/components/Flex";
+
 import { Stream } from "@lib/components/Stream";
 import { Image, ImageProps } from "@lib/components/Image";
 
@@ -28,22 +29,20 @@ const SidebarMarkup = () => {
 };
 
 const SourceMarkup = (props: ImageProps) => (
-  <Flex.Item>
+  <Grid.Item>
     <Image {...props} />
-  </Flex.Item>
+  </Grid.Item>
 );
 
 const ContentMarkup = () => (
-  <Box margin={["52px", "52px", "0px"]}>
+  <Grid margin={["52px", "52px", "0px"]} template="repeat(3, 1fr)" gap="16px">
     <Stream
       component={SourceMarkup}
       generator={() =>
         [...Array(12)].map(() => ({ src: "", aspectRatio: 0.5625 }))
       }
-      groups={3}
-      gap="16px"
     />
-  </Box>
+  </Grid>
 );
 
 export const Example: Story<FrameProps> = () => (

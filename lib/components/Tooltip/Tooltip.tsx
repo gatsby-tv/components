@@ -78,10 +78,11 @@ export function Tooltip(props: TooltipProps): React.ReactElement | null {
         ref={setPopper}
         css={popperStyle}
         style={styles.popper}
-        weight="semi-bold"
+        weight={theme.weight.semiBold}
+        font={theme.font[4]}
         bg={theme.colors.background[5]}
         rounded={theme.border.radius.small}
-        padding={[theme.spacing.extratight, theme.spacing.tight]}
+        padding={[theme.spacing[0.5], theme.spacing[1]]}
         zIndex={1000}
         {...attributes.popper}
       >

@@ -10,36 +10,9 @@ export interface Styleable {
   css?: CSSProp;
 }
 
+export type DisplaySize = "small" | "large";
+
 export type IconSource = React.FC<React.SVGProps<SVGSVGElement>>;
-
-export type FontSize =
-  | "heading"
-  | "subheading"
-  | "extrasmall"
-  | "small"
-  | "basesmall"
-  | "base"
-  | "baselarge"
-  | "large"
-  | "extralarge"
-  | "metasmall"
-  | "metamedium"
-  | "metalarge"
-  | "displaysmall"
-  | "displaylarge";
-
-export type FontStretch = "condensed" | "semi-condensed";
-export type FontWeight = "normal" | "semi-bold" | "bold";
-
-export type Space =
-  | "none"
-  | "extratight"
-  | "tight"
-  | "basetight"
-  | "base"
-  | "baseloose"
-  | "loose"
-  | "extraloose";
 
 export type Duration =
   | "instant"
@@ -65,9 +38,6 @@ export type Timing =
   | "linear"
   | "step-start"
   | "step-end";
-
-export type DisplaySize = "small" | "large";
-export type MetaSize = "small" | "medium" | "large";
 
 export type Size = number | string;
 export type Margin =
@@ -132,3 +102,25 @@ export type FlexAlignContent =
   | "baseline"
   | "first baseline"
   | "last baseline";
+
+export type GridJustifyItems = "start" | "end" | "center" | "stretch";
+
+export type GridAlignItems = "start" | "end" | "center" | "stretch";
+
+export type GridJustifyContent =
+  | "start"
+  | "end"
+  | "center"
+  | "stretch"
+  | "space-around"
+  | "space-between"
+  | "space-evenly";
+
+export type GridAlignContent =
+  | "start"
+  | "end"
+  | "center"
+  | "stretch"
+  | "space-around"
+  | "space-between"
+  | "space-evenly";

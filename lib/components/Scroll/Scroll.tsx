@@ -9,12 +9,15 @@ import {
 } from "@gatsby-tv/utilities";
 
 import { Box } from "@lib/components/Box";
+import { cssProperty } from "@lib/styles/property";
 import { cssSize } from "@lib/styles/size";
 import { EventHandler, Size } from "@lib/types";
 
 export interface ScrollProps {
   children?: React.ReactNode;
+  smooth?: boolean;
   hide?: boolean;
+  maxw?: Size;
   maxh?: Size;
 }
 
@@ -22,8 +25,10 @@ const ScrollBase = styled.div<ScrollProps>`
   min-width: 100%;
   max-height: 100%;
   box-sizing: content-box;
-  overflow-y: scroll;
   backface-visibility: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  ${(props) => cssProperty("scroll-behavior", ifExists(props.smooth, "smooth"))}
 
   &::-webkit-scrollbar {
     width: ${(props) => (props.hide ? "0" : "1rem")};
@@ -71,7 +76,7 @@ export function Scroll(props: ScrollProps): React.ReactElement {
   const handleScroll: EventHandler = useCallback(
     (event) => {
       if (scroll.current) {
-        scrollPosition.current = scroll.current.scrollTop;
+        (scrollPosition as any).current = scroll.current.scrollTop;
       }
       callbacks.forEach((callback) => callback(event));
     },
@@ -79,7 +84,7 @@ export function Scroll(props: ScrollProps): React.ReactElement {
   );
 
   const setScrollPosition = useCallback((value: number) => {
-    scrollPosition.current = value;
+    (scrollPosition as any).current = value;
     if (scroll.current) {
       scroll.current.scrollTop = value;
     }
@@ -100,6 +105,7 @@ export function Scroll(props: ScrollProps): React.ReactElement {
         expand
         h={ifExists(height && ifNotExists(props.maxh), `${height}px`)}
         maxh={props.maxh}
+        maxw={props.maxw}
       >
         <ScrollBase ref={scroll} onScroll={handleScroll} {...props}>
           {props.children}

@@ -253,7 +253,12 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
     <>
       {props.activator}
       <Portal id="fireworks">
-        <Box absolute expand css={{ pointerEvents: "none" }} zIndex={zIndex}>
+        <Box
+          absolute
+          expand
+          css={{ pointerEvents: "none", position: "fixed" }}
+          zIndex={zIndex}
+        >
           <canvas ref={setCanvas} />
         </Box>
         <EventListener event="resize" handler={handleResize} />

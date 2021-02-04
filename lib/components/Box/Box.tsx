@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
 
 import { Size, Margin } from "@lib/types";
+import { cssShadow } from "@lib/styles/shadows";
 import { cssSize, cssMargin } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
 
@@ -10,6 +11,7 @@ export interface BoxProps {
   fg?: string;
   absolute?: boolean;
   expand?: boolean;
+  shadow?: boolean;
   rounded?: Size;
   w?: Size;
   h?: Size;
@@ -76,6 +78,7 @@ export const Box = styled.div<BoxProps>`
       props.left,
       ifExists(props.absolute) && ifExists(props.expand, 0)
     )}
+  ${(props) => ifExists(props.shadow, cssShadow)}
   ${(props) => cssSize("border-radius", props.rounded)}
   ${(props) => cssSize("max-width", props.maxw)}
   ${(props) => cssSize("max-height", props.maxh)}

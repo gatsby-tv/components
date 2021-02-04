@@ -27,7 +27,7 @@ function SelectionBase(props: SelectionProps): React.ReactElement {
   const style = css`
     > ${Section}:not(:first-child) {
       ${props.row ? "margin-left" : "margin-top"}: ${(props) =>
-        props.theme.spacing.base};
+        props.theme.spacing[1.5]};
     }
 
     > ${Section}[data-flush] {

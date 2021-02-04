@@ -8,7 +8,7 @@ import React, {
 import { Spinner } from "@gatsby-tv/icons";
 import { useScroll, useAsync, useTheme } from "@gatsby-tv/utilities";
 
-import { Flex, FlexProps } from "@lib/components/Flex";
+import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 
 interface FetchAction {
@@ -34,15 +34,8 @@ export interface StreamProps<T> {
   max?: number;
 }
 
-export function Stream<T>(
-  props: StreamProps<T> & FlexProps
-): React.ReactElement {
-  const {
-    component: SourceComponent,
-    generator,
-    max = Infinity,
-    ...flexProps
-  } = props;
+export function Stream<T>(props: StreamProps<T>): React.ReactElement {
+  const { component: SourceComponent, generator, max = Infinity } = props;
   const [waiting, setWaiting] = useState(false);
   const { addScrollListener, removeScrollListener } = useScroll();
   const theme = useTheme();
@@ -110,14 +103,14 @@ export function Stream<T>(
 
   const loadingMarkup = waiting ? (
     <Flex expand center>
-      <Icon src={Spinner} w={theme.avatar.medium} />
+      <Icon src={Spinner} w={theme.icon.largest} />
     </Flex>
   ) : null;
 
   return (
-    <Flex {...flexProps}>
+    <>
       {children}
       {loadingMarkup}
-    </Flex>
+    </>
   );
 }

@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import styled from "styled-components";
 
-import { MetaSize } from "@lib/types";
 import { cssTextSubdued } from "@lib/styles/typography";
 import { EventListener } from "@lib/components/EventListener";
 import {
@@ -18,8 +17,9 @@ import {
 import { Item } from "../Item";
 
 interface LinkBaseProps {
-  font?: MetaSize;
+  font?: string;
   bold?: boolean;
+  heading?: boolean;
 }
 
 const LinkBase = styled(Item)<LinkBaseProps>`
@@ -36,8 +36,9 @@ export interface LinkProps extends UnstyledLinkProps {
   children?: string | [string];
   href?: string;
   external?: boolean;
-  font?: MetaSize;
+  font?: string;
   bold?: boolean;
+  heading?: boolean;
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -45,7 +46,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     const text = useRef<HTMLParagraphElement>(null);
     const [truncated, setTruncated] = useState(false);
     const [active, setActive] = useState(false);
-    const { font, bold, ...rest } = props;
+    const { font, bold, heading, ...rest } = props;
 
     const handleResize = useCallback(() => {
       if (!text.current) return;
@@ -60,6 +61,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
           ref={text}
           font={font}
           bold={bold}
+          heading={heading}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >

@@ -6,49 +6,59 @@ import React, {
   forwardRef,
 } from "react";
 import styled, { css } from "styled-components";
-import { ifExists, ifNotExists, useForwardedRef } from "@gatsby-tv/utilities";
+import {
+  ifExists,
+  ifNotExists,
+  Tuple,
+  TupleType,
+  useForwardedRef,
+} from "@gatsby-tv/utilities";
 
 import { Tooltip } from "@lib/components/Tooltip";
-import { Size, Margin, FontSize } from "@lib/types";
+import { Size, Margin } from "@lib/types";
+import { cssShadow } from "@lib/styles/shadows";
 import { cssSize, cssMargin } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
 import { cssTextUppercase } from "@lib/styles/typography";
 
 export type ButtonProps = {
   animate?: boolean;
+  shadow?: boolean;
   rounded?: Size;
   padding?: Margin;
   w?: Size;
   h?: Size;
   bg?: string;
   fg?: string;
-  highlight?: string | [string, string];
-  font?: FontSize;
-  fontHeight?: FontSize;
+  highlight?: TupleType<string, string>;
+  font?: string;
   tooltip?: string;
   onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLElement>;
 
 const cssHighlight = (
-  highlight: (string | undefined)[],
+  highlight?: TupleType<string, string>,
   animated?: boolean
 ) => css`
   &:not(:disabled):hover,
   &:not(:disabled):active {
     ${(props) =>
-      cssProperty(
-        "background-color",
-        animated ? ifExists(highlight[1], highlight[0]) : highlight[0]
-      )}
+      cssProperty("background-color", Tuple.first(highlight))}
   }
 
   &:not(:disabled):active {
     ${(props) =>
-      cssProperty("background-color", ifNotExists(animated, highlight[1]))}
+      cssProperty(
+        "background-color",
+        ifNotExists(animated, Tuple.second(highlight))
+      )}
   }
 `;
 
-const cssAnimate = (highlight: (string | undefined)[], rounded?: Size) => css`
+const cssAnimate = (
+  highlight?: TupleType<string, string>,
+  rounded?: Size
+) => css`
   &:before {
     content: "";
     pointer-events: none;
@@ -58,7 +68,7 @@ const cssAnimate = (highlight: (string | undefined)[], rounded?: Size) => css`
     ${(props) =>
       cssProperty(
         "background-color",
-        highlight[1] ?? highlight[0],
+        Tuple.second(highlight),
         props.theme.colors.font.body
       )}
     position: absolute;
@@ -95,8 +105,8 @@ const cssPadding = (padding?: Margin, rounded?: Size) => css`
       "padding",
       padding,
       rounded === props.theme.border.radius.full
-        ? props.theme.spacing.basetight
-        : [props.theme.spacing.tight, props.theme.spacing.basetight]
+        ? props.theme.spacing[1]
+        : [props.theme.spacing[0.5], props.theme.spacing[1]]
     )}
 `;
 
@@ -108,34 +118,19 @@ const ButtonBase = styled.button<ButtonProps>`
   display: block;
   position: relative;
   outline: none;
+  ${(props) => ifExists(props.shadow, cssShadow)}
   ${(props) => cssSize("width", props.w)}
   ${(props) => cssSize("height", props.h)}
-  ${(props) =>
-    cssProperty("font-size", props.theme.font.size[props.font ?? "basesmall"])}
-  ${(props) =>
-    cssProperty(
-      "line-height",
-      ifExists(
-        props.fontHeight,
-        props.theme.font.height[props.fontHeight as FontSize]
-      ),
-      props.theme.font.height[props.font ?? "base"]
-    )}
+  ${(props) => cssProperty("font-size", props.font)}
   ${(props) =>
     cssProperty("color", props.fg, props.theme.colors.font.body.darken(0.1))}
   ${(props) =>
     cssSize("border-radius", props.rounded, props.theme.border.radius.small)}
   ${(props) => cssPadding(props.padding, props.rounded)}
   ${(props) =>
-    ifExists(
-      props.highlight,
-      cssHighlight([props.highlight].flat(), props.animate)
-    )}
+    ifExists(props.highlight, cssHighlight(props.highlight, props.animate))}
   ${(props) =>
-    ifExists(
-      props.animate,
-      cssAnimate([props.highlight].flat(), props.rounded)
-    )}
+    ifExists(props.animate, cssAnimate(props.highlight, props.rounded))}
 
   &:not(:disabled) {
     ${(props) => cssProperty("background-color", props.bg, "transparent")}

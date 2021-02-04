@@ -4,12 +4,12 @@ import { css } from "styled-components";
 import { IconSource } from "@lib/types";
 import { Box, BoxProps } from "@lib/components/Box";
 
-export interface IconProps {
+export interface IconProps extends BoxProps {
   src: IconSource;
   ariaLabel?: string;
 }
 
-export function Icon(props: IconProps & BoxProps): React.ReactElement {
+export function Icon(props: IconProps): React.ReactElement {
   const { src: SvgComponent, ariaLabel, ...boxProps } = props;
 
   const style = css`

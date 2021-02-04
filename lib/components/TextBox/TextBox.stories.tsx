@@ -25,5 +25,5 @@ const Template: Story<TextBoxProps> = (args) => (
 
 export const Example = Template.bind({});
 Example.args = {
-  spacing: "tight",
+  spacing: "1rem",
 };

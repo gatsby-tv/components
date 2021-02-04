@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { ifExists } from "@gatsby-tv/utilities";
+import { ifExists, Tuple, TupleType } from "@gatsby-tv/utilities";
 
 import {
   Size,
@@ -10,7 +10,7 @@ import {
 } from "@lib/types";
 import { Box, BoxProps } from "@lib/components/Box";
 import { cssProperty } from "@lib/styles/property";
-import { cssFlexGap, cssFlexDistribute, cssFlexGroups } from "@lib/styles/flex";
+import { cssFlexGap, cssFlexDistribute } from "@lib/styles/flex";
 import { cssSize } from "@lib/styles/size";
 
 import { Item, ItemProps } from "./components";
@@ -21,11 +21,10 @@ export interface FlexProps extends BoxProps {
   center?: boolean;
   column?: boolean;
   reverse?: boolean;
-  groups?: number;
+  wrapped?: boolean;
   distribute?: FlexDistribute;
   justify?: FlexJustifyContent;
-  align?: FlexAlignItems;
-  alignContent?: FlexAlignContent;
+  align?: TupleType<FlexAlignItems, FlexAlignContent>;
   gap?: Size;
 }
 
@@ -44,11 +43,15 @@ const FlexBase = styled(Box)<FlexProps>`
       ifExists(props.center, "center")
     )}
   ${(props) =>
-    cssProperty("align-items", props.align, ifExists(props.center, "center"))}
-  ${(props) => cssProperty("align-content", props.alignContent)}
-  ${(props) => cssFlexGap(props.gap, props.column, props.groups)}
+    cssProperty(
+      "align-items",
+      Tuple.first(props.align),
+      ifExists(props.center, "center")
+    )}
+  ${(props) => cssProperty("align-content", Tuple.second(props.align))}
+  ${(props) => cssProperty("flex-wrap", ifExists(props.wrapped, "wrap"))}
+  ${(props) => cssFlexGap(props.gap, props.column)}
   ${(props) => cssFlexDistribute(`${Item}`, props.distribute)}
-  ${(props) => cssFlexGroups(`${Item}`, props.groups, props.gap)}
 `;
 
 export const Flex = Object.assign(FlexBase, { Item });

@@ -21,14 +21,14 @@ const selectionStyle = css`
   }
 
   ${Selection.Item} {
-    padding: ${(props) => props.theme.spacing.basetight}
-      ${(props) => props.theme.spacing.base};
+    padding: ${(props) => props.theme.spacing[1]}
+      ${(props) => props.theme.spacing[1.5]};
     transition: all ${(props) => props.theme.duration.fastest} ease;
   }
 
   ${Selection.Section.Title} {
-    padding: ${(props) => props.theme.spacing.tight}
-      ${(props) => props.theme.spacing.base};
+    padding: ${(props) => props.theme.spacing[0.5]}
+      ${(props) => props.theme.spacing[1.5]};
   }
 `;
 
@@ -42,7 +42,7 @@ export const OneSection: Story<SelectionProps> = () => {
 
   return (
     <AppProvider theme="dark">
-      <Box css={wrapperStyle} w="20rem">
+      <Box css={wrapperStyle} w="20rem" h="20rem">
         <Selection
           css={selectionStyle}
           scrollHidden
@@ -72,7 +72,7 @@ export const MultipleSections: Story<SelectionProps> = () => {
 
   return (
     <AppProvider theme="dark">
-      <Box css={wrapperStyle} w="20rem">
+      <Box css={wrapperStyle} w="20rem" h="30rem">
         <Selection
           css={selectionStyle}
           scrollHidden

@@ -15,8 +15,8 @@ export default {
 } as Meta;
 
 const style = css`
-  padding: ${(props) => props.theme.spacing.tight}
-    ${(props) => props.theme.spacing.basetight};
+  padding: ${(props) => props.theme.spacing[0.5]}
+    ${(props) => props.theme.spacing[1]};
   border-radius: ${(props) => props.theme.border.radius.small};
 `;
 

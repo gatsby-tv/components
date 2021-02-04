@@ -14,8 +14,8 @@ export default {
 export const Example: Story<TextDisplayProps> = () => (
   <AppProvider theme="dark">
     <TextBox>
-      <TextDisplay font="large">Large Display Text</TextDisplay>
-      <TextDisplay font="small">Small Display Text</TextDisplay>
+      <TextDisplay size="large">Large Display Text</TextDisplay>
+      <TextDisplay size="small">Small Display Text</TextDisplay>
     </TextBox>
   </AppProvider>
 );

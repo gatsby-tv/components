@@ -7,62 +7,21 @@ import { supportsFlexGap } from "@lib/utilities/supports";
 import { cssSize } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
 
-const cssSafariFlexGapWithGroups = (
-  groups: number,
-  gap?: Size,
-  column?: boolean
-) =>
-  column
-    ? css`
-        & > *:nth-child(${groups}) ~ * {
-          ${cssSize("margin-left", gap)}
-        }
-
-        & > *:nth-child(${groups}n+1) {
-          margin-top: 0;
-        }
-      `
-    : css`
-        & > *:nth-child(${groups}) ~ * {
-          ${cssSize("margin-top", gap)}
-        }
-
-        & > *:nth-child(${groups}n+1) {
-          margin-left: 0;
-        }
-      `;
-
-const cssSafariFlexGap = (gap?: Size, column?: boolean, groups?: number) =>
+const cssSafariFlexGap = (gap?: Size, column?: boolean) =>
   column
     ? css`
         & > *:not(:first-child) {
           ${cssSize("margin-top", gap)}
         }
-
-        ${ifExists(
-          groups,
-          groups && cssSafariFlexGapWithGroups(groups, gap, column)
-        ) || css``}
       `
     : css`
         & > *:not(:first-child) {
           ${cssSize("margin-left", gap)}
         }
-
-        ${ifExists(
-          groups,
-          groups && cssSafariFlexGapWithGroups(groups, gap, column)
-        ) || css``}
       `;
 
-export const cssFlexGap = (
-  gap?: Size,
-  column?: boolean,
-  groups?: number
-) => css`
-  ${!supportsFlexGap()
-    ? cssSafariFlexGap(gap, column, groups)
-    : cssSize("gap", gap)}
+export const cssFlexGap = (gap?: Size, column?: boolean) => css`
+  ${!supportsFlexGap() ? cssSafariFlexGap(gap, column) : cssSize("gap", gap)}
 `;
 
 export const cssFlexDistribute = (
@@ -99,8 +58,6 @@ export const cssFlexGroups = (
   groups?: number,
   gap?: Size
 ) => css`
-  ${cssProperty("flex-wrap", ifExists(groups, "wrap"))}
-
   & > ${className} {
     ${cssProperty("flex-grow", ifExists(groups, 1))}
     ${cssProperty(
@@ -108,7 +65,7 @@ export const cssFlexGroups = (
       ifExists(
         groups,
         gap
-          ? `calc(${Math.floor(100 / (groups as number))}% - ${parseSize(gap)})`
+          ? `calc(${Math.floor(100 / (groups as number))}% - ${parseSize(gap)} * (1 - 1 / ${groups as number}))`
           : `${Math.floor(100 / (groups as number))}%`
       )
     )}

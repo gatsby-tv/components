@@ -107,10 +107,10 @@ export function Collapsible(props: CollapsibleProps): React.ReactElement {
         data-collapsible="label"
         expand
         justify="space-between"
-        gap={theme.spacing.tight}
+        gap={theme.spacing[1]}
       >
         <TextBox>{props.label}</TextBox>
-        <Icon src={DownTick} w="1.2em" />
+        <Icon src={DownTick} w="1.2rem" />
       </Flex>
       <Box ref={content} data-collapsible="content">
         {props.children}

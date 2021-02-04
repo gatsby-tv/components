@@ -7,8 +7,8 @@ export interface TopFrameProps {
   topbar?: React.FC<any>;
 }
 
-export const TopFrame = forwardRef<HTMLElement, TopFrameProps>(
-  (props: TopFrameProps, ref: Ref<HTMLElement>) => {
+export const TopFrame = forwardRef<HTMLDivElement, TopFrameProps>(
+  (props: TopFrameProps, ref: Ref<HTMLDivElement>) => {
     const { topbar: Topbar } = props;
 
     return Topbar ? (

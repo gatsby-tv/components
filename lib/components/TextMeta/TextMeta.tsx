@@ -18,20 +18,18 @@ export interface TextMetaProps extends ItemProps {
 }
 
 function TextMetaBase(props: TextMetaProps) {
+  const { children, tooltip, ...itemProps } = props;
   const text = useRef<HTMLParagraphElement>(null);
   const [active, setActive] = useState(false);
 
   return (
     <Item
       ref={text}
-      font={props.font}
-      clamp={props.clamp}
-      bold={props.bold}
-      subdued={props.subdued}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
+      {...itemProps}
     >
-      {props.children}
+      {children}
     </Item>
   );
 }

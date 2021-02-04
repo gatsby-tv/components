@@ -133,9 +133,9 @@ export function FormSelect(props: FormSelectProps): React.ReactElement {
         css={selectStyle}
         data-focus={ifExists(focus)}
         data-error={ifExists(error)}
-        gap={theme.spacing.tight}
+        gap={theme.spacing[0.5]}
         align="center"
-        padding={[theme.spacing.tight, theme.spacing.basetight]}
+        padding={[theme.spacing[0.5], theme.spacing[1]]}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onClick={handleClick}

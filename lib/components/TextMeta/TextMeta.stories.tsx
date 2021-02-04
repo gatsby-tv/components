@@ -18,9 +18,7 @@ export default {
 
 const Template: Story<TextMetaProps> = (args) => (
   <AppProvider theme="dark">
-    <TextBox spacing="tight" w="20rem">
-      <TextMeta {...args} />
-    </TextBox>
+    <TextMeta {...args} />
   </AppProvider>
 );
 

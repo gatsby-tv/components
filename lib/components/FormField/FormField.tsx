@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { css } from "styled-components";
 import { ifExists, useTheme, useUniqueId } from "@gatsby-tv/utilities";
 
-import { Margin, FontSize } from "@lib/types";
+import { Margin } from "@lib/types";
 import { cssProperty } from "@lib/styles/property";
 import { cssTextInput } from "@lib/styles/typography";
 import { cssInputBorder } from "@lib/styles/borders";
@@ -16,7 +16,7 @@ export interface FormFieldProps {
   labelHidden?: boolean;
   multiline?: boolean;
   padding?: Margin;
-  font?: FontSize;
+  font?: string;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   align?: "left" | "center" | "right";
@@ -95,8 +95,7 @@ export function FormField(props: FormFieldProps): React.ReactElement {
   const inputStyle = css`
     ${cssTextInput}
     ${cssInputBorder}
-    font-size: ${theme.font.size[font ?? "basesmall"]};
-    line-height: ${theme.font.height[font ?? "basesmall"]};
+    ${cssProperty("font-size", font)}
     cursor: text;
     border-radius: ${theme.border.radius.small};
     background-color: ${theme.colors.background[4]};
@@ -104,8 +103,7 @@ export function FormField(props: FormFieldProps): React.ReactElement {
     input {
       ${cssTextInput}
       ${cssProperty("text-align", align, "left")}
-      font-size: ${theme.font.size[font ?? "basesmall"]};
-      line-height: ${theme.font.height[font ?? "basesmall"]};
+      ${cssProperty("font-size", font)}
       color: ${theme.colors.font.body.darken(0.1)};
       outline: none;
       background-color: transparent;
@@ -130,9 +128,9 @@ export function FormField(props: FormFieldProps): React.ReactElement {
         css={inputStyle}
         data-focus={ifExists(focus)}
         data-error={ifExists(error)}
-        gap={theme.spacing.tight}
+        gap={theme.spacing[1]}
         align="center"
-        padding={[theme.spacing.tight, theme.spacing.basetight]}
+        padding={[theme.spacing[0.5], theme.spacing[1]]}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onClick={handleClick}

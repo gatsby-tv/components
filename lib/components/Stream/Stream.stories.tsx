@@ -3,6 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 
 import { AppProvider } from "@lib/components/AppProvider";
 import { Box } from "@lib/components/Box";
+import { Flex } from "@lib/components/Flex";
 import { Scroll } from "@lib/components/Scroll";
 import { Image } from "@lib/components/Image";
 
@@ -26,7 +27,9 @@ export const Example: Story<StreamProps> = () => {
           <Box marginBottom="2rem">
             <Image src="https://loremflickr.com/405/405" />
           </Box>
-          <Stream component={Image} generator={generator} column gap="2rem" />
+          <Flex column gap="2rem">
+            <Stream component={Image} generator={generator} />
+          </Flex>
         </Scroll>
       </Box>
     </AppProvider>
