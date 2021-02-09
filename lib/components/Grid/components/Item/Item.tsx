@@ -1,21 +1,19 @@
 import styled from "styled-components";
-import { Tuple, TupleType } from "@gatsby-tv/utilities";
 
 import { Box, BoxProps } from "@lib/components/Box";
 import { cssProperty } from "@lib/styles/property";
 
 export interface ItemProps extends BoxProps {
-  columns?: TupleType<number, number>;
-  rows?: TupleType<number, number>;
+  columns?: number | number[];
+  rows?: number | number[];
 }
 
 export const Item = styled(Box)<ItemProps>`
   ${(props) =>
-    cssProperty("grid-column-start", Tuple.first(props.columns)?.toString())}
+    cssProperty("grid-column-start", [props.columns].flat()[0]?.toString())}
   ${(props) =>
-    cssProperty("grid-column-end", Tuple.second(props.columns)?.toString())}
+    cssProperty("grid-column-end", [props.columns].flat()[1]?.toString())}
   ${(props) =>
-    cssProperty("grid-row-start", Tuple.first(props.rows)?.toString())}
-  ${(props) =>
-    cssProperty("grid-row-end", Tuple.second(props.rows)?.toString())}
+    cssProperty("grid-row-start", [props.rows].flat()[0]?.toString())}
+  ${(props) => cssProperty("grid-row-end", [props.rows].flat()[1]?.toString())}
 `;

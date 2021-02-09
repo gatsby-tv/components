@@ -11,16 +11,18 @@ export type LinkProps = LinkBaseProps & SelectionItemProps;
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (props: LinkProps, ref) => {
-    const { id, className, ...linkProps } = props;
+    const { children, id, className, ...linkProps } = props;
 
     return (
       <Selection.Item id={id} className={className}>
         <LinkBase ref={ref} {...linkProps}>
           <Flex expand center>
-            {props.children}
+            {children}
           </Flex>
         </LinkBase>
       </Selection.Item>
     );
   }
 );
+
+Link.displayName = "Link";

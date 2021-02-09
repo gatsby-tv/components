@@ -6,7 +6,8 @@ import { Size } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { Viewport } from "@lib/components/Viewport";
 
-type ImageBaseProps = {
+export type ImageProps = {
+  src?: IPFSContent | string;
   w?: Size;
   rounded?: Size;
   aspectRatio?: number;
@@ -14,11 +15,9 @@ type ImageBaseProps = {
   ariaLabel?: string;
 } & Omit<React.ImgHTMLAttributes<HTMLElement>, "src">;
 
-type ImageURLProps = ImageBaseProps & { src?: string };
+type ImageURLProps = ImageProps & { src?: string };
 
-type ImageIPFSProps = ImageBaseProps & { src: IPFSContent };
-
-export type ImageProps = ImageURLProps | ImageIPFSProps;
+type ImageIPFSProps = ImageProps & { src: IPFSContent };
 
 function isImageURLProps(props: ImageProps): props is ImageURLProps {
   return typeof (props as ImageURLProps).src !== "object";
@@ -39,28 +38,29 @@ function ImageURL(props: ImageURLProps): React.ReactElement {
 
   useEffect(() => setLoading(true), [imgProps.src]);
 
+  const viewportProps = {
+    placeholder: true,
+    w,
+    overlay,
+    aspectRatio,
+    rounded,
+    ariaLabel,
+  };
+
+  const boxProps = {
+    style: loading
+      ? { paddingTop: `${100 * aspectRatio}%`, height: 0 }
+      : undefined,
+    alt: "",
+    expand: true,
+    rounded,
+    onLoad: handleLoad,
+    ...imgProps,
+  };
+
   return (
-    <Viewport
-      placeholder
-      overlay={overlay}
-      aspectRatio={aspectRatio}
-      w={w}
-      rounded={rounded}
-      ariaLabel={ariaLabel}
-    >
-      <Box
-        as="img"
-        alt=""
-        style={
-          loading
-            ? { paddingTop: `${100 * aspectRatio}%`, height: 0 }
-            : undefined
-        }
-        w={1}
-        rounded={rounded}
-        onLoad={handleLoad}
-        {...imgProps}
-      />
+    <Viewport {...viewportProps}>
+      <Box as="img" {...boxProps} />
     </Viewport>
   );
 }
@@ -76,6 +76,6 @@ export function Image(props: ImageProps): React.ReactElement {
   if (isImageURLProps(props)) {
     return <ImageURL {...props} />;
   } else {
-    return <ImageIPFS {...props} />;
+    return <ImageIPFS {...(props as ImageIPFSProps)} />;
   }
 }

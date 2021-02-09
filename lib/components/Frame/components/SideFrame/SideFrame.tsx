@@ -9,7 +9,7 @@ export interface SideFrameProps {
 
 export const SideFrame = forwardRef<HTMLDivElement, SideFrameProps>(
   (props: SideFrameProps, ref: Ref<HTMLDivElement>) => {
-    const { sidebar: Sidebar } = props;
+    const { children, sidebar: Sidebar } = props;
 
     return Sidebar ? (
       <Flex expand>
@@ -17,11 +17,13 @@ export const SideFrame = forwardRef<HTMLDivElement, SideFrameProps>(
           <Sidebar />
         </Flex.Item>
         <Flex.Item shrink={1} grow={1} basis={1}>
-          {props.children}
+          {children}
         </Flex.Item>
       </Flex>
     ) : (
-      <>{props.children}</>
+      <>{children}</>
     );
   }
 );
+
+SideFrame.displayName = "SideFrame";

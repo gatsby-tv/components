@@ -4,7 +4,7 @@ import { useTheme } from "@gatsby-tv/utilities";
 import { Flex } from "@lib/components";
 
 export type SliderState = {
-  current: number;
+  slide: number;
   desired: number;
 };
 
@@ -17,28 +17,29 @@ export interface SliderProps {
 }
 
 export function Slider(props: SliderProps): React.ReactElement {
+  const { children, state, groups } = props;
   const theme = useTheme();
-  const distance = props.state.current - props.state.desired;
+  const distance = state.slide - state.desired;
 
   const style: CSSProperties = {
-    width: `${100 * (props.groups + 2)}%`,
-    left: `${-100 * (props.state.current + 1)}%`,
+    width: `${100 * (groups + 2)}%`,
+    left: `${-100 * (state.slide + 1)}%`,
     transform: "translateX(0)",
     transition: "none",
   };
 
   if (distance) {
     const direction =
-      Math.sign(distance) * (Math.abs(distance) <= props.groups / 2 ? 1 : -1);
+      Math.sign(distance) * (Math.abs(distance) <= groups / 2 ? 1 : -1);
 
-    const shift = (direction * 100) / (props.groups + 2);
+    const shift = (direction * 100) / (groups + 2);
     style.transform = `translateX(${shift}%)`;
     style.transition = `transform ${theme.duration.base} ease`;
   }
 
   return (
-    <Flex css={{ willChange: "left, transform" }} style={style} align="center">
-      {props.children}
+    <Flex style={style} css={{ willChange: "left, transform" }} align="center">
+      {children}
     </Flex>
   );
 }

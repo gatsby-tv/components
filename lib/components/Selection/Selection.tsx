@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "styled-components";
 import { ifNotExists } from "@gatsby-tv/utilities";
 
+import { FlexAlignItems } from "@lib/types";
 import { SelectionContext } from "@lib/utilities/selection";
 import { Flex } from "@lib/components/Flex";
 import { Scroll } from "@lib/components/Scroll";
@@ -22,7 +23,14 @@ export interface SelectionProps {
 }
 
 function SelectionBase(props: SelectionProps): React.ReactElement {
-  const { scrollHidden = true } = props;
+  const {
+    children,
+    className,
+    selection,
+    row,
+    scrollHidden = true,
+    onSelect,
+  } = props;
 
   const style = css`
     > ${Section}:not(:first-child) {
@@ -39,27 +47,28 @@ function SelectionBase(props: SelectionProps): React.ReactElement {
     }
   `;
 
+  const context = {
+    column: !row,
+    selection,
+    onSelect,
+  };
+
+  const optionalProps = {
+    active: !row,
+    $props: { hide: scrollHidden },
+  };
+
+  const flexProps = {
+    className,
+    column: ifNotExists(row),
+    align: "stretch" as FlexAlignItems,
+  };
+
   return (
-    <SelectionContext.Provider
-      value={{
-        column: !props.row,
-        selection: props.selection,
-        onSelect: props.onSelect,
-      }}
-    >
-      <Optional
-        active={!props.row}
-        component={Scroll}
-        $props={{ hide: scrollHidden }}
-      >
-        <Flex
-          as="nav"
-          className={props.className}
-          css={style}
-          column={ifNotExists(props.row)}
-          align="stretch"
-        >
-          {props.children}
+    <SelectionContext.Provider value={context}>
+      <Optional component={Scroll} {...optionalProps}>
+        <Flex as="nav" css={style} {...flexProps}>
+          {children}
         </Flex>
       </Optional>
     </SelectionContext.Provider>

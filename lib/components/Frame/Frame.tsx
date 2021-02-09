@@ -23,7 +23,7 @@ export interface FrameProps {
   sidebar?: React.FC<any>;
 }
 
-export function Frame(props: FrameProps) {
+export function Frame(props: FrameProps): React.ReactElement {
   const topframe = useRef<HTMLDivElement>(null);
   const sideframe = useRef<HTMLDivElement>(null);
   const [offsetX, setOffsetX] = useState<number | undefined>(undefined);
@@ -33,14 +33,14 @@ export function Frame(props: FrameProps) {
   useResizeObserver(sideframe, (content) => setOffsetX(content.inlineSize));
   useResizeObserver(topframe, (content) => setOffsetY(content.blockSize));
 
+  const context = {
+    fullscreen: fullscreen as boolean,
+    toggleFullscreen,
+    setFullscreen,
+  };
+
   return (
-    <FrameContext.Provider
-      value={{
-        fullscreen: fullscreen as boolean,
-        toggleFullscreen,
-        setFullscreen,
-      }}
-    >
+    <FrameContext.Provider value={context}>
       <FrameBase>
         <TopFrame ref={topframe} topbar={props.topbar}>
           <SideFrame ref={sideframe} sidebar={props.sidebar}>

@@ -1,6 +1,6 @@
 import { Size, Margin } from "@lib/types";
 
-export const parseSize = (size: Size) => {
+export const parseSize = (size: Size): string => {
   if (typeof size === "number") {
     return `${100 * size}%`;
   } else {
@@ -8,7 +8,7 @@ export const parseSize = (size: Size) => {
   }
 };
 
-export const parseMargin = (margin: Margin) => {
+export const parseMargin = (margin: Margin): string => {
   return [margin]
     .flat()
     .map((size: Size) => parseSize(size))

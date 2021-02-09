@@ -10,7 +10,6 @@ import {
 
 import { Box } from "@lib/components/Box";
 import { cssProperty } from "@lib/styles/property";
-import { cssSize } from "@lib/styles/size";
 import { EventHandler, Size } from "@lib/types";
 
 export interface ScrollProps {
@@ -45,13 +44,14 @@ const ScrollBase = styled.div<ScrollProps>`
 
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) =>
-      props.hide ? "transparent" : props.theme.colors.background[3]};
+      props.hide ? "transparent" : props.theme.colors.background[3].toString()};
     border-radius: 2rem;
     transition: all 100ms ease;
   }
 `;
 
 export function Scroll(props: ScrollProps): React.ReactElement {
+  const { children, maxw, maxh, ...rest } = props;
   const [callbacks, setCallbacks] = useState<EventHandler[]>([]);
   const [height, setHeight] = useState<number | undefined>(undefined);
   const scroll = useRef<HTMLDivElement>(null);
@@ -90,25 +90,27 @@ export function Scroll(props: ScrollProps): React.ReactElement {
     }
   }, []);
 
+  const context = {
+    scrollPosition,
+    setScrollPosition,
+    addScrollListener,
+    removeScrollListener,
+  };
+
+  const boxProps = {
+    ref: container,
+    absolute: ifNotExists(maxh),
+    expand: true,
+    h: ifExists(height && ifNotExists(maxh), `${height}px`),
+    maxh,
+    maxw,
+  };
+
   return (
-    <ScrollContext.Provider
-      value={{
-        scrollPosition,
-        setScrollPosition,
-        addScrollListener,
-        removeScrollListener,
-      }}
-    >
-      <Box
-        ref={container}
-        absolute={ifNotExists(props.maxh)}
-        expand
-        h={ifExists(height && ifNotExists(props.maxh), `${height}px`)}
-        maxh={props.maxh}
-        maxw={props.maxw}
-      >
-        <ScrollBase ref={scroll} onScroll={handleScroll} {...props}>
-          {props.children}
+    <ScrollContext.Provider value={context}>
+      <Box {...boxProps}>
+        <ScrollBase ref={scroll} onScroll={handleScroll} {...rest}>
+          {children}
         </ScrollBase>
       </Box>
     </ScrollContext.Provider>

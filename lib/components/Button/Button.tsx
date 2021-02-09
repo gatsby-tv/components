@@ -6,59 +6,47 @@ import React, {
   forwardRef,
 } from "react";
 import styled, { css } from "styled-components";
-import {
-  ifExists,
-  ifNotExists,
-  Tuple,
-  TupleType,
-  useForwardedRef,
-} from "@gatsby-tv/utilities";
+import Color from "color";
+import { ifExists, ifNotExists, useForwardedRef } from "@gatsby-tv/utilities";
 
 import { Tooltip } from "@lib/components/Tooltip";
 import { Size, Margin } from "@lib/types";
 import { cssShadow } from "@lib/styles/shadows";
 import { cssSize, cssMargin } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
-import { cssTextUppercase } from "@lib/styles/typography";
+import { cssTextButton } from "@lib/styles/typography";
 
 export type ButtonProps = {
+  unstyled?: boolean;
   animate?: boolean;
   shadow?: boolean;
   rounded?: Size;
   padding?: Margin;
   w?: Size;
   h?: Size;
-  bg?: string;
-  fg?: string;
-  highlight?: TupleType<string, string>;
+  bg?: Color;
+  fg?: Color;
+  highlight?: Color | Color[];
   font?: string;
   tooltip?: string;
   onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLElement>;
 
-const cssHighlight = (
-  highlight?: TupleType<string, string>,
-  animated?: boolean
-) => css`
+const cssHighlight = (highlight?: Color | Color[], animated?: boolean) => css`
   &:not(:disabled):hover,
   &:not(:disabled):active {
-    ${(props) =>
-      cssProperty("background-color", Tuple.first(highlight))}
+    ${cssProperty("background-color", [highlight].flat()[0]?.toString())}
   }
 
   &:not(:disabled):active {
-    ${(props) =>
-      cssProperty(
+    ${cssProperty(
         "background-color",
-        ifNotExists(animated, Tuple.second(highlight))
+        ifNotExists(animated, [highlight].flat()[1]?.toString())
       )}
   }
 `;
 
-const cssAnimate = (
-  highlight?: TupleType<string, string>,
-  rounded?: Size
-) => css`
+const cssAnimate = (highlight?: Color | Color[], rounded?: Size) => css`
   &:before {
     content: "";
     pointer-events: none;
@@ -68,8 +56,8 @@ const cssAnimate = (
     ${(props) =>
       cssProperty(
         "background-color",
-        Tuple.second(highlight),
-        props.theme.colors.font.body
+        [highlight].flat()[1]?.toString(),
+        props.theme.colors.font.body.toString()
       )}
     position: absolute;
     top: 0;
@@ -111,29 +99,34 @@ const cssPadding = (padding?: Margin, rounded?: Size) => css`
 `;
 
 const ButtonBase = styled.button<ButtonProps>`
-  ${cssTextUppercase}
-  text-align: center;
-  vertical-align: middle;
   cursor: pointer;
   display: block;
   position: relative;
   outline: none;
+  ${(props) => ifNotExists(props.unstyled, cssTextButton)}
+  ${(props) => cssProperty("text-align", ifExists(props.unstyled, "inherit"))}
   ${(props) => ifExists(props.shadow, cssShadow)}
   ${(props) => cssSize("width", props.w)}
   ${(props) => cssSize("height", props.h)}
   ${(props) => cssProperty("font-size", props.font)}
   ${(props) =>
-    cssProperty("color", props.fg, props.theme.colors.font.body.darken(0.1))}
+    cssProperty(
+      "color",
+      props.fg?.toString(),
+      props.theme.colors.font.body.darken(0.1).toString()
+    )}
   ${(props) =>
     cssSize("border-radius", props.rounded, props.theme.border.radius.small)}
-  ${(props) => cssPadding(props.padding, props.rounded)}
+  ${(props) =>
+    ifNotExists(props.unstyled, cssPadding(props.padding, props.rounded))}
   ${(props) =>
     ifExists(props.highlight, cssHighlight(props.highlight, props.animate))}
   ${(props) =>
     ifExists(props.animate, cssAnimate(props.highlight, props.rounded))}
 
   &:not(:disabled) {
-    ${(props) => cssProperty("background-color", props.bg, "transparent")}
+    ${(props) =>
+      cssProperty("background-color", props.bg?.toString(), "transparent")}
   }
 
   &:disabled {
@@ -177,7 +170,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
      */
     useEffect(() => {
       key.current && !held && onClick();
-    }, [held]);
+    }, [held, onClick]);
 
     const handlePointerDown = useCallback(
       (event: React.SyntheticEvent) => {
@@ -196,24 +189,31 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       props.animate,
     ]);
 
+    const buttonProps = {
+      ref: button,
+      key: key.current,
+      "data-animating": ifExists(props.animate && (active || held)),
+      onPointerDown: handlePointerDown,
+      onPointerUp: handlePointerUp,
+      onPointerLeave: handlePointerUp,
+      onClick: ifNotExists(props.animate, onClick),
+      ...rest,
+    };
+
+    const TooltipMarkup =
+      props.tooltip && !held ? (
+        <Tooltip for={button} offset={7}>
+          {props.tooltip}
+        </Tooltip>
+      ) : null;
+
     return (
       <>
-        <ButtonBase
-          ref={button}
-          key={key.current}
-          data-animating={ifExists(props.animate && (active || held))}
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
-          onClick={ifNotExists(props.animate, onClick)}
-          {...rest}
-        />
-        {props.tooltip && !held && (
-          <Tooltip for={button} offset={7}>
-            {props.tooltip}
-          </Tooltip>
-        )}
+        <ButtonBase {...buttonProps} />
+        {TooltipMarkup}
       </>
     );
   }
 );
+
+Button.displayName = "Button";

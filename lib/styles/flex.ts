@@ -1,5 +1,5 @@
-import { css } from "styled-components";
-import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
+import { css, CSSProp } from "styled-components";
+import { ifExists } from "@gatsby-tv/utilities";
 
 import { Size, FlexDistribute } from "@lib/types";
 import { parseSize } from "@lib/utilities/size";
@@ -20,14 +20,14 @@ const cssSafariFlexGap = (gap?: Size, column?: boolean) =>
         }
       `;
 
-export const cssFlexGap = (gap?: Size, column?: boolean) => css`
+export const cssFlexGap = (gap?: Size, column?: boolean): CSSProp => css`
   ${!supportsFlexGap() ? cssSafariFlexGap(gap, column) : cssSize("gap", gap)}
 `;
 
 export const cssFlexDistribute = (
   className: string,
   distribute?: FlexDistribute
-) => {
+): CSSProp => {
   switch (distribute) {
     case "fill":
       return css`
@@ -57,7 +57,7 @@ export const cssFlexGroups = (
   className: string,
   groups?: number,
   gap?: Size
-) => css`
+): CSSProp => css`
   & > ${className} {
     ${cssProperty("flex-grow", ifExists(groups, 1))}
     ${cssProperty(
@@ -65,7 +65,9 @@ export const cssFlexGroups = (
       ifExists(
         groups,
         gap
-          ? `calc(${Math.floor(100 / (groups as number))}% - ${parseSize(gap)} * (1 - 1 / ${groups as number}))`
+          ? `calc(${Math.floor(100 / (groups as number))}% - ${parseSize(
+              gap
+            )} * (1 - 1 / ${groups as number}))`
           : `${Math.floor(100 / (groups as number))}%`
       )
     )}

@@ -20,9 +20,6 @@ export interface ConnectedProps extends FlexProps {
 function ConnectedBase(props: ConnectedProps) {
   const { children, prefix, suffix, column, ...flexProps } = props;
 
-  const prefixMarkup = prefix ? <Connection>{prefix}</Connection> : null;
-  const suffixMarkup = suffix ? <Connection>{suffix}</Connection> : null;
-
   const style = css`
     > ${Connection}:first-child * {
       ${column
@@ -81,12 +78,15 @@ function ConnectedBase(props: ConnectedProps) {
     }
   `;
 
+  const PrefixMarkup = prefix ? <Connection>{prefix}</Connection> : null;
+  const SuffixMarkup = suffix ? <Connection>{suffix}</Connection> : null;
+
   return (
     <ConnectedContext.Provider value={{ column: column }}>
       <Flex css={style} column={column} {...flexProps}>
-        {prefixMarkup}
+        {PrefixMarkup}
         {children}
-        {suffixMarkup}
+        {SuffixMarkup}
       </Flex>
     </ConnectedContext.Provider>
   );

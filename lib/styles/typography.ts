@@ -1,10 +1,10 @@
-import { css, CSSProp, DefaultTheme } from "styled-components";
+import { css, CSSProp } from "styled-components";
 
 import { cssProperty } from "@lib/styles/property";
 import { DisplaySize } from "@lib/types";
 
 export const cssTextSubdued = css`
-  color: ${(props) => props.theme.colors.font.subdued};
+  color: ${(props) => props.theme.colors.font.subdued.toString()};
 `;
 
 export const cssTextCondensed = css`
@@ -59,7 +59,7 @@ export const cssTextSubheading = css`
 `;
 
 export const cssTextError = css`
-  color: ${(props) => props.theme.colors.error};
+  color: ${(props) => props.theme.colors.error.toString()};
   font-weight: 500;
 `;
 
@@ -93,10 +93,16 @@ export const cssTextTimeline = css`
   user-select: none;
 `;
 
-export const cssTextTab = (size?: string) => css`
+export const cssTextTab = (size?: string): CSSProp => css`
   ${cssTextCondensed}
   ${cssProperty("font-size", size)}
   font-weight: 600;
   text-align: center;
   user-select: none;
+`;
+
+export const cssTextButton = css`
+  ${cssTextUppercase}
+  text-align: center;
+  vertical-align: middle;
 `;

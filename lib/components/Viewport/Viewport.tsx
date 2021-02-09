@@ -18,30 +18,33 @@ export const Viewport = forwardRef<HTMLElement, ViewportProps & BoxProps>(
       ariaLabel,
       overlay,
       placeholder,
-      aspectRatio,
       rounded,
+      aspectRatio = 0.5625,
       w = 1,
-      ...boxProps
+      ...rest
     } = props;
 
     const theme = useTheme();
 
+    const figureProps = {
+      ref: ref as React.RefObject<HTMLElement>,
+      w,
+      rounded,
+      "aria-label": ariaLabel,
+      ...rest,
+    };
+
+    const boxProps = {
+      style: { paddingTop: `${100 * aspectRatio}%` },
+      absolute: true,
+      bg: placeholder ? theme.colors.placeholder : theme.colors.trueblack,
+      w: 1,
+      rounded,
+    };
+
     return (
-      <Box
-        as="figure"
-        ref={ref as React.RefObject<HTMLElement>}
-        w={w}
-        rounded={rounded}
-        aria-label={ariaLabel}
-        {...boxProps}
-      >
-        <Box
-          style={{ paddingTop: `${100 * (aspectRatio ?? 9 / 16)}%` }}
-          absolute
-          bg={placeholder ? theme.colors.placeholder : "black"}
-          w={1}
-          rounded={rounded}
-        />
+      <Box as="figure" {...figureProps}>
+        <Box {...boxProps} />
         {children}
         <Box absolute expand>
           {overlay}

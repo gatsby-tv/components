@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { css } from "styled-components";
-import type { Placement } from "@popperjs/core";
+import Color from "color";
 import { usePopper } from "react-popper";
 import { useTheme } from "@gatsby-tv/utilities";
 
 import { Modal } from "@lib/components/Modal";
 import { Connected } from "@lib/components/Connected";
 import { Box } from "@lib/components/Box";
-import { Size, Margin } from "@lib/types";
+import { Size, Margin, Placement } from "@lib/types";
 import { cssMargin } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
 import { cssShadow } from "@lib/styles/shadows";
@@ -22,8 +22,8 @@ export interface MenuProps {
   active?: boolean;
   placement?: Placement;
   offset?: [number, number];
-  bg?: string;
-  highlight?: string;
+  bg?: Color;
+  highlight?: Color;
   w?: Size;
   padding?: Margin;
   onExit?: () => void;
@@ -33,6 +33,10 @@ function MenuBase(props: MenuProps): React.ReactElement {
   const theme = useTheme();
 
   const {
+    children,
+    w,
+    active,
+    onExit,
     placement = "bottom",
     offset = [0, 10],
     bg = theme.colors.background[1],
@@ -64,7 +68,7 @@ function MenuBase(props: MenuProps): React.ReactElement {
 
   const containerStyle = css`
     ${cssShadow}
-    ${cssProperty("background-color", bg)}
+    ${cssProperty("background-color", bg.toString())}
     border-radius: ${(props) => props.theme.border.radius.smallest};
 
     ${Item} {
@@ -78,20 +82,22 @@ function MenuBase(props: MenuProps): React.ReactElement {
     }
 
     ${Item}:hover {
-      ${cssProperty("background-color", highlight)}
+      ${cssProperty("background-color", highlight.toString())}
     }
   `;
 
+  const popperProps = {
+    ref: setPopper,
+    style: styles.popper,
+    w,
+    ...attributes.popper,
+  };
+
   return (
-    <Modal id="menu" active={props.active} onExit={props.onExit}>
-      <Box
-        ref={setPopper}
-        style={styles.popper}
-        w={props.w}
-        {...attributes.popper}
-      >
+    <Modal id="menu" active={active} onExit={onExit}>
+      <Box {...popperProps}>
         <Connected css={containerStyle} column align="stretch">
-          {props.children}
+          {children}
         </Connected>
       </Box>
     </Modal>

@@ -14,11 +14,11 @@ export const Global = createGlobalStyle`
   :root {
     font-size: 62.5%;
     text-size-adjust: 100%;
-    background-color: ${(props) => props.theme.colors.background[0]};
+    background-color: ${(props) => props.theme.colors.background[0].toString()};
   }
 
   body {
-    color: ${(props) => props.theme.colors.font.body};
+    color: ${(props) => props.theme.colors.font.body.toString()};
     overflow: hidden;
     font-family: "Inter", "Nunito Sans", "Noto Sans", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: ${(props) => props.theme.font[5]};

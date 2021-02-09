@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { DefaultTheme } from "styled-components";
+import styled from "styled-components";
 import { ifExists } from "@gatsby-tv/utilities";
 
 import { cssTextSubdued } from "@lib/styles/typography";
@@ -8,9 +8,9 @@ import { Flex } from "@lib/components/Flex";
 
 import { Item, ItemProps } from "../Item";
 
-type ListBaseProps = ItemProps;
+export type ListProps = ItemProps;
 
-const ListBase = styled(Flex)<ListBaseProps>`
+const ListBase = styled(Flex)<ListProps>`
   & > ${Item} {
     ${(props) => ifExists(props.subdued, cssTextSubdued)}
     ${(props) => cssProperty("font-size", props.font)}
@@ -23,12 +23,6 @@ const ListBase = styled(Flex)<ListBaseProps>`
   }
 `;
 
-export interface ListProps extends ListBaseProps {
-  children?: React.ReactNode;
-}
-
 export const List: React.FC<ListProps> = (props: ListProps) => (
-  <ListBase as="span" align="center" {...props}>
-    {props.children}
-  </ListBase>
+  <ListBase as="span" align="center" {...props} />
 );

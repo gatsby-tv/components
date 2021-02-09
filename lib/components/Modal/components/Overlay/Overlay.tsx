@@ -11,8 +11,11 @@ export interface OverlayProps {
 }
 
 export function Overlay(props: OverlayProps): React.ReactElement {
+  const { children, zIndex } = props;
+
   const overlay = css`
-    background-color: ${(props) => props.theme.colors.black.fade(0.7)};
+    background-color: ${(props) =>
+      props.theme.colors.black.fade(0.7).toString()};
     backface-visibility: hidden;
 
     @keyframes fade {
@@ -51,8 +54,8 @@ export function Overlay(props: OverlayProps): React.ReactElement {
   `;
 
   return (
-    <Flex css={overlay} absolute expand center zIndex={props.zIndex}>
-      {props.children}
+    <Flex css={overlay} absolute expand center zIndex={zIndex}>
+      {children}
     </Flex>
   );
 }

@@ -1,10 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "styled-components";
 import type { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
-import { ifExists, ifNotExists, useTheme } from "@gatsby-tv/utilities";
+import { useTheme } from "@gatsby-tv/utilities";
 
-import { cssProperty } from "@lib/styles/property";
 import { cssShadow } from "@lib/styles/shadows";
 import { TextBox } from "@lib/components/TextBox";
 import { Portal } from "@lib/components/Portal";
@@ -17,16 +16,17 @@ export interface TooltipProps {
 }
 
 export function Tooltip(props: TooltipProps): React.ReactElement | null {
+  const { children, offset, placement } = props;
   const theme = useTheme();
   const [active, setActive] = useState(false);
   const [popper, setPopper] = useState<HTMLDivElement | null>(null);
   const { styles, attributes } = usePopper(props.for.current, popper, {
-    placement: props.placement ?? "bottom",
+    placement: placement ?? "bottom",
     modifiers: [
       {
         name: "offset",
         options: {
-          offset: [0, props.offset ?? 10],
+          offset: [0, offset ?? 10],
         },
       },
       {
@@ -70,23 +70,24 @@ export function Tooltip(props: TooltipProps): React.ReactElement | null {
       props.for.current?.removeEventListener("mouseenter", mouseEnterHandler);
       props.for.current?.removeEventListener("mouseleave", mouseLeaveHandler);
     };
-  }, []);
+  }, [props.for]);
+
+  const popperProps = {
+    ref: setPopper,
+    style: styles.popper,
+    weight: theme.weight.semiBold,
+    font: theme.font[4],
+    bg: theme.colors.background[5],
+    rounded: theme.border.radius.small,
+    padding: [theme.spacing[0.5], theme.spacing[1]],
+    zIndex: 1000,
+    ...attributes.popper,
+  };
 
   return active ? (
     <Portal id="tooltip">
-      <TextBox
-        ref={setPopper}
-        css={popperStyle}
-        style={styles.popper}
-        weight={theme.weight.semiBold}
-        font={theme.font[4]}
-        bg={theme.colors.background[5]}
-        rounded={theme.border.radius.small}
-        padding={[theme.spacing[0.5], theme.spacing[1]]}
-        zIndex={1000}
-        {...attributes.popper}
-      >
-        {props.children}
+      <TextBox css={popperStyle} {...popperProps}>
+        {children}
       </TextBox>
     </Portal>
   ) : null;

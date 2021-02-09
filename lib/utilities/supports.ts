@@ -20,7 +20,7 @@ function testFlexGap() {
   document.body.removeChild(flex);
 }
 
-export function useSupports() {
+export function useSupports(): void {
   useEffect(() => {
     testFlexGap();
   }, []);

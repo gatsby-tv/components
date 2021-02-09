@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { css } from "styled-components";
 import {
   ifExists,
   ifNotExists,
@@ -25,6 +24,7 @@ export interface SliderProps {
 }
 
 export function Slider(props: SliderProps): React.ReactElement {
+  const { children, groups, gap, maxw } = props;
   const theme = useTheme();
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState<number | undefined>(undefined);
@@ -35,8 +35,7 @@ export function Slider(props: SliderProps): React.ReactElement {
 
   useResizeObserver(parent, (content) => setWidth(content.inlineSize));
 
-  const maxIndex =
-    Math.ceil(React.Children.count(props.children) / props.groups) - 1;
+  const maxIndex = Math.ceil(React.Children.count(children) / groups) - 1;
 
   const increment = useCallback(
     () => setIndex((current) => Math.min(current + 1, maxIndex)),
@@ -45,7 +44,7 @@ export function Slider(props: SliderProps): React.ReactElement {
 
   const decrement = useCallback(
     () => setIndex((current) => Math.max(current - 1, 0)),
-    [maxIndex]
+    []
   );
 
   useEffect(() => {
@@ -61,65 +60,61 @@ export function Slider(props: SliderProps): React.ReactElement {
     return () => clearTimeout(id);
   }, [index, maxIndex]);
 
+  const containerProps = {
+    ref: container,
+    style: { width: ifExists(width && ifNotExists(maxw), `${width}px`) },
+    expand: true,
+    maxw,
+  };
+
+  const trayProps = {
+    style: {
+      transform: gap
+        ? `translateX(calc(${-100 * index}% - ${index} * ${gap}))`
+        : `translateX(${-100 * index}%)`,
+    },
+    groups,
+    gap,
+  };
+
+  const buttonBoxProps = {
+    absolute: true,
+    top: `calc(50% - ${theme.spacing[2]})`,
+  };
+
+  const buttonProps = {
+    animate: true,
+    shadow: true,
+    rounded: theme.border.radius.full,
+    bg: theme.colors.background[5],
+    padding: theme.spacing[1],
+  };
+
+  const SlidesMarkup = React.Children.map(children, (child) => (
+    <Flex.Item shrink={0}>{child}</Flex.Item>
+  ));
+
+  const LeftButtonMarkup = leftButton ? (
+    <Box left={theme.spacing[1]} {...buttonBoxProps}>
+      <Button onClick={decrement} {...buttonProps}>
+        <Icon src={ExtendLeft} w={theme.icon.base} />
+      </Button>
+    </Box>
+  ) : null;
+
+  const RightButtonMarkup = rightButton ? (
+    <Box right={theme.spacing[1]} {...buttonBoxProps}>
+      <Button onClick={increment} {...buttonProps}>
+        <Icon src={ExtendRight} w={theme.icon.base} />
+      </Button>
+    </Box>
+  ) : null;
+
   return (
-    <Box
-      ref={container}
-      style={{
-        width: ifExists(width && ifNotExists(props.maxw), `${width}px`),
-      }}
-      css={{ overflowX: "hidden" }}
-      expand
-      maxw={props.maxw}
-    >
-      <Tray
-        style={{
-          transform: props.gap
-            ? `translateX(calc(${-100 * index}% - ${index} * ${props.gap}))`
-            : `translateX(${-100 * index}%)`,
-        }}
-        groups={props.groups}
-        gap={props.gap}
-      >
-        {React.Children.map(props.children, (child) => (
-          <Flex.Item shrink={0}>{child}</Flex.Item>
-        ))}
-      </Tray>
-      {leftButton && (
-        <Box
-          absolute
-          left={theme.spacing[1]}
-          top={`calc(50% - ${theme.spacing[2]})`}
-        >
-          <Button
-            animate
-            shadow
-            rounded={theme.border.radius.full}
-            bg={theme.colors.background[5]}
-            padding={theme.spacing[1]}
-            onClick={decrement}
-          >
-            <Icon src={ExtendLeft} w={theme.icon.base} />
-          </Button>
-        </Box>
-      )}
-      {rightButton && (
-        <Box
-          absolute
-          right={theme.spacing[1]}
-          top={`calc(50% - ${theme.spacing[2]})`}
-        >
-          <Button
-            animate
-            shadow
-            rounded={theme.border.radius.full}
-            bg={theme.colors.background[5]}
-            padding={theme.spacing[1]}
-            onClick={increment}
-          >
-            <Icon src={ExtendRight} w={theme.icon.base} />
-          </Button>
-        </Box>
-      )}
+    <Box css={{ overflowX: "hidden" }} {...containerProps}>
+      <Tray {...trayProps}>{SlidesMarkup}</Tray>
+      {LeftButtonMarkup}
+      {RightButtonMarkup}
     </Box>
   );
 }

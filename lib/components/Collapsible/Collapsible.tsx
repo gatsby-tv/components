@@ -3,14 +3,15 @@ import styled from "styled-components";
 import { DownTick } from "@gatsby-tv/icons";
 import { ifExists, useUniqueId, useTheme } from "@gatsby-tv/utilities";
 
+import { FlexJustifyContent } from "@lib/types";
 import { Box } from "@lib/components/Box";
 import { TextBox } from "@lib/components/TextBox";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 
 export interface CollapsibleProps {
-  className?: string;
   children?: React.ReactNode;
+  className?: string;
   label?: string;
   active?: boolean;
 }
@@ -74,46 +75,48 @@ const CollapsibleBase = styled.div`
 `;
 
 export function Collapsible(props: CollapsibleProps): React.ReactElement {
+  const { children, className, active, label } = props;
   const id = useUniqueId("collapsible");
-  const label = useRef<HTMLLabelElement>(null);
-  const content = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLLabelElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
 
   useEffect(() => {
-    if (!content.current || !label.current) return;
-    content.current.style.width = `${
-      label.current.getBoundingClientRect().width
+    if (!contentRef.current || !labelRef.current) return;
+    contentRef.current.style.width = `${
+      labelRef.current.getBoundingClientRect().width
     }px`;
 
-    label.current.addEventListener("keydown", (event: Event) => {
+    labelRef.current.addEventListener("keydown", (event: Event) => {
       const code = (event as any).code;
       if (code === "Enter" || code === "Space") {
         event.preventDefault();
         event.stopPropagation();
-        label.current?.click();
+        labelRef.current?.click();
       }
     });
   }, []);
 
+  const flexProps = {
+    ref: labelRef,
+    htmlFor: id,
+    tabIndex: -1,
+    className,
+    "data-collapsible": "label",
+    expand: true,
+    justify: "space-between" as FlexJustifyContent,
+    gap: theme.spacing[1],
+  };
+
   return (
     <CollapsibleBase>
-      <input id={id} type="checkbox" checked={ifExists(props.active)} />
-      <Flex
-        as="label"
-        ref={label}
-        htmlFor={id}
-        tabIndex={-1}
-        className={props.className}
-        data-collapsible="label"
-        expand
-        justify="space-between"
-        gap={theme.spacing[1]}
-      >
-        <TextBox>{props.label}</TextBox>
+      <input id={id} type="checkbox" checked={ifExists(active)} />
+      <Flex as="label" {...flexProps}>
+        <TextBox>{label}</TextBox>
         <Icon src={DownTick} w="1.2rem" />
       </Flex>
-      <Box ref={content} data-collapsible="content">
-        {props.children}
+      <Box ref={contentRef} data-collapsible="content">
+        {children}
       </Box>
     </CollapsibleBase>
   );

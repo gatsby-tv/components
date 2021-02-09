@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { css } from "styled-components";
 import { ifExists, useTheme, useUniqueId } from "@gatsby-tv/utilities";
 
-import { Margin } from "@lib/types";
+import { Margin, FlexAlignItems } from "@lib/types";
 import { cssProperty } from "@lib/styles/property";
 import { cssTextInput } from "@lib/styles/typography";
 import { cssInputBorder } from "@lib/styles/borders";
@@ -50,7 +50,6 @@ export function FormField(props: FormFieldProps): React.ReactElement {
   const {
     className,
     font,
-    padding,
     label,
     labelHidden,
     multiline,
@@ -61,6 +60,7 @@ export function FormField(props: FormFieldProps): React.ReactElement {
     error,
     focused,
     autoComplete,
+    padding = [theme.spacing[0.5], theme.spacing[1]],
     onChange = () => undefined,
     ...inputProps
   } = props;
@@ -76,21 +76,9 @@ export function FormField(props: FormFieldProps): React.ReactElement {
   const handleBlur = () => setFocus(false);
   const handleClick = () => input?.current?.focus();
 
-  const placeholderMarkup = css`
-    color: ${theme.colors.font.body.fade(0.5)};
+  const placeholderStyle = css`
+    color: ${theme.colors.font.body.fade(0.5).toString()};
   `;
-
-  const prefixMarkup = prefix ? (
-    <Flex.Item css={placeholderMarkup} shrink={0}>
-      {prefix}
-    </Flex.Item>
-  ) : null;
-
-  const suffixMarkup = suffix ? (
-    <Flex.Item css={placeholderMarkup} shrink={0}>
-      {suffix}
-    </Flex.Item>
-  ) : null;
 
   const inputStyle = css`
     ${cssTextInput}
@@ -98,56 +86,72 @@ export function FormField(props: FormFieldProps): React.ReactElement {
     ${cssProperty("font-size", font)}
     cursor: text;
     border-radius: ${theme.border.radius.small};
-    background-color: ${theme.colors.background[4]};
+    background-color: ${theme.colors.background[4].toString()};
 
     input {
       ${cssTextInput}
       ${cssProperty("text-align", align, "left")}
       ${cssProperty("font-size", font)}
-      color: ${theme.colors.font.body.darken(0.1)};
+      color: ${theme.colors.font.body.darken(0.1).toString()};
       outline: none;
       background-color: transparent;
 
       &::placeholder {
-        color: ${theme.colors.font.body.fade(0.5)};
+        color: ${theme.colors.font.body.fade(0.5).toString()};
       }
     }
   `;
 
+  const labelledProps = {
+    id,
+    font,
+    label,
+    help,
+    error,
+    hidden: labelHidden,
+  };
+
+  const flexProps = {
+    className,
+    padding,
+    "data-focus": ifExists(focus),
+    "data-error": ifExists(error),
+    gap: theme.spacing[1],
+    align: "center" as FlexAlignItems,
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onClick: handleClick,
+  };
+
+  const flexItemProps = {
+    ref: input,
+    id,
+    w: 1,
+    grow: 1,
+    autoComplete: autoComplete ? "on" : "off",
+    onChange: handleChange,
+    onKeyPress: (event: React.SyntheticEvent) => event.stopPropagation(),
+    ...inputProps,
+  };
+
+  const PrefixMarkup = prefix ? (
+    <Flex.Item css={placeholderStyle} shrink={0}>
+      {prefix}
+    </Flex.Item>
+  ) : null;
+
+  const SuffixMarkup = suffix ? (
+    <Flex.Item css={placeholderStyle} shrink={0}>
+      {suffix}
+    </Flex.Item>
+  ) : null;
+
   return (
-    <Labelled
-      id={id}
-      font={font}
-      label={label}
-      help={help}
-      error={error}
-      hidden={labelHidden}
-    >
-      <Flex
-        className={className}
-        css={inputStyle}
-        data-focus={ifExists(focus)}
-        data-error={ifExists(error)}
-        gap={theme.spacing[1]}
-        align="center"
-        padding={[theme.spacing[0.5], theme.spacing[1]]}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onClick={handleClick}
-      >
-        {prefixMarkup}
-        <Flex.Item
-          as={multiline ? "textarea" : "input"}
-          ref={input}
-          id={id}
-          w={1}
-          grow={1}
-          autoComplete={autoComplete ? "on" : "off"}
-          onChange={handleChange}
-          onKeyPress={(event: React.SyntheticEvent) => event.stopPropagation()}
-          {...inputProps}
-        />
-        {suffixMarkup}
+    <Labelled {...labelledProps}>
+      <Flex css={inputStyle} {...flexProps}>
+        {PrefixMarkup}
+        <Flex.Item as={multiline ? "textarea" : "input"} {...flexItemProps} />
+        {SuffixMarkup}
       </Flex>
     </Labelled>
   );

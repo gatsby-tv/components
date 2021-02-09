@@ -33,17 +33,19 @@ const SlideBase = styled(Box)<BoxProps>`
 `;
 
 export function Slide(props: SlideProps): React.ReactElement {
+  const { children, onClick } = props;
   const { groups, gap } = useCarousel();
   const theme = useTheme();
 
+  const baseProps = {
+    style: { width: `${100 / groups}%` },
+    margin: [theme.spacing[0], `calc(${gap} / 2)`],
+    onClick,
+  };
+
   return (
-    <SlideBase
-      as="button"
-      style={{ width: `${100 / groups}%` }}
-      margin={[theme.spacing[0], `calc(${gap} / 2)`]}
-      onClick={props.onClick}
-    >
-      {props.children}
+    <SlideBase as="button" {...baseProps}>
+      {children}
     </SlideBase>
   );
 }

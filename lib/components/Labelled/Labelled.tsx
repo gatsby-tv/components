@@ -5,7 +5,6 @@ import { ifExists, useTheme } from "@gatsby-tv/utilities";
 
 import {
   cssTextBreakWord,
-  cssTextBody,
   cssTextSubdued,
   cssTextError,
   cssTextLabel,
@@ -60,13 +59,18 @@ export function Labelled(props: LabelledProps): React.ReactElement {
     ${cssTextLabel}
   `;
 
-  const helpMarkup = help && !error ? <Box css={helpStyle}>{help}</Box> : null;
+  const optionalProps = {
+    active: ifExists(error),
+    $props: { gap: theme.spacing[0.5] },
+  };
 
-  const errorMarkup = error ? (
+  const HelpMarkup = help && !error ? <Box css={helpStyle}>{help}</Box> : null;
+
+  const ErrorMarkup = error ? (
     <Box css={errorStyle}>{error.message}</Box>
   ) : null;
 
-  const errorIconMarkup = error ? (
+  const ErrorIconMarkup = error ? (
     <Icon
       src={NoEntry}
       w={theme.icon.smaller}
@@ -78,19 +82,15 @@ export function Labelled(props: LabelledProps): React.ReactElement {
 
   return (
     <Box>
-      <Optional
-        active={ifExists(error)}
-        component={Flex}
-        $props={{ gap: theme.spacing[0.5] }}
-      >
+      <Optional component={Flex} {...optionalProps}>
         <Box as="label" htmlFor={id} hidden={hidden} css={labelStyle}>
           {label}
         </Box>
-        {errorIconMarkup}
+        {ErrorIconMarkup}
       </Optional>
       {children}
-      {errorMarkup}
-      {helpMarkup}
+      {ErrorMarkup}
+      {HelpMarkup}
     </Box>
   );
 }

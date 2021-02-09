@@ -14,8 +14,8 @@ export default {
 export const Example: Story<SliderProps> = () => (
   <AppProvider theme="dark">
     <Slider groups={5} gap="16px">
-      {[...Array(18)].map(() => (
-        <Image src="" aspectRatio={0.5625} />
+      {[...Array(18)].map((_, index) => (
+        <Image key={index} src="" aspectRatio={0.5625} />
       ))}
     </Slider>
   </AppProvider>

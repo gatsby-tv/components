@@ -1,108 +1,60 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Spinner } from "@gatsby-tv/icons";
-import { useScroll, useAsync, useTheme } from "@gatsby-tv/utilities";
+import { useScroll, useTheme } from "@gatsby-tv/utilities";
 
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 
-interface FetchAction {
-  type: "fetch";
-}
-
-interface SyncAction<T> {
-  type: "sync";
-  items: T[];
-}
-
-type StreamAction<T> = FetchAction | SyncAction<T>;
-
-type StreamState<T> = {
-  index: number;
-  loading: boolean;
-  items: T[];
-};
-
 export interface StreamProps<T> {
   component: React.FC<T>;
-  generator: (index: number) => T | T[];
-  max?: number;
+  generator: () => void;
+  data?: T[];
+  loading?: boolean;
 }
 
 export function Stream<T>(props: StreamProps<T>): React.ReactElement {
-  const { component: SourceComponent, generator, max = Infinity } = props;
-  const [waiting, setWaiting] = useState(false);
+  const { component: SourceComponent, generator, loading, data = [] } = props;
   const { addScrollListener, removeScrollListener } = useScroll();
+  const [waiting, setWaiting] = useState(false);
   const theme = useTheme();
 
-  const [state, dispatch] = useReducer(
-    (state: StreamState<T>, action: StreamAction<T>) => {
-      switch (action.type) {
-        case "fetch":
-          return state.loading || (state.index + 1 || 0) >= max
-            ? state
-            : { ...state, index: state.index + 1 || 0, loading: true };
-
-        case "sync":
-          return {
-            ...state,
-            items: [...state.items, ...action.items],
-            loading: false,
-          };
-
-        default:
-          return state;
+  const handleScroll = useCallback(
+    (event) => {
+      const target = event.currentTarget;
+      if (
+        !loading &&
+        target.scrollHeight - target.scrollTop === target.clientHeight
+      ) {
+        generator();
       }
     },
-    { index: NaN, items: [], loading: false }
-  );
-
-  const handleScroll = useCallback((event) => {
-    const target = event.currentTarget;
-    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
-      dispatch({ type: "fetch" });
-    }
-  }, []);
-
-  useAsync(
-    async () => {
-      if (isNaN(state.index)) return;
-      return [await generator(state.index)].flat() as T[];
-    },
-    (items) => dispatch({ type: "sync", items }),
-    [generator, state.index]
+    [loading, generator]
   );
 
   useEffect(() => {
-    if (state.loading) {
+    if (loading) {
       const id = setTimeout(() => setWaiting(true), 100);
       return () => clearTimeout(id);
     } else {
       setWaiting(false);
     }
-  }, [state.loading]);
+  }, [loading]);
 
   useEffect(() => {
     addScrollListener(handleScroll);
-    dispatch({ type: "fetch" });
     return () => removeScrollListener(handleScroll);
-  }, [addScrollListener, handleScroll]);
+  }, [addScrollListener, removeScrollListener, handleScroll]);
 
   const children = useMemo(
     () =>
-      state.items.map((item, index) => (
-        <SourceComponent key={index} {...item} />
+      data.map((item, index) => (
+        <SourceComponent key={`stream.${index}`} {...item} />
       )),
-    [state.items, SourceComponent]
+    [data, SourceComponent]
   );
 
-  const loadingMarkup = waiting ? (
-    <Flex expand center>
+  const LoadingMarkup = waiting ? (
+    <Flex css={{ gridColumn: "1 / -1" }} expand center>
       <Icon src={Spinner} w={theme.icon.largest} />
     </Flex>
   ) : null;
@@ -110,7 +62,7 @@ export function Stream<T>(props: StreamProps<T>): React.ReactElement {
   return (
     <>
       {children}
-      {loadingMarkup}
+      {LoadingMarkup}
     </>
   );
 }

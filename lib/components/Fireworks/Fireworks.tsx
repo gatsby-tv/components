@@ -131,19 +131,20 @@ Particle.render = (
 
 export function Fireworks(props: FireworksProps): React.ReactElement {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const [rockets, setRockets] = useState<ParticleType[]>([]);
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const [particles, setParticles] = useState<ParticleType[]>([]);
+  const [, setRockets] = useState<ParticleType[]>([]);
+  const [, setParticles] = useState<ParticleType[]>([]);
+
+  const getDefaultOrigin = useCallback(
+    () => ({
+      x: (Math.random() * window.innerWidth * 2) / 3 + window.innerWidth / 6,
+      y: window.innerHeight,
+    }),
+    []
+  );
 
   const {
-    origin = useCallback(
-      () => ({
-        x: (Math.random() * window.innerWidth * 2) / 3 + window.innerWidth / 6,
-        y: window.innerHeight,
-      }),
-      []
-    ),
+    activator,
+    origin = getDefaultOrigin,
     count = Infinity,
     interval = 800,
     infinite,
@@ -247,18 +248,19 @@ export function Fireworks(props: FireworksProps): React.ReactElement {
     }, interval ?? 500);
 
     return () => clearInterval(id);
-  }, [origin, count, interval, toggle]);
+  }, [origin, count, interval, toggle, infinite]);
+
+  const boxProps = {
+    absolute: true,
+    expand: true,
+    zIndex,
+  };
 
   return (
     <>
-      {props.activator}
+      {activator}
       <Portal id="fireworks">
-        <Box
-          absolute
-          expand
-          css={{ pointerEvents: "none", position: "fixed" }}
-          zIndex={zIndex}
-        >
+        <Box css={{ pointerEvents: "none", position: "fixed" }} {...boxProps}>
           <canvas ref={setCanvas} />
         </Box>
         <EventListener event="resize" handler={handleResize} />

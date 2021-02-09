@@ -41,6 +41,7 @@ export const DarkTheme: DefaultTheme = {
     green: Color("#00853e"),
     white: Color("#fff"),
     black: Color("#010101"),
+    trueblack: Color("#000"),
   },
 
   font: {

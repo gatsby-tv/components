@@ -28,7 +28,7 @@ const LinkBase = styled(Item)<LinkBaseProps>`
   width: fit-content;
 
   &:hover {
-    color: ${(props) => props.theme.colors.font.body};
+    color: ${(props) => props.theme.colors.font.body.toString()};
   }
 `;
 
@@ -44,8 +44,8 @@ export interface LinkProps extends UnstyledLinkProps {
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (props: LinkProps, ref) => {
     const text = useRef<HTMLParagraphElement>(null);
-    const [truncated, setTruncated] = useState(false);
-    const [active, setActive] = useState(false);
+    const [, setTruncated] = useState(false);
+    const [, setActive] = useState(false);
     const { font, bold, heading, ...rest } = props;
 
     const handleResize = useCallback(() => {
@@ -55,20 +55,24 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
     useEffect(() => handleResize(), [handleResize]);
 
+    const textProps = {
+      ref: text,
+      font,
+      bold,
+      heading,
+      onMouseEnter: () => setActive(true),
+      onMouseLeave: () => setActive(false),
+    };
+
+    const linkProps = {
+      ref: ref as React.RefObject<HTMLAnchorElement>,
+      ...rest,
+    };
+
     return (
       <>
-        <LinkBase
-          ref={text}
-          font={font}
-          bold={bold}
-          heading={heading}
-          onMouseEnter={() => setActive(true)}
-          onMouseLeave={() => setActive(false)}
-        >
-          <UnstyledLink
-            ref={ref as React.RefObject<HTMLAnchorElement>}
-            {...rest}
-          />
+        <LinkBase {...textProps}>
+          <UnstyledLink {...linkProps} />
         </LinkBase>
         <EventListener event="resize" handler={handleResize} />
       </>

@@ -3,6 +3,7 @@ import { css } from "styled-components";
 import { UpDownTick } from "@gatsby-tv/icons";
 import { ifExists, useUniqueId, useTheme } from "@gatsby-tv/utilities";
 
+import { FlexAlignItems } from "@lib/types";
 import { cssTextInput } from "@lib/styles/typography";
 import { cssInputBorder } from "@lib/styles/borders";
 import { Box } from "@lib/components/Box";
@@ -120,43 +121,47 @@ export function FormSelect(props: FormSelectProps): React.ReactElement {
     }
   `;
 
+  const labelledProps = {
+    id,
+    label,
+    help,
+    error,
+    hidden: labelHidden,
+  };
+
+  const flexProps = {
+    className,
+    "data-focus": ifExists(focus),
+    "data-error": ifExists(error),
+    gap: theme.spacing[0.5],
+    align: "center" as FlexAlignItems,
+    padding: [theme.spacing[0.5], theme.spacing[1]],
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onClick: handleClick,
+  };
+
+  const selectBoxProps = {
+    id,
+    ref: select,
+    absolute: true,
+    expand: true,
+    w: 1,
+    onChange: handleChange,
+    onKeyPress: (event: React.SyntheticEvent) => event.stopPropagation(),
+    ...selectProps,
+  };
+
   return (
-    <Labelled
-      id={id}
-      label={label}
-      help={help}
-      error={error}
-      hidden={labelHidden}
-    >
-      <Flex
-        className={className}
-        css={selectStyle}
-        data-focus={ifExists(focus)}
-        data-error={ifExists(error)}
-        gap={theme.spacing[0.5]}
-        align="center"
-        padding={[theme.spacing[0.5], theme.spacing[1]]}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onClick={handleClick}
-      >
+    <Labelled {...labelledProps}>
+      <Flex css={selectStyle} {...flexProps}>
         <Flex.Item as="span" grow={1}>
           {getFormSelectedLabel(options, selected)}
         </Flex.Item>
         <Flex.Item as="span">
           <Icon src={UpDownTick} h={1} ariaLabel="Selection Arrows" />
         </Flex.Item>
-        <Box
-          as="select"
-          id={id}
-          ref={select}
-          absolute
-          expand
-          w={1}
-          onChange={handleChange}
-          onKeyPress={(event: React.SyntheticEvent) => event.stopPropagation()}
-          {...selectProps}
-        >
+        <Box as="select" {...selectBoxProps}>
           {options.map(parseOptionOrGroup)}
         </Box>
       </Flex>

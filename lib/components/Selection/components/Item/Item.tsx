@@ -12,18 +12,20 @@ export interface ItemProps {
 }
 
 const ItemBase: React.FC<ItemProps> = (props: ItemProps) => {
+  const { children, id, className } = props;
   const { selection, onSelect } = useSelection();
   const handleClick = () => onSelect(props.id);
 
+  const itemProps = {
+    className,
+    "data-selected": ifExists(selection[id]),
+    grow: 1,
+    onClick: handleClick,
+  };
+
   return (
-    <Flex.Item
-      as="li"
-      className={props.className}
-      data-selected={ifExists(selection[props.id])}
-      grow={1}
-      onClick={handleClick}
-    >
-      {props.children}
+    <Flex.Item as="li" {...itemProps}>
+      {children}
     </Flex.Item>
   );
 };

@@ -5,15 +5,14 @@ import { Box, BoxProps } from "@lib/components/Box";
 export type VideoProps = React.VideoHTMLAttributes<HTMLElement> & BoxProps;
 
 export const Video = forwardRef<HTMLVideoElement, VideoProps>((props, ref) => {
-  return (
-    <Box
-      ref={ref as React.RefObject<HTMLVideoElement>}
-      as="video"
-      w={1}
-      h={1}
-      {...props}
-    />
-  );
+  const videoProps = {
+    ref: ref as React.RefObject<HTMLVideoElement>,
+    w: 1,
+    h: 1,
+    ...props,
+  };
+
+  return <Box as="video" {...videoProps} />;
 });
 
 Video.displayName = "Video";

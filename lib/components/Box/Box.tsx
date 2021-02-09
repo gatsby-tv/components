@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Color from "color";
 import { ifExists, ifNotExists } from "@gatsby-tv/utilities";
 
 import { Size, Margin } from "@lib/types";
@@ -7,8 +8,8 @@ import { cssSize, cssMargin } from "@lib/styles/size";
 import { cssProperty } from "@lib/styles/property";
 
 export interface BoxProps {
-  bg?: string;
-  fg?: string;
+  bg?: Color;
+  fg?: Color;
   absolute?: boolean;
   expand?: boolean;
   shadow?: boolean;
@@ -40,8 +41,8 @@ export const Box = styled.div<BoxProps>`
   display: block;
   ${(props) =>
     cssProperty("position", ifExists(props.absolute, "absolute"), "relative")}
-  ${(props) => cssProperty("background-color", props.bg)}
-  ${(props) => cssProperty("color", props.fg)}
+  ${(props) => cssProperty("background-color", props.bg?.toString())}
+  ${(props) => cssProperty("color", props.fg?.toString())}
   ${(props) =>
     cssSize(
       "width",

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ifExists, Tuple, TupleType } from "@gatsby-tv/utilities";
+import { ifExists } from "@gatsby-tv/utilities";
 
 import {
   Size,
@@ -17,35 +17,33 @@ import { Item, ItemProps } from "./components/Item";
 export type { ItemProps as GridItemProps };
 
 export interface GridProps extends BoxProps {
-  template?: TupleType<string, string>;
+  template?: string | string[];
   center?: boolean;
-  justify?: TupleType<GridJustifyItems, GridJustifyContent>;
-  align?: TupleType<GridAlignItems, GridAlignContent>;
-  gap?: TupleType<Size, Size>;
+  justify?: GridJustifyItems | [GridJustifyItems, GridJustifyContent];
+  align?: GridAlignItems | [GridAlignItems, GridAlignContent];
+  gap?: Size | Size[];
 }
 
 const GridBase = styled(Box)<GridProps>`
   display: grid;
-  ${(props) =>
-    cssProperty("grid-template-columns", Tuple.first(props.template))}
-  ${(props) => cssProperty("grid-template-rows", Tuple.second(props.template))}
+  ${(props) => cssProperty("grid-template-columns", [props.template].flat()[0])}
+  ${(props) => cssProperty("grid-template-rows", [props.template].flat()[1])}
   ${(props) =>
     cssProperty(
       "justify-items",
-      Tuple.first(props.justify),
+      [props.justify].flat()[0],
       ifExists(props.center, "center")
     )}
-  ${(props) => cssProperty("justify-content", Tuple.second(props.justify))}
+  ${(props) => cssProperty("justify-content", [props.justify].flat()[1])}
   ${(props) =>
     cssProperty(
       "align-items",
-      Tuple.first(props.align),
+      [props.align].flat()[0],
       ifExists(props.center, "center")
     )}
-  ${(props) => cssProperty("align-content", Tuple.second(props.align))}
-  ${(props) => cssSize("column-gap", Tuple.first(props.gap))}
-  ${(props) =>
-    cssSize("row-gap", Tuple.second(props.gap), Tuple.first(props.gap))}
+  ${(props) => cssProperty("align-content", [props.align].flat()[1])}
+  ${(props) => cssSize("column-gap", [props.gap].flat()[0])}
+  ${(props) => cssSize("row-gap", [props.gap].flat()[1], [props.gap].flat()[0])}
 `;
 
 export const Grid = Object.assign(GridBase, { Item });

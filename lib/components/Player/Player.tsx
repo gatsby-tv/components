@@ -14,11 +14,14 @@ import {
   SkipBackward,
   Spinner,
 } from "@gatsby-tv/icons";
-import { useForwardedRef, useResizeObserver } from "@gatsby-tv/utilities";
+import {
+  useTheme,
+  useForwardedRef,
+  useResizeObserver,
+} from "@gatsby-tv/utilities";
 
 import { Activatable } from "@lib/components/Activatable";
 import { Box } from "@lib/components/Box";
-import { Button } from "@lib/components/Button";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
 import { EventListener } from "@lib/components/EventListener";
@@ -67,15 +70,16 @@ interface PlayerState {
   ended: boolean;
 }
 
-export interface PlayerProps {
+export interface PlayerProps extends VideoProps {
   children?: React.ReactNode;
-  video: VideoProps;
   fullscreen?: boolean;
   toggleFullscreen?: () => void;
 }
 
 export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
   (props: PlayerProps, ref: Ref<HTMLVideoElement>) => {
+    const { children, fullscreen, toggleFullscreen, ...videoProps } = props;
+    const theme = useTheme();
     const video = useForwardedRef<HTMLVideoElement>(ref);
     const player = useRef<HTMLElement>(null);
     const timeline = useRef<HTMLDivElement>(null);
@@ -248,14 +252,14 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
         video.current?.pause();
         setSignal("pause");
       }
-    }, [state.paused, setSignal]);
+    }, [video, state.paused, setSignal]);
 
     const seekTo = useCallback((time) => {
       if (video.current) {
         video.current.currentTime = time;
         dispatch({ type: "timeupdate", time: time / video.current.duration });
       }
-    }, []);
+    }, [video]);
 
     const timelinePercent = useCallback((x: number) => {
       if (timeline.current) {
@@ -301,7 +305,7 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
             return;
         }
       },
-      [state.seeking, props, seekTo, setSignal, togglePlayback]
+      [video, state.seeking, props, seekTo, setSignal, togglePlayback]
     );
 
     useResizeObserver(player, (content) =>
@@ -385,7 +389,7 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
             dispatch({ type: "noscrub" });
           }
         },
-        [state.scrubbing, seekTo, timelinePercent]
+        [video, state.scrubbing, seekTo, timelinePercent]
       ),
       onPointerEnter: useCallback(
         (event) => {
@@ -422,7 +426,63 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       onPointerLeave: useCallback(() => dispatch({ type: "deactivate" }), []),
     };
 
-    const iconMarkup = () => {
+    const signalProps = {
+      w: "52px",
+      padding: "32px",
+      bg: theme.colors.black,
+      fg: theme.colors.white,
+    };
+
+    const loadingBoxProps = {
+      style: { transform: "rotate(-65deg)" },
+      w: "116px",
+      h: "116px",
+      rounded: 1,
+    };
+
+    const timelineProps = {
+      ref: timeline,
+      time: state.time,
+      progress: state.progress,
+      position: state.hover,
+      active: state.hovering,
+      duration: video.current?.duration ?? 0,
+      ...timelineEvents,
+    };
+
+    const controlsBoxProps = {
+      absolute: true,
+      left: "20px",
+      right: "20px",
+      bottom: "0px",
+      onClick: (event: React.SyntheticEvent) => event.stopPropagation(),
+    };
+
+    const controlsProps = {
+      paused: state.paused,
+      position: state.time,
+      duration: video.current?.duration ?? 0,
+      togglePlayback,
+      toggleFullscreen,
+      fullscreen,
+    };
+
+    const overlayProps = {
+      expand: true,
+      active: state.active,
+      duration: 200,
+    };
+
+    const viewportProps = {
+      ref: player,
+      h: fullscreen ? "100vh" : "calc((9 / 16) * 100vw)",
+      maxh: fullscreen ? "none" : "calc(100vh - 140px)",
+      minh: "480px",
+      aspectRatio: dimensions.height / dimensions.width,
+      ...playerEvents,
+    };
+
+    const getIconMarkup = () => {
       switch (signal) {
         case "play":
           return (
@@ -445,96 +505,55 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       }
     };
 
-    const signalMarkup = signal ? (
+    const SignalMarkup = signal ? (
       <Box key={signalKey.current} absolute expand>
         <Flex expand center>
-          <Signal w="52px" padding="32px" bg="black" fg="white">
-            {iconMarkup()}
-          </Signal>
+          <Signal {...signalProps}>{getIconMarkup()}</Signal>
         </Flex>
       </Box>
     ) : null;
 
-    const loadingMarkup = loading ? (
+    const LoadingMarkup = loading ? (
       <Box absolute expand>
         <Flex center expand>
-          <Box
-            style={{ transform: "rotate(-65deg)" }}
-            w="116px"
-            h="116px"
-            rounded={1}
-          >
+          <Box {...loadingBoxProps}>
             <Icon src={Spinner} />
           </Box>
         </Flex>
       </Box>
     ) : null;
 
-    const timelineMarkup = (
+    const TimelineMarkup = (
       <Box absolute left="20px" right="20px" bottom="40px">
-        <Timeline
-          ref={timeline}
-          time={state.time}
-          progress={state.progress}
-          position={state.hover}
-          active={state.hovering}
-          duration={video.current?.duration ?? 0}
-          {...timelineEvents}
-        />
+        <Timeline {...timelineProps} />
       </Box>
     );
 
-    const controlsMarkup = (
-      <Box
-        absolute
-        left="20px"
-        right="20px"
-        bottom="0px"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <Controls
-          paused={state.paused}
-          fullscreen={props.fullscreen}
-          position={state.time}
-          duration={video.current?.duration ?? 0}
-          togglePlayback={togglePlayback}
-          toggleFullscreen={props.toggleFullscreen}
-        />
+    const ControlsMarkup = (
+      <Box {...controlsBoxProps}>
+        <Controls {...controlsProps} />
       </Box>
     );
 
-    const overlayMarkup = (
+    const OverlayMarkup = (
       <>
-        {signalMarkup}
-        {loadingMarkup}
-        <Activatable
-          css={cssCursorVisibility(!state.active)}
-          expand
-          active={state.active}
-          duration={200}
-        >
+        {SignalMarkup}
+        {LoadingMarkup}
+        <Activatable css={cssCursorVisibility(!state.active)} {...overlayProps}>
           <Box absolute expand>
             <Shading expand />
-            {controlsMarkup}
-            {timelineMarkup}
+            {ControlsMarkup}
+            {TimelineMarkup}
           </Box>
         </Activatable>
       </>
     );
 
     return (
-      <Viewport
-        ref={player}
-        h={props.fullscreen ? "100vh" : "calc((9 / 16) * 100vw)"}
-        maxh={props.fullscreen ? "none" : "calc(100vh - 140px)"}
-        minh="480px"
-        overlay={overlayMarkup}
-        aspectRatio={dimensions.height / dimensions.width}
-        {...playerEvents}
-      >
+      <Viewport overlay={OverlayMarkup} {...viewportProps}>
         <Flex center h={1}>
-          <Video ref={video} {...videoEvents} {...props.video}>
-            {props.children}
+          <Video ref={video} {...videoEvents} {...videoProps}>
+            {children}
           </Video>
         </Flex>
         <EventListener event="keydown" handler={handleKeydown} />

@@ -40,22 +40,21 @@ const LinkBase = styled.a<LinkProps>`
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (props: LinkProps, ref) => {
-    const target = props.external ? "_blank" : undefined;
-    const rel = props.external ? "noopener noreferrer" : undefined;
+    const { children, href, className, underline, external, onClick } = props;
+    const target = external ? "_blank" : undefined;
+    const rel = external ? "noopener noreferrer" : undefined;
 
-    return (
-      <LinkBase
-        ref={ref as React.RefObject<HTMLAnchorElement>}
-        target={target}
-        rel={rel}
-        href={props.href}
-        onClick={props.onClick}
-        className={props.className}
-        underline={props.underline}
-      >
-        {props.children}
-      </LinkBase>
-    );
+    const linkProps = {
+      ref: ref as React.RefObject<HTMLAnchorElement>,
+      className,
+      target,
+      rel,
+      href,
+      underline,
+      onClick,
+    };
+
+    return <LinkBase {...linkProps}>{children}</LinkBase>;
   }
 );
 

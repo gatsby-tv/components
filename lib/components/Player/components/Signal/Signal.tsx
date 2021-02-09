@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import { Size } from "@lib/types";
 import { cssSize } from "@lib/styles/size";
 import { Box, BoxProps } from "@lib/components/Box";
 

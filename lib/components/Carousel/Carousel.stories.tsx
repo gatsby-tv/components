@@ -14,8 +14,8 @@ export default {
 export const Example: Story<CarouselProps> = () => (
   <AppProvider theme="dark">
     <Carousel groups={6} gap="1rem">
-      {[...Array(24)].map(() => (
-        <Carousel.Slide>
+      {[...Array(24)].map((_, index) => (
+        <Carousel.Slide key={index}>
           <Image src="" aspectRatio={2} />
         </Carousel.Slide>
       ))}

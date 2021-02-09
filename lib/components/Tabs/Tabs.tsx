@@ -22,10 +22,12 @@ export interface TabsProps {
 }
 
 function TabsBase(props: TabsProps): React.ReactElement {
+  const { children, w, h, font, gap, selection, onSelect } = props;
+
   const style = css`
-    ${cssSize("width", props.w)}
-    ${cssSize("height", props.h, 1)}
-    ${cssSize("gap", props.gap)}
+    ${cssSize("width", w)}
+    ${cssSize("height", h, 1)}
+    ${cssSize("gap", gap)}
 
     ${Selection.Item} {
       display: inline-flex;
@@ -33,7 +35,7 @@ function TabsBase(props: TabsProps): React.ReactElement {
       justify-content: center;
       flex-grow: 0;
       padding-bottom: 2px;
-      ${cssTextTab(props.font)}
+      ${cssTextTab(font)}
     }
 
     ${Selection.Item} > a {
@@ -41,7 +43,7 @@ function TabsBase(props: TabsProps): React.ReactElement {
     }
 
     ${Selection.Item}[data-selected], ${Selection.Item}:hover {
-      color: ${(props) => props.theme.colors.gold.lighten(0.1)};
+      color: ${(props) => props.theme.colors.gold.lighten(0.1).toString()};
     }
 
     ${Selection.Item}:after {
@@ -51,7 +53,7 @@ function TabsBase(props: TabsProps): React.ReactElement {
       left: 0;
       width: 100%;
       height: 2px;
-      background-color: ${(props) => props.theme.colors.gold};
+      background-color: ${(props) => props.theme.colors.gold.toString()};
       transform: scaleX(0);
       transition: transform ${(props) => props.theme.duration.fast} ease;
     }
@@ -61,14 +63,15 @@ function TabsBase(props: TabsProps): React.ReactElement {
     }
   `;
 
+  const selectionProps = {
+    row: true,
+    selection,
+    onSelect,
+  };
+
   return (
-    <Selection
-      css={style}
-      row
-      selection={props.selection}
-      onSelect={props.onSelect}
-    >
-      {props.children}
+    <Selection css={style} {...selectionProps}>
+      {children}
     </Selection>
   );
 }

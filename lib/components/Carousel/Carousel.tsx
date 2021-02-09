@@ -6,12 +6,9 @@ import React, {
   useCallback,
 } from "react";
 import { ExtendLeft, ExtendRight } from "@gatsby-tv/icons";
-import { Channel, IPFSContent } from "@gatsby-tv/types";
 import {
-  ifExists,
   Negative,
   useTheme,
-  useBreakpoints,
   useResizeObserver,
 } from "@gatsby-tv/utilities";
 
@@ -67,10 +64,10 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
           return { ...state, desired: action.desired };
 
         case "sync":
-          return { ...state, current: state.desired };
+          return { ...state, slide: state.desired };
       }
     },
-    { current: 0, desired: 0 }
+    { slide: 0, desired: 0 }
   );
 
   useResizeObserver(mask, (content) => setWidth(`${content.inlineSize}px`));
@@ -82,60 +79,63 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
 
   const next = useCallback(
     () =>
-      dispatch({ type: "jump", desired: (state.current + 1) % groups.length }),
-    [groups.length, state.current]
+      dispatch({ type: "jump", desired: (state.slide + 1) % groups.length }),
+    [state.slide, groups.length]
   );
 
   const prev = useCallback(
     () =>
       dispatch({
         type: "jump",
-        desired: (state.current + groups.length - 1) % groups.length,
+        desired: (state.slide + groups.length - 1) % groups.length,
       }),
-    [groups.length, state.current]
+    [state.slide, groups.length]
+  );
+
+  const buttonProps = {
+    animate: true,
+    shadow: true,
+    rounded: theme.border.radius.full,
+    bg: theme.colors.background[5],
+    padding: theme.spacing[1],
+  };
+
+  const buttonBoxProps = {
+    absolute: true,
+    top: `calc(50% - ${theme.spacing[2]})`,
+  };
+
+  const SliderMarkup = (
+    <Slider state={state} groups={groups.length}>
+      <Flex style={{ width }}>{chunks[chunks.length - 1]}</Flex>
+      {groups}
+      <Flex style={{ width }}>{chunks[0]}</Flex>
+    </Slider>
+  );
+
+  const ExtendLeftMarkup = (
+    <Box left={theme.spacing[1.5]} {...buttonBoxProps}>
+      <Button onClick={prev} {...buttonProps}>
+        <Icon src={ExtendLeft} w={theme.icon.base} />
+      </Button>
+    </Box>
+  );
+
+  const ExtendRightMarkup = (
+    <Box right={theme.spacing[1.5]} {...buttonBoxProps}>
+      <Button onClick={next} {...buttonProps}>
+        <Icon src={ExtendRight} w={theme.icon.base} />
+      </Button>
+    </Box>
   );
 
   return (
     <CarouselContext.Provider value={{ gap, groups: props.groups }}>
       <Box margin={[theme.spacing[0], `calc(${Negative(gap)} / 2)`]}>
         <Box ref={mask} css={{ overflow: "hidden" }} w={1}>
-          <Slider state={state} groups={groups.length}>
-            <Flex style={{ width }}>{chunks[chunks.length - 1]}</Flex>
-            {groups}
-            <Flex style={{ width }}>{chunks[0]}</Flex>
-          </Slider>
-          <Box
-            absolute
-            left={theme.spacing[1.5]}
-            top={`calc(50% - ${theme.spacing[2]})`}
-          >
-            <Button
-              animate
-              shadow
-              rounded={theme.border.radius.full}
-              bg={theme.colors.background[5]}
-              padding={theme.spacing[1]}
-              onClick={prev}
-            >
-              <Icon src={ExtendLeft} w={theme.icon.base} />
-            </Button>
-          </Box>
-          <Box
-            absolute
-            right={theme.spacing[1.5]}
-            top={`calc(50% - ${theme.spacing[2]})`}
-          >
-            <Button
-              animate
-              shadow
-              rounded={theme.border.radius.full}
-              bg={theme.colors.background[5]}
-              padding={theme.spacing[1]}
-              onClick={next}
-            >
-              <Icon src={ExtendRight} w={theme.icon.base} />
-            </Button>
-          </Box>
+          {SliderMarkup}
+          {ExtendLeftMarkup}
+          {ExtendRightMarkup}
         </Box>
       </Box>
     </CarouselContext.Provider>

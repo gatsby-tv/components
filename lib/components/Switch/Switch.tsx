@@ -15,24 +15,23 @@ export interface SwitchProps {
   onSelect: (id: string) => void;
 }
 
-const wrapChildren = (children: React.ReactNode) =>
-  React.Children.map(children, (child, index) => (
-    <Connected.Item key={index}>{child}</Connected.Item>
-  ));
-
 function SwitchBase(props: SwitchProps) {
+  const { children, className, selection, onSelect } = props;
+
   const style = css`
     ${Item} {
       cursor: pointer;
     }
   `;
 
+  const ItemsMarkup = React.Children.map(children, (child) => (
+    <Connected.Item>{child}</Connected.Item>
+  ));
+
   return (
-    <SwitchContext.Provider
-      value={{ selection: props.selection, onSelect: props.onSelect }}
-    >
-      <Connected className={props.className} css={style} align="stretch">
-        {wrapChildren(props.children)}
+    <SwitchContext.Provider value={{ selection, onSelect }}>
+      <Connected className={className} css={style} align="stretch">
+        {ItemsMarkup}
       </Connected>
     </SwitchContext.Provider>
   );

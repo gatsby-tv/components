@@ -9,7 +9,7 @@ export interface TopFrameProps {
 
 export const TopFrame = forwardRef<HTMLDivElement, TopFrameProps>(
   (props: TopFrameProps, ref: Ref<HTMLDivElement>) => {
-    const { topbar: Topbar } = props;
+    const { children, topbar: Topbar } = props;
 
     return Topbar ? (
       <Flex column expand>
@@ -17,11 +17,13 @@ export const TopFrame = forwardRef<HTMLDivElement, TopFrameProps>(
           <Topbar />
         </Flex.Item>
         <Flex.Item shrink={1} grow={1} basis={1}>
-          {props.children}
+          {children}
         </Flex.Item>
       </Flex>
     ) : (
-      <>{props.children}</>
+      <>{children}</>
     );
   }
 );
+
+TopFrame.displayName = "TopFrame";

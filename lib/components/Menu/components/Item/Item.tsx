@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ifExists } from "@gatsby-tv/utilities";
 
 import { Connected } from "@lib/components/Connected";
 import { Box, BoxProps } from "@lib/components/Box";

@@ -13,6 +13,7 @@ export * from "./TextDisplay";
 export * from "./TextMeta";
 export * from "./TextHeading";
 export * from "./TextSubheading";
+export * from "./TextPlaceholder";
 export * from "./Viewport";
 export * from "./Video";
 export * from "./Player";

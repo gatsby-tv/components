@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import Color from "color";
 import { useTheme } from "@gatsby-tv/utilities";
 
 import { Flex } from "@lib/components/Flex";
@@ -11,8 +12,8 @@ import { cssTextUppercase } from "@lib/styles/typography";
 export interface RuleProps {
   children?: string | string[];
   font?: string;
-  bg?: string;
-  fg?: string;
+  bg?: Color;
+  fg?: Color;
   w?: Size;
   margin?: Margin;
   thin?: boolean;
@@ -21,49 +22,55 @@ export interface RuleProps {
 const RuleBase = styled.hr<Omit<RuleProps, "font" | "fg" | "children">>`
   border: none;
   height: ${(props) => (props.thin ? "1px" : "2px")};
-  background-color: ${(props) => props.bg ?? props.theme.colors.background[3]};
+  background-color: ${(props) =>
+    props.bg?.toString() ?? props.theme.colors.background[3].toString()};
   ${(props) => cssSize("width", props.w)}
   ${(props) => cssMargin("margin", props.margin)}
 `;
 
 export function Rule(props: RuleProps): React.ReactElement {
+  const { children, font, bg, fg, margin, thin, w = 1 } = props;
   const theme = useTheme();
 
   const text = css`
     ${cssTextUppercase}
-    ${cssProperty("font-size", props.font)}
-    color: ${props.fg ?? theme.colors.font.subdued};
+    ${cssProperty("font-size", font)}
+    color: ${fg?.toString() ?? theme.colors.font.subdued.toString()};
     text-align: center;
     vertical-align: middle;
     outline: none;
   `;
 
-  if (props.children) {
+  if (children) {
+    const leftRuleProps = {
+      w: 1,
+      bg,
+      thin,
+      margin: [
+        theme.spacing[0],
+        theme.spacing[1],
+        theme.spacing[0],
+        theme.spacing[0],
+      ],
+    };
+
+    const rightRuleProps = {
+      w: 1,
+      bg,
+      thin,
+      margin: [
+        theme.spacing[0],
+        theme.spacing[0],
+        theme.spacing[0],
+        theme.spacing[1],
+      ],
+    };
+
     return (
-      <Flex css={text} w={props.w ?? 1} margin={props.margin} align="center">
-        <RuleBase
-          w={1}
-          bg={props.bg}
-          thin={props.thin}
-          margin={[
-            theme.spacing[0],
-            theme.spacing[1],
-            theme.spacing[0],
-            theme.spacing[0],
-          ]}
-        />
-        {props.children}
-        <RuleBase
-          w={1}
-          thin={props.thin}
-          bg={props.bg}
-          margin={[
-            theme.spacing[0],
-            theme.spacing[0],
-            theme.spacing[0],
-            theme.spacing[1],
-          ]}
-        />
+      <Flex css={text} w={w} margin={margin} align="center">
+        <RuleBase {...leftRuleProps} />
+        {children}
+        <RuleBase {...rightRuleProps} />
       </Flex>
     );
   } else {

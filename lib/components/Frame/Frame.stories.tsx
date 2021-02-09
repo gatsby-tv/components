@@ -6,8 +6,7 @@ import { AppProvider } from "@lib/components/AppProvider";
 import { Grid } from "@lib/components/Grid";
 import { Box } from "@lib/components/Box";
 
-import { Stream } from "@lib/components/Stream";
-import { Image, ImageProps } from "@lib/components/Image";
+import { Image } from "@lib/components/Image";
 
 import { Frame, FrameProps } from "./Frame";
 
@@ -28,20 +27,13 @@ const SidebarMarkup = () => {
   return <Box w="52px" h={1} bg={theme.colors.background[2]} />;
 };
 
-const SourceMarkup = (props: ImageProps) => (
-  <Grid.Item>
-    <Image {...props} />
-  </Grid.Item>
-);
-
 const ContentMarkup = () => (
   <Grid margin={["52px", "52px", "0px"]} template="repeat(3, 1fr)" gap="16px">
-    <Stream
-      component={SourceMarkup}
-      generator={() =>
-        [...Array(12)].map(() => ({ src: "", aspectRatio: 0.5625 }))
-      }
-    />
+    {[...Array(12)].map((_, index) => (
+      <Grid.Item key={index}>
+        <Image aspectRatio={0.5625} />
+      </Grid.Item>
+    ))}
   </Grid>
 );
 
