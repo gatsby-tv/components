@@ -1417,9 +1417,9 @@
   integrity sha512-Fcwd1NGpqKaIOxg/9MXP6QWiRFjEtG3CmPw9fBqjpJtz8lEOUjWB9c884LvI1AL1IYUU9OE0UXQGLDc3cxxZlA==
 
 "@gatsby-tv/types@^0.4.5":
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/@gatsby-tv/types/-/types-0.4.5.tgz#233f7dae8fb748c8104ad8912c2c3ad03fdf708f"
-  integrity sha512-E877+ez9WM2X+mpGLrUp8i/gmNjupsJTaOVDN+s7e8trM50ITD04kuUaKsEOkUq5k3yYwWdsJfu4zRY5jSt7HQ==
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/@gatsby-tv/types/-/types-0.4.6.tgz#84d8d77748ca5414b53404c97cfd3556f4a2faa9"
+  integrity sha512-8ni95ftdnBk40R/tizxXrjc9MyudjKtvTL/GqjcHXu09moVjKeExguCKvPqjYTgCh9SnK3lYAmhNXpiSZnDUDg==
 
 "@gatsby-tv/utilities@^0.4.5":
   version "0.4.5"
