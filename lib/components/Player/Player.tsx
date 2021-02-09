@@ -70,11 +70,11 @@ interface PlayerState {
   ended: boolean;
 }
 
-export interface PlayerProps extends VideoProps {
+export type PlayerProps = VideoProps & {
   children?: React.ReactNode;
   fullscreen?: boolean;
   toggleFullscreen?: () => void;
-}
+};
 
 export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
   (props: PlayerProps, ref: Ref<HTMLVideoElement>) => {
