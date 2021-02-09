@@ -170,7 +170,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
      */
     useEffect(() => {
       key.current && !held && onClick();
-    }, [held, onClick]);
+    }, [held]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handlePointerDown = useCallback(
       (event: React.SyntheticEvent) => {

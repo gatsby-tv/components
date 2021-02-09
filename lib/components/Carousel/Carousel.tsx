@@ -30,28 +30,22 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
   const theme = useTheme();
   const mask = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState<string | undefined>(undefined);
-  const { gap = theme.spacing[0] } = props;
+  const { children, groups, gap = theme.spacing[0] } = props;
 
   /* We need the number of items to divide the number of visible slides evenly.
    * Thus, perhaps controversially, we will remove any remainders. */
 
-  const items = React.Children.count(props.children);
+  const items = React.Children.count(children);
 
-  const slides = React.Children.toArray(props.children).slice(
+  const slides = React.Children.toArray(children).slice(
     0,
-    items - (items % props.groups)
+    items - (items % groups)
   );
 
   const chunks = Array.from(
-    { length: Math.ceil(slides.length / props.groups) },
-    (_, index) => slides.slice(index * props.groups, (index + 1) * props.groups)
+    { length: Math.ceil(slides.length / groups) },
+    (_, index) => slides.slice(index * groups, (index + 1) * groups)
   );
-
-  const groups = chunks.map((chunk, index) => (
-    <Flex key={index} style={{ width }}>
-      {chunk}
-    </Flex>
-  ));
 
   const [state, dispatch] = useReducer(
     (state: SliderState, action: SliderAction) => {
@@ -75,17 +69,17 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
 
   const next = useCallback(
     () =>
-      dispatch({ type: "jump", desired: (state.slide + 1) % groups.length }),
-    [state.slide, groups.length]
+      dispatch({ type: "jump", desired: (state.slide + 1) % chunks.length }),
+    [state.slide, chunks.length]
   );
 
   const prev = useCallback(
     () =>
       dispatch({
         type: "jump",
-        desired: (state.slide + groups.length - 1) % groups.length,
+        desired: (state.slide + chunks.length - 1) % chunks.length,
       }),
-    [state.slide, groups.length]
+    [state.slide, chunks.length]
   );
 
   const buttonProps = {
@@ -101,10 +95,16 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
     top: `calc(50% - ${theme.spacing[2]})`,
   };
 
+  const GroupsMarkup = chunks.map((chunk, index) => (
+    <Flex key={index} style={{ width }}>
+      {chunk}
+    </Flex>
+  ));
+
   const SliderMarkup = (
-    <Slider state={state} groups={groups.length}>
+    <Slider state={state} groups={chunks.length}>
       <Flex style={{ width }}>{chunks[chunks.length - 1]}</Flex>
-      {groups}
+      {GroupsMarkup}
       <Flex style={{ width }}>{chunks[0]}</Flex>
     </Slider>
   );
@@ -126,7 +126,7 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
   );
 
   return (
-    <CarouselContext.Provider value={{ gap, groups: props.groups }}>
+    <CarouselContext.Provider value={{ gap, groups }}>
       <Box margin={[theme.spacing[0], `calc(${Negative(gap)} / 2)`]}>
         <Box ref={mask} css={{ overflow: "hidden" }} w={1}>
           {SliderMarkup}
