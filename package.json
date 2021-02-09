@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/gatsby-tv/components.git"
   },
-  "version": "0.4.56",
+  "version": "0.4.57",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "AGPL-3.0",
@@ -23,7 +23,7 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "ipfs": "^0.52.3",
+    "ipfs": "^0.54.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
