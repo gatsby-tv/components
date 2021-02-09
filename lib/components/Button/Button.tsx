@@ -40,9 +40,9 @@ const cssHighlight = (highlight?: Color | Color[], animated?: boolean) => css`
 
   &:not(:disabled):active {
     ${cssProperty(
-        "background-color",
-        ifNotExists(animated, [highlight].flat()[1]?.toString())
-      )}
+      "background-color",
+      ifNotExists(animated, [highlight].flat()[1]?.toString())
+    )}
   }
 `;
 

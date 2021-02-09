@@ -254,12 +254,15 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       }
     }, [video, state.paused, setSignal]);
 
-    const seekTo = useCallback((time) => {
-      if (video.current) {
-        video.current.currentTime = time;
-        dispatch({ type: "timeupdate", time: time / video.current.duration });
-      }
-    }, [video]);
+    const seekTo = useCallback(
+      (time) => {
+        if (video.current) {
+          video.current.currentTime = time;
+          dispatch({ type: "timeupdate", time: time / video.current.duration });
+        }
+      },
+      [video]
+    );
 
     const timelinePercent = useCallback((x: number) => {
       if (timeline.current) {

@@ -23,11 +23,14 @@ export function Modal(props: ModalProps): React.ReactElement | null {
 
   useModalCallback(() => onExit && onExit(), [onExit]);
 
-  const handleKeydown: EventHandler = useCallback((event) => {
-    if ((event as any).code === "Escape") {
-      onExit && onExit();
-    }
-  }, [onExit]);
+  const handleKeydown: EventHandler = useCallback(
+    (event) => {
+      if ((event as any).code === "Escape") {
+        onExit && onExit();
+      }
+    },
+    [onExit]
+  );
 
   const optionalProps = {
     active: ifExists(fullscreen),

@@ -6,11 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { ExtendLeft, ExtendRight } from "@gatsby-tv/icons";
-import {
-  Negative,
-  useTheme,
-  useResizeObserver,
-} from "@gatsby-tv/utilities";
+import { Negative, useTheme, useResizeObserver } from "@gatsby-tv/utilities";
 
 import { Size } from "@lib/types";
 import { CarouselContext } from "@lib/utilities/carousel";
