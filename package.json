@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/gatsby-tv/components.git"
   },
-  "version": "0.4.57",
+  "version": "0.4.58",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "AGPL-3.0",
