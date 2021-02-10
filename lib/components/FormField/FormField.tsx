@@ -7,7 +7,7 @@ import { cssProperty } from "@lib/styles/property";
 import { cssTextInput } from "@lib/styles/typography";
 import { cssInputBorder } from "@lib/styles/borders";
 import { Flex } from "@lib/components/Flex";
-import { Labelled } from "@lib/components/Labelled";
+import { FormLabel } from "@lib/components/FormLabel";
 
 export interface FormFieldProps {
   id?: string;
@@ -147,12 +147,12 @@ export function FormField(props: FormFieldProps): React.ReactElement {
   ) : null;
 
   return (
-    <Labelled {...labelledProps}>
+    <FormLabel {...labelledProps}>
       <Flex css={inputStyle} {...flexProps}>
         {PrefixMarkup}
         <Flex.Item as={multiline ? "textarea" : "input"} {...flexItemProps} />
         {SuffixMarkup}
       </Flex>
-    </Labelled>
+    </FormLabel>
   );
 }

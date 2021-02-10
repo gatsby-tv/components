@@ -9,7 +9,7 @@ import { cssInputBorder } from "@lib/styles/borders";
 import { Box } from "@lib/components/Box";
 import { Flex } from "@lib/components/Flex";
 import { Icon } from "@lib/components/Icon";
-import { Labelled } from "@lib/components/Labelled";
+import { FormLabel } from "@lib/components/FormLabel";
 
 export interface FormSelectProps {
   id?: string;
@@ -153,7 +153,7 @@ export function FormSelect(props: FormSelectProps): React.ReactElement {
   };
 
   return (
-    <Labelled {...labelledProps}>
+    <FormLabel {...labelledProps}>
       <Flex css={selectStyle} {...flexProps}>
         <Flex.Item as="span" grow={1}>
           {getFormSelectedLabel(options, selected)}
@@ -165,6 +165,6 @@ export function FormSelect(props: FormSelectProps): React.ReactElement {
           {options.map(parseOptionOrGroup)}
         </Box>
       </Flex>
-    </Labelled>
+    </FormLabel>
   );
 }

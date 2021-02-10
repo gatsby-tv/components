@@ -1,96 +1,44 @@
-import React from "react";
-import { css } from "styled-components";
-import { NoEntry } from "@gatsby-tv/icons";
-import { ifExists, useTheme } from "@gatsby-tv/utilities";
-
-import {
-  cssTextBreakWord,
-  cssTextSubdued,
-  cssTextError,
-  cssTextLabel,
-} from "@lib/styles/typography";
-import { cssVisuallyHidden } from "@lib/styles/visually-hidden";
-import { cssProperty } from "@lib/styles/property";
-import { Box } from "@lib/components/Box";
-import { Flex } from "@lib/components/Flex";
-import { Icon } from "@lib/components/Icon";
-import { Optional } from "@lib/components/Optional";
+import React, { useRef, useState, useEffect } from "react";
 
 export interface LabelledProps {
   children?: React.ReactNode;
-  id: string;
-  label: string;
-  font?: string;
-  help?: string;
-  error?: Error;
-  hidden?: boolean;
+  as?: string;
+  component: React.FC<any>;
+  $props?: any;
 }
 
 export function Labelled(props: LabelledProps): React.ReactElement {
-  const theme = useTheme();
-  const { children, id, label, font, help, error, hidden } = props;
+  const { children, as: tag, component: Component, $props = {} } = props;
+  const ref = useRef<HTMLElement>(null);
+  const [label, setLabel] = useState<string | undefined>(undefined);
+  const [descriptions, setDescriptions] = useState<string | undefined>(
+    undefined
+  );
 
-  const helpStyle = css`
-    margin-top: ${theme.spacing[0.5]};
-    font-size: ${theme.font[6]};
-    ${cssTextBreakWord}
-    ${cssTextSubdued}
-    ${cssTextLabel}
-  `;
+  useEffect(() => {
+    if (!ref.current) return;
 
-  const errorStyle = css`
-    margin-top: ${theme.spacing[0.5]};
-    font-size: ${theme.font[6]};
-    gap: ${theme.spacing[0.5]};
-    ${cssTextBreakWord}
-    ${cssTextError}
+    const labelNode = ref.current.querySelector("[data-label]");
+    const descNodes = ref.current.querySelectorAll("[data-description]");
 
-    &:before {
-      content: "*";
-      margin-right: ${theme.spacing[0.5]};
-    }
-  `;
+    setLabel(labelNode?.id);
+    setDescriptions(
+      Array.from(descNodes)
+        .map((element) => element.id)
+        .join(" ") || undefined
+    );
+  }, []);
 
-  const labelStyle = css`
-    margin-bottom: ${theme.spacing[0.5]};
-    ${cssProperty("font-size", font)}
-    ${() => (hidden ? cssVisuallyHidden : "")}
-    ${cssTextBreakWord}
-    ${cssTextLabel}
-  `;
-
-  const optionalProps = {
-    active: ifExists(error),
-    $props: { gap: theme.spacing[0.5] },
+  const componentProps = {
+    ref,
+    "aria-labelledby": label,
+    "aria-describedby": descriptions,
+    ...$props,
   };
 
-  const HelpMarkup = help && !error ? <Box css={helpStyle}>{help}</Box> : null;
-
-  const ErrorMarkup = error ? (
-    <Box css={errorStyle}>{error.message}</Box>
-  ) : null;
-
-  const ErrorIconMarkup = error ? (
-    <Icon
-      src={NoEntry}
-      w={theme.icon.smaller}
-      fg={theme.colors.error}
-      marginBottom={theme.spacing[0.5]}
-      ariaLabel="Error"
-    />
-  ) : null;
-
   return (
-    <Box>
-      <Optional component={Flex} {...optionalProps}>
-        <Box as="label" htmlFor={id} hidden={hidden} css={labelStyle}>
-          {label}
-        </Box>
-        {ErrorIconMarkup}
-      </Optional>
+    <Component as={tag} {...componentProps}>
       {children}
-      {ErrorMarkup}
-      {HelpMarkup}
-    </Box>
+    </Component>
   );
 }
