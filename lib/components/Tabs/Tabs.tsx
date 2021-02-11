@@ -76,4 +76,8 @@ function TabsBase(props: TabsProps): React.ReactElement {
   );
 }
 
-export const Tabs = Object.assign(TabsBase, { Item: Selection.Item, Link });
+export const Tabs = Object.assign(TabsBase, {
+  Item: Selection.Item,
+  Link,
+  displayName: "Tabs",
+});

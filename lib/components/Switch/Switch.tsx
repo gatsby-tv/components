@@ -37,4 +37,7 @@ function SwitchBase(props: SwitchProps) {
   );
 }
 
-export const Switch = Object.assign(SwitchBase, { Item });
+export const Switch = Object.assign(SwitchBase, {
+  Item,
+  displayName: "Switch",
+});

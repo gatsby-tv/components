@@ -75,4 +75,8 @@ function SelectionBase(props: SelectionProps): React.ReactElement {
   );
 }
 
-export const Selection = Object.assign(SelectionBase, { Section, Item });
+export const Selection = Object.assign(SelectionBase, {
+  Section,
+  Item,
+  displayName: "Selection",
+});

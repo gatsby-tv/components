@@ -11,7 +11,7 @@ export interface SlideProps {
   onClick?: () => void;
 }
 
-const SlideBase = styled(Box)<BoxProps>`
+const SlideStyle = styled(Box)<BoxProps>`
   display: block;
   cursor: pointer;
   outline: none;
@@ -23,7 +23,7 @@ const SlideBase = styled(Box)<BoxProps>`
 
   &:hover {
     z-index: 1;
-    transform: scale(1.09);
+    transform: scale(1.075);
     ${cssShadow}
   }
 
@@ -44,8 +44,8 @@ export function Slide(props: SlideProps): React.ReactElement {
   };
 
   return (
-    <SlideBase as="button" {...baseProps}>
+    <SlideStyle as="button" {...baseProps}>
       {children}
-    </SlideBase>
+    </SlideStyle>
   );
 }

@@ -82,6 +82,14 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
     [state.slide, chunks.length]
   );
 
+  const maskStyle = {
+    clipPath: `polygon(calc(${Negative(
+      gap
+    )} / 2) -10%, calc(100% + ${gap} / 2) -10%, calc(100% + ${gap} / 2) 110%, calc(${Negative(
+      gap
+    )} / 2) 110%)`,
+  };
+
   const buttonProps = {
     animate: true,
     shadow: true,
@@ -128,7 +136,7 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
   return (
     <CarouselContext.Provider value={{ gap, groups }}>
       <Box margin={[theme.spacing[0], `calc(${Negative(gap)} / 2)`]}>
-        <Box ref={mask} css={{ overflow: "hidden" }} w={1}>
+        <Box ref={mask} css={maskStyle} w={1}>
           {SliderMarkup}
           {ExtendLeftMarkup}
           {ExtendRightMarkup}
@@ -138,4 +146,7 @@ function CarouselBase(props: CarouselProps): React.ReactElement {
   );
 }
 
-export const Carousel = Object.assign(CarouselBase, { Slide });
+export const Carousel = Object.assign(CarouselBase, {
+  Slide,
+  displayName: "Carousel",
+});

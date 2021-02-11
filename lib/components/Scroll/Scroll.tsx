@@ -20,7 +20,7 @@ export interface ScrollProps {
   maxh?: Size;
 }
 
-const ScrollBase = styled.div<ScrollProps>`
+const ScrollStyle = styled.div<ScrollProps>`
   min-width: 100%;
   max-height: 100%;
   box-sizing: content-box;
@@ -109,9 +109,9 @@ export function Scroll(props: ScrollProps): React.ReactElement {
   return (
     <ScrollContext.Provider value={context}>
       <Box {...boxProps}>
-        <ScrollBase ref={scroll} onScroll={handleScroll} {...rest}>
+        <ScrollStyle ref={scroll} onScroll={handleScroll} {...rest}>
           {children}
-        </ScrollBase>
+        </ScrollStyle>
       </Box>
     </ScrollContext.Provider>
   );

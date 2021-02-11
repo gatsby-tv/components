@@ -29,6 +29,7 @@ export type ButtonProps = {
   highlight?: Color | Color[];
   font?: string;
   tooltip?: string;
+  zIndex?: number;
   onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLElement>;
 
@@ -98,7 +99,7 @@ const cssPadding = (padding?: Margin, rounded?: Size) => css`
     )}
 `;
 
-const ButtonBase = styled.button<ButtonProps>`
+const ButtonStyle = styled.button<ButtonProps>`
   cursor: pointer;
   display: block;
   position: relative;
@@ -108,6 +109,7 @@ const ButtonBase = styled.button<ButtonProps>`
   ${(props) => ifExists(props.shadow, cssShadow)}
   ${(props) => cssSize("width", props.w)}
   ${(props) => cssSize("height", props.h)}
+  ${(props) => cssProperty("z-index", props.zIndex?.toString())}
   ${(props) => cssProperty("font-size", props.font)}
   ${(props) =>
     cssProperty(
@@ -209,7 +211,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <>
-        <ButtonBase {...buttonProps} />
+        <ButtonStyle {...buttonProps} />
         {TooltipMarkup}
       </>
     );

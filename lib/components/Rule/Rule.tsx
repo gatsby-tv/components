@@ -19,7 +19,7 @@ export interface RuleProps {
   thin?: boolean;
 }
 
-const RuleBase = styled.hr<Omit<RuleProps, "font" | "fg" | "children">>`
+const RuleStyle = styled.hr<Omit<RuleProps, "font" | "fg" | "children">>`
   border: none;
   height: ${(props) => (props.thin ? "1px" : "2px")};
   background-color: ${(props) =>
@@ -68,12 +68,12 @@ export function Rule(props: RuleProps): React.ReactElement {
 
     return (
       <Flex css={text} w={w} margin={margin} align="center">
-        <RuleBase {...leftRuleProps} />
+        <RuleStyle {...leftRuleProps} />
         {children}
-        <RuleBase {...rightRuleProps} />
+        <RuleStyle {...rightRuleProps} />
       </Flex>
     );
   } else {
-    return <RuleBase {...props} />;
+    return <RuleStyle {...props} />;
   }
 }

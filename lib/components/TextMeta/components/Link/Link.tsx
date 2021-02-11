@@ -6,15 +6,14 @@ import React, {
   forwardRef,
 } from "react";
 import styled from "styled-components";
+import { ifExists } from "@gatsby-tv/utilities";
 
 import { cssTextSubdued } from "@lib/styles/typography";
+import { Optional } from "@lib/components/Optional";
 import { EventListener } from "@lib/components/EventListener";
-import {
-  Link as UnstyledLink,
-  LinkProps as UnstyledLinkProps,
-} from "@lib/components/Link";
+import { Link as LinkComponent } from "@lib/components/Link";
 
-import { Item } from "../Item";
+import { Item, ItemProps } from "../Item";
 
 interface LinkBaseProps {
   font?: string;
@@ -32,13 +31,12 @@ const LinkBase = styled(Item)<LinkBaseProps>`
   }
 `;
 
-export interface LinkProps extends UnstyledLinkProps {
+export interface LinkProps extends ItemProps {
   children?: string | [string];
+  id?: string;
   href?: string;
   external?: boolean;
-  font?: string;
-  bold?: boolean;
-  heading?: boolean;
+  onClick?: () => void;
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -46,7 +44,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     const text = useRef<HTMLParagraphElement>(null);
     const [, setTruncated] = useState(false);
     const [, setActive] = useState(false);
-    const { font, bold, heading, ...rest } = props;
+    const { children, id, href, external, onClick, ...rest } = props;
 
     const handleResize = useCallback(() => {
       if (!text.current) return;
@@ -57,22 +55,30 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
     const textProps = {
       ref: text,
-      font,
-      bold,
-      heading,
+      id,
       onMouseEnter: () => setActive(true),
       onMouseLeave: () => setActive(false),
+      ...rest,
     };
 
     const linkProps = {
       ref: ref as React.RefObject<HTMLAnchorElement>,
-      ...rest,
+      href,
+      external,
+      onClick,
+    };
+
+    const optionalProps = {
+      active: ifExists(href),
+      $props: linkProps,
     };
 
     return (
       <>
         <LinkBase {...textProps}>
-          <UnstyledLink {...linkProps} />
+          <Optional component={LinkComponent} {...optionalProps}>
+            {children}
+          </Optional>
         </LinkBase>
         <EventListener event="resize" handler={handleResize} />
       </>

@@ -104,4 +104,4 @@ function MenuBase(props: MenuProps): React.ReactElement {
   );
 }
 
-export const Menu = Object.assign(MenuBase, { Item });
+export const Menu = Object.assign(MenuBase, { Item, displayName: "Menu" });

@@ -4,6 +4,7 @@ import { Item, ItemProps } from "../Item";
 
 export interface TimeProps extends ItemProps {
   children?: React.ReactNode;
+  id?: string;
   date: Date;
 }
 

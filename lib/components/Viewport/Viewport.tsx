@@ -42,13 +42,17 @@ export const Viewport = forwardRef<HTMLElement, ViewportProps & BoxProps>(
       rounded,
     };
 
+    const OverlayMarkup = overlay ? (
+      <Box absolute expand>
+        {overlay}
+      </Box>
+    ) : null;
+
     return (
       <Box as="figure" {...figureProps}>
         <Box {...boxProps} />
         {children}
-        <Box absolute expand>
-          {overlay}
-        </Box>
+        {OverlayMarkup}
       </Box>
     );
   }

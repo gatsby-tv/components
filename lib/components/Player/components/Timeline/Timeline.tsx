@@ -8,7 +8,7 @@ import { Box } from "@lib/components/Box";
 import { Activatable } from "@lib/components/Activatable";
 import { cssTextTimeline } from "@lib/styles/typography";
 
-const TimelineBase = styled(Box)`
+const TimelineStyle = styled(Box)`
   cursor: pointer;
   transition: transform 150ms ease;
 
@@ -121,7 +121,7 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
 
     return (
       <>
-        <TimelineBase {...timelineProps}>{ProgressMarkup}</TimelineBase>
+        <TimelineStyle {...timelineProps}>{ProgressMarkup}</TimelineStyle>
         <Box style={{ right: `${100 * (1 - position)}%` }} absolute>
           <Box ref={setReference} />
           <Activatable css={cssTextTimeline} {...popperProps}>

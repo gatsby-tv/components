@@ -8,7 +8,7 @@ import {
 
 import { MainFrame, TopFrame, SideFrame } from "./components";
 
-const FrameBase = styled.div`
+const FrameStyle = styled.div`
   overflow: hidden;
   position: fixed;
   top: 0;
@@ -41,7 +41,7 @@ export function Frame(props: FrameProps): React.ReactElement {
 
   return (
     <FrameContext.Provider value={context}>
-      <FrameBase>
+      <FrameStyle>
         <TopFrame ref={topframe} topbar={props.topbar}>
           <SideFrame ref={sideframe} sidebar={props.sidebar}>
             <MainFrame offsetX={offsetX} offsetY={offsetY}>
@@ -49,7 +49,7 @@ export function Frame(props: FrameProps): React.ReactElement {
             </MainFrame>
           </SideFrame>
         </TopFrame>
-      </FrameBase>
+      </FrameStyle>
     </FrameContext.Provider>
   );
 }

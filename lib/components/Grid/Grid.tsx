@@ -24,7 +24,7 @@ export interface GridProps extends BoxProps {
   gap?: Size | Size[];
 }
 
-const GridBase = styled(Box)<GridProps>`
+const GridStyle = styled(Box)<GridProps>`
   display: grid;
   ${(props) => cssProperty("grid-template-columns", [props.template].flat()[0])}
   ${(props) => cssProperty("grid-template-rows", [props.template].flat()[1])}
@@ -46,4 +46,4 @@ const GridBase = styled(Box)<GridProps>`
   ${(props) => cssSize("row-gap", [props.gap].flat()[1], [props.gap].flat()[0])}
 `;
 
-export const Grid = Object.assign(GridBase, { Item });
+export const Grid = Object.assign(GridStyle, { Item, displayName: "Grid" });

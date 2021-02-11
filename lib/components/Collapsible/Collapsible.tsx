@@ -16,7 +16,7 @@ export interface CollapsibleProps {
   active?: boolean;
 }
 
-const CollapsibleBase = styled.div`
+const CollapsibleStyle = styled.div`
   input[type="checkbox"] {
     display: none;
   }
@@ -109,7 +109,7 @@ export function Collapsible(props: CollapsibleProps): React.ReactElement {
   };
 
   return (
-    <CollapsibleBase>
+    <CollapsibleStyle>
       <input id={id} type="checkbox" checked={ifExists(active)} />
       <Flex as="label" {...flexProps}>
         <TextBox>{label}</TextBox>
@@ -118,6 +118,6 @@ export function Collapsible(props: CollapsibleProps): React.ReactElement {
       <Box ref={contentRef} data-collapsible="content">
         {children}
       </Box>
-    </CollapsibleBase>
+    </CollapsibleStyle>
   );
 }

@@ -27,7 +27,7 @@ export interface FlexProps extends BoxProps {
   gap?: Size;
 }
 
-const FlexBase = styled(Box)<FlexProps>`
+const FlexStyle = styled(Box)<FlexProps>`
   display: flex;
   ${(props) =>
     cssProperty(
@@ -53,4 +53,4 @@ const FlexBase = styled(Box)<FlexProps>`
   ${(props) => cssFlexDistribute(`${Item}`, props.distribute)}
 `;
 
-export const Flex = Object.assign(FlexBase, { Item });
+export const Flex = Object.assign(FlexStyle, { Item, displayName: "Flex" });

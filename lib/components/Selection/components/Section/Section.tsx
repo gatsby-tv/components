@@ -38,5 +38,5 @@ const SectionBase: React.FC<SectionProps> = (props: SectionProps) => {
 };
 
 export const Section = styled(
-  Object.assign(SectionBase, { Title: TextSubheading })
+  Object.assign(SectionBase, { Title: TextSubheading, displayName: "Section" })
 )``;
