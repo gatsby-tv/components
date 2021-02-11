@@ -29,7 +29,7 @@ export interface CarouselProps {
 function CarouselBase(props: CarouselProps): React.ReactElement {
   const theme = useTheme();
   const mask = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState<string | undefined>(undefined);
+  const [width, setWidth] = useState<string>("100%");
   const { children, groups, gap = theme.spacing[0] } = props;
 
   /* We need the number of items to divide the number of visible slides evenly.

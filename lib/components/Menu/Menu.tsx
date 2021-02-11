@@ -21,7 +21,7 @@ export interface MenuProps {
   for: React.RefObject<HTMLElement>;
   active?: boolean;
   placement?: Placement;
-  offset?: [number, number];
+  offset?: number[];
   bg?: Color;
   highlight?: Color;
   w?: Size;
@@ -51,7 +51,7 @@ function MenuBase(props: MenuProps): React.ReactElement {
       {
         name: "offset",
         options: {
-          offset: offset,
+          offset: offset as [number, number],
         },
       },
       {

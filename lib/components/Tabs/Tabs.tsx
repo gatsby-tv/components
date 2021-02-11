@@ -42,7 +42,7 @@ function TabsBase(props: TabsProps): React.ReactElement {
       height: 100%;
     }
 
-    ${Selection.Item}[data-selected], ${Selection.Item}:hover {
+    ${Selection.Item}[aria-selected], ${Selection.Item}:hover {
       color: ${(props) => props.theme.colors.gold.lighten(0.1).toString()};
     }
 
@@ -58,7 +58,7 @@ function TabsBase(props: TabsProps): React.ReactElement {
       transition: transform ${(props) => props.theme.duration.fast} ease;
     }
 
-    ${Selection.Item}[data-selected]:after {
+    ${Selection.Item}[aria-selected]:after {
       transform: scaleX(1);
     }
   `;

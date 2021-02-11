@@ -78,7 +78,12 @@ export type PlayerProps = VideoProps & {
 
 export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
   (props: PlayerProps, ref: Ref<HTMLVideoElement>) => {
-    const { children, fullscreen, toggleFullscreen, ...videoProps } = props;
+    const {
+      children,
+      fullscreen,
+      toggleFullscreen = () => undefined,
+      ...videoProps
+    } = props;
     const theme = useTheme();
     const video = useForwardedRef<HTMLVideoElement>(ref);
     const player = useRef<HTMLElement>(null);
@@ -275,8 +280,6 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
 
     const handleKeydown = useCallback(
       (event) => {
-        const { toggleFullscreen = () => undefined } = props;
-
         switch ((event as any).key) {
           case " ":
             event.preventDefault();
@@ -308,7 +311,14 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
             return;
         }
       },
-      [video, state.seeking, props, seekTo, setSignal, togglePlayback]
+      [
+        video,
+        state.seeking,
+        seekTo,
+        setSignal,
+        togglePlayback,
+        toggleFullscreen,
+      ]
     );
 
     useResizeObserver(player, (content) =>
@@ -516,15 +526,16 @@ export const Player = forwardRef<HTMLVideoElement, PlayerProps>(
       </Box>
     ) : null;
 
-    const LoadingMarkup = loading ? (
-      <Box absolute expand>
-        <Flex center expand>
-          <Box {...loadingBoxProps}>
-            <Icon src={Spinner} />
-          </Box>
-        </Flex>
-      </Box>
-    ) : null;
+    const LoadingMarkup =
+      loading && !signal ? (
+        <Box absolute expand>
+          <Flex center expand>
+            <Box {...loadingBoxProps}>
+              <Icon src={Spinner} />
+            </Box>
+          </Flex>
+        </Box>
+      ) : null;
 
     const TimelineMarkup = (
       <Box absolute left="20px" right="20px" bottom="40px">

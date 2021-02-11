@@ -17,6 +17,10 @@ export const Global = createGlobalStyle`
     background-color: ${(props) => props.theme.colors.background[0].toString()};
   }
 
+  :not(:root):fullscreen::backdrop {
+    background-color: ${(props) => props.theme.colors.background[0].toString()};
+  }
+
   body {
     color: ${(props) => props.theme.colors.font.body.toString()};
     overflow: hidden;

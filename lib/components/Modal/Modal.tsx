@@ -19,14 +19,21 @@ export interface ModalProps {
 }
 
 export function Modal(props: ModalProps): React.ReactElement | null {
-  const { children, id, fullscreen, active, zIndex, onExit } = props;
+  const {
+    children,
+    id,
+    fullscreen,
+    active,
+    zIndex,
+    onExit = () => undefined,
+  } = props;
 
-  useModalCallback(() => onExit && onExit(), [onExit]);
+  useModalCallback(onExit, [onExit]);
 
   const handleKeydown: EventHandler = useCallback(
     (event) => {
       if ((event as any).code === "Escape") {
-        onExit && onExit();
+        onExit();
       }
     },
     [onExit]

@@ -7,27 +7,29 @@ import { Flex } from "@lib/components/Flex";
 
 export interface ItemProps {
   children?: React.ReactNode;
-  id: string;
+  id?: string;
   className?: string;
+  option: string;
+  ariaControls?: string;
 }
 
 const ItemBase: React.FC<ItemProps> = (props: ItemProps) => {
-  const { children, id, className } = props;
+  const { children, id, option, className, ariaControls } = props;
   const { selection, onSelect } = useSelection();
-  const handleClick = () => onSelect(props.id);
+  const handleClick = () => onSelect(option);
 
   const itemProps = {
+    id,
     className,
-    "data-selected": ifExists(selection[id]),
     grow: 1,
+    role: "tab",
+    tabindex: selection[option] ? 0 : -1,
+    "aria-selected": ifExists(selection[option]),
+    "aria-controls": ariaControls,
     onClick: handleClick,
   };
 
-  return (
-    <Flex.Item as="li" {...itemProps}>
-      {children}
-    </Flex.Item>
-  );
+  return <Flex.Item {...itemProps}>{children}</Flex.Item>;
 };
 
-export const Item = styled(ItemBase)``;
+export const Item = styled(ItemBase)<ItemProps>``;

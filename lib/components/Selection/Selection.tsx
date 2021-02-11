@@ -19,7 +19,8 @@ export interface SelectionProps {
   selection: Record<string, boolean>;
   row?: boolean;
   scrollHidden?: boolean;
-  onSelect: (id: string) => void;
+  ariaLabel?: string;
+  onSelect: (option: string) => void;
 }
 
 function SelectionBase(props: SelectionProps): React.ReactElement {
@@ -29,6 +30,7 @@ function SelectionBase(props: SelectionProps): React.ReactElement {
     selection,
     row,
     scrollHidden = true,
+    ariaLabel,
     onSelect,
   } = props;
 
@@ -60,14 +62,16 @@ function SelectionBase(props: SelectionProps): React.ReactElement {
 
   const flexProps = {
     className,
+    role: "tablist",
     column: ifNotExists(row),
     align: "stretch" as FlexAlignItems,
+    "aria-label": ariaLabel,
   };
 
   return (
     <SelectionContext.Provider value={context}>
       <Optional component={Scroll} {...optionalProps}>
-        <Flex as="nav" css={style} {...flexProps}>
+        <Flex css={style} {...flexProps}>
           {children}
         </Flex>
       </Optional>

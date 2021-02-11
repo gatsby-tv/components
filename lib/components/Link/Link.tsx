@@ -46,7 +46,6 @@ const LinkStyle = styled.a<LinkProps>`
   color: inherit;
   text-decoration: none;
   cursor: pointer;
-  outline: none;
   ${(props) => cssProperty("z-index", props.zIndex?.toString())}
   ${(props) => ifExists(props.overlay, cssOverlay)}
   ${(props) => ifExists(props.underline, cssUnderline)}

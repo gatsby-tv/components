@@ -15,7 +15,7 @@ export default {
 } as Meta;
 
 const selectionStyle = css`
-  ${Selection.Item}[data-selected] {
+  ${Selection.Item}[aria-selected] {
     color: ${(props) => props.theme.colors.blue};
     background-color: ${(props) => props.theme.colors.background[3]};
   }
@@ -50,13 +50,13 @@ export const OneSection: Story<SelectionProps> = () => {
           onSelect={select}
         >
           <Selection.Section>
-            <Selection.Item id="one">
+            <Selection.Item option="one">
               <TextBox>One</TextBox>
             </Selection.Item>
-            <Selection.Item id="two">
+            <Selection.Item option="two">
               <TextBox>Two</TextBox>
             </Selection.Item>
-            <Selection.Item id="three">
+            <Selection.Item option="three">
               <TextBox>Three</TextBox>
             </Selection.Item>
           </Selection.Section>
@@ -80,21 +80,21 @@ export const MultipleSections: Story<SelectionProps> = () => {
           onSelect={select}
         >
           <Selection.Section title="first">
-            <Selection.Item id="one">
+            <Selection.Item option="one">
               <TextBox>One</TextBox>
             </Selection.Item>
-            <Selection.Item id="two">
+            <Selection.Item option="two">
               <TextBox>Two</TextBox>
             </Selection.Item>
-            <Selection.Item id="three">
+            <Selection.Item option="three">
               <TextBox>Three</TextBox>
             </Selection.Item>
           </Selection.Section>
           <Selection.Section title="second">
-            <Selection.Item id="four">
+            <Selection.Item option="four">
               <TextBox>Four</TextBox>
             </Selection.Item>
-            <Selection.Item id="five">
+            <Selection.Item option="five">
               <TextBox>Five</TextBox>
             </Selection.Item>
           </Selection.Section>
@@ -118,13 +118,13 @@ export const Row: Story<SelectionProps> = () => {
           onSelect={select}
         >
           <Selection.Section>
-            <Selection.Item id="one">
+            <Selection.Item option="one">
               <TextBox align="center">One</TextBox>
             </Selection.Item>
-            <Selection.Item id="two">
+            <Selection.Item option="two">
               <TextBox align="center">Two</TextBox>
             </Selection.Item>
-            <Selection.Item id="three">
+            <Selection.Item option="three">
               <TextBox align="center">Three</TextBox>
             </Selection.Item>
           </Selection.Section>
