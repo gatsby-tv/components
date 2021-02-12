@@ -1421,10 +1421,10 @@
   resolved "https://registry.yarnpkg.com/@gatsby-tv/types/-/types-0.4.6.tgz#84d8d77748ca5414b53404c97cfd3556f4a2faa9"
   integrity sha512-8ni95ftdnBk40R/tizxXrjc9MyudjKtvTL/GqjcHXu09moVjKeExguCKvPqjYTgCh9SnK3lYAmhNXpiSZnDUDg==
 
-"@gatsby-tv/utilities@^0.4.6":
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/@gatsby-tv/utilities/-/utilities-0.4.6.tgz#2a2e74683ecd941beb236248df76bfc267bf0305"
-  integrity sha512-8p9BBmZs6LylrBxmXD1vpVHsX9yVIqzOELm8N/PrQ0iYNvrgUsMkIjhSuoI9WVrGECkyAKLHlBKE9wskJb2X1w==
+"@gatsby-tv/utilities@^0.4.7":
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/@gatsby-tv/utilities/-/utilities-0.4.7.tgz#5cdcc2262c59cf1a2d8ba4587f4bf174e3cb5367"
+  integrity sha512-LyS0V26kvdu9myMZUXomPUZ3mCu+rgr3+1TUEbos+WohsUvAh46plqAdHK/l+JylhcLvuptI84U0yapEzZem+g==
   optionalDependencies:
     hls.js "^0.14.17"
     hlsjs-ipfs-loader "^0.3.0"
